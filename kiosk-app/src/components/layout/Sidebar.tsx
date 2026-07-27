@@ -49,37 +49,40 @@ export function Sidebar() {
   return (
     <aside className="z-50 flex h-full w-[280px] flex-shrink-0 flex-col overflow-hidden border-r border-gray-100 bg-[#F4F7FB]">
       {/* Logo */}
-      <div className="p-6 pb-2">
+      <div className="p-5 pb-1">
         <Link href="/" className="flex items-center gap-3">
           <div className="text-primary flex -space-x-1.5">
             <svg
+              width="52"
+              height="52"
+              viewBox="0 0 42 42"
               fill="none"
-              stroke="currentColor"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="4"
-              viewBox="0 0 24 24"
-              className="h-8 w-8"
+              xmlns="http://www.w3.org/2000/svg"
             >
-              <path d="M15 18l-6-6 6-6"></path>
-            </svg>
-            <svg
-              fill="none"
-              stroke="currentColor"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="4"
-              viewBox="0 0 24 24"
-              className="h-8 w-8"
-            >
-              <path d="M15 18l-6-6 6-6"></path>
+              <path
+                d="M18 8L8 21L18 34"
+                stroke="#0D55CF"
+                stroke-width="5.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+
+              <circle cx="18.5" cy="21" r="2.8" fill="#0D55CF" />
+
+              <path
+                d="M33 13L26 21L33 28"
+                stroke="#0D55CF"
+                stroke-width="5.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
             </svg>
           </div>
           <div className="mt-1">
-            <h1 className="text-primary text-[22px] leading-none font-black tracking-wide">
+            <h1 className="text-primary text-[24px] leading-none font-black tracking-wide">
               FISHCART
             </h1>
-            <p className="text-primary/70 mt-1 text-[11px] font-semibold tracking-wide">
+            <p className="text-primary/70 mt-1 text-[13px] font-semibold tracking-wide">
               Daily Fresh Partner
             </p>
           </div>
@@ -120,7 +123,7 @@ export function Sidebar() {
       </nav>
       {/* Join Community Card */}
       <div className="px-4 pb-4">
-        <div className="rounded-[16px] bg-[#EAF3FF] p-4 shadow-sm">
+        <div className="rounded-[16px] bg-[#EAF3FF] p-2 shadow-sm">
           <h3 className="text-center text-[20px] font-bold text-[#0D55CF]">
             Join Our Community
           </h3>
@@ -148,17 +151,18 @@ export function Sidebar() {
         </div>
       </div>
       {/* Bottom Promo Badge */}
-      <div className="mt-auto p-4">
-        <div className="relative flex items-center justify-between overflow-hidden rounded-[16px] bg-[#0D55CF] p-5 text-white shadow-sm">
+      <div className="mt-auto px-4 pt-2 pb-4">
+        <div className="relative flex items-center justify-between overflow-hidden rounded-[16px] bg-[#0D55CF] p-3.5 text-white shadow-sm">
           <div className="relative z-10 w-[75%]">
-            <h4 className="mb-1 text-[14px] leading-snug font-bold text-white">
-              Freshness
-              <br />
-              You Can Trust
+            <h4 className="mb-1 text-[16px] leading-snug font-bold text-white">
+              Contact Us
             </h4>
-            <p className="pr-2 text-[10px] leading-relaxed text-white/90">
-              We ensure premium quality and freshness in every product we
-              deliver.
+            <p className="pr-2 text-[14px] leading-relaxed text-white/90">
+              Unit 5 Hythe Quay,
+              <br />
+              Colchester,England,CO2 hello@fishcart.co.uk
+              <br />
+              +44 1206 123456
             </p>
           </div>
           <div className="relative z-10 flex-shrink-0">

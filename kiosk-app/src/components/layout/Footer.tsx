@@ -5,13 +5,13 @@ export function Footer() {
     <footer className="grid h-full w-full grid-cols-5 gap-4">
       {/* ================= CARD 1 ================= */}
 
-      <div className="flex items-center gap-3 rounded-[16px] bg-white p-4 shadow-sm">
+      <div className="flex items-center gap-3 rounded-[15px] bg-white p-4 shadow-sm">
         <div className="flex shrink-0 items-center justify-center opacity-60">
           <svg
             viewBox="0 0 64 64"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
-            className="h-12 w-12 stroke-[#0D55CF] stroke-[1.5]"
+            className="h-20 w-20 stroke-[#0D55CF] stroke-[3]"
           >
             <path
               d="M12 40 Q20 32 28 40 T44 40 T60 32"
@@ -33,15 +33,15 @@ export function Footer() {
               strokeLinecap="round"
               strokeLinejoin="round"
             />
-            <circle cx="28" cy="22" r="1.5" fill="#0D55CF" />
+            <circle cx="28" cy="22" r="1" fill="#0D55CF" />
           </svg>
         </div>
 
         <div className="flex flex-col">
-          <h4 className="mb-1 text-[11.5px] font-bold text-[#0D55CF]">
+          <h4 className="mb-1 text-[18px] font-bold text-[#0D55CF]">
             100% Fresh
           </h4>
-          <p className="text-[10px] leading-[1.3] text-[#1E293B]">
+          <p className="text-[16px] leading-[1.3] text-[#1E293B]">
             Sourced Daily
           </p>
         </div>
@@ -49,11 +49,11 @@ export function Footer() {
 
       {/* ================= CARD 2 ================= */}
 
-      <div className="flex items-center gap-3 rounded-[16px] bg-white p-4 shadow-sm">
+      <div className="flex items-center gap-3 rounded-[15px] bg-white p-4 shadow-sm">
         <div className="flex shrink-0 items-center justify-center opacity-60">
           <svg
-            width="28"
-            height="28"
+            width="60"
+            height="60"
             viewBox="0 0 24 24"
             fill="none"
             stroke="#2563EB"
@@ -68,10 +68,10 @@ export function Footer() {
         </div>
 
         <div className="flex flex-col">
-          <h4 className="mb-1 text-[11.5px] font-bold text-[#0D55CF]">
+          <h4 className="mb-1 text-[18px] font-bold text-[#0D55CF]">
             Hygienic & Safe
           </h4>
-          <p className="text-[10px] leading-[1.3] text-[#1E293B]">
+          <p className="text-[16px] leading-[1.3] text-[#1E293B]">
             Cleaned with care
           </p>
         </div>
@@ -79,11 +79,11 @@ export function Footer() {
 
       {/* ================= CARD 3 ================= */}
 
-      <div className="flex items-center gap-3 rounded-[16px] bg-white p-4 shadow-sm">
+      <div className="flex items-center gap-3 rounded-[15px] bg-white p-4 shadow-sm">
         <div className="flex shrink-0 items-center justify-center opacity-60">
           <svg
-            width="28"
-            height="28"
+            width="60"
+            height="60"
             viewBox="0 0 24 24"
             fill="none"
             stroke="#2563EB"
@@ -99,10 +99,10 @@ export function Footer() {
         </div>
 
         <div className="flex flex-col">
-          <h4 className="mb-1 text-[11.5px] font-bold text-[#0D55CF]">
+          <h4 className="mb-1 text-[18px] font-bold text-[#0D55CF]">
             Fast Delivery
           </h4>
-          <p className="text-[10px] leading-[1.3] text-[#1E293B]">
+          <p className="text-[16px] leading-[1.3] text-[#1E293B]">
             On time, every time
           </p>
         </div>
@@ -110,11 +110,11 @@ export function Footer() {
 
       {/* ================= CARD 4 ================= */}
 
-      <div className="flex items-center gap-3 rounded-[16px] bg-white p-4 shadow-sm">
+      <div className="flex items-center gap-3 rounded-[15px] bg-white p-4 shadow-sm">
         <div className="flex shrink-0 items-center justify-center opacity-60">
           <svg
-            width="28"
-            height="28"
+            width="60"
+            height="60"
             viewBox="0 0 24 24"
             fill="none"
             stroke="#2563EB"
@@ -129,10 +129,10 @@ export function Footer() {
         </div>
 
         <div className="flex flex-col">
-          <h4 className="mb-1 text-[11.5px] font-bold text-[#0D55CF]">
+          <h4 className="mb-1 text-[18px] font-bold text-[#0D55CF]">
             Best Quality
           </h4>
-          <p className="text-[10px] leading-[1.3] text-[#1E293B]">
+          <p className="text-[16px] leading-[1.3] text-[#1E293B]">
             Only the best for you
           </p>
         </div>
@@ -140,11 +140,11 @@ export function Footer() {
 
       {/* ================= CARD 5 ================= */}
 
-      <div className="flex items-center gap-3 rounded-[16px] bg-white p-4 shadow-sm">
+      <div className="flex items-center gap-3 rounded-[15px] bg-white p-4 shadow-sm">
         <div className="flex shrink-0 items-center justify-center opacity-60">
           <svg
-            width="28"
-            height="28"
+            width="60"
+            height="60"
             viewBox="0 0 24 24"
             fill="none"
             stroke="#2563EB"
@@ -158,10 +158,10 @@ export function Footer() {
         </div>
 
         <div className="flex flex-col">
-          <h4 className="mb-1 text-[11.5px] font-bold text-[#0D55CF]">
+          <h4 className="mb-1 text-[18px] font-bold text-[#0D55CF]">
             Sustainable Sourcing
           </h4>
-          <p className="text-[10px] leading-[1.3] text-[#1E293B]">
+          <p className="text-[16px] leading-[1.3] text-[#1E293B]">
             Better for tomorrow
           </p>
         </div>

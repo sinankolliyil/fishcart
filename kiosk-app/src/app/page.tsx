@@ -19,7 +19,7 @@ export default function HomePage() {
   return (
     <div className="flex h-full w-full flex-col gap-4 overflow-hidden">
       {/* Row 1: Hero and Categories */}
-      <div className="grid h-[34%] min-h-0 shrink-0 grid-cols-12 gap-4">
+      <div className="grid h-[33%] min-h-0 shrink-0 grid-cols-12 gap-4">
         {/* Hero Section */}
         <div className="relative col-span-7 flex h-full min-h-0 flex-col justify-between overflow-hidden rounded-[16px] bg-[#E8F4FA] shadow-sm">
           {/* Ice Background */}
@@ -145,7 +145,7 @@ export default function HomePage() {
                   <div className="flex items-center justify-center text-[#0D55CF]">
                     {item.icon}
                   </div>
-                  <div className="text-[12px] leading-[1.2] font-bold whitespace-pre-line text-[#1E293B]">
+                  <div className="text-[14px] leading-[1.2] font-bold whitespace-pre-line text-[#1E293B]">
                     {item.label}
                   </div>
                 </div>
@@ -198,7 +198,7 @@ export default function HomePage() {
         {/* Recipe Container */}
         <div className="text-surface col-span-1 flex min-h-0 flex-col justify-between rounded-[16px] bg-[#0D55CF] p-6 shadow-sm">
           <div>
-            <h3 className="mb-1 text-[21px] font-bold text-white">
+            <h3 className="mb-1 text-[24px] font-bold text-white">
               How to Make Delicious
             </h3>
             <p className="text-[14px] text-white/90">
@@ -206,7 +206,7 @@ export default function HomePage() {
             </p>
           </div>
 
-          <div className="mt-3 grid flex-1 grid-cols-3 gap-2">
+          <div className="mt-1 grid flex-1 grid-cols-3 gap-2">
             {[
               {
                 img: '/assets/fish2.jpg',
@@ -247,10 +247,10 @@ export default function HomePage() {
                   </div>
                 </div>
                 <div className="absolute bottom-3 left-3 z-10">
-                  <p className="text-[13px] leading-tight font-bold text-white">
+                  <p className="text-[16px] leading-tight font-bold text-white">
                     {recipe.title}
                   </p>
-                  <p className="mt-1 text-[11px] leading-tight text-white/90">
+                  <p className="mt-1 text-[14px] leading-tight text-white/90">
                     {recipe.sub}
                   </p>
                 </div>
@@ -261,7 +261,7 @@ export default function HomePage() {
           <div className="mt-3 flex h-[34px] items-center rounded-[8px] bg-white px-4">
             <Link
               href="/recipes"
-              className="inline-flex items-center gap-2 text-[11px] font-bold text-[#0D55CF] hover:underline"
+              className="inline-flex items-center gap-2 text-[15px] font-bold text-[#0D55CF] hover:underline"
             >
               View All Recipes
               <ArrowRight className="h-3.5 w-3.5 stroke-[2.5]" />
@@ -271,22 +271,22 @@ export default function HomePage() {
 
         {/* Nutrition Section */}
         <div className="relative col-span-1 flex min-h-0 flex-col overflow-hidden rounded-[16px] bg-[#F4F9FF] p-6 shadow-sm">
-          <h3 className="mb-1.5 text-[21px] font-bold text-[#0D55CF]">
+          <h3 className="mb-1.5 text-[24px] font-bold text-[#0D55CF]">
             Benefits & Nutrition
           </h3>
-          <p className="relative z-10 mb-4 pr-[30%] text-[15px] leading-[1.5] text-[#1E293B]">
+          <p className="relative z-10 mb-4 pr-[30%] text-[19px] leading-[1.5] text-[#1E293B]">
             Fish, meat, eggs and chicken are rich in
             <br /> protein, vitamins and minerals for a
             <br /> stronger,healthier you.
           </p>
           <Link
             href="#"
-            className="relative z-10 mb-auto flex items-center gap-1 text-[11px] font-bold text-[#0D55CF] hover:underline"
+            className="relative z-10 mb-auto flex items-center gap-1 text-[15px] font-bold text-[#0D55CF] hover:underline"
           >
             Learn More <ArrowRight className="h-3 w-3 stroke-[2.5]" />
           </Link>
 
-          <div className="gap relative z-10 mt-auto flex w-[80%] justify-center">
+          <div className="gap relative z-10 mt-auto flex w-[80%] justify-center gap-0.5">
             <div className="flex flex-1 flex-col items-center gap-1.5">
               <div className="text-[#0D55CF]">
                 <svg
@@ -305,18 +305,18 @@ export default function HomePage() {
                   <path d="M6 20v-4" />
                 </svg>
               </div>
-              <span className="text-center text-[9px] leading-tight font-bold text-[#1E293B]">
+              <span className="text-center text-[13px] leading-tight font-bold text-[#1E293B]">
                 High in
                 <br />
                 Protein
               </span>
             </div>
-            <div className="h-[28px] w-[1px] self-center bg-[#0D55CF]/15"></div>
-            <div className="flex flex-1 flex-col items-center gap-1.5">
+            <div className="h-[22px] w-[1px] self-center bg-[#0D55CF]/15"></div>
+            <div className="flex w-[0.1px] flex-col items-center gap-1.5">
               <div className="text-[#0D55CF]">
                 <ShieldCheck className="h-6 w-6 stroke-[1.5]" />
               </div>
-              <span className="text-center text-[9px] leading-tight font-bold text-[#1E293B]">
+              <span className="text-center text-[13px] leading-tight font-bold text-[#1E293B]">
                 Rich in
                 <br />
                 Vitamins
@@ -339,7 +339,7 @@ export default function HomePage() {
                   <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
                 </svg>
               </div>
-              <span className="text-center text-[9px] leading-tight font-bold text-[#1E293B]">
+              <span className="text-center text-[13px] leading-tight font-bold text-[#1E293B]">
                 Good for
                 <br />
                 Heart
@@ -347,7 +347,7 @@ export default function HomePage() {
             </div>
           </div>
 
-          <div className="pointer-events-none absolute top-[-5%] right-[-10%] bottom-[-5%] w-[65%] opacity-100">
+          <div className="pointer-events-none absolute top-[-2%] right-[-3%] bottom-[-4%] w-[65%] opacity-100">
             <Image
               src="/assets/nametoadd.png"
               alt="Salmon Benefits"
@@ -360,7 +360,7 @@ export default function HomePage() {
         {/* Testimonial Section */}
         <div className="col-span-1 flex min-h-0 flex-col justify-between rounded-[16px] bg-[#F4F9FF] p-5 shadow-sm">
           <div>
-            <h3 className="mb-2 text-[21px] font-bold text-[#0D55CF]">
+            <h3 className="mb-2 text-[24px] font-bold text-[#0D55CF]">
               What Our Customers Say
             </h3>
             <div className="mb-1 text-[#0D55CF]">
@@ -378,7 +378,7 @@ export default function HomePage() {
               size={14}
               className="mb-2 gap-0.5 text-[#F5A623]"
             />
-            <p className="mb-2 pr-4 text-[12px] leading-[1.5] font-medium text-[#1E293B]">
+            <p className="mb-2 pr-4 text-[17px] leading-[1.5] font-medium text-[#1E293B]">
               "Super fresh products and great variety. Fishcart is our family's
               choice."
             </p>
@@ -394,7 +394,7 @@ export default function HomePage() {
       </div>
 
       {/* Row 3: Promotional Products */}
-      <div className="grid h-[17%] min-h-0 shrink-0 grid-cols-4 gap-4">
+      <div className="grid h-[16%] min-h-0 shrink-0 grid-cols-4 gap-4">
         {[
           { title: 'All Fish Items', image: '/assets/fish_showcase.png' },
           { title: 'All Meat Items', image: '/assets/meat_showcase.png' },
@@ -415,10 +415,10 @@ export default function HomePage() {
               className="absolute bottom-4 left-4 z-10 rounded-[10px] bg-white px-4 py-2.5 shadow-sm"
               style={{ width: 'fit-content' }}
             >
-              <h4 className="text-[13px] font-bold text-[#1E293B]">
+              <h4 className="text-[17.5px] font-bold text-[#1E293B]">
                 {item.title}
               </h4>
-              <p className="mt-0.5 flex items-center gap-1 text-[10px] font-bold text-[#0D55CF] group-hover:underline">
+              <p className="mt-0.5 flex items-center gap-1 text-[15px] font-bold text-[#0D55CF] group-hover:underline">
                 Explore Now <ArrowRight className="h-3.5 w-3.5 stroke-[2.5]" />
               </p>
             </div>
@@ -427,70 +427,68 @@ export default function HomePage() {
       </div>
 
       {/* Row 4: Information Cards */}
-      <div className="grid h-[11%] min-h-0 shrink-0 grid-cols-4 gap-4">
+      <div className="grid h-[10%] min-h-0 shrink-0 grid-cols-4 gap-4">
         <div className="col-span-1 flex min-h-0 items-center justify-between rounded-[16px] bg-[#E8F3FA] p-4 shadow-sm">
           <div className="min-w-0 flex-1 pr-2">
-            <h4 className="mb-1 truncate text-[14px] font-bold text-[#0D55CF]">
+            <h4 className="mb-1 truncate text-[18px] font-bold text-[#0D55CF]">
               Daily Selection
             </h4>
-            <p className="line-clamp-2 text-[12px] leading-[1.3] text-[#1E293B]">
+            <p className="line-clamp-2 text-[16px] leading-[1.3] text-[#1E293B]">
               Handpicked daily from trusted suppliers for the best quality.
             </p>
           </div>
           <div className="shrink-0 text-[#0D55CF]">
-            <CheckCircle2 className="h-[32px] w-[32px] stroke-[1.5]" />
+            <CheckCircle2 className="h-[38px] w-[38px] stroke-[1.5]" />
           </div>
         </div>
 
         <div className="col-span-1 flex min-h-0 items-center justify-between rounded-[16px] bg-[#A5E3E0] p-4 shadow-sm">
           <div className="min-w-0 flex-1 pr-2">
-            <h4 className="mb-1 truncate text-[14px] font-bold text-[#0D55CF]">
+            <h4 className="mb-1 truncate text-[18px] font-bold text-[#0D55CF]">
               Hygienic & Safe
             </h4>
-            <p className="line-clamp-2 text-[12px] leading-[1.3] text-[#1E293B]">
+            <p className="line-clamp-2 text-[16px] leading-[1.3] text-[#1E293B]">
               Cleaned, packed and delivered with highest hygiene standards.
             </p>
           </div>
           <div className="shrink-0 text-white">
-            <Droplet className="h-[32px] w-[32px] stroke-[1.5]" />
+            <Droplet className="h-[38px] w-[38px] stroke-[1.5]" />
           </div>
         </div>
 
         <div className="col-span-1 flex min-h-0 items-center justify-between rounded-[16px] bg-[#D4EFA5] p-4 shadow-sm">
           <div className="min-w-0 flex-1 pr-2">
-            <h4 className="mb-1 truncate text-[14px] font-bold text-[#0D55CF]">
+            <h4 className="mb-1 truncate text-[18px] font-bold text-[#0D55CF]">
               Sourced Responsibly
             </h4>
-            <p className="line-clamp-2 text-[12px] leading-[1.3] text-[#1E293B]">
+            <p className="line-clamp-2 text-[16px] leading-[1.3] text-[#1E293B]">
               We care for the ocean and the environment for a better future.
             </p>
           </div>
           <div className="shrink-0 text-white">
-            <Leaf className="h-[32px] w-[32px] stroke-[1.5]" />
+            <Leaf className="h-[38px] w-[38px] stroke-[1.5]" />
           </div>
         </div>
 
         <div className="col-span-1 flex min-h-0 items-center justify-between rounded-[16px] bg-[#E8F3FA] p-4 text-[#1E293B] shadow-sm">
           <div className="flex min-w-0 flex-1 flex-col justify-center">
-            <h4 className="mb-1 truncate text-[14px] font-bold text-[#0D55CF]">
+            <h4 className="mb-1 truncate text-[18px] font-bold text-[#0D55CF]">
               Join Our Community
             </h4>
-            <p className="mb-2 line-clamp-2 text-[12px] leading-[1.3]">
+            <p className="mb-2 line-clamp-2 text-[16px] leading-[1.3]">
               Be a part of our journey for healthy and delicious living.
             </p>
-            <Button
-              size="sm"
-              className="h-[24px] w-max gap-1 rounded-full bg-[#0D55CF] px-3 py-0 text-[10px] font-bold text-white"
-            >
-              Join Us <ArrowRight className="h-3 w-3 stroke-[2.5]" />
-            </Button>
+            <button className="inline-flex w-fit items-center gap-1 rounded-full bg-[#0D55CF] px-3 py-1 text-[12.5px] font-semibold text-white">
+              Join Us
+              <ArrowRight className="h-3 w-3" />
+            </button>
           </div>
-          <div className="relative ml-2 h-[48px] w-[48px] shrink-0 rounded-lg bg-white p-1">
+          <div className="relative ml-2 h-[80px] w-[80px] shrink-0 rounded-lg bg-white p-1">
             <Image
               src="/assets/whatsapp_qr.png"
               alt="QR Code"
               fill
-              className="rounded-md object-cover p-1"
+              className="rounded-md object-cover"
             />
           </div>
         </div>

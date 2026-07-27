@@ -61,13 +61,13 @@ export function CategoryCard({
       <div className="relative z-10">
         <h3
           className={cn(
-            'mb-1 text-[22px] leading-tight font-bold',
+            'mb-1 text-[24px] leading-tight font-bold',
             currentStyle.title
           )}
         >
           {title}
         </h3>
-        <p className={cn('text-[12px] font-medium', currentStyle.sub)}>
+        <p className={cn('text-[18px] font-medium', currentStyle.sub)}>
           {subtitle}
         </p>
       </div>
@@ -76,8 +76,10 @@ export function CategoryCard({
         className={cn(
           'absolute',
           variant === 'eggs'
-            ? 'top-[-5%] right-[-5%] bottom-[-5%] w-[45%]'
-            : 'right-[-5%] bottom-[-10%] h-[95%] w-[85%]'
+            ? 'top-[-5%] right-[6%] bottom-[-5%] w-[45%]'
+            : variant === 'fish'
+              ? 'top-[-8%] right-[-5%] h-[105%] w-[92%]'
+              : 'right-[-5%] bottom-[-10%] h-[95%] w-[85%]'
         )}
       >
         <img
