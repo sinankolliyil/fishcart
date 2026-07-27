@@ -194,19 +194,19 @@ export default function HomePage() {
       </div>
 
       {/* Row 2: Recipe, Nutrition, Testimonial */}
-      <div className="grid h-[26%] min-h-0 shrink-0 grid-cols-4 gap-4">
+      <div className="grid h-[26%] min-h-0 shrink-0 grid-cols-[1.15fr_1.16fr_0.7fr] gap-2">
         {/* Recipe Container */}
-        <div className="text-surface col-span-2 flex min-h-0 flex-col justify-between rounded-[16px] bg-[#0D55CF] p-6 shadow-sm">
+        <div className="text-surface col-span-1 flex min-h-0 flex-col justify-between rounded-[16px] bg-[#0D55CF] p-6 shadow-sm">
           <div>
-            <h3 className="mb-1 text-[20px] font-bold text-white">
+            <h3 className="mb-1 text-[21px] font-bold text-white">
               How to Make Delicious
             </h3>
-            <p className="text-[12px] text-white/90">
+            <p className="text-[14px] text-white/90">
               Step by step cooking videos for every taste
             </p>
           </div>
 
-          <div className="my-auto grid h-[60%] grid-cols-3 gap-3">
+          <div className="mt-3 grid flex-1 grid-cols-3 gap-2">
             {[
               {
                 img: '/assets/fish2.jpg',
@@ -220,7 +220,7 @@ export default function HomePage() {
               },
               {
                 img: '/assets/prod_7_prawns.jpg',
-                title: 'Fish Fry',
+                title: 'Prawns',
                 sub: 'Crispy & Juicy',
               },
             ].map((recipe, idx) => (
@@ -258,23 +258,26 @@ export default function HomePage() {
             ))}
           </div>
 
-          <Button
-            variant="white"
-            size="default"
-            className="mt-1 h-[32px] w-max gap-2 rounded-[8px] bg-white px-5 text-[11px] font-bold text-[#0D55CF] shadow-sm hover:bg-gray-50"
-          >
-            View All Recipes <ArrowRight className="h-3.5 w-3.5 stroke-[2.5]" />
-          </Button>
+          <div className="mt-3 flex h-[34px] items-center rounded-[8px] bg-white px-4">
+            <Link
+              href="/recipes"
+              className="inline-flex items-center gap-2 text-[11px] font-bold text-[#0D55CF] hover:underline"
+            >
+              View All Recipes
+              <ArrowRight className="h-3.5 w-3.5 stroke-[2.5]" />
+            </Link>
+          </div>
         </div>
 
         {/* Nutrition Section */}
         <div className="relative col-span-1 flex min-h-0 flex-col overflow-hidden rounded-[16px] bg-[#F4F9FF] p-6 shadow-sm">
-          <h3 className="mb-1.5 text-[14px] font-bold text-[#0D55CF]">
+          <h3 className="mb-1.5 text-[21px] font-bold text-[#0D55CF]">
             Benefits & Nutrition
           </h3>
-          <p className="relative z-10 mb-4 pr-[30%] text-[11px] leading-[1.5] text-[#1E293B]">
-            Fish, meat, eggs and chicken are rich in protein, vitamins and
-            minerals for a stronger, healthier you.
+          <p className="relative z-10 mb-4 pr-[30%] text-[15px] leading-[1.5] text-[#1E293B]">
+            Fish, meat, eggs and chicken are rich in 
+            <br /> protein, vitamins and minerals for a 
+            <br /> stronger,healthier you.
           </p>
           <Link
             href="#"
@@ -283,7 +286,7 @@ export default function HomePage() {
             Learn More <ArrowRight className="h-3 w-3 stroke-[2.5]" />
           </Link>
 
-          <div className="relative z-10 mt-auto flex w-[80%] justify-between pb-1">
+          <div className="gap relative z-10 mt-auto flex w-[80%] justify-center">
             <div className="flex flex-1 flex-col items-center gap-1.5">
               <div className="text-[#0D55CF]">
                 <svg
@@ -346,7 +349,7 @@ export default function HomePage() {
 
           <div className="pointer-events-none absolute top-[-5%] right-[-10%] bottom-[-5%] w-[65%] opacity-100">
             <Image
-              src="/assets/benefits_salmon.png"
+              src="/assets/nametoadd.png"
               alt="Salmon Benefits"
               fill
               className="object-contain object-right"
@@ -357,7 +360,7 @@ export default function HomePage() {
         {/* Testimonial Section */}
         <div className="col-span-1 flex min-h-0 flex-col justify-between rounded-[16px] bg-[#F4F9FF] p-5 shadow-sm">
           <div>
-            <h3 className="mb-2 text-[14px] font-bold text-[#0D55CF]">
+            <h3 className="mb-2 text-[21px] font-bold text-[#0D55CF]">
               What Our Customers Say
             </h3>
             <div className="mb-1 text-[#0D55CF]">
@@ -375,7 +378,7 @@ export default function HomePage() {
               size={14}
               className="mb-2 gap-0.5 text-[#F5A623]"
             />
-            <p className="mb-2 pr-4 text-[10px] leading-[1.5] font-medium text-[#1E293B]">
+            <p className="mb-2 pr-4 text-[12px] leading-[1.5] font-medium text-[#1E293B]">
               "Super fresh products and great variety. Fishcart is our family's
               choice."
             </p>
@@ -408,7 +411,8 @@ export default function HomePage() {
               fill
               className="object-cover transition-transform group-hover:scale-105"
             />
-            <div className="absolute bottom-4 left-4 z-10 w-max rounded-[12px] bg-white px-4 py-2.5 shadow-sm">
+            <div className="absolute bottom-4 left-4 z-10 rounded-[10px] bg-white px-4 py-2.5 shadow-sm"
+              style={{ width: 'fit-content' }}>
               <h4 className="text-[13px] font-bold text-[#1E293B]">
                 {item.title}
               </h4>
