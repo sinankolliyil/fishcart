@@ -19,7 +19,7 @@ export default function HomePage() {
   return (
     <div className="flex h-full w-full flex-col gap-4 overflow-hidden">
       {/* Row 1: Hero and Categories */}
-      <div className="grid h-[36%] min-h-0 shrink-0 grid-cols-12 gap-4">
+      <div className="grid h-[34%] min-h-0 shrink-0 grid-cols-12 gap-4">
         {/* Hero Section */}
         <div className="relative col-span-7 flex h-full min-h-0 flex-col justify-between overflow-hidden rounded-[16px] bg-[#E8F4FA] shadow-sm">
           {/* Ice Background */}
@@ -58,7 +58,7 @@ export default function HomePage() {
                 <Link href="/community">
                   <Button
                     size="default"
-                    className="mt-6 h-[38px] gap-2 rounded-[8px] bg-[#0D55CF] px-5 text-[13px] font-bold text-white shadow-sm hover:bg-[#0D55CF]/90"
+                    className="mt-1 h-[38px] gap-2 rounded-[8px] bg-[#0D55CF] px-5 text-[13px] font-bold text-white shadow-sm hover:bg-[#0D55CF]/90"
                   >
                     Join Us
                     <ArrowRight className="h-3.5 w-3.5 stroke-[2.5]" />
@@ -194,7 +194,7 @@ export default function HomePage() {
       </div>
 
       {/* Row 2: Recipe, Nutrition, Testimonial */}
-      <div className="grid h-[26%] min-h-0 shrink-0 grid-cols-[1.15fr_1.16fr_0.7fr] gap-2">
+      <div className="grid h-[25%] min-h-0 shrink-0 grid-cols-[1.15fr_1.16fr_0.7fr] gap-2">
         {/* Recipe Container */}
         <div className="text-surface col-span-1 flex min-h-0 flex-col justify-between rounded-[16px] bg-[#0D55CF] p-6 shadow-sm">
           <div>
@@ -275,8 +275,8 @@ export default function HomePage() {
             Benefits & Nutrition
           </h3>
           <p className="relative z-10 mb-4 pr-[30%] text-[15px] leading-[1.5] text-[#1E293B]">
-            Fish, meat, eggs and chicken are rich in 
-            <br /> protein, vitamins and minerals for a 
+            Fish, meat, eggs and chicken are rich in
+            <br /> protein, vitamins and minerals for a
             <br /> stronger,healthier you.
           </p>
           <Link
@@ -394,7 +394,7 @@ export default function HomePage() {
       </div>
 
       {/* Row 3: Promotional Products */}
-      <div className="grid h-[16%] min-h-0 shrink-0 grid-cols-4 gap-4">
+      <div className="grid h-[17%] min-h-0 shrink-0 grid-cols-4 gap-4">
         {[
           { title: 'All Fish Items', image: '/assets/fish_showcase.png' },
           { title: 'All Meat Items', image: '/assets/meat_showcase.png' },
@@ -411,8 +411,10 @@ export default function HomePage() {
               fill
               className="object-cover transition-transform group-hover:scale-105"
             />
-            <div className="absolute bottom-4 left-4 z-10 rounded-[10px] bg-white px-4 py-2.5 shadow-sm"
-              style={{ width: 'fit-content' }}>
+            <div
+              className="absolute bottom-4 left-4 z-10 rounded-[10px] bg-white px-4 py-2.5 shadow-sm"
+              style={{ width: 'fit-content' }}
+            >
               <h4 className="text-[13px] font-bold text-[#1E293B]">
                 {item.title}
               </h4>
@@ -428,10 +430,10 @@ export default function HomePage() {
       <div className="grid h-[11%] min-h-0 shrink-0 grid-cols-4 gap-4">
         <div className="col-span-1 flex min-h-0 items-center justify-between rounded-[16px] bg-[#E8F3FA] p-4 shadow-sm">
           <div className="min-w-0 flex-1 pr-2">
-            <h4 className="mb-1 truncate text-[12px] font-bold text-[#0D55CF]">
+            <h4 className="mb-1 truncate text-[14px] font-bold text-[#0D55CF]">
               Daily Selection
             </h4>
-            <p className="line-clamp-2 text-[10px] leading-[1.3] text-[#1E293B]">
+            <p className="line-clamp-2 text-[12px] leading-[1.3] text-[#1E293B]">
               Handpicked daily from trusted suppliers for the best quality.
             </p>
           </div>
@@ -442,10 +444,10 @@ export default function HomePage() {
 
         <div className="col-span-1 flex min-h-0 items-center justify-between rounded-[16px] bg-[#A5E3E0] p-4 shadow-sm">
           <div className="min-w-0 flex-1 pr-2">
-            <h4 className="mb-1 truncate text-[12px] font-bold text-[#0D55CF]">
+            <h4 className="mb-1 truncate text-[14px] font-bold text-[#0D55CF]">
               Hygienic & Safe
             </h4>
-            <p className="line-clamp-2 text-[10px] leading-[1.3] text-[#1E293B]">
+            <p className="line-clamp-2 text-[12px] leading-[1.3] text-[#1E293B]">
               Cleaned, packed and delivered with highest hygiene standards.
             </p>
           </div>
@@ -456,10 +458,10 @@ export default function HomePage() {
 
         <div className="col-span-1 flex min-h-0 items-center justify-between rounded-[16px] bg-[#D4EFA5] p-4 shadow-sm">
           <div className="min-w-0 flex-1 pr-2">
-            <h4 className="mb-1 truncate text-[12px] font-bold text-[#0D55CF]">
+            <h4 className="mb-1 truncate text-[14px] font-bold text-[#0D55CF]">
               Sourced Responsibly
             </h4>
-            <p className="line-clamp-2 text-[10px] leading-[1.3] text-[#1E293B]">
+            <p className="line-clamp-2 text-[12px] leading-[1.3] text-[#1E293B]">
               We care for the ocean and the environment for a better future.
             </p>
           </div>
@@ -470,10 +472,10 @@ export default function HomePage() {
 
         <div className="col-span-1 flex min-h-0 items-center justify-between rounded-[16px] bg-[#E8F3FA] p-4 text-[#1E293B] shadow-sm">
           <div className="flex min-w-0 flex-1 flex-col justify-center">
-            <h4 className="mb-1 truncate text-[12px] font-bold text-[#0D55CF]">
+            <h4 className="mb-1 truncate text-[14px] font-bold text-[#0D55CF]">
               Join Our Community
             </h4>
-            <p className="mb-2 line-clamp-2 text-[10px] leading-[1.3]">
+            <p className="mb-2 line-clamp-2 text-[12px] leading-[1.3]">
               Be a part of our journey for healthy and delicious living.
             </p>
             <Button
