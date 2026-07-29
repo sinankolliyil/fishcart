@@ -2,16 +2,16 @@ import React from 'react';
 
 export function Footer() {
   return (
-    <footer className="grid h-full w-full grid-cols-5 gap-4">
+    <footer className="grid h-full w-full grid-cols-3 lg:grid-cols-5 gap-[var(--footer-gap)]">
       {/* ================= CARD 1 ================= */}
 
-      <div className="flex items-center gap-3 rounded-[15px] bg-white p-4 shadow-sm">
+      <div className="flex items-center gap-[var(--footer-card-gap)] rounded-[clamp(13px,0.78vw,15px)] bg-white p-[var(--footer-card-padding)] shadow-sm">
         <div className="flex shrink-0 items-center justify-center opacity-60">
           <svg
             viewBox="0 0 64 64"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
-            className="h-20 w-20 stroke-[#0D55CF] stroke-[3]"
+            className="h-[var(--footer-svg-1-size)] w-[var(--footer-svg-1-size)] stroke-[#0D55CF] stroke-[3]"
           >
             <path
               d="M12 40 Q20 32 28 40 T44 40 T60 32"
@@ -38,10 +38,10 @@ export function Footer() {
         </div>
 
         <div className="flex flex-col">
-          <h4 className="mb-1 text-[18px] font-bold text-[#0D55CF]">
+          <h4 className="mb-[clamp(2px,0.16vw,4px)] text-[clamp(13px,0.94vw,18px)] font-bold text-[#0D55CF]">
             100% Fresh
           </h4>
-          <p className="text-[16px] leading-[1.3] text-[#1E293B]">
+          <p className="text-[clamp(11px,0.83vw,16px)] leading-[1.3] text-[#1E293B]">
             Sourced Daily
           </p>
         </div>
@@ -49,11 +49,10 @@ export function Footer() {
 
       {/* ================= CARD 2 ================= */}
 
-      <div className="flex items-center gap-3 rounded-[15px] bg-white p-4 shadow-sm">
+      <div className="flex items-center gap-[var(--footer-card-gap)] rounded-[clamp(13px,0.78vw,15px)] bg-white p-[var(--footer-card-padding)] shadow-sm">
         <div className="flex shrink-0 items-center justify-center opacity-60">
           <svg
-            width="60"
-            height="60"
+            className="h-[var(--footer-svg-2-size)] w-[var(--footer-svg-2-size)]"
             viewBox="0 0 24 24"
             fill="none"
             stroke="#2563EB"
@@ -68,10 +67,10 @@ export function Footer() {
         </div>
 
         <div className="flex flex-col">
-          <h4 className="mb-1 text-[18px] font-bold text-[#0D55CF]">
-            Hygienic & Safe
+          <h4 className="mb-[clamp(2px,0.16vw,4px)] text-[clamp(13px,0.94vw,18px)] font-bold text-[#0D55CF]">
+            Hygienic &amp; Safe
           </h4>
-          <p className="text-[16px] leading-[1.3] text-[#1E293B]">
+          <p className="text-[clamp(11px,0.83vw,16px)] leading-[1.3] text-[#1E293B]">
             Cleaned with care
           </p>
         </div>
@@ -79,11 +78,10 @@ export function Footer() {
 
       {/* ================= CARD 3 ================= */}
 
-      <div className="flex items-center gap-3 rounded-[15px] bg-white p-4 shadow-sm">
+      <div className="flex items-center gap-[var(--footer-card-gap)] rounded-[clamp(13px,0.78vw,15px)] bg-white p-[var(--footer-card-padding)] shadow-sm">
         <div className="flex shrink-0 items-center justify-center opacity-60">
           <svg
-            width="60"
-            height="60"
+            className="h-[var(--footer-svg-2-size)] w-[var(--footer-svg-2-size)]"
             viewBox="0 0 24 24"
             fill="none"
             stroke="#2563EB"
@@ -99,10 +97,10 @@ export function Footer() {
         </div>
 
         <div className="flex flex-col">
-          <h4 className="mb-1 text-[18px] font-bold text-[#0D55CF]">
+          <h4 className="mb-[clamp(2px,0.16vw,4px)] text-[clamp(13px,0.94vw,18px)] font-bold text-[#0D55CF]">
             Fast Delivery
           </h4>
-          <p className="text-[16px] leading-[1.3] text-[#1E293B]">
+          <p className="text-[clamp(11px,0.83vw,16px)] leading-[1.3] text-[#1E293B]">
             On time, every time
           </p>
         </div>
@@ -110,11 +108,10 @@ export function Footer() {
 
       {/* ================= CARD 4 ================= */}
 
-      <div className="flex items-center gap-3 rounded-[15px] bg-white p-4 shadow-sm">
+      <div className="flex items-center gap-[var(--footer-card-gap)] rounded-[clamp(13px,0.78vw,15px)] bg-white p-[var(--footer-card-padding)] shadow-sm">
         <div className="flex shrink-0 items-center justify-center opacity-60">
           <svg
-            width="60"
-            height="60"
+            className="h-[var(--footer-svg-2-size)] w-[var(--footer-svg-2-size)]"
             viewBox="0 0 24 24"
             fill="none"
             stroke="#2563EB"
@@ -129,10 +126,10 @@ export function Footer() {
         </div>
 
         <div className="flex flex-col">
-          <h4 className="mb-1 text-[18px] font-bold text-[#0D55CF]">
+          <h4 className="mb-[clamp(2px,0.16vw,4px)] text-[clamp(13px,0.94vw,18px)] font-bold text-[#0D55CF]">
             Best Quality
           </h4>
-          <p className="text-[16px] leading-[1.3] text-[#1E293B]">
+          <p className="text-[clamp(11px,0.83vw,16px)] leading-[1.3] text-[#1E293B]">
             Only the best for you
           </p>
         </div>
@@ -140,11 +137,10 @@ export function Footer() {
 
       {/* ================= CARD 5 ================= */}
 
-      <div className="flex items-center gap-3 rounded-[15px] bg-white p-4 shadow-sm">
+      <div className="flex items-center gap-[var(--footer-card-gap)] rounded-[clamp(13px,0.78vw,15px)] bg-white p-[var(--footer-card-padding)] shadow-sm">
         <div className="flex shrink-0 items-center justify-center opacity-60">
           <svg
-            width="60"
-            height="60"
+            className="h-[var(--footer-svg-2-size)] w-[var(--footer-svg-2-size)]"
             viewBox="0 0 24 24"
             fill="none"
             stroke="#2563EB"
@@ -158,10 +154,10 @@ export function Footer() {
         </div>
 
         <div className="flex flex-col">
-          <h4 className="mb-1 text-[18px] font-bold text-[#0D55CF]">
+          <h4 className="mb-[clamp(2px,0.16vw,4px)] text-[clamp(13px,0.94vw,18px)] font-bold text-[#0D55CF]">
             Sustainable Sourcing
           </h4>
-          <p className="text-[16px] leading-[1.3] text-[#1E293B]">
+          <p className="text-[clamp(11px,0.83vw,16px)] leading-[1.3] text-[#1E293B]">
             Better for tomorrow
           </p>
         </div>

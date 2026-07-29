@@ -63,14 +63,138 @@
   --shadow-floating: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
 
   /* Grid & Container */
-  --container-sidebar: clamp(200px, 14.5vw, 280px);
+  --container-sidebar: clamp(220px, 14.6vw, 295px);
   --container-content: calc(100vw - var(--container-sidebar));
-  --container-max: 1920px;
+  --container-max: 3840px;
 }
 
 :root {
   --background: #F4F7FB;
   --foreground: #475569;
+
+  /* Layout scale design tokens */
+  --main-padding-y: clamp(20px, 1.25vw, 24px);
+  --main-padding-x: clamp(20px, 1.25vw, 24px);
+  --main-gap: clamp(8px, 0.83vw, 16px);
+
+  /* Row 1 Hero */
+  --hero-padding-y: clamp(14px, 1.67vw, 32px);
+  --hero-padding-x: clamp(16px, 2.08vw, 40px);
+  --hero-h1-mb: clamp(10px, 1.46vw, 28px);
+  --hero-p-mb: clamp(8px, 1.04vw, 24px);
+  --hero-btn-h: clamp(32px, 1.98vw, 42px);
+  
+  /* Row 1 Categories */
+  --cat-gap: clamp(6px, 0.42vw, 8px);
+  --cat-card-padding: clamp(14px, 1.25vw, 24px);
+
+  /* Row 2 Recipes & Nutrition */
+  --row2-gap: clamp(6px, 0.52vw, 10px);
+  --recipe-padding: clamp(14px, 1.25vw, 24px);
+  --recipe-btn-mt: clamp(6px, 0.63vw, 12px);
+  --recipe-btn-h: clamp(28px, 1.77vw, 34px);
+  --nutrition-padding: clamp(14px, 1.25vw, 24px);
+  --nutrition-desc-mb: clamp(8px, 0.83vw, 16px);
+  --testimonial-padding: clamp(14px, 1.04vw, 20px);
+
+  /* Row 3 Showcases */
+  --showcase-gap: clamp(8px, 0.83vw, 16px);
+  --showcase-label-bottom: clamp(8px, 0.63vw, 16px);
+  --showcase-label-left: clamp(8px, 0.63vw, 16px);
+  --showcase-label-px: clamp(10px, 0.83vw, 16px);
+  --showcase-label-py: clamp(6px, 0.52vw, 10px);
+
+  /* Row 4 Info Cards */
+  --info-gap: clamp(8px, 0.83vw, 16px);
+  --info-padding: clamp(10px, 0.83vw, 16px);
+  --info-icon-size: clamp(24px, 1.98vw, 38px);
+  --info-qr-size: clamp(52px, 4.17vw, 80px);
+
+  /* Footer */
+  --footer-gap: clamp(6px, 0.63vw, 16px);
+  --footer-card-padding: clamp(8px, 0.83vw, 16px);
+  --footer-card-gap: clamp(6px, 0.63vw, 12px);
+  --footer-svg-1-size: clamp(40px, 4.17vw, 80px);
+  --footer-svg-2-size: clamp(36px, 3.13vw, 60px);
+
+  /* Sidebar */
+  --sidebar-logo-padding: clamp(16px, 1.04vw, 20px);
+  --sidebar-nav-padding-y: clamp(14px, 1.25vw, 24px);
+  --sidebar-nav-padding-x: clamp(12px, 0.83vw, 16px);
+  --sidebar-nav-gap: clamp(3px, 0.26vw, 6px);
+  --sidebar-item-py: clamp(8px, 0.625vw, 14px);
+  --sidebar-item-px: clamp(10px, 0.73vw, 16px);
+  --sidebar-item-gap: clamp(10px, 0.73vw, 16px);
+  --sidebar-item-icon-size: clamp(16px, 1.04vw, 22px);
+  --sidebar-community-padding: clamp(8px, 0.52vw, 10px);
+  --sidebar-community-qr-size: clamp(80px, 6.25vw, 120px);
+  --sidebar-community-btn-h: clamp(36px, 2.29vw, 44px);
+  --sidebar-contact-padding: clamp(10px, 0.73vw, 14px);
+  --sidebar-contact-icon-size: clamp(26px, 1.875vw, 36px);
+}
+
+@media (max-height: 1100px) {
+  :root {
+    /* Main Shell */
+    --main-padding-y: 12px;
+    --main-padding-x: 16px;
+    --main-gap: 8px;
+
+    /* Row 1 Hero */
+    --hero-padding-y: 16px;
+    --hero-padding-x: 24px;
+    --hero-h1-mb: 12px;
+    --hero-p-mb: 10px;
+    --hero-btn-h: 34px;
+    
+    /* Row 1 Categories */
+    --cat-gap: 6px;
+    --cat-card-padding: 14px;
+
+    /* Row 2 Recipes & Nutrition */
+    --row2-gap: 6px;
+    --recipe-padding: 14px;
+    --recipe-btn-mt: 6px;
+    --recipe-btn-h: 28px;
+    --nutrition-padding: 14px;
+    --nutrition-desc-mb: 8px;
+    --testimonial-padding: 12px;
+
+    /* Row 3 Showcases */
+    --showcase-gap: 8px;
+    --showcase-label-bottom: 8px;
+    --showcase-label-left: 8px;
+    --showcase-label-px: 10px;
+    --showcase-label-py: 6px;
+
+    /* Row 4 Info Cards */
+    --info-gap: 8px;
+    --info-padding: 10px;
+    --info-icon-size: 26px;
+    --info-qr-size: 52px;
+
+    /* Footer */
+    --footer-gap: 6px;
+    --footer-card-padding: 8px;
+    --footer-card-gap: 6px;
+    --footer-svg-1-size: 40px;
+    --footer-svg-2-size: 36px;
+
+    /* Sidebar */
+    --sidebar-logo-padding: 12px;
+    --sidebar-nav-padding-y: 10px;
+    --sidebar-nav-padding-x: 10px;
+    --sidebar-nav-gap: 3px;
+    --sidebar-item-py: 7px;
+    --sidebar-item-px: 10px;
+    --sidebar-item-gap: 8px;
+    --sidebar-item-icon-size: 16px;
+    --sidebar-community-padding: 6px;
+    --sidebar-community-qr-size: 75px;
+    --sidebar-community-btn-h: 32px;
+    --sidebar-contact-padding: 8px;
+    --sidebar-contact-icon-size: 24px;
+  }
 }
 
 @layer base {
@@ -83,7 +207,7 @@
     color: var(--foreground);
     font-family: var(--font-inter), sans-serif;
   }
-  
+
   ::selection {
     background-color: #0D55CF;
     color: #FFFFFF;
