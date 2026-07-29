@@ -24,7 +24,7 @@ export function CategoryCard({
     fish: {
       bg: 'bg-[#7EBEFE]',
       title: 'text-[#0D55CF]',
-      sub: 'text-[#1E293B]',
+      sub: 'text-white/90',
       arrow: 'text-[#0D55CF]',
     },
     meat: {
@@ -67,7 +67,12 @@ export function CategoryCard({
         >
           {title}
         </h3>
-        <p className={cn('text-[clamp(14px,0.94vw,18px)] font-medium', currentStyle.sub)}>
+        <p
+          className={cn(
+            'text-[clamp(14px,0.94vw,18px)] font-medium',
+            currentStyle.sub
+          )}
+        >
           {subtitle}
         </p>
       </div>
