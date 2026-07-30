@@ -154,7 +154,7 @@ export function Sidebar() {
         </div>
       </div>
 
-      {/* Bottom Contact Badge */}
+      {/* Bottom Contact Badge 
       <div className="mt-auto px-3 pt-2 pb-3 lg:px-[clamp(12px,0.83vw,16px)] lg:pb-[clamp(10px,0.83vw,16px)]">
         <div className="relative flex items-center justify-between overflow-hidden rounded-[16px] bg-[#0D55CF] p-3 text-white shadow-sm lg:p-[var(--sidebar-contact-padding)]">
           <div className="relative z-10 w-[75%]">
@@ -173,7 +173,7 @@ export function Sidebar() {
             <ShieldCheck className="h-[28px] w-[28px] stroke-[1] text-white lg:h-[var(--sidebar-contact-icon-size)] lg:w-[var(--sidebar-contact-icon-size)]" />
           </div>
         </div>
-      </div>
+      </div>   */}
     </aside>
   );
 }
