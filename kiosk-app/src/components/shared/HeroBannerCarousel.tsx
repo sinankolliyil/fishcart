@@ -152,7 +152,7 @@ export function HeroBannerCarousel() {
       />
 
       {/* ── Premium Offer Ribbon ── */}
-      <div className="absolute top-0 right-0 left-0 z-30 flex h-9 items-center overflow-hidden border-b border-white/10 bg-black/40 backdrop-blur-md select-none">
+      <div className="absolute top-0 right-0 left-0 z-30 flex h-[var(--hero-ribbon-h)] items-center overflow-hidden border-b border-white/10 bg-black/40 backdrop-blur-md select-none">
         <div className="animate-marquee-custom flex items-center py-1 whitespace-nowrap">
           {/* List of Offers */}
           <div className="flex items-center space-x-12 px-6">
@@ -357,7 +357,7 @@ export function HeroBannerCarousel() {
       {/* ── Navigation Arrows ── */}
       <button
         onClick={handlePrev}
-        className="absolute top-1/2 left-4 z-30 flex h-10 w-10 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full border border-white/10 bg-black/35 text-white opacity-75 backdrop-blur-sm transition-all duration-200 hover:bg-black/55 hover:opacity-100 focus:outline-none active:scale-95"
+        className="absolute top-1/2 left-4 z-30 flex h-[clamp(28px,min(2.5vw,4svh),44px)] w-[clamp(28px,min(2.5vw,4svh),44px)] -translate-y-1/2 cursor-pointer items-center justify-center rounded-full border border-white/10 bg-black/35 text-white opacity-75 backdrop-blur-sm transition-all duration-200 hover:bg-black/55 hover:opacity-100 focus:outline-none active:scale-95"
         aria-label="Previous slide"
       >
         <svg
@@ -376,7 +376,7 @@ export function HeroBannerCarousel() {
       </button>
       <button
         onClick={handleNext}
-        className="absolute top-1/2 right-4 z-30 flex h-10 w-10 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full border border-white/10 bg-black/35 text-white opacity-75 backdrop-blur-sm transition-all duration-200 hover:bg-black/55 hover:opacity-100 focus:outline-none active:scale-95"
+        className="absolute top-1/2 right-4 z-30 flex h-[clamp(28px,min(2.5vw,4svh),44px)] w-[clamp(28px,min(2.5vw,4svh),44px)] -translate-y-1/2 cursor-pointer items-center justify-center rounded-full border border-white/10 bg-black/35 text-white opacity-75 backdrop-blur-sm transition-all duration-200 hover:bg-black/55 hover:opacity-100 focus:outline-none active:scale-95"
         aria-label="Next slide"
       >
         <svg

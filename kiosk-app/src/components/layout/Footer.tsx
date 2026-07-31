@@ -2,7 +2,7 @@ import React from 'react';
 
 export function Footer() {
   return (
-    <footer className="grid h-full w-full grid-cols-3 lg:grid-cols-5 gap-[var(--footer-gap)]">
+    <footer className="grid h-full w-full items-stretch grid-cols-3 lg:grid-cols-5 gap-[var(--footer-gap)]">
       {/* ================= CARD 1 ================= */}
 
       <div className="flex items-center gap-[var(--footer-card-gap)] rounded-[clamp(13px,0.78vw,15px)] bg-white p-[var(--footer-card-padding)] shadow-sm">
@@ -38,10 +38,10 @@ export function Footer() {
         </div>
 
         <div className="flex flex-col">
-          <h4 className="mb-[clamp(2px,0.16vw,4px)] text-[clamp(13px,0.94vw,18px)] font-bold text-[#0D55CF]">
+          <h4 className="mb-[clamp(1px,min(0.16vw,0.2svh),3px)] text-[clamp(10px,min(0.94vw,1.5svh),16px)] font-bold text-[#0D55CF]">
             100% Fresh
           </h4>
-          <p className="text-[clamp(11px,0.83vw,16px)] leading-[1.3] text-[#1E293B]">
+          <p className="text-[clamp(8px,min(0.83vw,1.3svh),13px)] leading-[1.3] text-[#1E293B]">
             Sourced Daily
           </p>
         </div>
@@ -67,10 +67,10 @@ export function Footer() {
         </div>
 
         <div className="flex flex-col">
-          <h4 className="mb-[clamp(2px,0.16vw,4px)] text-[clamp(13px,0.94vw,18px)] font-bold text-[#0D55CF]">
+          <h4 className="mb-[clamp(1px,min(0.16vw,0.2svh),3px)] text-[clamp(10px,min(0.94vw,1.5svh),16px)] font-bold text-[#0D55CF]">
             Hygienic &amp; Safe
           </h4>
-          <p className="text-[clamp(11px,0.83vw,16px)] leading-[1.3] text-[#1E293B]">
+          <p className="text-[clamp(8px,min(0.83vw,1.3svh),13px)] leading-[1.3] text-[#1E293B]">
             Cleaned with care
           </p>
         </div>
@@ -97,10 +97,10 @@ export function Footer() {
         </div>
 
         <div className="flex flex-col">
-          <h4 className="mb-[clamp(2px,0.16vw,4px)] text-[clamp(13px,0.94vw,18px)] font-bold text-[#0D55CF]">
+          <h4 className="mb-[clamp(1px,min(0.16vw,0.2svh),3px)] text-[clamp(10px,min(0.94vw,1.5svh),16px)] font-bold text-[#0D55CF]">
             Fast Delivery
           </h4>
-          <p className="text-[clamp(11px,0.83vw,16px)] leading-[1.3] text-[#1E293B]">
+          <p className="text-[clamp(8px,min(0.83vw,1.3svh),13px)] leading-[1.3] text-[#1E293B]">
             On time, every time
           </p>
         </div>
@@ -126,10 +126,10 @@ export function Footer() {
         </div>
 
         <div className="flex flex-col">
-          <h4 className="mb-[clamp(2px,0.16vw,4px)] text-[clamp(13px,0.94vw,18px)] font-bold text-[#0D55CF]">
+          <h4 className="mb-[clamp(1px,min(0.16vw,0.2svh),3px)] text-[clamp(10px,min(0.94vw,1.5svh),16px)] font-bold text-[#0D55CF]">
             Best Quality
           </h4>
-          <p className="text-[clamp(11px,0.83vw,16px)] leading-[1.3] text-[#1E293B]">
+          <p className="text-[clamp(8px,min(0.83vw,1.3svh),13px)] leading-[1.3] text-[#1E293B]">
             Only the best for you
           </p>
         </div>
@@ -154,10 +154,10 @@ export function Footer() {
         </div>
 
         <div className="flex flex-col">
-          <h4 className="mb-[clamp(2px,0.16vw,4px)] text-[clamp(13px,0.94vw,18px)] font-bold text-[#0D55CF]">
+          <h4 className="mb-[clamp(1px,min(0.16vw,0.2svh),3px)] text-[clamp(10px,min(0.94vw,1.5svh),16px)] font-bold text-[#0D55CF]">
             Sustainable Sourcing
           </h4>
-          <p className="text-[clamp(11px,0.83vw,16px)] leading-[1.3] text-[#1E293B]">
+          <p className="text-[clamp(8px,min(0.83vw,1.3svh),13px)] leading-[1.3] text-[#1E293B]">
             Better for tomorrow
           </p>
         </div>

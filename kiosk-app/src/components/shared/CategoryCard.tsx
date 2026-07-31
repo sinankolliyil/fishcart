@@ -61,7 +61,7 @@ export function CategoryCard({
       <div className="relative z-10">
         <h3
           className={cn(
-            'mb-1 text-[clamp(18px,1.25vw,24px)] leading-tight font-bold',
+            'mb-0.5 text-[clamp(13px,min(1.25vw,2svh),22px)] leading-tight font-bold',
             currentStyle.title
           )}
         >
@@ -69,7 +69,7 @@ export function CategoryCard({
         </h3>
         <p
           className={cn(
-            'text-[clamp(14px,0.94vw,18px)] font-medium',
+            'text-[clamp(10px,min(0.94vw,1.5svh),16px)] font-medium',
             currentStyle.sub
           )}
         >
@@ -99,14 +99,14 @@ export function CategoryCard({
         />
       </div>
 
-      <div className="absolute right-4 bottom-4 z-10">
+      <div className="absolute right-3 bottom-3 z-10">
         <div
           className={cn(
-            'flex h-[clamp(28px,1.67vw,32px)] w-[clamp(28px,1.67vw,32px)] items-center justify-center rounded-full bg-white shadow-sm transition-transform group-hover:scale-110',
+            'flex h-[clamp(22px,min(1.67vw,2.7svh),30px)] w-[clamp(22px,min(1.67vw,2.7svh),30px)] items-center justify-center rounded-full bg-white shadow-sm transition-transform group-hover:scale-110',
             currentStyle.arrow
           )}
         >
-          <ArrowRight className="h-[clamp(14px,0.83vw,16px)] w-[clamp(14px,0.83vw,16px)] stroke-[2.5]" />
+          <ArrowRight className="h-[clamp(10px,min(0.83vw,1.3svh),14px)] w-[clamp(10px,min(0.83vw,1.3svh),14px)] stroke-[2.5]" />
         </div>
       </div>
     </Link>
