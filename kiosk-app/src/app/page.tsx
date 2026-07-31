@@ -11,6 +11,7 @@ import { Button } from '@/components/ui/Button';
 import { Rating } from '@/components/ui/Rating';
 import { CategoryCard } from '@/components/shared/CategoryCard';
 import { Footer } from '@/components/layout/Footer';
+import { HeroBannerCarousel } from '@/components/shared/HeroBannerCarousel';
 
 export default function HomePage() {
   return (
@@ -30,139 +31,8 @@ export default function HomePage() {
           ═══════════════════════════════════════════════════ */}
       <div className="grid grid-cols-12 gap-[var(--main-gap)] overflow-hidden">
         {/* ── Hero Card ── */}
-        <div className="relative col-span-7 flex flex-col justify-between overflow-hidden rounded-[16px] bg-[#E8F4FA] shadow-sm">
-          {/* Ice Background */}
-          <div className="absolute inset-0 z-0">
-            <Image
-              src="/assets/ice_cubes_bg.png"
-              alt="Ice background"
-              fill
-              className="object-cover opacity-35"
-            />
-          </div>
-
-          {/* Fish Image */}
-          <div className="absolute top-[0%] right-[0%] bottom-[0%] z-10 w-[78%]">
-            <Image
-              src="/assets/hero_fish_new.png"
-              alt="Fresh Salmon and Fish"
-              fill
-              className="object-contain object-right drop-shadow-2xl"
-            />
-          </div>
-
-          {/* Text Content */}
-          <div className="relative z-20 flex h-full w-[42%] flex-col justify-center py-[var(--hero-padding-y)] pr-4 pl-[var(--hero-padding-x)]">
-            <div className="max-w-[320px]">
-              <h1 className="mb-[var(--hero-h1-mb)] text-[clamp(26px,2.59vw,50px)] leading-[1.01] font-bold text-[#0D55CF]">
-                Fresh Fish.
-                <br />
-                Healthy Life.
-              </h1>
-              <p className="mb-[var(--hero-p-mb)] max-w-[320px] text-[clamp(12px,1.04vw,20px)] leading-[1.4] font-medium text-[#1E293B]">
-                Handpicked daily for
-                <br />
-                freshness you can trust.
-              </p>
-              <div className="w-max">
-                <Link href="/community">
-                  <Button
-                    size="default"
-                    className="mt-1 h-[var(--hero-btn-h)] gap-2 rounded-[8px] bg-[#0D55CF] px-[clamp(12px,1.04vw,20px)] text-[clamp(11px,0.78vw,14px)] font-bold text-white shadow-sm hover:bg-[#0D55CF]/90"
-                  >
-                    Join Us
-                    <ArrowRight className="h-3.5 w-3.5 stroke-[2.5]" />
-                  </Button>
-                </Link>
-              </div>
-            </div>
-
-            {/* Feature Badges */}
-            <div className="mt-auto flex items-center gap-[clamp(10px,2.08vw,40px)]">
-              {[
-                {
-                  label: '100%\nFresh',
-                  icon: (
-                    <svg
-                      fill="none"
-                      stroke="currentColor"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="1.5"
-                      viewBox="0 0 24 24"
-                      className="h-[clamp(18px,1.46vw,28px)] w-[clamp(18px,1.46vw,28px)]"
-                    >
-                      <path d="M12 2l2.4 2.4L18 4l.6 3.4 3 1.8-1.2 3.2L22 15l-2.4 2.4-.6 3.4-3.4-.6L13.8 22 12 19.6 10.2 22l-1.8-1.8-3.4.6-.6-3.4L2 15l1.6-2.6L2.4 9.2 5.4 7.4 6 4l3.4.6z" />
-                      <circle cx="12" cy="12" r="3" />
-                    </svg>
-                  ),
-                },
-                {
-                  label: 'Hygienic\n& Safe',
-                  icon: (
-                    <svg
-                      fill="none"
-                      stroke="currentColor"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="1.5"
-                      viewBox="0 0 24 24"
-                      className="h-[clamp(18px,1.46vw,28px)] w-[clamp(18px,1.46vw,28px)]"
-                    >
-                      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-                      <path d="M12 8l1.5 3 3 .5-2 2 .5 3-3-1.5-3 1.5.5-3-2-2 3-.5L12 8z" />
-                    </svg>
-                  ),
-                },
-                {
-                  label: 'Daily\nDelivery',
-                  icon: (
-                    <svg
-                      fill="none"
-                      stroke="currentColor"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="1.5"
-                      viewBox="0 0 24 24"
-                      className="h-[clamp(18px,1.46vw,28px)] w-[clamp(18px,1.46vw,28px)]"
-                    >
-                      <rect height="13" width="15" x="1" y="3" />
-                      <polygon points="16 8 20 8 23 11 23 16 16 16" />
-                      <circle cx="5.5" cy="18.5" r="2.5" />
-                      <circle cx="18.5" cy="18.5" r="2.5" />
-                    </svg>
-                  ),
-                },
-                {
-                  label: 'Best\nQuality',
-                  icon: (
-                    <svg
-                      fill="none"
-                      stroke="currentColor"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="1.5"
-                      viewBox="0 0 24 24"
-                      className="h-[clamp(18px,1.46vw,28px)] w-[clamp(18px,1.46vw,28px)]"
-                    >
-                      <circle cx="12" cy="8" r="6" />
-                      <path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11" />
-                      <path d="M12 6l1 2 2 .5-1.5 1.5.5 2-2-1-2 1 .5-2-1.5-1.5 2-.5L12 6z" />
-                    </svg>
-                  ),
-                },
-              ].map((item, idx) => (
-                <div key={idx} className="flex items-center gap-1.5">
-                  <div className="flex items-center justify-center text-[#0D55CF]">
-                    {item.icon}
-                  </div>
-                  <div className="text-[clamp(10px,0.73vw,14px)] leading-[1.2] font-bold whitespace-pre-line text-[#1E293B]">
-                    {item.label}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
+        <div className="relative col-span-7 overflow-hidden rounded-[16px] bg-slate-950 shadow-sm h-full w-full">
+          <HeroBannerCarousel />
         </div>
 
         {/* ── Categories Grid ── */}
