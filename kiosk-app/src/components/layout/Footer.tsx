@@ -2,7 +2,7 @@ import React from 'react';
 
 export function Footer() {
   return (
-    <footer className="grid h-full w-full items-stretch grid-cols-3 lg:grid-cols-5 gap-[var(--footer-gap)]">
+    <footer className="grid h-full w-full items-stretch grid-cols-5 gap-[var(--footer-gap)]">
       {/* ================= CARD 1 ================= */}
 
       <div className="flex items-center gap-[var(--footer-card-gap)] rounded-[clamp(13px,0.78vw,15px)] bg-white p-[var(--footer-card-padding)] shadow-sm">

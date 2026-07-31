@@ -31,8 +31,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} font-sans antialiased`}>
-      <body className="m-0 p-0">
+    <html lang="en" className={`${inter.variable} font-sans antialiased h-full w-full overflow-hidden`}>
+      <body className="m-0 p-0 h-full w-full overflow-hidden">
         <ViewportScaler />
         <AppShell>{children}</AppShell>
       </body>

@@ -77,7 +77,7 @@ export default function HomePage() {
       {/* ═══════════════════════════════════════════════════════════
           ROW 2 — Recipe | Nutrition | Testimonial              25%
           ═══════════════════════════════════════════════════════════ */}
-      <div className="grid grid-cols-1 gap-[var(--row2-gap)] overflow-hidden lg:grid-cols-3 xl:grid-cols-[1.15fr_1.16fr_0.7fr]">
+      <div className="grid grid-cols-3 gap-[var(--row2-gap)] overflow-hidden xl:grid-cols-[1.15fr_1.16fr_0.7fr]">
         {/* ── Recipe ── */}
         <div className="col-span-1 flex flex-col justify-between min-h-0 overflow-hidden rounded-[16px] bg-[#0D55CF] p-[var(--recipe-padding)] shadow-sm">
           <div>
@@ -278,7 +278,7 @@ export default function HomePage() {
       {/* ══════════════════════════════════════════════
           ROW 3 — Promotional Product Banners       16%
           ══════════════════════════════════════════════ */}
-      <div className="grid grid-cols-2 gap-[var(--showcase-gap)] overflow-hidden lg:grid-cols-4">
+      <div className="grid grid-cols-4 gap-[var(--showcase-gap)] overflow-hidden">
         {[
           { title: 'All Fish Items', image: '/assets/fish_showcase.png' },
           { title: 'All Meat Items', image: '/assets/meat_showcase.png' },
@@ -314,7 +314,7 @@ export default function HomePage() {
       {/* ════════════════════════════════════════
           ROW 4 — Information Cards           10%
           ════════════════════════════════════════ */}
-      <div className="grid grid-cols-2 gap-[var(--info-gap)] overflow-hidden lg:grid-cols-4">
+      <div className="grid grid-cols-4 gap-[var(--info-gap)] overflow-hidden">
         <div className="col-span-1 flex items-center justify-between overflow-hidden rounded-[16px] bg-[#E8F3FA] p-[var(--info-padding)] shadow-sm">
           <div className="min-w-0 flex-1 pr-2">
             <h4 className="mb-1 truncate text-[clamp(10px,min(0.94vw,1.5svh),16px)] font-bold text-[#0D55CF]">

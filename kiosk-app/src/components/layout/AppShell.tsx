@@ -7,7 +7,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
      * no dependency on html/body height, no competing utility class cascade.
      * flex-row → Sidebar (fixed width) + content column (flex-1)
      */
-    <div className="text-text-body flex h-dvh w-screen overflow-hidden bg-[#F4F7FB] font-sans">
+    <div className="text-text-body flex h-full w-full overflow-hidden bg-[#F4F7FB] font-sans">
       <Sidebar />
 
       {/* Content column */}
