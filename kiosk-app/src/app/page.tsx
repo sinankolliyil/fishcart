@@ -31,7 +31,7 @@ export default function HomePage() {
           ═══════════════════════════════════════════════════ */}
       <div className="grid grid-cols-12 gap-[var(--main-gap)] overflow-hidden">
         {/* ── Hero Card ── */}
-        <div className="relative col-span-7 overflow-hidden rounded-[16px] bg-slate-950 shadow-sm h-full w-full">
+        <div className="relative col-span-7 h-full w-full overflow-hidden rounded-[16px] bg-slate-950 shadow-sm">
           <HeroBannerCarousel />
         </div>
 
@@ -79,12 +79,12 @@ export default function HomePage() {
           ═══════════════════════════════════════════════════════════ */}
       <div className="grid grid-cols-3 gap-[var(--row2-gap)] overflow-hidden xl:grid-cols-[1.15fr_1.16fr_0.7fr]">
         {/* ── Recipe ── */}
-        <div className="col-span-1 flex flex-col justify-between min-h-0 overflow-hidden rounded-[16px] bg-[#0D55CF] p-[var(--recipe-padding)] shadow-sm">
+        <div className="col-span-1 flex min-h-0 flex-col justify-between overflow-hidden rounded-[16px] bg-[#0D55CF] p-[var(--recipe-padding)] shadow-sm">
           <div>
-            <h3 className="mb-1 text-[clamp(13px,min(1.25vw,2svh),22px)] font-bold text-white">
+            <h3 className="mb-1 text-[clamp(17px,min(1.25vw,2svh),22px)] font-bold text-white">
               How to Make Delicious
             </h3>
-            <p className="text-[clamp(9px,min(0.73vw,1.1svh),13px)] text-white/90">
+            <p className="text-[clamp(15px,min(0.73vw,1.1svh),13px)] text-white/90">
               Step by step cooking videos for every taste
             </p>
           </div>
@@ -154,17 +154,16 @@ export default function HomePage() {
 
         {/* ── Nutrition ── */}
         <div className="relative col-span-1 flex flex-col overflow-hidden rounded-[16px] bg-[#F4F9FF] p-[var(--nutrition-padding)] shadow-sm">
-          <h3 className="mb-[clamp(3px,min(0.42vw,0.6svh),6px)] text-[clamp(13px,min(1.25vw,2svh),22px)] font-bold text-[#0D55CF]">
+          <h3 className="mb-[clamp(3px,min(0.42vw,0.6svh),6px)] text-[clamp(17px,min(1.25vw,2svh),22px)] font-bold text-[#0D55CF]">
             Benefits & Nutrition
           </h3>
-          <p className="relative z-10 mb-[var(--nutrition-desc-mb)] pr-[30%] text-[clamp(8px,min(0.99vw,1.5svh),13px)] leading-[1.4] text-[#1E293B]">
-            Fish, meat, eggs and chicken are rich in
-            <br /> protein, vitamins and minerals for a
-            <br /> stronger,healthier you.
+          <p className="relative z-10 mb-[var(--nutrition-desc-mb)] pr-[30%] text-[clamp(15px,min(0.99vw,1.5svh),13px)] leading-[1.4] text-[#1E293B]">
+            Fish, meat, eggs and chicken are rich in protein, vitamins and
+            minerals for a stronger,healthier you.
           </p>
           <Link
             href="#"
-            className="relative z-10 mb-auto flex items-center gap-1 text-[clamp(10px,min(0.78vw,1.15svh),13px)] font-bold text-[#0D55CF] hover:underline"
+            className="relative z-10 mb-auto flex items-center gap-1 text-[clamp(12px,min(0.78vw,1.15svh),13px)] font-bold text-[#0D55CF] hover:underline"
           >
             Learn More <ArrowRight className="h-3 w-3 stroke-[2.5]" />
           </Link>
@@ -241,9 +240,9 @@ export default function HomePage() {
         </div>
 
         {/* ── Testimonial ── */}
-        <div className="col-span-1 flex flex-col min-h-0 justify-between overflow-hidden rounded-[16px] bg-[#F4F9FF] p-[var(--testimonial-padding)] shadow-sm">
+        <div className="col-span-1 flex min-h-0 flex-col justify-between overflow-hidden rounded-[16px] bg-[#F4F9FF] p-[var(--testimonial-padding)] shadow-sm">
           <div>
-            <h3 className="mb-[clamp(3px,min(0.52vw,0.75svh),6px)] text-[clamp(13px,min(1.25vw,2svh),22px)] font-bold text-[#0D55CF]">
+            <h3 className="mb-[clamp(3px,min(0.52vw,0.75svh),6px)] text-[clamp(17px,min(1.25vw,2svh),22px)] font-bold text-[#0D55CF]">
               What Our Customers Say
             </h3>
             <div className="mb-1 text-[#0D55CF]">
@@ -261,11 +260,11 @@ export default function HomePage() {
               size={14}
               className="mb-2 gap-0.5 text-[#F5A623]"
             />
-            <p className="mb-[clamp(3px,min(0.52vw,0.75svh),6px)] pr-4 text-[clamp(9px,min(0.885vw,1.35svh),15px)] leading-[1.4] font-medium text-[#1E293B]">
+            <p className="mb-[clamp(3px,min(0.52vw,0.75svh),6px)] pr-4 text-[clamp(15px,min(0.885vw,1.35svh),15px)] leading-[1.4] font-medium text-[#1E293B]">
               &quot;Super fresh products and great variety. Fishcart is our
               family&apos;s choice.&quot;
             </p>
-            <p className="text-[9px] font-bold text-[#1E293B]">– Priya S.</p>
+            <p className="text-[14px] font-bold text-[#1E293B]">– Priya S.</p>
           </div>
           <div className="mt-auto flex justify-center gap-2 pb-1">
             <div className="h-[5px] w-[5px] rounded-full bg-[#0D55CF]" />
@@ -299,10 +298,10 @@ export default function HomePage() {
               className="absolute bottom-[var(--showcase-label-bottom)] left-[var(--showcase-label-left)] z-10 rounded-[10px] bg-white px-[var(--showcase-label-px)] py-[var(--showcase-label-py)] shadow-sm"
               style={{ width: 'fit-content' }}
             >
-              <h4 className="text-[clamp(10px,min(0.91vw,1.4svh),15px)] font-bold text-[#1E293B]">
+              <h4 className="text-[clamp(17px,min(0.91vw,1.4svh),15px)] font-bold text-[#1E293B]">
                 {item.title}
               </h4>
-              <p className="mt-0.5 flex items-center gap-1 text-[clamp(8px,min(0.78vw,1.15svh),13px)] font-bold text-[#0D55CF] group-hover:underline">
+              <p className="mt-0.5 flex items-center gap-1 text-[clamp(14px,min(0.78vw,1.15svh),13px)] font-bold text-[#0D55CF] group-hover:underline">
                 Explore Now{' '}
                 <ArrowRight className="h-[clamp(8px,min(0.73vw,1.1svh),12px)] w-[clamp(8px,min(0.73vw,1.1svh),12px)] stroke-[2.5]" />
               </p>
@@ -317,10 +316,10 @@ export default function HomePage() {
       <div className="grid grid-cols-4 gap-[var(--info-gap)] overflow-hidden">
         <div className="col-span-1 flex items-center justify-between overflow-hidden rounded-[16px] bg-[#E8F3FA] p-[var(--info-padding)] shadow-sm">
           <div className="min-w-0 flex-1 pr-2">
-            <h4 className="mb-1 truncate text-[clamp(10px,min(0.94vw,1.5svh),16px)] font-bold text-[#0D55CF]">
+            <h4 className="mb-1 truncate text-[clamp(16px,min(0.94vw,1.5svh),16px)] font-bold text-[#0D55CF]">
               Daily Selection
             </h4>
-            <p className="line-clamp-2 text-[clamp(9px,min(0.83vw,1.3svh),14px)] leading-[1.3] text-[#1E293B]">
+            <p className="line-clamp-2 text-[clamp(14px,min(0.83vw,1.3svh),14px)] leading-[1.3] text-[#1E293B]">
               Handpicked daily from trusted suppliers for the best quality.
             </p>
           </div>
@@ -331,10 +330,10 @@ export default function HomePage() {
 
         <div className="col-span-1 flex items-center justify-between overflow-hidden rounded-[16px] bg-[#A5E3E0] p-[var(--info-padding)] shadow-sm">
           <div className="min-w-0 flex-1 pr-2">
-            <h4 className="mb-1 truncate text-[clamp(10px,min(0.94vw,1.5svh),16px)] font-bold text-[#0D55CF]">
+            <h4 className="mb-1 truncate text-[clamp(16px,min(0.94vw,1.5svh),16px)] font-bold text-[#0D55CF]">
               Hygienic & Safe
             </h4>
-            <p className="line-clamp-2 text-[clamp(9px,min(0.83vw,1.3svh),14px)] leading-[1.3] text-[#1E293B]">
+            <p className="line-clamp-2 text-[clamp(14px,min(0.83vw,1.3svh),14px)] leading-[1.3] text-[#1E293B]">
               Cleaned, packed and delivered with highest hygiene standards.
             </p>
           </div>
@@ -345,10 +344,10 @@ export default function HomePage() {
 
         <div className="col-span-1 flex items-center justify-between overflow-hidden rounded-[16px] bg-[#D4EFA5] p-[var(--info-padding)] shadow-sm">
           <div className="min-w-0 flex-1 pr-2">
-            <h4 className="mb-1 truncate text-[clamp(10px,min(0.94vw,1.5svh),16px)] font-bold text-[#0D55CF]">
+            <h4 className="mb-1 truncate text-[clamp(16px,min(0.94vw,1.5svh),16px)] font-bold text-[#0D55CF]">
               Sourced Responsibly
             </h4>
-            <p className="line-clamp-2 text-[clamp(9px,min(0.83vw,1.3svh),14px)] leading-[1.3] text-[#1E293B]">
+            <p className="line-clamp-2 text-[clamp(14px,min(0.83vw,1.3svh),14px)] leading-[1.3] text-[#1E293B]">
               We care for the ocean and the environment for a better future.
             </p>
           </div>
@@ -359,10 +358,10 @@ export default function HomePage() {
 
         <div className="col-span-1 flex items-center justify-between overflow-hidden rounded-[16px] bg-[#E8F3FA] p-[var(--info-padding)] text-[#1E293B] shadow-sm">
           <div className="flex min-w-0 flex-1 flex-col justify-center">
-            <h4 className="mb-1 truncate text-[clamp(10px,min(0.94vw,1.5svh),16px)] font-bold text-[#0D55CF]">
+            <h4 className="mb-1 truncate text-[clamp(16px,min(0.94vw,1.5svh),16px)] font-bold text-[#0D55CF]">
               Join Our Community
             </h4>
-            <p className="mb-2 line-clamp-2 text-[clamp(9px,min(0.83vw,1.3svh),14px)] leading-[1.3]">
+            <p className="mb-2 line-clamp-2 text-[clamp(14px,min(0.83vw,1.3svh),14px)] leading-[1.3]">
               Be a part of our journey for healthy and delicious living.
             </p>
           </div>

@@ -1,1 +1,6 @@
-export default function Page() { return <div>Placeholder</div>; }
+import { CatalogPage } from "@/components/catalog/CatalogPage";
+import { eggsCatalogData } from "@/data/catalogData";
+
+export default function EggsPage() {
+  return <CatalogPage data={eggsCatalogData} />;
+}

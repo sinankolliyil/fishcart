@@ -121,7 +121,7 @@ export function Sidebar() {
                 'rounded-[clamp(10px,min(1vw,1.5svh),16px)] border',
                 'px-[var(--sidebar-item-px)] py-[var(--sidebar-item-py)]',
                 'font-bold transition-all',
-                'text-[clamp(11px,min(0.82vw,1.2svh),14px)]',
+                'text-[clamp(18px,min(0.82vw,1.2svh),14px)]',
                 isActive
                   ? 'border-[#0D55CF] bg-[#0D55CF] text-white shadow-[0_4px_12px_rgba(13,85,207,0.2)]'
                   : 'border-gray-100 bg-white text-[#1E293B] shadow-[0_2px_8px_rgba(0,0,0,0.02)] hover:-translate-y-0.5 hover:shadow-md'
