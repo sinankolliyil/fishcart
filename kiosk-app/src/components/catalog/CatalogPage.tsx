@@ -170,9 +170,9 @@ export function CatalogPage({ data }: CatalogPageProps) {
       </div>
 
       {/* 3. Main Catalog Section (Filters + Product Grid) */}
-      <div className="grid grid-cols-12 gap-[var(--main-gap)] w-full h-full overflow-hidden items-stretch min-h-0">
-        {/* Left Column: Filter Sidebar */}
-        <div className="col-span-3 h-full overflow-hidden">
+      <div className="grid grid-cols-5 gap-[var(--main-gap)] w-full h-full overflow-hidden items-stretch min-h-0">
+        {/* Left Column: Filter Sidebar — 1/5 width to match first category tab */}
+        <div className="col-span-1 h-full overflow-hidden">
           <FilterSidebar
             filterSections={data.filterSections}
             selectedOptions={tempFilters}
@@ -184,8 +184,8 @@ export function CatalogPage({ data }: CatalogPageProps) {
           />
         </div>
 
-        {/* Right Column: Product List */}
-        <div className="col-span-9 h-full overflow-hidden flex flex-col">
+        {/* Right Column: Product List — 4/5 width */}
+        <div className="col-span-4 h-full overflow-hidden flex flex-col">
           <ProductGrid
             products={processedProducts}
             category={data.category}

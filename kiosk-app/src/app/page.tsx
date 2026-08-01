@@ -159,7 +159,7 @@ export default function HomePage() {
           </h3>
           <p className="relative z-10 mb-[var(--nutrition-desc-mb)] pr-[30%] text-[clamp(15px,min(0.99vw,1.5svh),13px)] leading-[1.4] text-[#1E293B]">
             Fish, meat, eggs and chicken are rich in protein, vitamins and
-            minerals for a stronger,healthier you.
+            minerals for stronger,healthier you.
           </p>
           <Link
             href="#"
@@ -314,8 +314,8 @@ export default function HomePage() {
           ROW 4 — Information Cards           10%
           ════════════════════════════════════════ */}
       <div className="grid grid-cols-4 gap-[var(--info-gap)] overflow-hidden">
-        <div className="col-span-1 flex items-center justify-between overflow-hidden rounded-[16px] bg-[#E8F3FA] p-[var(--info-padding)] shadow-sm">
-          <div className="min-w-0 flex-1 pr-2">
+        <div className="col-span-1 flex items-center justify-center overflow-hidden rounded-[16px] bg-[#E8F3FA] p-[var(--info-padding)] shadow-sm">
+          <div className="min-w-0 flex-1 text-center">
             <h4 className="mb-1 truncate text-[clamp(16px,min(0.94vw,1.5svh),16px)] font-bold text-[#0D55CF]">
               Daily Selection
             </h4>
@@ -328,8 +328,8 @@ export default function HomePage() {
           </div>
         </div>
 
-        <div className="col-span-1 flex items-center justify-between overflow-hidden rounded-[16px] bg-[#A5E3E0] p-[var(--info-padding)] shadow-sm">
-          <div className="min-w-0 flex-1 pr-2">
+        <div className="col-span-1 flex items-center justify-center overflow-hidden rounded-[16px] bg-[#A5E3E0] p-[var(--info-padding)] shadow-sm">
+          <div className="min-w-0 flex-1 text-center">
             <h4 className="mb-1 truncate text-[clamp(16px,min(0.94vw,1.5svh),16px)] font-bold text-[#0D55CF]">
               Hygienic & Safe
             </h4>
@@ -343,7 +343,7 @@ export default function HomePage() {
         </div>
 
         <div className="col-span-1 flex items-center justify-between overflow-hidden rounded-[16px] bg-[#D4EFA5] p-[var(--info-padding)] shadow-sm">
-          <div className="min-w-0 flex-1 pr-2">
+          <div className="min-w-0 flex-1 text-center">
             <h4 className="mb-1 truncate text-[clamp(16px,min(0.94vw,1.5svh),16px)] font-bold text-[#0D55CF]">
               Sourced Responsibly
             </h4>
@@ -356,8 +356,8 @@ export default function HomePage() {
           </div>
         </div>
 
-        <div className="col-span-1 flex items-center justify-between overflow-hidden rounded-[16px] bg-[#E8F3FA] p-[var(--info-padding)] text-[#1E293B] shadow-sm">
-          <div className="flex min-w-0 flex-1 flex-col justify-center">
+        <div className="col-span-1 flex items-center justify-center overflow-hidden rounded-[16px] bg-[#E8F3FA] p-[var(--info-padding)] text-[#1E293B] shadow-sm">
+          <div className="flex min-w-0 flex-1 flex-col justify-center text-center">
             <h4 className="mb-1 truncate text-[clamp(16px,min(0.94vw,1.5svh),16px)] font-bold text-[#0D55CF]">
               Join Our Community
             </h4>

@@ -61,7 +61,7 @@ export function CategoryCard({
       <div className="relative z-10">
         <h3
           className={cn(
-            'mb-0.5 text-[clamp(13px,min(1.25vw,2svh),22px)] leading-tight font-bold',
+            'mb-0.5 text-[clamp(21px,min(1.25vw,2svh),22px)] leading-tight font-bold',
             currentStyle.title
           )}
         >
@@ -69,7 +69,7 @@ export function CategoryCard({
         </h3>
         <p
           className={cn(
-            'text-[clamp(10px,min(0.94vw,1.5svh),16px)] font-medium',
+            'text-[clamp(18px,min(0.94vw,1.5svh),16px)] font-medium',
             currentStyle.sub
           )}
         >
@@ -102,7 +102,7 @@ export function CategoryCard({
       <div className="absolute right-3 bottom-3 z-10">
         <div
           className={cn(
-            'flex h-[clamp(22px,min(1.67vw,2.7svh),30px)] w-[clamp(22px,min(1.67vw,2.7svh),30px)] items-center justify-center rounded-full bg-white shadow-sm transition-transform group-hover:scale-110',
+            'flex h-[clamp(24px,min(1.67vw,2.7svh),30px)] w-[clamp(22px,min(1.67vw,2.7svh),30px)] items-center justify-center rounded-full bg-white shadow-sm transition-transform group-hover:scale-110',
             currentStyle.arrow
           )}
         >

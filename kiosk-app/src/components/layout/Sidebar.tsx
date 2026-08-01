@@ -20,7 +20,7 @@ import {
 import { cn } from '@/lib/utils';
 
 const NAV_ITEMS = [
-  { href: '/', label: 'Home', icon: Home, color: 'text-surface' },
+  { href: '/', label: 'Home', icon: Home, color: 'text-[#0D55CF]' },
   { href: '/fish', label: 'Fish', icon: Fish, color: 'text-[#0D55CF]' },
   { href: '/meat', label: 'Meat', icon: Beef, color: 'text-[#F0314A]' },
   {
@@ -30,14 +30,16 @@ const NAV_ITEMS = [
     color: 'text-[#F59000]',
   },
   { href: '/eggs', label: 'Eggs', icon: Egg, color: 'text-[#F5A623]' },
-  { href: '#', label: 'How to Cook', icon: ChefHat, color: 'text-[#0D55CF]' },
-  { href: '#', label: 'Benefits', icon: HeartPulse, color: 'text-[#0D55CF]' },
+  { href: '/cook', label: 'How to Cook', icon: ChefHat, color: 'text-[#0D55CF]' },
+  { href: '/benefits', label: 'Benefits', icon: HeartPulse, color: 'text-[#0D55CF]' },
   {
     href: '/story',
     label: 'Our Stories',
     icon: BookOpen,
-    color: 'text-[#0D55CF]',
+    color: 'text-[#0D55CF] ',
   },
+  { href: '#', label: 'testimonials', icon: Info, color: 'text-[#0D55CF]' },
+
   { href: '#', label: 'About Us', icon: Info, color: 'text-[#0D55CF]' },
   { href: '#', label: 'Contact Us', icon: Phone, color: 'text-[#0D55CF]' },
 ];
@@ -80,10 +82,10 @@ export function Sidebar() {
             </svg>
           </div>
           <div className="mt-0.5">
-            <h1 className="text-primary leading-none font-black tracking-wide text-[clamp(14px,min(1.2vw,1.75svh),22px)]">
+            <h1 className="text-primary text-[clamp(14px,min(1.2vw,1.75svh),22px)] leading-none font-black tracking-wide">
               FISHCART
             </h1>
-            <p className="text-primary/70 mt-0.5 font-semibold tracking-wide text-[clamp(9px,min(0.65vw,0.95svh),12px)]">
+            <p className="text-primary/70 mt-0.5 text-[clamp(9px,min(0.65vw,0.95svh),12px)] font-semibold tracking-wide">
               Daily Fresh Partner
             </p>
           </div>
@@ -130,7 +132,7 @@ export function Sidebar() {
               <item.icon
                 strokeWidth={isActive ? 2.5 : 2}
                 className={cn(
-                  'shrink-0 h-[var(--sidebar-item-icon-size)] w-[var(--sidebar-item-icon-size)]',
+                  'h-[var(--sidebar-item-icon-size)] w-[var(--sidebar-item-icon-size)] shrink-0',
                   isActive ? 'text-white' : item.color
                 )}
               />
@@ -143,27 +145,25 @@ export function Sidebar() {
       {/* ── Join Community Card ───────────────────────────────────────── */}
       <div className="px-[var(--sidebar-nav-padding-x)] pb-[var(--sidebar-nav-padding-x)]">
         <div className="rounded-[clamp(10px,min(1vw,1.5svh),16px)] bg-[#EAF3FF] p-[var(--sidebar-community-padding)] shadow-sm">
-          <h3 className="text-center font-bold text-[#0D55CF] text-[clamp(11px,min(1.0vw,1.45svh),17px)]">
+          <h3 className="text-center text-[clamp(11px,min(1.0vw,1.45svh),17px)] font-bold text-[#0D55CF]">
             Join Our Community
           </h3>
 
-          <p className="mt-[clamp(2px,min(0.4vw,0.55svh),5px)] text-center leading-[1.4] text-[#475569] text-[clamp(9px,min(0.65vw,0.95svh),12px)]">
-            Be a part of our journey for
-            <br />
-            healthy and delicious living.
+          <p className="mt-[clamp(2px,min(0.4vw,0.55svh),5px)] text-center text-[clamp(9px,min(0.65vw,0.95svh),12px)] leading-[1.4] text-[#475569]">
+            Be a part of our journey.
           </p>
 
           <div className="mt-[clamp(4px,min(0.75vw,1.1svh),10px)] flex justify-center">
             <Image
               src="/assets/whatsapp_qr.png"
               alt="WhatsApp QR"
-              width={80}
-              height={80}
-              className="rounded-lg bg-white p-1 h-[var(--sidebar-community-qr-size)] w-[var(--sidebar-community-qr-size)]"
+              width={100}
+              height={100}
+              className="h-[clamp(70px,5vw,80px)] w-[clamp(70px,5vw,80px)]"
             />
           </div>
 
-          <button className="mt-[clamp(4px,min(0.5vw,0.7svh),7px)] flex h-[var(--sidebar-community-btn-h)] w-full items-center justify-center gap-1.5 rounded-[clamp(6px,min(0.63vw,0.9svh),10px)] bg-[#0D55CF] font-bold text-white text-[clamp(10px,min(0.78vw,1.15svh),14px)]">
+          <button className="mt-[clamp(4px,min(0.5vw,0.7svh),7px)] flex h-[var(--sidebar-community-btn-h)] w-full items-center justify-center gap-1.5 rounded-[clamp(6px,min(0.63vw,0.9svh),10px)] bg-[#0D55CF] text-[clamp(10px,min(0.78vw,1.15svh),14px)] font-bold text-white">
             Join Us
             <ArrowRight className="h-[clamp(10px,min(0.8vw,1.15svh),14px)] w-[clamp(10px,min(0.8vw,1.15svh),14px)]" />
           </button>
