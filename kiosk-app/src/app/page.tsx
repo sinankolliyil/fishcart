@@ -43,7 +43,7 @@ export default function HomePage() {
               subtitle="100+ Items"
               imageSrc="/assets/cat_fish.png"
               variant="fish"
-              href="/category/fish"
+              href="/fish"
               className="h-full"
             />
             <CategoryCard
@@ -51,7 +51,7 @@ export default function HomePage() {
               subtitle="50+ Items"
               imageSrc="/assets/cat_meat.png"
               variant="meat"
-              href="/category/meat"
+              href="/meat"
               className="h-full"
             />
             <CategoryCard
@@ -59,7 +59,7 @@ export default function HomePage() {
               subtitle="30+ Items"
               imageSrc="/assets/cat_chicken.png"
               variant="chicken"
-              href="/category/chicken"
+              href="/chicken"
               className="h-full"
             />
           </div>
@@ -68,7 +68,7 @@ export default function HomePage() {
             subtitle="Farm Fresh"
             imageSrc="/assets/cat_eggs.png"
             variant="eggs"
-            href="/category/eggs"
+            href="/eggs"
             className="h-full"
           />
         </div>
@@ -143,7 +143,7 @@ export default function HomePage() {
 
           <div className="mt-[var(--recipe-btn-mt)] flex h-[var(--recipe-btn-h)] items-center rounded-[8px] bg-white px-[clamp(10px,0.83vw,16px)]">
             <Link
-              href="/recipes"
+              href="/cook"
               className="inline-flex items-center gap-2 text-[clamp(10px,min(0.78vw,1.15svh),13px)] font-bold text-[#0D55CF] hover:underline"
             >
               View All Recipes
@@ -162,7 +162,7 @@ export default function HomePage() {
             minerals for stronger,healthier you.
           </p>
           <Link
-            href="#"
+            href="/benefits"
             className="relative z-10 mb-auto flex items-center gap-1 text-[clamp(12px,min(0.78vw,1.15svh),13px)] font-bold text-[#0D55CF] hover:underline"
           >
             Learn More <ArrowRight className="h-3 w-3 stroke-[2.5]" />
@@ -279,13 +279,14 @@ export default function HomePage() {
           ══════════════════════════════════════════════ */}
       <div className="grid grid-cols-4 gap-[var(--showcase-gap)] overflow-hidden">
         {[
-          { title: 'All Fish Items', image: '/assets/fish_showcase.png' },
-          { title: 'All Meat Items', image: '/assets/meat_showcase.png' },
-          { title: 'Chicken Items', image: '/assets/chicken_showcase.png' },
-          { title: 'Eggs', image: '/assets/eggs_showcase.png' },
+          { title: 'All Fish Items', image: '/assets/fish_showcase.png', href: '/fish' },
+          { title: 'All Meat Items', image: '/assets/meat_showcase.png', href: '/meat' },
+          { title: 'Chicken Items', image: '/assets/chicken_showcase.png', href: '/chicken' },
+          { title: 'Eggs', image: '/assets/eggs_showcase.png', href: '/eggs' },
         ].map((item, idx) => (
-          <div
+          <Link
             key={idx}
+            href={item.href}
             className="group relative col-span-1 cursor-pointer overflow-hidden rounded-[16px] border border-[#E2E8F0] shadow-sm transition-transform hover:-translate-y-0.5"
           >
             <Image
@@ -306,7 +307,7 @@ export default function HomePage() {
                 <ArrowRight className="h-[clamp(8px,min(0.73vw,1.1svh),12px)] w-[clamp(8px,min(0.73vw,1.1svh),12px)] stroke-[2.5]" />
               </p>
             </div>
-          </div>
+          </Link>
         ))}
       </div>
 
