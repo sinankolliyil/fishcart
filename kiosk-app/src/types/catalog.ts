@@ -54,3 +54,22 @@ export interface CatalogPageData {
   products: ProductItem[];
   bottomInfo: BottomInfoItem[];
 }
+
+export interface ProductDetails extends ProductItem {
+  category: "fish" | "meat" | "chicken" | "eggs";
+  description?: string;
+  rating?: number;
+  reviewCount?: number;
+  gallery?: string[];
+  sizes?: { id: string; label: string; subLabel: string }[];
+  cutOptions?: { id: string; label: string }[];
+  serves?: string;
+  catchFrom?: { location: string; points: string[] };
+  bestFor?: { title: string; description: string; imageSrc: string }[];
+  specialty?: string[];
+  famousOn?: string[];
+  nutritionInfo?: { amount: string; unit: string; protein: string; calories: string; omega3: string; fat: string; desc: string };
+  goodFor?: string[];
+  allergyInfo?: { title: string; desc: string; warning: string };
+  howToCook?: { title: string; subtitle: string; time: string; imageSrc: string }[];
+}

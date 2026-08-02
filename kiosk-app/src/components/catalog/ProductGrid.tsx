@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { Grid, List, ChevronDown } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { ProductItem } from '@/types/catalog';
@@ -144,12 +145,12 @@ export function ProductGrid({
             ))}
           </div>
         ) : (
-          /* Reusable List View for Catalog Layout - 2 columns, 4 rows to fit height */
           <div className="grid h-full min-h-0 w-full grid-cols-2 grid-rows-4 gap-[var(--main-gap)] overflow-hidden">
             {displayedProducts.map((product) => (
-              <div
+              <Link
+                href={`/product/${product.id}`}
                 key={product.id}
-                className="flex h-full min-h-0 items-center gap-2.5 overflow-hidden rounded-xl border border-gray-100 bg-white p-1.5 shadow-sm"
+                className="group flex h-full min-h-0 items-center gap-2.5 overflow-hidden rounded-xl border border-gray-100 bg-white p-1.5 shadow-sm hover:shadow-md cursor-pointer transition-all"
               >
                 {/* Image */}
                 <div className="relative aspect-square h-full shrink-0 overflow-hidden rounded-lg bg-slate-50">
@@ -158,13 +159,13 @@ export function ProductGrid({
                     alt={product.title}
                     fill
                     sizes="10vw"
-                    className="object-cover"
+                    className="object-cover transition-transform duration-300 group-hover:scale-105"
                   />
                 </div>
 
                 {/* Title & Origin info */}
                 <div className="flex min-w-0 flex-1 flex-col">
-                  <h4 className="text-text-heading truncate text-[clamp(9px,0.8vw,11.5px)] leading-none font-extrabold">
+                  <h4 className="text-text-heading group-hover:text-primary truncate text-[clamp(9px,0.8vw,11.5px)] leading-none font-extrabold transition-colors">
                     {product.title}
                   </h4>
                   <p className="text-text-muted mt-0.5 truncate text-[clamp(7.5px,0.6vw,9.5px)]">
@@ -196,7 +197,7 @@ export function ProductGrid({
                     className="text-text-heading text-[clamp(9px,0.8vw,12px)] font-black"
                   />
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         )}

@@ -34,7 +34,7 @@ export function ProductCard({ product, category }: ProductCardProps) {
   const currentBadgeBg = badgeBgColors[category] || badgeBgColors.fish;
 
   return (
-    <Card className="group flex h-full min-h-0 w-full flex-col justify-between overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm transition-all duration-200 select-none hover:shadow-md">
+    <Link href={`/product/${product.id}`} className="group flex h-full min-h-0 w-full flex-col justify-between overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm transition-all duration-200 select-none hover:shadow-md cursor-pointer">
       {/* Product Image Container - flex-grow & min-h-0 to stretch/shrink dynamically */}
       <div className="relative flex min-h-0 w-full flex-1 items-center justify-center overflow-hidden bg-[#F8FAFC] p-1">
         <Image
@@ -42,7 +42,7 @@ export function ProductCard({ product, category }: ProductCardProps) {
           alt={product.title}
           fill
           sizes="20vw"
-          className="object-cover transition-transform duration-300 group-hover:scale-103"
+          className="object-cover transition-transform duration-300 group-hover:scale-105"
         />
 
         {/* Favorite Heart Button */}
@@ -101,8 +101,7 @@ export function ProductCard({ product, category }: ProductCardProps) {
             className="text-text-heading text-[clamp(10px,min(0.85vw,1.25svh),13px)] leading-none font-black"
           />
 
-          <Link
-            href={`/product/${product.id}`}
+          <div
             className={cn(
               'inline-flex shrink-0 items-center gap-0.5 text-[clamp(13px,min(0.9vw,1.2svh),14px)] font-extrabold transition-all duration-150',
               currentColorClass
@@ -110,9 +109,9 @@ export function ProductCard({ product, category }: ProductCardProps) {
           >
             <span className="group-hover:underline">Details</span>
             <ArrowRight className="h-3 w-3 stroke-[2.5]" />
-          </Link>
+          </div>
         </div>
       </div>
-    </Card>
+    </Link>
   );
 }
