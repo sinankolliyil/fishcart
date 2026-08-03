@@ -61,7 +61,7 @@ export interface ProductDetails extends ProductItem {
   rating?: number;
   reviewCount?: number;
   gallery?: string[];
-  sizes?: { id: string; label: string; subLabel: string }[];
+  sizes?: { id: string; label: string; subLabel: string; price?: number; stock?: number; availability?: boolean }[];
   cutOptions?: { id: string; label: string }[];
   serves?: string;
   catchFrom?: { location: string; points: string[] };

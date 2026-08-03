@@ -25,6 +25,7 @@ import { Footer } from '@/components/layout/Footer';
 
 export function ProductDetailsLayout({ data }: { data: ProductDetails }) {
   const [activeTab, setActiveTab] = useState('overview');
+  const [selectedSize, setSelectedSize] = useState(data.sizes?.[1] || data.sizes?.[0] || null);
 
   const themeColors = {
     fish: 'text-[#0D55CF] bg-[#0D55CF]',
@@ -83,7 +84,7 @@ export function ProductDetailsLayout({ data }: { data: ProductDetails }) {
                   </Link>
                   <ChevronRight className="h-[clamp(8px,0.7vw,12px)] w-[clamp(8px,0.7vw,12px)]" />
                   <Link
-                    href={`/catalog/${data.category}`}
+                    href={`/${data.category}`}
                     className={cn(
                       'transition-colors hover:underline',
                       themeText
@@ -260,14 +261,14 @@ export function ProductDetailsLayout({ data }: { data: ProductDetails }) {
                       themeText
                     )}
                   >
-                    £{data.price.toFixed(2)}
+                    £{(selectedSize?.price ?? data.price).toFixed(2)}
                   </span>
                   <span className="text-[13px] font-bold text-slate-500 lg:text-[14px] xl:text-[clamp(10px,0.8vw,14px)]">
-                    / {data.unit}
+                    / {data.unit} {selectedSize?.subLabel ? ` ${selectedSize.subLabel}` : ''}
                   </span>
                 </div>
                 <Link
-                  href={`/catalog/${data.category}`}
+                  href={`/${data.category}`}
                   className={cn(
                     'flex items-center gap-1 rounded-full border border-slate-200 bg-white px-[clamp(6px,0.8vw,10px)] py-[clamp(2px,0.3vw,4px)] text-[11px] font-bold shadow-sm transition-colors hover:bg-slate-50 lg:text-[12px] xl:text-[clamp(9px,0.7vw,11px)]',
                     themeText
@@ -284,24 +285,28 @@ export function ProductDetailsLayout({ data }: { data: ProductDetails }) {
                   Select Size
                 </h3>
                 <div className="grid grid-cols-4 gap-1 xl:gap-[clamp(3px,0.4vw,6px)]">
-                  {data.sizes?.map((size, i) => (
-                    <button
-                      key={size.id}
-                      className={cn(
-                        'flex flex-col items-center justify-center rounded-[6px] border p-0.5 transition-colors',
-                        i === 1
-                          ? 'border-blue-600 bg-blue-50 text-blue-700'
-                          : 'border-slate-200 text-slate-600 hover:border-blue-300'
-                      )}
-                    >
-                      <span className="line-clamp-1 text-[13px] lg:text-[14px] xl:text-[12px]">
-                        {size.label}
-                      </span>
-                      <span className="line-clamp-1 text-[11px] lg:text-[12px] xl:text-[10px]">
-                        {size.subLabel}
-                      </span>
-                    </button>
-                  ))}
+                  {data.sizes?.map((size, i) => {
+                    const isActive = selectedSize?.id === size.id;
+                    return (
+                      <button
+                        key={size.id}
+                        onClick={() => setSelectedSize(size)}
+                        className={cn(
+                          'flex flex-col items-center justify-center rounded-[6px] border p-0.5 transition-colors',
+                          isActive
+                            ? 'border-blue-600 bg-blue-50 text-blue-700 font-bold'
+                            : 'border-slate-200 text-slate-600 hover:border-blue-300'
+                        )}
+                      >
+                        <span className="line-clamp-1 text-[13px] lg:text-[14px] xl:text-[12px]">
+                          {size.label}
+                        </span>
+                        <span className="line-clamp-1 text-[11px] lg:text-[12px] xl:text-[10px]">
+                          {size.subLabel}
+                        </span>
+                      </button>
+                    );
+                  })}
                 </div>
               </div>
             </div>
@@ -388,10 +393,13 @@ export function ProductDetailsLayout({ data }: { data: ProductDetails }) {
                   Our team is here to help.
                 </p>
               </div>
-              <button className="flex shrink-0 items-center gap-1 rounded-[6px] bg-white px-[clamp(6px,0.8vw,10px)] py-[clamp(3px,0.4vw,6px)] text-[11px] font-bold text-blue-700 shadow-sm hover:bg-slate-50 lg:text-[12px] xl:text-[clamp(8px,0.6vw,10px)]">
+              <Link
+                href="/contact"
+                className="flex shrink-0 items-center gap-1 rounded-[6px] bg-white px-[clamp(6px,0.8vw,10px)] py-[clamp(3px,0.4vw,6px)] text-[11px] font-bold text-blue-700 shadow-sm hover:bg-slate-50 lg:text-[12px] xl:text-[clamp(8px,0.6vw,10px)]"
+              >
                 Contact{' '}
                 <ArrowRight className="h-[clamp(8px,0.7vw,10px)] w-[clamp(8px,0.7vw,10px)]" />
-              </button>
+              </Link>
             </div>
           </div>
         </div>

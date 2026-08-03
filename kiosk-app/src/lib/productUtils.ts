@@ -4,7 +4,7 @@ import { ProductDetails } from '@/types/catalog';
 const catalogs = [fishCatalogData, meatCatalogData, chickenCatalogData, eggsCatalogData];
 
 // Mock generic details to append to any product for the UI
-const getMockDetails = (productTitle: string, category: "fish" | "meat" | "chicken" | "eggs"): Partial<ProductDetails> => {
+const getMockDetails = (productTitle: string, category: "fish" | "meat" | "chicken" | "eggs", basePrice: number): Partial<ProductDetails> => {
   return {
     description: `Rich in Omega-3 and loaded with nutrients, ${productTitle.toLowerCase()} is known for its incredible taste and health benefits.`,
     rating: 4.8,
@@ -18,10 +18,10 @@ const getMockDetails = (productTitle: string, category: "fish" | "meat" | "chick
       "/assets/prod_6_tilapia.jpg"
     ],
     sizes: [
-      { id: 'small', label: 'Small', subLabel: '(500g - 1kg)' },
-      { id: 'medium', label: 'Medium', subLabel: '(1kg - 2kg)' },
-      { id: 'large', label: 'Large', subLabel: '(2kg - 3kg)' },
-      { id: 'xl', label: 'Extra Large', subLabel: '(3kg+)' }
+      { id: 'small', label: 'Small', subLabel: '(500g - 1kg)', price: Number((basePrice * 0.75).toFixed(2)), stock: 12, availability: true },
+      { id: 'medium', label: 'Medium', subLabel: '(1kg - 2kg)', price: basePrice, stock: 8, availability: true },
+      { id: 'large', label: 'Large', subLabel: '(2kg - 3kg)', price: Number((basePrice * 1.35).toFixed(2)), stock: 5, availability: true },
+      { id: 'xl', label: 'Extra Large', subLabel: '(3kg+)', price: Number((basePrice * 1.75).toFixed(2)), stock: 0, availability: false }
     ],
     cutOptions: [
       { id: 'fillet', label: 'Fillet' },
@@ -83,7 +83,7 @@ export const getProductById = (id: string): ProductDetails | null => {
       return {
         ...product,
         category: catalog.category,
-        ...getMockDetails(product.title, catalog.category)
+        ...getMockDetails(product.title, catalog.category, product.price)
       } as ProductDetails;
     }
   }
