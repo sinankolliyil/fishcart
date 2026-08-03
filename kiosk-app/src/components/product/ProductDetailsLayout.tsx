@@ -104,17 +104,17 @@ export function ProductDetailsLayout({ data }: { data: ProductDetails }) {
                   Premium Choice
                 </Badge>
                 <div className="flex items-center gap-1.5">
-                  <h1 className="truncate text-[clamp(16px,1.8vw,28px)] leading-none font-black text-slate-800">
+                  <h1 className="truncate text-[clamp(20px,1.8vw,28px)] leading-none font-black text-slate-800">
                     {data.title}
                   </h1>
                   <button className="flex h-[clamp(20px,1.5vw,28px)] w-[clamp(20px,1.5vw,28px)] shrink-0 items-center justify-center rounded-full border border-slate-200 text-slate-400 transition-colors hover:border-red-200 hover:text-red-500">
                     <Heart className="h-[clamp(10px,0.8vw,14px)] w-[clamp(10px,0.8vw,14px)]" />
                   </button>
                 </div>
-                <p className="mt-[clamp(2px,0.4vw,8px)] line-clamp-3 text-[clamp(9px,0.7vw,12px)] leading-[1.3] font-medium text-slate-500">
+                <p className="mt-[clamp(2px,0.4vw,8px)] line-clamp-3 text-[clamp(15px,0.7vw,12px)] leading-[1.3] font-medium text-slate-500">
                   {data.description}
                 </p>
-                <div className="mt-[clamp(4px,0.5vw,10px)] flex items-center gap-1">
+                <div className="mt-[clamp(6px,0.5vw,10px)] flex items-center gap-1">
                   <div className="flex text-yellow-400">
                     {[1, 2, 3, 4, 5].map((i) => (
                       <Star
@@ -123,10 +123,10 @@ export function ProductDetailsLayout({ data }: { data: ProductDetails }) {
                       />
                     ))}
                   </div>
-                  <span className="ml-0.5 text-[clamp(9px,0.7vw,11px)] font-bold text-slate-800">
+                  <span className="ml-0.5 text-[clamp(10px,0.7vw,11px)] font-bold text-slate-800">
                     {data.rating}
                   </span>
-                  <span className="text-[clamp(8px,0.6vw,10px)] text-slate-500">
+                  <span className="text-[clamp(10px,0.6vw,10px)] text-slate-500">
                     ({data.reviewCount} Reviews)
                   </span>
                 </div>

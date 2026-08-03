@@ -38,7 +38,7 @@ const NAV_ITEMS = [
     icon: BookOpen,
     color: 'text-[#0D55CF] ',
   },
-  { href: '#', label: 'testimonials', icon: Info, color: 'text-[#0D55CF]' },
+  { href: '#', label: 'Testimonials', icon: Info, color: 'text-[#0D55CF]' },
 
   { href: '#', label: 'About Us', icon: Info, color: 'text-[#0D55CF]' },
   { href: '#', label: 'Contact Us', icon: Phone, color: 'text-[#0D55CF]' },
