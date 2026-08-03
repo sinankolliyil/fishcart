@@ -38,10 +38,9 @@ const NAV_ITEMS = [
     icon: BookOpen,
     color: 'text-[#0D55CF] ',
   },
-  { href: '#', label: 'Testimonials', icon: Info, color: 'text-[#0D55CF]' },
-
-  { href: '#', label: 'About Us', icon: Info, color: 'text-[#0D55CF]' },
-  { href: '#', label: 'Contact Us', icon: Phone, color: 'text-[#0D55CF]' },
+  { href: '/testimonials', label: 'Testimonials', icon: Info, color: 'text-[#0D55CF]' },
+  { href: '/about', label: 'About Us', icon: Info, color: 'text-[#0D55CF]' },
+  { href: '/contact', label: 'Contact Us', icon: Phone, color: 'text-[#0D55CF]' },
 ];
 
 export function Sidebar() {

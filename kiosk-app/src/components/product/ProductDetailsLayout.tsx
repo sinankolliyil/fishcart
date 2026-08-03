@@ -683,7 +683,7 @@ export function ProductDetailsLayout({ data }: { data: ProductDetails }) {
                     How to Cook
                   </h4>
                   <Link
-                    href="#"
+                    href="/cook"
                     className={cn(
                       'text-[11px] font-bold hover:underline lg:text-[12px] xl:text-[clamp(10px,0.6vw,10px)]',
                       themeText
