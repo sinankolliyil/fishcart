@@ -68,7 +68,7 @@ export interface ProductDetails extends ProductItem {
   bestFor?: { title: string; description: string; imageSrc: string }[];
   specialty?: string[];
   famousOn?: string[];
-  nutritionInfo?: { amount: string; unit: string; protein: string; calories: string; omega3: string; fat: string; desc: string };
+  nutritionInfo?: { amount: string; unit: string; protein: string; calories: string; omega3: string; fat: string };
   goodFor?: string[];
   allergyInfo?: { title: string; desc: string; warning: string };
   howToCook?: { title: string; subtitle: string; time: string; imageSrc: string }[];

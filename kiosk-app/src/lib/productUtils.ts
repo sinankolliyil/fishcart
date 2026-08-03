@@ -57,8 +57,7 @@ const getMockDetails = (productTitle: string, category: "fish" | "meat" | "chick
       protein: '20.4g',
       calories: '208 kcal',
       omega3: '2.3g',
-      fat: '13.4g',
-      desc: 'High in protein and essential nutrients for a healthy body.'
+      fat: '13.4g'
     },
     goodFor: [
       'Heart Health',

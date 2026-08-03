@@ -1,1 +1,384 @@
-export default function Page() { return <div>Placeholder</div>; }
+import React from 'react';
+import Image from 'next/image';
+import Link from 'next/link';
+import {
+  ChevronRight,
+  CheckCircle2,
+  ShieldCheck,
+  Truck,
+  Package,
+  Heart,
+  Award,
+  ArrowRight,
+} from 'lucide-react';
+
+export default function StoryPage() {
+  return (
+    <div className="grid h-full w-full grid-rows-[minmax(0,28fr)_minmax(0,25fr)_minmax(0,12fr)_minmax(0,25fr)_minmax(0,10fr)] gap-[var(--main-gap)] overflow-hidden">
+      {/* ROW 1 — Story Introduction (28%) */}
+      <div className="grid min-h-0 grid-cols-[38fr_28fr_34fr] gap-[var(--main-gap)] overflow-hidden">
+        {/* Left Side: Intro */}
+        <div className="flex min-h-0 flex-col justify-start pt-[clamp(8px,1vw,16px)] pl-[clamp(8px,1vw,16px)]">
+          <nav className="mb-[clamp(8px,1vw,20px)] flex shrink-0 items-center gap-2 text-[clamp(9px,0.8vw,12px)] font-bold">
+            <Link href="/" className="text-blue-600 hover:underline">
+              Home
+            </Link>
+            <ChevronRight className="h-[clamp(10px,1vw,14px)] w-[clamp(10px,1vw,14px)] text-slate-400" />
+            <span className="text-slate-500">Our Stories</span>
+          </nav>
+
+          <h1 className="mb-[clamp(4px,0.6vw,12px)] shrink-0 text-[clamp(24px,3vw,48px)] leading-none font-black text-slate-900">
+            Our Story
+          </h1>
+
+          <p className="line-clamp-3 text-[clamp(10px,0.9vw,14px)] leading-relaxed text-slate-600">
+            From a small online initiative to your trusted fresh partner. Our
+            journey is built on hard work, honesty, and the love of our
+            customers.
+          </p>
+        </div>
+
+        {/* Center: Hero Image */}
+        <div className="relative min-h-0 overflow-hidden rounded-[16px] bg-slate-100 shadow-sm">
+          <Image
+            src="/assets/story_hero.png"
+            alt="FishCart Family"
+            fill
+            className="object-cover"
+          />
+        </div>
+
+        {/* Right: Stats 2x2 */}
+        <div className="grid min-h-0 grid-cols-2 grid-rows-2 gap-[var(--main-gap)]">
+          <div className="flex h-full flex-col rounded-[12px] border border-blue-50 bg-white p-[clamp(10px,1vw,16px)] shadow-sm">
+            <div className="flex items-center gap-[clamp(8px,0.8vw,12px)]">
+              <Award className="h-[clamp(20px,1.6vw,28px)] w-[clamp(20px,1.6vw,28px)] shrink-0 text-blue-600" />
+
+              <div className="text-[clamp(15px,1.5vw,24px)] leading-none font-black text-slate-900">
+                1+
+              </div>
+            </div>
+
+            <div className="mt-[clamp(8px,0.8vw,10px)] text-[clamp(10px,0.85vw,13px)] leading-tight font-bold text-slate-800">
+              Years of Trust
+            </div>
+
+            <div className="mt-[clamp(3px,0.4vw,6px)] text-[clamp(8px,0.7vw,10px)] leading-snug text-slate-500">
+              Serving you with freshness & care.
+            </div>
+          </div>
+
+          <div className="flex h-full flex-col rounded-[12px] border border-blue-50 bg-white p-[clamp(10px,1vw,16px)] shadow-sm">
+            <div className="flex items-center gap-[clamp(8px,0.8vw,12px)]">
+              <Heart className="h-[clamp(20px,1.6vw,28px)] w-[clamp(20px,1.6vw,28px)] shrink-0 text-blue-600" />
+
+              <div className="text-[clamp(15px,1.5vw,24px)] leading-none font-black text-slate-900">
+                10,000+
+              </div>
+            </div>
+
+            <div className="mt-[clamp(8px,0.8vw,10px)] text-[clamp(10px,0.85vw,13px)] leading-tight font-bold text-slate-800">
+              Happy Customers
+            </div>
+
+            <div className="mt-[clamp(3px,0.4vw,6px)] text-[clamp(8px,0.7vw,10px)] leading-snug text-slate-500">
+              Your support is our strength.
+            </div>
+          </div>
+
+          <div className="flex h-full flex-col rounded-[12px] border border-blue-50 bg-white p-[clamp(10px,1vw,16px)] shadow-sm">
+            <div className="flex items-center gap-[clamp(8px,0.8vw,12px)]">
+              <Truck className="h-[clamp(20px,1.6vw,28px)] w-[clamp(20px,1.6vw,28px)] shrink-0 text-blue-600" />
+
+              <div className="text-[clamp(15px,1.5vw,24px)] leading-none font-black text-slate-900">
+                15,000+
+              </div>
+            </div>
+
+            <div className="mt-[clamp(8px,0.8vw,10px)] text-[clamp(10px,0.85vw,13px)] leading-tight font-bold text-slate-800">
+              Orders Delivered
+            </div>
+
+            <div className="mt-[clamp(3px,0.4vw,6px)] text-[clamp(8px,0.7vw,10px)] leading-snug text-slate-500">
+              Pre-orders delivered with smile
+            </div>
+          </div>
+
+          <div className="flex h-full flex-col rounded-[12px] border border-blue-50 bg-white p-[clamp(10px,1vw,16px)] shadow-sm">
+            <div className="flex items-center gap-[clamp(8px,0.8vw,12px)]">
+              <ShieldCheck className="h-[clamp(20px,1.6vw,28px)] w-[clamp(20px,1.6vw,28px)] shrink-0 text-blue-600" />
+
+              <div className="text-[clamp(15px,1.5vw,24px)] leading-none font-black text-slate-900">
+                100%
+              </div>
+            </div>
+
+            <div className="mt-[clamp(8px,0.8vw,10px)] text-[clamp(10px,0.85vw,13px)] leading-tight font-bold text-slate-800">
+              Quality Promise
+            </div>
+
+            <div className="mt-[clamp(3px,0.4vw,6px)] text-[clamp(8px,0.7vw,10px)] leading-snug text-slate-500">
+              Freshness & hygiene guaranteed
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* ROW 2 — Journey (25%) */}
+      <div className="grid min-h-0 grid-cols-2 gap-[var(--main-gap)] overflow-hidden">
+        {/* Left Card */}
+        <div className="flex h-full min-h-0 items-center justify-between overflow-hidden rounded-[16px] bg-white p-[clamp(12px,1.5vw,24px)] shadow-sm">
+          <div className="flex min-h-0 flex-1 flex-col justify-center pr-[clamp(12px,1.5vw,24px)]">
+            <h2 className="mb-[clamp(4px,0.8vw,12px)] text-[clamp(14px,1.5vw,22px)] leading-tight font-bold text-[#0D55CF]">
+              How It All Started
+            </h2>
+            <p className="mb-[clamp(4px,0.8vw,12px)] line-clamp-1 text-[clamp(9px,0.8vw,12px)] text-slate-600">
+              One year ago, we started our journey with a simple idea – to 
+              
+              deliver fresh fish and meat to our community. We began with online
+              pre-orders and doorstep delivery.
+            </p>
+            <div className="flex min-h-0 flex-col gap-[clamp(2px,0.4vw,6px)]">
+              {[
+                'Took pre-orders through WhatsApp & calls',
+                'Carefully sourced and packed every order',
+                'Delivered to your doorstep with on-time promise',
+              ].map((text, i) => (
+                <div
+                  key={i}
+                  className="flex items-center gap-[clamp(4px,0.6vw,8px)]"
+                >
+                  <CheckCircle2 className="h-[clamp(10px,1vw,14px)] w-[clamp(10px,1vw,14px)] shrink-0 text-blue-600" />
+                  <span className="truncate text-[clamp(9px,0.7vw,11px)] font-medium text-slate-700">
+                    {text}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div className="relative h-[90%] min-h-0 w-[35%] shrink-0">
+            <Image
+              src="/assets/story_journey.png"
+              alt="Journey"
+              fill
+              className="object-contain"
+            />
+          </div>
+        </div>
+
+        {/* Right Card */}
+        <div className="flex h-full min-h-0 items-center justify-between overflow-hidden rounded-[16px] bg-white p-[clamp(12px,1.5vw,24px)] shadow-sm">
+          <div className="flex min-h-0 flex-1 flex-col justify-center pr-[clamp(12px,1.5vw,24px)]">
+            <h2 className="mb-[clamp(4px,0.8vw,12px)] text-[clamp(14px,1.5vw,22px)] leading-tight font-bold text-[#0D55CF]">
+              Growing With You
+            </h2>
+            <p className="mb-[clamp(4px,0.8vw,12px)] line-clamp-1 text-[clamp(9px,0.8vw,12px)] text-slate-600">
+              Your trust and support motivated us to take the next big step –
+              our own shop!
+            </p>
+            <div className="flex min-h-0 flex-col gap-[clamp(2px,0.4vw,6px)]">
+              {[
+                'Better variety, better quality',
+                'More control on freshness',
+                'Stronger supply network',
+              ].map((text, i) => (
+                <div
+                  key={i}
+                  className="flex items-center gap-[clamp(4px,0.6vw,8px)]"
+                >
+                  <CheckCircle2 className="h-[clamp(10px,1vw,14px)] w-[clamp(10px,1vw,14px)] shrink-0 text-blue-600" />
+                  <span className="truncate text-[clamp(9px,0.7vw,11px)] font-medium text-slate-700">
+                    {text}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div className="relative h-[100%] min-h-0 w-[40%] shrink-0 py-2">
+            <Image
+              src="/assets/story_store.png"
+              alt="Storefront"
+              fill
+              className="rounded-[8px] object-cover"
+            />
+          </div>
+        </div>
+      </div>
+
+      {/* ROW 3 — Promise Strip (12%) */}
+      <div className="flex min-h-0 items-center overflow-hidden rounded-[16px] bg-white shadow-sm">
+        <div className="flex flex-1 items-center justify-between px-[clamp(12px,1.5vw,24px)] py-[clamp(6px,1vw,16px)]">
+          <div className="w-[15%] shrink-0">
+            <h2 className="text-[clamp(15px,1.2vw,20px)] leading-tight font-bold text-[#0D55CF]">
+              Our Promise
+              <br />
+              To You
+            </h2>
+            <p className="mt-1 line-clamp-2 text-[clamp(11px,0.6vw,9px)] text-slate-500">
+              We promise to deliver the freshest.
+            </p>
+          </div>
+
+          <div className="flex min-h-0 flex-1 justify-around gap-1 px-1">
+            {[
+              { icon: ShieldCheck, text: 'Never compromise on quality' },
+              { icon: ShieldCheck, text: 'Hygienically cleaned & packed' },
+              { icon: Truck, text: 'Sourced from trusted suppliers' },
+              { icon: Package, text: 'Delivered with care & on time' },
+              { icon: Heart, text: '100% satisfaction or we make it right' },
+              { icon: ShieldCheck, text: 'Sustainable Sourcing' },
+            ].map((item, i) => (
+              <div
+                key={i}
+                className="flex min-w-0 items-center gap-[clamp(4px,0.4vw,8px)]"
+              >
+                <item.icon className="h-[clamp(14px,1.2vw,20px)] w-[clamp(14px,1.2vw,20px)] shrink-0 text-blue-600" />
+
+                <span className="text-[clamp(12px,0.65vw,10px)] leading-tight font-semibold text-slate-700">
+                  {item.text}
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div className="relative h-full w-[17%] shrink-0">
+          <Image
+            src="/assets/story_seafood.png"
+            alt="Premium Seafood"
+            fill
+            className="object-cover"
+          />
+        </div>
+      </div>
+
+      {/* ROW 4 — From Ocean To Your Shop (25%) */}
+      <div className="flex min-h-0 flex-col overflow-hidden rounded-[16px] bg-white p-[clamp(12px,1.5vw,24px)] pt-[clamp(3px,0.6vw,6px)] pb-[clamp(12px,1.5vw,24px)] shadow-sm">
+        <h2 className="mb-[2px] shrink-0 text-[clamp(14px,1.2vw,20px)] font-bold text-[#0D55CF]">
+          From Ocean To Our Shop – Here's How It Happens
+        </h2>
+
+
+        <div className="flex min-h-0 flex-1 justify-between gap-[clamp(2px,0.4vw,6px)]">
+          {[
+            {
+              img: 'prod_1_salmon.jpg',
+              title: 'Daily Catch',
+              desc: 'Fresh fish is caught daily by our trusted fishermen.',
+            },
+            {
+              img: 'prod_2_seabass.jpg',
+              title: 'Sorting & Cleaning',
+              desc: 'Fish are sorted, cleaned and checked.',
+            },
+            {
+              img: 'crushed_ice_bg.png',
+              title: 'Ice Packing',
+              desc: 'Packed with premium ice to lock freshness.',
+            },
+            {
+              img: 'fish_showcase.png',
+              title: 'Air Freight',
+              desc: 'Transported quickly to the airport and sent.',
+            },
+            {
+              img: 'ice_cubes_bg.png',
+              title: 'Import & Inspection',
+              desc: 'Strict quality checks and clearance.',
+            },
+            {
+              img: 'meat_showcase.png',
+              title: 'Cold Storage & Transport',
+              desc: 'Stored in controlled temperature and transported.',
+            },
+            {
+              img: 'chicken_showcase.png',
+              title: 'Final Check at Our Shop',
+              desc: 'Final quality check before it reaches you.',
+            },
+            {
+              img: 'contact_boy.png',
+              title: 'Delivered to You',
+              desc: 'Delivered to your door with freshness intact.',
+            },
+          ].map((step, i, arr) => (
+            <React.Fragment key={i}>
+              <div className="flex h-full min-w-0 flex-1 flex-col">
+                <div className="relative mb-[clamp(2px,0.3vw,4px)] aspect-[2/1] w-full shrink-0 overflow-hidden rounded-[8px] bg-slate-200">
+                  <div className="absolute top-1 left-1 z-10 flex h-[clamp(12px,1vw,18px)] w-[clamp(12px,1vw,18px)] items-center justify-center rounded-full bg-blue-600 text-[clamp(8px,0.6vw,10px)] font-bold text-white shadow-sm">
+                    {i + 1}
+                  </div>
+                  <Image
+                    src={`/assets/${step.img}`}
+                    alt={step.title}
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+                <h4 className="mb-[1px] truncate text-[clamp(9px,0.7vw,11px)] font-bold text-slate-800">
+                  {step.title}
+                </h4>
+                <p className="line-clamp-2 text-[clamp(8px,0.6vw,9px)] leading-tight text-slate-500">
+                  {step.desc}
+                </p>
+              </div>
+              {i < arr.length - 1 && (
+                <div className="flex shrink-0 flex-col justify-start pt-[clamp(6px,1vw,16px)]">
+                  <ArrowRight className="h-[clamp(10px,1vw,14px)] w-[clamp(10px,1vw,14px)] text-blue-500" />
+                </div>
+              )}
+            </React.Fragment>
+          ))}
+        </div>
+      </div>
+
+      {/* ROW 5 — Thank You Footer (10%) */}
+      <div className="grid min-h-0 grid-cols-2 gap-[var(--main-gap)] overflow-hidden">
+        {/* Left Footer Card */}
+        <div className="flex h-full min-h-0 items-center justify-between overflow-hidden rounded-[16px] bg-white p-[clamp(8px,1vw,16px)] shadow-sm">
+          <div className="flex min-h-0 flex-1 items-center gap-[clamp(8px,1vw,16px)] pr-2">
+            <Heart className="h-[clamp(24px,2.5vw,40px)] w-[clamp(24px,2.5vw,40px)] shrink-0 text-red-500" />
+            <div className="flex min-h-0 flex-col">
+              <h2 className="mb-1 text-[clamp(14px,1.5vw,20px)] font-black text-[#0D55CF]">
+                Thank You!
+              </h2>
+              <p className="line-clamp-2 text-[clamp(9px,0.8vw,11px)] leading-tight font-medium text-slate-600">
+                Every order, every feedback, and every smile pushes us to do
+                better every day.
+              </p>
+            </div>
+          </div>
+          <div className="relative h-[100%] min-h-0 w-[35%] shrink-0">
+            <Image
+              src="/assets/story_family_footer.png"
+              alt="Family"
+              fill
+              className="object-contain object-right"
+            />
+          </div>
+        </div>
+
+        {/* Right Footer Card */}
+        <div className="flex h-full min-h-0 items-center justify-between overflow-hidden rounded-[16px] bg-white p-[clamp(8px,1vw,16px)] shadow-sm">
+          <div className="flex min-h-0 flex-1 items-center pl-2">
+            <p className="text-[clamp(11px,1.2vw,16px)] leading-tight font-bold text-slate-600 italic">
+              <span className="text-[clamp(20px,2.5vw,32px)] leading-none text-blue-200">
+                "
+              </span>{' '}
+              We don't just sell fish & meat,
+              <br />
+              we deliver trust, health and happiness.
+            </p>
+          </div>
+          <div className="relative h-[90%] min-h-0 w-[30%] shrink-0">
+            <Image
+              src="/assets/our_stories_boat.png"
+              alt="Boat Illustration"
+              fill
+              className="object-contain object-right"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}

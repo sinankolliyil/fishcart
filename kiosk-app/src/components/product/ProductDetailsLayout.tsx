@@ -611,9 +611,6 @@ export function ProductDetailsLayout({ data }: { data: ProductDetails }) {
                       </span>
                     </div>
                   </div>
-                  <p className="line-clamp-2 text-[clamp(12px,0.5vw,9px)] leading-tight text-slate-500">
-                    {data.nutritionInfo?.desc}
-                  </p>
                 </div>
               </div>
 
@@ -776,9 +773,6 @@ export function ProductDetailsLayout({ data }: { data: ProductDetails }) {
                       </span>
                     </div>
                   </div>
-                  <p className="mt-1 text-[clamp(16px,0.7vw,12px)] leading-relaxed text-slate-600">
-                    {data.nutritionInfo?.desc}
-                  </p>
                 </div>
               </div>
 
