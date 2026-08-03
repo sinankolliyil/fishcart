@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import Image from 'next/image';
@@ -60,11 +60,14 @@ export function HeroBannerCarousel() {
     setActiveSlide((prev) => prev - 1);
   }, [isTransitioning]);
 
-  const handleDotClick = useCallback((index: number) => {
-    if (isTransitioning) return;
-    setIsTransitioning(true);
-    setActiveSlide(index + 1);
-  }, [isTransitioning]);
+  const handleDotClick = useCallback(
+    (index: number) => {
+      if (isTransitioning) return;
+      setIsTransitioning(true);
+      setActiveSlide(index + 1);
+    },
+    [isTransitioning]
+  );
 
   const handleTransitionEnd = (e: React.TransitionEvent) => {
     // Only proceed if the transform transition finished
@@ -338,17 +341,20 @@ export function HeroBannerCarousel() {
               />
             </div>
 
-            {/* Dark left-side gradient overlay for maximum text readability */}
-            <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-2/3 bg-gradient-to-r from-black/90 via-black/50 to-transparent" />
-
             {/* Text Overlay */}
-            <div className="pointer-events-none relative z-20 flex h-full w-1/2 flex-col justify-center pt-8 pb-[var(--hero-padding-y)] pl-[var(--hero-padding-x)] text-white">
-              <h2 className="text-[clamp(30px,3.5vw,44px)] leading-[1.08] font-extrabold tracking-tight text-white drop-shadow-md">
-                {slide.title}
-              </h2>
-              <p className="mt-2 max-w-[340px] text-[clamp(18px,0.9vw,18px)] leading-[1.4] font-medium text-slate-200 drop-shadow-sm">
-                {slide.description}
-              </p>
+           
+            <div className="pointer-events-none absolute inset-0 z-20">
+              <div className="flex h-full items-center">
+                <div className="ml-[14%] max-w-[520px] text-white">
+                  <h2 className="!text-white text-[clamp(30px,3.5vw,44px)] leading-[1.08] font-extrabold tracking-tight drop-shadow-md">
+                    {slide.title}
+                  </h2>
+
+                  <p className="mt-3 text-[18px] leading-[1.4] font-medium text-slate-200 drop-shadow-sm">
+                    {slide.description}
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
         ))}
