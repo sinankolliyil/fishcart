@@ -115,7 +115,7 @@
   /* ─── Row 4 — Info Cards ──────────────────────────────────────────────── */
   --info-gap:      clamp(4px,  min(0.83vw, 1.2svh),  14px);
   --info-padding:  clamp(7px,  min(0.83vw, 1.2svh),  14px);
-  --info-icon-size: clamp(20px, min(1.98vw, 2.9svh),  34px);
+  --info-icon-size: clamp(28px, min(2.5vw, 3.5svh), 42px);
   --info-qr-size:   clamp(42px, min(4.17vw, 6.1svh),  72px);
 
   /* ─── Footer ──────────────────────────────────────────────────────────── */

@@ -249,149 +249,148 @@ export function ProductDetailsLayout({ data }: { data: ProductDetails }) {
           </div>
 
           {/* Right Column - Selection & Pricing (4 cols) */}
-          <div className="col-span-4 flex min-h-0 min-w-0 flex-col justify-between overflow-hidden rounded-[16px] bg-white p-[clamp(8px,1vw,16px)] shadow-sm">
-            <div className="flex min-h-0 flex-1 flex-col overflow-hidden">
-              <div className="mb-[clamp(px,0.6vw,12px)] flex shrink-0 items-center justify-between">
-                <div className="flex items-baseline gap-1">
-                  <span
-                    className={cn(
-                      'text-[clamp(18px,2vw,28px)] leading-none font-black',
-                      themeText
-                    )}
-                  >
-                    £{data.price.toFixed(2)}
-                  </span>
-                  <span className="text-[clamp(10px,0.8vw,14px)] font-bold text-slate-500">
-                    / {data.unit}
-                  </span>
-                </div>
-                <Link
-                  href={`/catalog/${data.category}`}
+          <div className="col-span-4 flex min-h-0 min-w-0 flex-col justify-between gap-[clamp(4px,0.6vw,8px)] overflow-hidden rounded-[16px] bg-white p-[clamp(8px,1vw,16px)] shadow-sm">
+            {/* Price & Back */}
+            <div className="flex shrink-0 items-center justify-between">
+              <div className="flex items-baseline gap-1">
+                <span
                   className={cn(
-                    'flex items-center gap-1 rounded-full border border-slate-200 bg-white px-[clamp(6px,0.8vw,10px)] py-[clamp(2px,0.3vw,4px)] text-[clamp(9px,0.7vw,11px)] font-bold shadow-sm transition-colors hover:bg-slate-50',
+                    'text-[clamp(18px,2vw,28px)] leading-none font-black',
                     themeText
                   )}
                 >
-                  <ChevronLeft className="h-[clamp(8px,0.7vw,10px)] w-[clamp(8px,0.7vw,10px)]" />
-                  Back
-                </Link>
+                  £{data.price.toFixed(2)}
+                </span>
+                <span className="text-[clamp(10px,0.8vw,14px)] font-bold text-slate-500">
+                  / {data.unit}
+                </span>
               </div>
+              <Link
+                href={`/catalog/${data.category}`}
+                className={cn(
+                  'flex items-center gap-1 rounded-full border border-slate-200 bg-white px-[clamp(6px,0.8vw,10px)] py-[clamp(2px,0.3vw,4px)] text-[clamp(9px,0.7vw,11px)] font-bold shadow-sm transition-colors hover:bg-slate-50',
+                  themeText
+                )}
+              >
+                <ChevronLeft className="h-[clamp(8px,0.7vw,10px)] w-[clamp(8px,0.7vw,10px)]" />
+                Back
+              </Link>
+            </div>
 
-              {/* Sizes */}
-              <div className="mb-[clamp(4px,0.6vw,12px)] shrink-0">
-                <h3 className="mb-[clamp(2px,0.4vw,6px)] text-[clamp(14px,0.8vw,12px)] font-bold text-slate-800">
-                  Select Size
-                </h3>
-                <div className="grid grid-cols-4 gap-[clamp(3px,0.4vw,6px)]">
-                  {data.sizes?.map((size, i) => (
-                    <button
-                      key={size.id}
-                      className={cn(
-                        'flex flex-col items-center justify-center rounded-[6px] border p-0.5 transition-colors',
-                        i === 1
-                          ? 'border-blue-600 bg-blue-50 text-blue-700'
-                          : 'border-slate-200 text-slate-600 hover:border-blue-300'
-                      )}
-                    >
-                      <span className="line-clamp-1 text-[clamp(8px,0.6vw,10px)] leading-tight font-bold">
-                        {size.label}
-                      </span>
-                      <span className="line-clamp-1 text-[clamp(6px,0.4vw,8px)]">
-                        {size.subLabel}
-                      </span>
-                    </button>
-                  ))}
-                </div>
-              </div>
-
-              {/* Cuts */}
-              <div className="mb-[clamp(4px,0.6vw,12px)] flex shrink-0 gap-[clamp(4px,0.6vw,12px)] border-t border-slate-100 pt-[clamp(4px,0.6vw,8px)]">
-                <div className="flex-1 overflow-hidden">
-                  <div className="mb-[clamp(1px,0.2vw,4px)] flex items-center gap-1 text-[clamp(11px,0.6vw,11px)] text-slate-500">
-                    <Droplet className="h-[clamp(8px,0.7vw,12px)] w-[clamp(8px,0.7vw,12px)]" />
-                    <span className="truncate font-bold">Cut Options</span>
-                  </div>
-                  <div className="flex flex-wrap gap-1">
-                    {data.cutOptions?.map((cut) => (
-                      <span
-                        key={cut.id}
-                        className="text-[clamp(11px,0.6vw,10px)] font-bold text-slate-700"
-                      >
-                        {cut.label}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-                <div className="w-px shrink-0 bg-slate-100"></div>
-                <div className="shrink-0">
-                  <div className="mb-[clamp(1px,0.2vw,4px)] flex items-center gap-1 text-[clamp(8px,0.6vw,10px)] text-slate-500">
-                    <Activity className="h-[clamp(8px,0.7vw,12px)] w-[clamp(8px,0.7vw,12px)]" />
-                    <span className="truncate font-bold">Serves</span>
-                  </div>
-                  <span className="block truncate text-[clamp(8px,0.6vw,10px)] font-bold text-slate-700">
-                    {data.serves}
-                  </span>
-                </div>
-              </div>
-
-              {/* Freshness Box */}
-              <div className="flex shrink-0 items-start gap-1.5 rounded-[10px] border border-blue-100 bg-blue-50/50 p-[clamp(4px,0.6vw,8px)]">
-                <div className={cn('mt-[1px] shrink-0', themeText)}>
-                  <ShieldCheck className="h-[clamp(12px,1vw,16px)] w-[clamp(12px,1vw,16px)]" />
-                </div>
-                <div className="min-w-0">
-                  <h4
+            {/* Sizes */}
+            <div className="shrink-0">
+              <h3 className="mb-[clamp(2px,0.4vw,6px)] text-[clamp(14px,0.8vw,12px)] font-bold text-slate-800">
+                Select Size
+              </h3>
+              <div className="grid grid-cols-4 gap-[clamp(3px,0.4vw,6px)]">
+                {data.sizes?.map((size, i) => (
+                  <button
+                    key={size.id}
                     className={cn(
-                      'truncate text-[clamp(9px,0.7vw,11px)] font-black',
-                      themeText
+                      'flex flex-col items-center justify-center rounded-[6px] border p-0.5 transition-colors',
+                      i === 1
+                        ? 'border-blue-600 bg-blue-50 text-blue-700'
+                        : 'border-slate-200 text-slate-600 hover:border-blue-300'
                     )}
                   >
-                    Freshness Guaranteed
-                  </h4>
-                  <p className="line-clamp-2 text-[clamp(7px,0.5vw,9px)] leading-[1.2] font-medium text-slate-600">
-                    Delivered fresh and ready to cook for the best taste and
-                    nutrition.
-                  </p>
-                </div>
+                    <span className="line-clamp-1 text-[clamp(8px,0.6vw,10px)] leading-tight font-bold">
+                      {size.label}
+                    </span>
+                    <span className="line-clamp-1 text-[clamp(6px,0.4vw,8px)]">
+                      {size.subLabel}
+                    </span>
+                  </button>
+                ))}
               </div>
             </div>
 
-            <div className="mt-[clamp(4px,0.6vw,12px)] flex shrink-0 flex-col gap-[clamp(4px,0.6vw,8px)]">
-              <div className="flex gap-[clamp(4px,0.6vw,8px)]">
-                <button
+            {/* Cuts */}
+            <div className="flex shrink-0 gap-[clamp(4px,0.6vw,12px)] border-t border-slate-100 pt-[clamp(4px,0.6vw,8px)]">
+              <div className="flex-1 overflow-hidden">
+                <div className="mb-[clamp(1px,0.2vw,4px)] flex items-center gap-1 text-[clamp(11px,0.6vw,11px)] text-slate-500">
+                  <Droplet className="h-[clamp(8px,0.7vw,12px)] w-[clamp(8px,0.7vw,12px)]" />
+                  <span className="truncate font-bold">Cut Options</span>
+                </div>
+                <div className="flex flex-wrap gap-1">
+                  {data.cutOptions?.map((cut) => (
+                    <span
+                      key={cut.id}
+                      className="text-[clamp(11px,0.6vw,10px)] font-bold text-slate-700"
+                    >
+                      {cut.label}
+                    </span>
+                  ))}
+                </div>
+              </div>
+              <div className="w-px shrink-0 bg-slate-100"></div>
+              <div className="shrink-0">
+                <div className="mb-[clamp(1px,0.2vw,4px)] flex items-center gap-1 text-[clamp(8px,0.6vw,10px)] text-slate-500">
+                  <Activity className="h-[clamp(8px,0.7vw,12px)] w-[clamp(8px,0.7vw,12px)]" />
+                  <span className="truncate font-bold">Serves</span>
+                </div>
+                <span className="block truncate text-[clamp(8px,0.6vw,10px)] font-bold text-slate-700">
+                  {data.serves}
+                </span>
+              </div>
+            </div>
+
+            {/* Freshness Box */}
+            <div className="flex shrink-0 items-start gap-1.5 rounded-[10px] border border-blue-100 bg-blue-50/50 p-[clamp(4px,0.6vw,8px)]">
+              <div className={cn('mt-[1px] shrink-0', themeText)}>
+                <ShieldCheck className="h-[clamp(12px,1vw,16px)] w-[clamp(12px,1vw,16px)]" />
+              </div>
+              <div className="min-w-0">
+                <h4
                   className={cn(
-                    'flex flex-1 items-center justify-center gap-1 rounded-[8px] py-[clamp(4px,0.6vw,8px)] text-[clamp(9px,0.7vw,11px)] font-bold text-white shadow-sm transition-opacity hover:opacity-90',
-                    themeBg
+                    'truncate text-[clamp(9px,0.7vw,11px)] font-black',
+                    themeText
                   )}
                 >
-                  <Mail className="h-[clamp(10px,0.8vw,14px)] w-[clamp(10px,0.8vw,14px)]" />{' '}
-                  Share
-                </button>
-                <button className="flex flex-1 items-center justify-center gap-1 rounded-[8px] border border-slate-200 bg-white py-[clamp(4px,0.6vw,8px)] text-[clamp(9px,0.7vw,11px)] font-bold text-slate-700 shadow-sm transition-colors hover:bg-slate-50">
-                  <Heart className="h-[clamp(10px,0.8vw,14px)] w-[clamp(10px,0.8vw,14px)]" />{' '}
-                  Save
-                </button>
+                  Freshness Guaranteed
+                </h4>
+                <p className="line-clamp-2 text-[clamp(7px,0.5vw,9px)] leading-[1.2] font-medium text-slate-600">
+                  Delivered fresh and ready to cook for the best taste and
+                  nutrition.
+                </p>
               </div>
+            </div>
 
-              <div
+            {/* Share / Save */}
+            <div className="flex shrink-0 gap-[clamp(4px,0.6vw,8px)]">
+              <button
                 className={cn(
-                  'flex items-center justify-between overflow-hidden rounded-[10px] p-[clamp(6px,0.8vw,10px)] shadow-sm',
+                  'flex flex-1 items-center justify-center gap-1 rounded-[8px] py-[clamp(4px,0.6vw,8px)] text-[clamp(9px,0.7vw,11px)] font-bold text-white shadow-sm transition-opacity hover:opacity-90',
                   themeBg
                 )}
               >
-                <div className="min-w-0 pr-1">
-                  <h4 className="truncate text-[clamp(9px,0.7vw,12px)] font-black text-white">
-                    Got Questions?
-                  </h4>
-                  <p className="line-clamp-1 text-[clamp(7px,0.5vw,9px)] text-white/90">
-                    Our team is here to help.
-                  </p>
-                </div>
-                <button className="flex shrink-0 items-center gap-1 rounded-[6px] bg-white px-[clamp(6px,0.8vw,10px)] py-[clamp(3px,0.4vw,6px)] text-[clamp(8px,0.6vw,10px)] font-bold text-blue-700 shadow-sm hover:bg-slate-50">
-                  Contact{' '}
-                  <ArrowRight className="h-[clamp(8px,0.7vw,10px)] w-[clamp(8px,0.7vw,10px)]" />
-                </button>
+                <Mail className="h-[clamp(10px,0.8vw,14px)] w-[clamp(10px,0.8vw,14px)]" />{' '}
+                Share
+              </button>
+              <button className="flex flex-1 items-center justify-center gap-1 rounded-[8px] border border-slate-200 bg-white py-[clamp(4px,0.6vw,8px)] text-[clamp(9px,0.7vw,11px)] font-bold text-slate-700 shadow-sm transition-colors hover:bg-slate-50">
+                <Heart className="h-[clamp(10px,0.8vw,14px)] w-[clamp(10px,0.8vw,14px)]" />{' '}
+                Save
+              </button>
+            </div>
+
+            {/* Got Questions */}
+            <div
+              className={cn(
+                'flex shrink-0 items-center justify-between overflow-hidden rounded-[10px] p-[clamp(6px,0.8vw,10px)] shadow-sm',
+                themeBg
+              )}
+            >
+              <div className="min-w-0 pr-1">
+                <h4 className="truncate text-[clamp(9px,0.7vw,12px)] font-black text-white">
+                  Got Questions?
+                </h4>
+                <p className="line-clamp-1 text-[clamp(7px,0.5vw,9px)] text-white/90">
+                  Our team is here to help.
+                </p>
               </div>
+              <button className="flex shrink-0 items-center gap-1 rounded-[6px] bg-white px-[clamp(6px,0.8vw,10px)] py-[clamp(3px,0.4vw,6px)] text-[clamp(8px,0.6vw,10px)] font-bold text-blue-700 shadow-sm hover:bg-slate-50">
+                Contact{' '}
+                <ArrowRight className="h-[clamp(8px,0.7vw,10px)] w-[clamp(8px,0.7vw,10px)]" />
+              </button>
             </div>
           </div>
         </div>

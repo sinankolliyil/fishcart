@@ -343,10 +343,10 @@ export function HeroBannerCarousel() {
 
             {/* Text Overlay */}
             <div className="pointer-events-none relative z-20 flex h-full w-1/2 flex-col justify-center pt-8 pb-[var(--hero-padding-y)] pl-[var(--hero-padding-x)] text-white">
-              <h2 className="text-[clamp(24px,2.2vw,44px)] leading-[1.08] font-extrabold tracking-tight text-white drop-shadow-md">
+              <h2 className="text-[clamp(30px,3.5vw,44px)] leading-[1.08] font-extrabold tracking-tight text-white drop-shadow-md">
                 {slide.title}
               </h2>
-              <p className="mt-2 max-w-[340px] text-[clamp(11px,0.85vw,16px)] leading-[1.4] font-medium text-slate-200 drop-shadow-sm">
+              <p className="mt-2 max-w-[340px] text-[clamp(18px,0.9vw,18px)] leading-[1.4] font-medium text-slate-200 drop-shadow-sm">
                 {slide.description}
               </p>
             </div>
