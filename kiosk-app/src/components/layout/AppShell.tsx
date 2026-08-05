@@ -17,7 +17,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
          * Padding creates the inner whitespace that matches the reference design.
          * overflow-hidden ensures no child can punch through the viewport boundary.
          */}
-        <main className="h-full overflow-hidden py-[var(--main-padding-y)] px-[var(--main-padding-x)]">{children}</main>
+        <main className="h-full overflow-y-auto overflow-x-hidden py-[var(--main-padding-y)] px-[var(--main-padding-x)]">{children}</main>
       </div>
     </div>
   );

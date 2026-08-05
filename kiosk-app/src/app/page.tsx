@@ -25,7 +25,7 @@ export default function HomePage() {
      * This is mathematically identical to the reference design (1920×1200) and
      * scales proportionally to every shorter landscape viewport without overflow.
      */
-    <div className="grid h-full w-full grid-rows-[minmax(0,33fr)_minmax(0,25fr)_minmax(0,16fr)_minmax(0,10fr)_minmax(0,10fr)] gap-[var(--main-gap)] overflow-hidden">
+    <div className="grid min-h-[950px] h-full w-full grid-rows-[minmax(0,33fr)_minmax(0,25fr)_minmax(0,16fr)_minmax(0,10fr)_minmax(0,10fr)] gap-[var(--main-gap)]">
       {/* ═══════════════════════════════════════════════════
           ROW 1 — Hero (7 cols) + Categories (5 cols)  33%
           ═══════════════════════════════════════════════════ */}
