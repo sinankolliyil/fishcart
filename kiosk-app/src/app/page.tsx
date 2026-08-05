@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { ArrowRight, CheckCircle2, Droplet, Leaf } from 'lucide-react';
+import { ArrowRight, CheckCircle2, Droplet, Leaf, Dumbbell, Sparkles, HeartPulse } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import { Rating } from '@/components/ui/Rating';
 import { CategoryCard } from '@/components/shared/CategoryCard';
@@ -19,7 +19,7 @@ export default function HomePage() {
      * This is mathematically identical to the reference design (1920×1200) and
      * scales proportionally to every shorter landscape viewport without overflow.
      */
-    <div className="grid h-full min-h-[950px] w-full grid-rows-[minmax(0,38fr)_minmax(0,25fr)_minmax(0,16fr)_minmax(0,10fr)_minmax(0,10fr)] gap-[clamp(8px,1vw,16px)]">
+    <div className="grid h-full min-h-[950px] w-full grid-rows-[minmax(0,38fr)_minmax(0,28fr)_minmax(0,16fr)_minmax(0,11fr)_minmax(0,10fr)] gap-[clamp(5px,1vw,15px)]">
       {/* ═══════════════════════════════════════════════════
           ROW 1 — Hero (7 cols) + Categories (5 cols)  33%
           ═══════════════════════════════════════════════════ */}
@@ -27,7 +27,7 @@ export default function HomePage() {
         {/* ── Hero Card ── */}
         <div className="relative col-span-7 h-full w-full overflow-hidden rounded-[16px] bg-slate-950 shadow-sm">
           <HeroBannerCarousel />
-        </div>
+        </div> 
 
         {/* ── Categories Grid ── */}
         <div className="col-span-5 grid grid-rows-[55fr_45fr] gap-[var(--cat-gap)] overflow-hidden">
@@ -166,13 +166,8 @@ export default function HomePage() {
 
             <div className="mt-auto flex w-full justify-between">
               <div className="flex flex-1 flex-col items-center gap-1.5">
-                <div className="relative h-[clamp(40px,3vw,48px)] w-[clamp(40px,3vw,48px)] shrink-0">
-                  <Image
-                    src="/assets/benafit_hand.png"
-                    alt="High in Protein"
-                    fill
-                    className="object-contain"
-                  />
+                <div className="flex h-[clamp(24px,2vw,32px)] w-[clamp(24px,2vw,32px)] shrink-0 items-center justify-center text-[#0D55CF]">
+                  <Dumbbell className="h-full w-full stroke-[1.5]" />
                 </div>
                 <span className="text-center text-[clamp(10px,min(0.8vw,1.2svh),12px)] leading-[1.2] font-bold text-[#1E293B]">
                   High in
@@ -182,13 +177,8 @@ export default function HomePage() {
               </div>
               <div className="h-[36px] w-[1px] self-center bg-[#0D55CF]/15" />
               <div className="flex flex-1 flex-col items-center gap-1.5">
-                <div className="relative h-[clamp(40px,3vw,48px)] w-[clamp(40px,3vw,48px)] shrink-0">
-                  <Image
-                    src="/assets/benafit_badge.png"
-                    alt="Rich in Vitamins"
-                    fill
-                    className="object-contain"
-                  />
+                <div className="flex h-[clamp(24px,2vw,32px)] w-[clamp(24px,2vw,32px)] shrink-0 items-center justify-center text-[#0D55CF]">
+                  <Sparkles className="h-full w-full stroke-[1.5]" />
                 </div>
                 <span className="text-center text-[clamp(10px,min(0.8vw,1.2svh),12px)] leading-[1.2] font-bold text-[#1E293B]">
                   Rich in
@@ -198,13 +188,8 @@ export default function HomePage() {
               </div>
               <div className="h-[36px] w-[1px] self-center bg-[#0D55CF]/15" />
               <div className="flex flex-1 flex-col items-center gap-1.5">
-                <div className="relative h-[clamp(40px,3vw,48px)] w-[clamp(40px,3vw,48px)] shrink-0">
-                  <Image
-                    src="/assets/benafit_heart.png"
-                    alt="Good for Heart"
-                    fill
-                    className="object-contain"
-                  />
+                <div className="flex h-[clamp(24px,2vw,32px)] w-[clamp(24px,2vw,32px)] shrink-0 items-center justify-center text-[#0D55CF]">
+                  <HeartPulse className="h-full w-full stroke-[1.5]" />
                 </div>
                 <span className="text-center text-[clamp(10px,min(0.8vw,1.2svh),12px)] leading-[1.2] font-bold text-[#1E293B]">
                   Good for
@@ -398,7 +383,7 @@ export default function HomePage() {
           ROW 5 — Footer         (auto)
           Gets exactly the remaining space after rows 1–4 and 4 gaps.
           ════════════════════════════════ */}
-      <div className="overflow-hidden">
+      <div className="h-full w-full">
         <Footer />
       </div>
     </div>
