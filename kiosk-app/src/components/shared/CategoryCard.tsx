@@ -24,7 +24,7 @@ export function CategoryCard({
     fish: {
       bg: 'bg-[#7EBEFE]',
       title: 'text-[#0D55CF]',
-      sub: 'text-white/90',
+      sub: 'text-[#0D55CF]/90',
       arrow: 'text-[#0D55CF]',
     },
     meat: {
@@ -53,12 +53,13 @@ export function CategoryCard({
     <Link
       href={href}
       className={cn(
-        'group relative flex flex-col justify-between overflow-hidden rounded-2xl p-[var(--cat-card-padding)] shadow-sm transition-transform hover:-translate-y-1',
+        'group relative flex h-full w-full overflow-hidden rounded-2xl shadow-sm transition-transform hover:-translate-y-1',
         currentStyle.bg,
         className
       )}
     >
-      <div className="relative z-10">
+      {/* Text Region: 35-40% reserved on the left */}
+      <div className="relative z-10 flex w-[40%] flex-col p-[var(--cat-card-padding)]">
         <h3
           className={cn(
             'mb-0.5 text-[clamp(21px,min(1.25vw,2svh),22px)] leading-tight font-bold',
@@ -69,7 +70,7 @@ export function CategoryCard({
         </h3>
         <p
           className={cn(
-            'text-[clamp(18px,min(0.94vw,1.5svh),16px)] font-medium',
+            'text-[clamp(18px,min(0.94vw,1.5svh),16px)] font-medium whitespace-nowrap',
             currentStyle.sub
           )}
         >
@@ -77,28 +78,19 @@ export function CategoryCard({
         </p>
       </div>
 
-      <div
-        className={cn(
-          'absolute',
-          variant === 'eggs'
-            ? 'top-[-5%] right-[6%] bottom-[-5%] w-[45%]'
-            : variant === 'fish'
-              ? 'top-[-8%] right-[-5%] h-[105%] w-[92%]'
-              : 'right-[-5%] bottom-[-10%] h-[95%] w-[85%]'
-        )}
-      >
+      {/* Image Region: 60-65% reserved on the right */}
+      <div className="absolute right-0 bottom-0 top-0 w-[65%]">
         <img
           src={imageSrc}
           alt={title}
           className={cn(
-            'h-full w-full object-contain drop-shadow-md',
-            variant === 'eggs'
-              ? 'object-right'
-              : 'scale-[1.15] object-bottom-right'
+            'h-full w-full object-contain object-right-bottom drop-shadow-md transition-transform duration-300',
+            variant !== 'eggs' && 'origin-bottom-right scale-[1.4]'
           )}
         />
       </div>
 
+      {/* Arrow */}
       <div className="absolute right-3 bottom-3 z-10">
         <div
           className={cn(

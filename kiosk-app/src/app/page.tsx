@@ -1,12 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import {
-  ArrowRight,
-  CheckCircle2,
-  ShieldCheck,
-  Droplet,
-  Leaf,
-} from 'lucide-react';
+import { ArrowRight, CheckCircle2, Droplet, Leaf } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import { Rating } from '@/components/ui/Rating';
 import { CategoryCard } from '@/components/shared/CategoryCard';
@@ -25,7 +19,7 @@ export default function HomePage() {
      * This is mathematically identical to the reference design (1920×1200) and
      * scales proportionally to every shorter landscape viewport without overflow.
      */
-    <div className="grid min-h-[950px] h-full w-full grid-rows-[minmax(0,33fr)_minmax(0,25fr)_minmax(0,16fr)_minmax(0,10fr)_minmax(0,10fr)] gap-[var(--main-gap)]">
+    <div className="grid h-full min-h-[950px] w-full grid-rows-[minmax(0,33fr)_minmax(0,25fr)_minmax(0,16fr)_minmax(0,10fr)_minmax(0,10fr)] gap-[clamp(16px,1.5vw,24px)]">
       {/* ═══════════════════════════════════════════════════
           ROW 1 — Hero (7 cols) + Categories (5 cols)  33%
           ═══════════════════════════════════════════════════ */}
@@ -41,7 +35,7 @@ export default function HomePage() {
             <CategoryCard
               title="Fish"
               subtitle="100+ Items"
-              imageSrc="/assets/cat_fish.png"
+              imageSrc="/assets/fish.png"
               variant="fish"
               href="/fish"
               className="h-full"
@@ -49,7 +43,7 @@ export default function HomePage() {
             <CategoryCard
               title="Meat"
               subtitle="50+ Items"
-              imageSrc="/assets/cat_meat.png"
+              imageSrc="/assets/meat.png"
               variant="meat"
               href="/meat"
               className="h-full"
@@ -57,7 +51,7 @@ export default function HomePage() {
             <CategoryCard
               title="Chicken"
               subtitle="30+ Items"
-              imageSrc="/assets/cat_chicken.png"
+              imageSrc="/assets/chicken.png"
               variant="chicken"
               href="/chicken"
               className="h-full"
@@ -66,7 +60,7 @@ export default function HomePage() {
           <CategoryCard
             title="Eggs"
             subtitle="Farm Fresh"
-            imageSrc="/assets/cat_eggs.png"
+            imageSrc="/assets/egg.png"
             variant="eggs"
             href="/eggs"
             className="h-full"
@@ -153,89 +147,85 @@ export default function HomePage() {
         </div>
 
         {/* ── Nutrition ── */}
-        <div className="relative col-span-1 flex flex-col overflow-hidden rounded-[16px] bg-[#F4F9FF] p-[var(--nutrition-padding)] shadow-sm">
-          <h3 className="mb-[clamp(3px,min(0.42vw,0.6svh),6px)] text-[clamp(17px,min(1.25vw,2svh),22px)] font-bold text-[#0D55CF]">
-            Benefits & Nutrition
-          </h3>
-          <p className="relative z-10 mb-[var(--nutrition-desc-mb)] pr-[30%] text-[clamp(15px,min(0.99vw,1.5svh),13px)] leading-[1.4] text-[#1E293B]">
-            Fish, meat, eggs and chicken are rich in protein, vitamins and
-            minerals for stronger,healthier you.
-          </p>
-          <Link
-            href="/benefits"
-            className="relative z-10 mb-auto flex items-center gap-1 text-[clamp(12px,min(0.78vw,1.15svh),13px)] font-bold text-[#0D55CF] hover:underline"
-          >
-            Learn More <ArrowRight className="h-3 w-3 stroke-[2.5]" />
-          </Link>
+        <div className="relative col-span-1 flex flex-row overflow-hidden rounded-[16px] bg-[#EBF2FE] p-[var(--nutrition-padding)] shadow-sm">
+          {/* Left Column (58%) */}
+          <div className="relative z-10 flex w-[58%] flex-col pr-2">
+            <h3 className="mb-[clamp(3px,min(0.42vw,0.6svh),6px)] text-[clamp(17px,min(1.25vw,2svh),22px)] font-bold text-[#0D55CF]">
+              Benefits & Nutrition
+            </h3>
+            <p className="mb-[var(--nutrition-desc-mb)] text-[clamp(15px,min(0.99vw,1.5svh),13px)] leading-[1.4] text-[#1E293B]">
+              Fish, meat, eggs and chicken are rich in protein, vitamins and
+              minerals for a stronger, healthier you.
+            </p>
+            <Link
+              href="/benefits"
+              className="mb-auto flex items-center gap-1 text-[clamp(12px,min(0.78vw,1.15svh),13px)] font-bold text-[#0D55CF] hover:underline"
+            >
+              Learn More <ArrowRight className="h-3 w-3 stroke-[2.5]" />
+            </Link>
 
-          <div className="relative z-10 mt-auto flex w-[80%] justify-center gap-0.5">
-            <div className="flex flex-1 flex-col items-center gap-1.5">
-              <div className="text-[#0D55CF]">
-                <svg
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="h-[clamp(18px,1.25vw,24px)] w-[clamp(18px,1.25vw,24px)]"
-                >
-                  <path d="M18 20V10" />
-                  <path d="M12 20V4" />
-                  <path d="M6 20v-4" />
-                </svg>
+            <div className="mt-auto flex w-full justify-between">
+              <div className="flex flex-1 flex-col items-center gap-1.5">
+                <div className="relative h-[clamp(40px,3vw,48px)] w-[clamp(40px,3vw,48px)] shrink-0">
+                  <Image
+                    src="/assets/benafit_hand.png"
+                    alt="High in Protein"
+                    fill
+                    className="object-contain"
+                  />
+                </div>
+                <span className="text-center text-[clamp(10px,min(0.8vw,1.2svh),12px)] leading-[1.2] font-bold text-[#1E293B]">
+                  High in
+                  <br />
+                  Protein
+                </span>
               </div>
-              <span className="text-center text-[clamp(8px,min(0.677vw,1svh),11px)] leading-tight font-bold text-[#1E293B]">
-                High in
-                <br />
-                Protein
-              </span>
-            </div>
-            <div className="h-[22px] w-[1px] self-center bg-[#0D55CF]/15" />
-            <div className="flex flex-col items-center gap-1.5">
-              <div className="text-[#0D55CF]">
-                <ShieldCheck className="h-[clamp(15px,min(1.25vw,2svh),22px)] w-[clamp(15px,min(1.25vw,2svh),22px)] stroke-[1.5]" />
+              <div className="h-[36px] w-[1px] self-center bg-[#0D55CF]/15" />
+              <div className="flex flex-1 flex-col items-center gap-1.5">
+                <div className="relative h-[clamp(40px,3vw,48px)] w-[clamp(40px,3vw,48px)] shrink-0">
+                  <Image
+                    src="/assets/benafit_badge.png"
+                    alt="Rich in Vitamins"
+                    fill
+                    className="object-contain"
+                  />
+                </div>
+                <span className="text-center text-[clamp(10px,min(0.8vw,1.2svh),12px)] leading-[1.2] font-bold text-[#1E293B]">
+                  Rich in
+                  <br />
+                  Vitamins
+                </span>
               </div>
-              <span className="text-center text-[clamp(8px,min(0.677vw,1svh),11px)] leading-tight font-bold text-[#1E293B]">
-                Rich in
-                <br />
-                Vitamins
-              </span>
-            </div>
-            <div className="h-[28px] w-[1px] self-center bg-[#0D55CF]/15" />
-            <div className="flex flex-1 flex-col items-center gap-1.5">
-              <div className="text-[#0D55CF]">
-                <svg
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="h-[clamp(18px,1.25vw,24px)] w-[clamp(18px,1.25vw,24px)]"
-                >
-                  <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
-                </svg>
+              <div className="h-[36px] w-[1px] self-center bg-[#0D55CF]/15" />
+              <div className="flex flex-1 flex-col items-center gap-1.5">
+                <div className="relative h-[clamp(40px,3vw,48px)] w-[clamp(40px,3vw,48px)] shrink-0">
+                  <Image
+                    src="/assets/benafit_heart.png"
+                    alt="Good for Heart"
+                    fill
+                    className="object-contain"
+                  />
+                </div>
+                <span className="text-center text-[clamp(10px,min(0.8vw,1.2svh),12px)] leading-[1.2] font-bold text-[#1E293B]">
+                  Good for
+                  <br />
+                  Heart
+                </span>
               </div>
-              <span className="text-center text-[clamp(8px,min(0.677vw,1svh),11px)] leading-tight font-bold text-[#1E293B]">
-                Good for
-                <br />
-                Heart
-              </span>
             </div>
           </div>
 
-          <div className="pointer-events-none absolute top-[-2%] right-[-3%] bottom-[-4%] w-[65%]">
-            <Image
-              src="/assets/nametoadd.png"
-              alt="Salmon Benefits"
-              fill
-              className="object-contain object-right"
-            />
+          {/* Right Column (42%) */}
+          <div className="pointer-events-none relative w-[42%] flex-shrink-0">
+            {/* Expanded bounds inside the column to allow the image to fill space optimally without overlapping text */}
+            <div className="absolute top-[-5%] right-[-5%] bottom-[-5%] left-0">
+              <Image
+                src="/assets/nametoadd.png"
+                alt="Salmon Benefits"
+                fill
+                className="object-contain object-right"
+              />
+            </div>
           </div>
         </div>
 
@@ -279,32 +269,52 @@ export default function HomePage() {
           ══════════════════════════════════════════════ */}
       <div className="grid grid-cols-4 gap-[var(--showcase-gap)] overflow-hidden">
         {[
-          { title: 'All Fish Items', image: '/assets/fish_showcase.png', href: '/fish' },
-          { title: 'All Meat Items', image: '/assets/meat_showcase.png', href: '/meat' },
-          { title: 'Chicken Items', image: '/assets/chicken_showcase.png', href: '/chicken' },
-          { title: 'Eggs', image: '/assets/eggs_showcase.png', href: '/eggs' },
+          {
+            title: 'All Fish Items',
+            image: '/assets/all_fish.png',
+            href: '/fish',
+            gradient: 'from-[#DCE9FA] to-[#F8FAFD]',
+          },
+          {
+            title: 'All Meat Items',
+            image: '/assets/all_meat.png',
+            href: '/meat',
+            gradient: 'from-[#E0EAF5] to-[#F9FBFC]',
+          },
+          {
+            title: 'Chicken Items',
+            image: '/assets/all_chicken.png',
+            href: '/chicken',
+            gradient: 'from-[#E0EAF5] to-[#F9FBFC]',
+          },
+          {
+            title: 'Eggs',
+            image: '/assets/all_egg.png',
+            href: '/eggs',
+            gradient: 'from-[#EAE5DF] to-[#F9F8F6]',
+          },
         ].map((item, idx) => (
           <Link
             key={idx}
             href={item.href}
-            className="group relative col-span-1 cursor-pointer overflow-hidden rounded-[16px] border border-[#E2E8F0] shadow-sm transition-transform hover:-translate-y-0.5"
+            className={`group relative col-span-1 cursor-pointer overflow-hidden rounded-[16px] bg-gradient-to-tr ${item.gradient} shadow-[0px_4px_10px_rgba(0,0,0,0.03)] transition-transform hover:-translate-y-1`}
           >
             <Image
               src={item.image}
               alt={item.title}
               fill
-              className="object-cover transition-transform group-hover:scale-105"
+              className="object-cover transition-transform duration-300 group-hover:scale-105 mix-blend-multiply"
             />
             <div
-              className="absolute bottom-[var(--showcase-label-bottom)] left-[var(--showcase-label-left)] z-10 rounded-[10px] bg-white px-[var(--showcase-label-px)] py-[var(--showcase-label-py)] shadow-sm"
-              style={{ width: 'fit-content' }}
+              className="absolute bottom-[clamp(8px,min(1vw,1.5svh),16px)] left-[clamp(8px,min(1vw,1.5svh),16px)] z-10 rounded-[12px] bg-white px-[clamp(12px,min(1vw,1.5svh),16px)] py-[clamp(8px,min(0.8vw,1.2svh),12px)] shadow-[0px_2px_8px_rgba(0,0,0,0.08)]"
+              style={{ width: 'max-content' }}
             >
-              <h4 className="text-[clamp(17px,min(0.91vw,1.4svh),15px)] font-bold text-[#1E293B]">
+              <h4 className="text-[clamp(13px,min(0.9vw,1.3svh),16px)] font-bold text-[#1E293B]">
                 {item.title}
               </h4>
-              <p className="mt-0.5 flex items-center gap-1 text-[clamp(14px,min(0.78vw,1.15svh),13px)] font-bold text-[#0D55CF] group-hover:underline">
+              <p className="mt-[2px] flex items-center gap-1 text-[clamp(11px,min(0.75vw,1.1svh),14px)] font-bold text-[#0D55CF] group-hover:underline">
                 Explore Now{' '}
-                <ArrowRight className="h-[clamp(8px,min(0.73vw,1.1svh),12px)] w-[clamp(8px,min(0.73vw,1.1svh),12px)] stroke-[2.5]" />
+                <ArrowRight className="h-[clamp(10px,min(0.73vw,1.1svh),14px)] w-[clamp(10px,min(0.73vw,1.1svh),14px)] stroke-[2.5]" />
               </p>
             </div>
           </Link>
@@ -315,64 +325,71 @@ export default function HomePage() {
           ROW 4 — Information Cards           10%
           ════════════════════════════════════════ */}
       <div className="grid grid-cols-4 gap-[var(--info-gap)] overflow-hidden">
-        <div className="col-span-1 flex items-center justify-center overflow-hidden rounded-[16px] bg-[#E8F3FA] p-[var(--info-padding)] shadow-sm">
-          <div className="min-w-0 flex-1 text-center">
-            <h4 className="mb-1 truncate text-[clamp(16px,min(0.94vw,1.5svh),16px)] font-bold text-[#0D55CF]">
+        {/* Card 1 */}
+        <div className="col-span-1 flex items-center justify-between overflow-hidden rounded-[16px] bg-[#EAF4FE] p-[clamp(12px,1.5vw,20px)] shadow-sm">
+          <div className="mr-2 flex flex-1 flex-col text-left">
+            <h4 className="mb-1 truncate text-[clamp(14px,min(1vw,1.6svh),16px)] font-bold text-[#0D55CF]">
               Daily Selection
             </h4>
-            <p className="line-clamp-2 text-[clamp(14px,min(0.83vw,1.3svh),14px)] leading-[1.3] text-[#1E293B]">
+            <p className="line-clamp-2 text-[clamp(12px,min(0.8vw,1.3svh),13px)] leading-[1.3] text-[#1E293B]">
               Handpicked daily from trusted suppliers for the best quality.
             </p>
           </div>
           <div className="shrink-0 text-[#0D55CF]">
-            <CheckCircle2 className="h-[var(--info-icon-size)] w-[var(--info-icon-size)] stroke-[1.5]" />
+            <CheckCircle2 className="h-[clamp(36px,3.5vw,54px)] w-[clamp(36px,3.5vw,54px)] stroke-[1]" />
           </div>
         </div>
 
-        <div className="col-span-1 flex items-center justify-center overflow-hidden rounded-[16px] bg-[#A5E3E0] p-[var(--info-padding)] shadow-sm">
-          <div className="min-w-0 flex-1 text-center">
-            <h4 className="mb-1 truncate text-[clamp(16px,min(0.94vw,1.5svh),16px)] font-bold text-[#0D55CF]">
+        {/* Card 2 */}
+        <div className="col-span-1 flex items-center justify-between overflow-hidden rounded-[16px] bg-[#A7E8DF] p-[clamp(12px,1.5vw,20px)] shadow-sm">
+          <div className="mr-2 flex flex-1 flex-col text-left">
+            <h4 className="mb-1 truncate text-[clamp(14px,min(1vw,1.6svh),16px)] font-bold text-[#0D55CF]">
               Hygienic & Safe
             </h4>
-            <p className="line-clamp-2 text-[clamp(14px,min(0.83vw,1.3svh),14px)] leading-[1.3] text-[#1E293B]">
+            <p className="line-clamp-2 text-[clamp(12px,min(0.8vw,1.3svh),13px)] leading-[1.3] text-[#1E293B]">
               Cleaned, packed and delivered with highest hygiene standards.
             </p>
           </div>
           <div className="shrink-0 text-white">
-            <Droplet className="h-[var(--info-icon-size)] w-[var(--info-icon-size)] stroke-[1.5]" />
+            <Droplet className="h-[clamp(36px,3.5vw,54px)] w-[clamp(36px,3.5vw,54px)] stroke-[1]" />
           </div>
         </div>
 
-        <div className="col-span-1 flex items-center justify-between overflow-hidden rounded-[16px] bg-[#D4EFA5] p-[var(--info-padding)] shadow-sm">
-          <div className="min-w-0 flex-1 text-center">
-            <h4 className="mb-1 truncate text-[clamp(16px,min(0.94vw,1.5svh),16px)] font-bold text-[#0D55CF]">
+        {/* Card 3 */}
+        <div className="col-span-1 flex items-center justify-between overflow-hidden rounded-[16px] bg-[#CAEFA7] p-[clamp(12px,1.5vw,20px)] shadow-sm">
+          <div className="mr-2 flex flex-1 flex-col text-left">
+            <h4 className="mb-1 truncate text-[clamp(14px,min(1vw,1.6svh),16px)] font-bold text-[#0D55CF]">
               Sourced Responsibly
             </h4>
-            <p className="line-clamp-2 text-[clamp(14px,min(0.83vw,1.3svh),14px)] leading-[1.3] text-[#1E293B]">
+            <p className="line-clamp-2 text-[clamp(12px,min(0.8vw,1.3svh),13px)] leading-[1.3] text-[#1E293B]">
               We care for the ocean and the environment for a better future.
             </p>
           </div>
           <div className="shrink-0 text-white">
-            <Leaf className="h-[var(--info-icon-size)] w-[var(--info-icon-size)] stroke-[1.5]" />
+            <Leaf className="h-[clamp(36px,3.5vw,54px)] w-[clamp(36px,3.5vw,54px)] stroke-[1]" />
           </div>
         </div>
 
-        <div className="col-span-1 flex items-center justify-center overflow-hidden rounded-[16px] bg-[#E8F3FA] p-[var(--info-padding)] text-[#1E293B] shadow-sm">
-          <div className="flex min-w-0 flex-1 flex-col justify-center text-center">
-            <h4 className="mb-1 truncate text-[clamp(16px,min(0.94vw,1.5svh),16px)] font-bold text-[#0D55CF]">
+        {/* Card 4 */}
+        <div className="col-span-1 flex items-center justify-between overflow-hidden rounded-[16px] bg-[#EAF4FE] p-[clamp(12px,1.5vw,20px)] shadow-sm">
+          <div className="mr-2 flex flex-1 flex-col text-left">
+            <h4 className="mb-[2px] truncate text-[clamp(14px,min(1vw,1.6svh),16px)] font-bold text-[#0D55CF]">
               Join Our Community
             </h4>
-            <p className="mb-2 line-clamp-2 text-[clamp(14px,min(0.83vw,1.3svh),14px)] leading-[1.3]">
+            <p className="mb-2 line-clamp-2 text-[clamp(12px,min(0.8vw,1.3svh),13px)] leading-[1.3] text-[#1E293B]">
               Be a part of our journey for healthy and delicious living.
             </p>
+            
           </div>
-          <div className="relative ml-2 h-[var(--info-qr-size)] w-[var(--info-qr-size)] shrink-0 rounded-lg bg-white p-1">
-            <Image
-              src="/assets/whatsapp_qr.png"
-              alt="QR Code"
-              fill
-              className="rounded-md object-cover"
-            />
+          <div className="relative shrink-0 rounded-[10px] bg-white p-[clamp(4px,0.4vw,6px)] shadow-[0px_2px_8px_rgba(0,0,0,0.08)]">
+            <div className="relative h-[clamp(48px,4.5vw,64px)] w-[clamp(48px,4.5vw,64px)]">
+              <Image
+                src="/assets/whatsapp_qr.png"
+                alt="QR Code"
+                fill
+                className="rounded-[4px] object-cover"
+              />
+            </div>
           </div>
         </div>
       </div>
