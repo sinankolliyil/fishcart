@@ -19,11 +19,11 @@ export default function HomePage() {
      * This is mathematically identical to the reference design (1920×1200) and
      * scales proportionally to every shorter landscape viewport without overflow.
      */
-    <div className="grid h-full min-h-[950px] w-full grid-rows-[minmax(0,33fr)_minmax(0,25fr)_minmax(0,16fr)_minmax(0,10fr)_minmax(0,10fr)] gap-[clamp(16px,1.5vw,24px)]">
+    <div className="grid h-full min-h-[950px] w-full grid-rows-[minmax(0,38fr)_minmax(0,25fr)_minmax(0,16fr)_minmax(0,10fr)_minmax(0,10fr)] gap-[clamp(8px,1vw,16px)]">
       {/* ═══════════════════════════════════════════════════
           ROW 1 — Hero (7 cols) + Categories (5 cols)  33%
           ═══════════════════════════════════════════════════ */}
-      <div className="grid grid-cols-12 gap-[var(--main-gap)] overflow-hidden">
+      <div className="grid grid-cols-12 gap-[var(--main-gap)] overflow-hidden"> 
         {/* ── Hero Card ── */}
         <div className="relative col-span-7 h-full w-full overflow-hidden rounded-[16px] bg-slate-950 shadow-sm">
           <HeroBannerCarousel />
@@ -135,7 +135,7 @@ export default function HomePage() {
             ))}
           </div>
 
-          <div className="mt-[var(--recipe-btn-mt)] flex h-[var(--recipe-btn-h)] items-center rounded-[8px] bg-white px-[clamp(10px,0.83vw,16px)]">
+          <div className="mt-[var(--recipe-btn-mt)] flex w-fit h-[var(--recipe-btn-h)] items-center rounded-[8px] bg-white px-[clamp(10px,0.83vw,16px)]">
             <Link
               href="/cook"
               className="inline-flex items-center gap-2 text-[clamp(10px,min(0.78vw,1.15svh),13px)] font-bold text-[#0D55CF] hover:underline"
