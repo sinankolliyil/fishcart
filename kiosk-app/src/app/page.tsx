@@ -4,7 +4,7 @@ import { ArrowRight, CheckCircle2, Droplet, Leaf, Dumbbell, Sparkles, HeartPulse
 import { Button } from '@/components/ui/Button';
 import { Rating } from '@/components/ui/Rating';
 import { CategoryCard } from '@/components/shared/CategoryCard';
-import { Footer } from '@/components/layout/Footer';
+import { HomeFooter } from '@/components/layout/HomeFooter';
 import { HeroBannerCarousel } from '@/components/shared/HeroBannerCarousel';
 
 export default function HomePage() {
@@ -135,10 +135,10 @@ export default function HomePage() {
             ))}
           </div>
 
-          <div className="mt-[var(--recipe-btn-mt)] flex w-fit h-[var(--recipe-btn-h)] items-center rounded-[8px] bg-white px-[clamp(10px,0.83vw,16px)]">
+          <div className="mt-[var(--recipe-btn-mt)] flex w-fit h-[var(--recipe-btn-h)] items-center rounded-[5px] bg-white px-[clamp(10px,0.83vw,16px)]">
             <Link
               href="/cook"
-              className="inline-flex items-center gap-2 text-[clamp(10px,min(0.78vw,1.15svh),13px)] font-bold text-[#0D55CF] hover:underline"
+              className="inline-flex items-center gap-3 text-[clamp(10px,min(0.78vw,1.15svh),13px)] font-bold text-[#0D55CF] hover:underline"
             >
               View All Recipes
               <ArrowRight className="h-3.5 w-3.5 stroke-[2.5]" />
@@ -384,7 +384,7 @@ export default function HomePage() {
           Gets exactly the remaining space after rows 1–4 and 4 gaps.
           ════════════════════════════════ */}
       <div className="h-full w-full">
-        <Footer />
+        <HomeFooter />
       </div>
     </div>
   );

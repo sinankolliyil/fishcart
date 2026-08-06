@@ -14,7 +14,7 @@ import {
 
 export default function StoryPage() {
   return (
-    <div className="grid h-full w-full grid-rows-[minmax(0,28fr)_minmax(0,25fr)_minmax(0,12fr)_minmax(0,25fr)_minmax(0,10fr)] gap-2 overflow-hidden lg:gap-3 xl:gap-[var(--main-gap)]">
+    <div className="grid h-full min-h-[950px] w-full grid-rows-[minmax(0,28fr)_minmax(0,25fr)_minmax(0,12fr)_minmax(0,25fr)_minmax(0,10fr)] gap-2 lg:gap-3 xl:gap-[var(--main-gap)]">
       {/* ROW 1 — Story Introduction (28%) */}
       <div className="grid min-h-0 grid-cols-[40fr_20fr_40fr] gap-2 overflow-hidden lg:gap-3 xl:grid-cols-[38fr_28fr_34fr] xl:gap-[var(--main-gap)]">
         {/* Left Side: Intro */}

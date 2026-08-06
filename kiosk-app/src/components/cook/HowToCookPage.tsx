@@ -5,7 +5,7 @@ import { Footer } from '@/components/layout/Footer';
 
 export function HowToCookPage() {
   return (
-    <div className="grid h-full w-full grid-rows-[minmax(0,15fr)_minmax(0,74fr)_minmax(0,11fr)] gap-[var(--main-gap)] overflow-hidden select-none">
+    <div className="grid h-full min-h-[950px] w-full grid-rows-[minmax(0,15fr)_minmax(0,74fr)_minmax(0,11fr)] gap-[var(--main-gap)] select-none">
 
       {/* ─── 1. Hero Banner ─── */}
       <div className="relative flex h-full w-full items-center overflow-hidden rounded-2xl bg-gradient-to-r from-[#FFF7ED] via-[#FFF1E0] to-[#FFECD2] border border-white/20 shadow-sm px-[clamp(12px,1.5vw,24px)]">

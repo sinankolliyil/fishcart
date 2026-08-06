@@ -253,7 +253,7 @@ export function BenefitsPage() {
   const benefits = benefitsData[activeCategory];
 
   return (
-    <div className="grid h-full w-full grid-rows-[minmax(0,13fr)_minmax(0,9fr)_minmax(0,52fr)_minmax(0,10fr)_minmax(0,10fr)] gap-[var(--main-gap)] overflow-hidden select-none">
+    <div className="grid h-full min-h-[950px] w-full grid-rows-[minmax(0,13fr)_minmax(0,9fr)_minmax(0,52fr)_minmax(0,10fr)_minmax(0,10fr)] gap-[var(--main-gap)] select-none">
       {/* ─── 1. Hero Banner ─── */}
       <div className="relative flex h-full w-full items-center overflow-hidden rounded-2xl border border-white/20 bg-gradient-to-r from-[#EFF6FF] via-[#E8F3FA] to-[#DBEAFE] px-[clamp(12px,1.5vw,24px)] shadow-sm">
         {/* Decorative dot pattern */}

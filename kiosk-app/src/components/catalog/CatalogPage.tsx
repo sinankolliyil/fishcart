@@ -145,7 +145,7 @@ export function CatalogPage({ data }: CatalogPageProps) {
   };
 
   return (
-    <div className="h-full w-full grid grid-rows-[minmax(0,15fr)_minmax(0,10fr)_minmax(0,53fr)_minmax(0,11fr)_minmax(0,11fr)] gap-[var(--main-gap)] overflow-hidden select-none">
+    <div className="grid h-full min-h-[950px] w-full grid-rows-[minmax(0,15fr)_minmax(0,10fr)_minmax(0,53fr)_minmax(0,11fr)_minmax(0,11fr)] gap-[var(--main-gap)] select-none">
       {/* 1. Hero Section */}
       <div className="overflow-hidden h-full w-full">
         <CatalogHero

@@ -359,7 +359,7 @@ export function TestimonialsPage() {
   };
 
   return (
-    <div className="grid h-full w-full grid-rows-[minmax(0,84fr)_minmax(0,10fr)] gap-[var(--main-gap)] overflow-hidden">
+    <div className="grid h-full min-h-[850px] w-full grid-rows-[minmax(0,70fr)_minmax(0,10fr)] gap-[var(--main-gap)]">
       {/* ── Main Content ── */}
       <div className="flex min-h-0 flex-col gap-[clamp(6px,0.6vw,12px)] overflow-hidden">
 
