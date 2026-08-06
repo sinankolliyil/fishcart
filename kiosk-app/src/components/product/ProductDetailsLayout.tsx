@@ -195,6 +195,7 @@ export function ProductDetailsLayout({ data }: { data: ProductDetails }) {
                       themeText
                     )}
                   >
+                    
                     <Anchor className="h-[clamp(10px,0.8vw,14px)] w-[clamp(10px,0.8vw,14px)]" />
                   </div>
                   <span className="text-[11px] leading-tight font-bold text-slate-600 lg:text-[12px] xl:text-[clamp(11px,0.5vw,9px)]">
