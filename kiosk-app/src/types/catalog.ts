@@ -2,7 +2,7 @@ export interface CategoryTabItem {
   id: string;
   label: string;
   countLabel: string;
-  iconName: "fish" | "globe" | "grill" | "curry" | "dots";
+  iconName: "fish" | "globe" | "grill" | "curry" | "dots" | "beef" | "drumstick" | "egg";
 }
 
 export interface FilterOption {
