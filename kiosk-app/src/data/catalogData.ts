@@ -185,7 +185,7 @@ export const meatCatalogData: CatalogPageData = {
     gradientClass: "from-[#FFF5F5] via-[#FFEBEB] to-[#FCD4D4]",
   },
   tabs: [
-    { id: "all-meat", label: "All Meat", countLabel: "50+ Items", iconName: "fish" }, // Reuse fish icon or customize
+    { id: "all-meat", label: "All Meat", countLabel: "50+ Items", iconName: "beef" },
     { id: "beef", label: "Beef Cuts", countLabel: "15+ Items", iconName: "grill" },
     { id: "mutton", label: "Mutton", countLabel: "20+ Items", iconName: "curry" },
     { id: "by-country", label: "By Country", countLabel: "8+ Items", iconName: "globe" },
@@ -321,7 +321,7 @@ export const chickenCatalogData: CatalogPageData = {
     gradientClass: "from-[#FFF9F0] via-[#FFF6E5] to-[#FCEAD4]",
   },
   tabs: [
-    { id: "all-chicken", label: "All Chicken", countLabel: "30+ Items", iconName: "fish" },
+    { id: "all-chicken", label: "All Chicken", countLabel: "30+ Items", iconName: "drumstick" },
     { id: "curry-cut", label: "Curry Cuts", countLabel: "10+ Items", iconName: "curry" },
     { id: "boneless", label: "Boneless", countLabel: "8+ Items", iconName: "grill" },
     { id: "whole-roast", label: "Whole Roast", countLabel: "5+ Items", iconName: "globe" },
@@ -419,7 +419,7 @@ export const eggsCatalogData: CatalogPageData = {
     gradientClass: "from-[#F5FFF0] via-[#EEFCE5] to-[#DFECD4]",
   },
   tabs: [
-    { id: "all-eggs", label: "All Eggs", countLabel: "15+ Items", iconName: "fish" },
+    { id: "all-eggs", label: "All Eggs", countLabel: "15+ Items", iconName: "egg" },
     { id: "free-range", label: "Free Range", countLabel: "6+ Items", iconName: "globe" },
     { id: "organic", label: "Organic", countLabel: "4+ Items", iconName: "grill" },
     { id: "specialty", label: "Specialty", countLabel: "5+ Items", iconName: "dots" },

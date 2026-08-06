@@ -1,6 +1,6 @@
 import React from 'react';
 import { cn } from '@/lib/utils';
-import { Fish, Globe, MoreHorizontal } from 'lucide-react';
+import { Fish, Globe, MoreHorizontal, Beef, Drumstick, Egg } from 'lucide-react';
 import { CategoryTabItem } from '@/types/catalog';
 
 // Custom Grill Icon
@@ -46,6 +46,12 @@ function getIcon(iconName: string, className?: string) {
   switch (iconName) {
     case 'fish':
       return <Fish className={className} />;
+    case 'beef':
+      return <Beef className={className} />;
+    case 'drumstick':
+      return <Drumstick className={className} />;
+    case 'egg':
+      return <Egg className={className} />;
     case 'globe':
       return <Globe className={className} />;
     case 'grill':

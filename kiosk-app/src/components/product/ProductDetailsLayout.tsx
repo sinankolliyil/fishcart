@@ -26,6 +26,7 @@ import { Footer } from '@/components/layout/Footer';
 export function ProductDetailsLayout({ data }: { data: ProductDetails }) {
   const [activeTab, setActiveTab] = useState('overview');
   const [selectedSize, setSelectedSize] = useState(data.sizes?.[1] || data.sizes?.[0] || null);
+  const [selectedImage, setSelectedImage] = useState(data.imageSrc);
 
   const themeColors = {
     fish: 'text-[#0D55CF] bg-[#0D55CF]',
@@ -209,7 +210,7 @@ export function ProductDetailsLayout({ data }: { data: ProductDetails }) {
             <div className="flex min-w-0 flex-1 flex-col justify-between overflow-hidden">
               <div className="relative min-h-0 w-full flex-1 overflow-hidden rounded-[10px] bg-slate-50">
                 <Image
-                  src={data.imageSrc}
+                  src={selectedImage}
                   alt={data.title}
                   fill
                   className="object-cover"
@@ -220,16 +221,25 @@ export function ProductDetailsLayout({ data }: { data: ProductDetails }) {
 
               {/* Thumbnails */}
               <div className="mt-[clamp(4px,0.6vw,10px)] flex h-[clamp(30px,3vw,44px)] shrink-0 items-center justify-between gap-1 overflow-hidden xl:gap-[clamp(3px,0.4vw,6px)]">
-                <button className="flex h-[clamp(16px,1.5vw,22px)] w-[clamp(16px,1.5vw,22px)] shrink-0 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-500 shadow-sm">
+                <button 
+                  onClick={() => {
+                    if (!data.gallery?.length) return;
+                    const idx = data.gallery.indexOf(selectedImage);
+                    const prev = idx <= 0 ? data.gallery.length - 1 : idx - 1;
+                    setSelectedImage(data.gallery[prev]);
+                  }}
+                  className="flex h-[clamp(16px,1.5vw,22px)] w-[clamp(16px,1.5vw,22px)] shrink-0 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-500 shadow-sm hover:border-blue-300 hover:text-blue-600 transition-colors"
+                >
                   <ChevronLeft className="h-[clamp(8px,0.7vw,12px)] w-[clamp(8px,0.7vw,12px)]" />
                 </button>
                 <div className="flex h-full flex-1 justify-center gap-[clamp(3px,0.4vw,8px)] overflow-hidden px-1">
                   {data.gallery?.map((src, i) => (
                     <div
                       key={i}
+                      onClick={() => setSelectedImage(src)}
                       className={cn(
                         'relative aspect-square h-full shrink-0 cursor-pointer overflow-hidden rounded-[6px] border-[1.5px] transition-all',
-                        i === 0 ? 'border-blue-600' : 'border-transparent'
+                        selectedImage === src ? 'border-blue-600' : 'border-transparent'
                       )}
                     >
                       <Image
@@ -242,7 +252,15 @@ export function ProductDetailsLayout({ data }: { data: ProductDetails }) {
                     </div>
                   ))}
                 </div>
-                <button className="flex h-[clamp(16px,1.5vw,22px)] w-[clamp(16px,1.5vw,22px)] shrink-0 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-500 shadow-sm">
+                <button 
+                  onClick={() => {
+                    if (!data.gallery?.length) return;
+                    const idx = data.gallery.indexOf(selectedImage);
+                    const next = (idx === -1 || idx === data.gallery.length - 1) ? 0 : idx + 1;
+                    setSelectedImage(data.gallery[next]);
+                  }}
+                  className="flex h-[clamp(16px,1.5vw,22px)] w-[clamp(16px,1.5vw,22px)] shrink-0 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-500 shadow-sm hover:border-blue-300 hover:text-blue-600 transition-colors"
+                >
                   <ChevronRight className="h-[clamp(8px,0.7vw,12px)] w-[clamp(8px,0.7vw,12px)]" />
                 </button>
               </div>
