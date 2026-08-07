@@ -7,7 +7,7 @@ export function HomeFooter() {
     <footer className="grid h-full w-full grid-cols-4 items-stretch gap-[clamp(8px,1vw,16px)]">
       {/* Card 1: About Us */}
       <div className="relative flex flex-col justify-center overflow-hidden rounded-[16px] border border-[#E2E8F0] bg-white p-[clamp(12px,1.2vw,20px)] shadow-sm">
-        <div className="relative z-10 flex max-w-[45%] flex-col">
+        <div className="relative z-10 flex max-w-[65%] flex-col">
           <h4 className="mb-2 text-[clamp(14px,min(1vw,1.6svh),18px)] font-bold text-[#0D55CF]">
             About Us
           </h4>
@@ -16,7 +16,7 @@ export function HomeFooter() {
             family.
           </p>
         </div>
-        <div className="absolute right-0 bottom-0 h-full w-[55%] opacity-90 mix-blend-multiply">
+        <div className="absolute right-0 bottom-0 h-full w-[40%] opacity-90 mix-blend-multiply">
           <Image
             src="/assets/about_us_fish_exact.png"
             alt="About Us"
@@ -68,7 +68,7 @@ export function HomeFooter() {
 
       {/* Card 4: Address */}
       <div className="relative flex flex-col justify-center gap-2 overflow-hidden rounded-[16px] border border-[#E2E8F0] bg-white p-[clamp(12px,1.2vw,20px)] shadow-sm">
-        <div className="relative z-10 flex max-w-[50%] flex-col gap-2">
+        <div className="relative z-10 flex max-w-[65%] flex-col gap-2">
           <div className="flex items-center gap-2">
             <MapPin className="h-4 w-4 shrink-0 text-[#0D55CF]" />
             <span className="text-[clamp(10px,min(0.75vw,1.1svh),12px)] leading-[1.2] text-[#475569]">
@@ -91,7 +91,7 @@ export function HomeFooter() {
           </div>
         </div>
 
-        <div className="absolute top-1/2 right-4 h-[80%] w-[50%] -translate-y-1/2 opacity-90 mix-blend-multiply">
+        <div className="absolute top-1/2 right-4 h-[80%] w-[35%] -translate-y-1/2 opacity-90 mix-blend-multiply">
           <Image
             src="/assets/fishdd.png"
             alt="Address"
