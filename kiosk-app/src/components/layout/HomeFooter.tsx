@@ -57,7 +57,12 @@ export function HomeFooter() {
           </p>
         </div>
         <div className="absolute right-0 bottom-0 h-full w-[38%] opacity-90 mix-blend-multiply">
-          <Image src="/assets/boy_exact_v2.png" alt="Contact Us" fill />
+          <Image 
+            src="/assets/boy.png" 
+            alt="Contact Us" 
+            fill 
+            className="object-contain object-right-bottom" 
+          />
         </div>
       </div>
 
