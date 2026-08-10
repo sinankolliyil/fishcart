@@ -25,7 +25,9 @@ import { Footer } from '@/components/layout/Footer';
 
 export function ProductDetailsLayout({ data }: { data: ProductDetails }) {
   const [activeTab, setActiveTab] = useState('overview');
-  const [selectedSize, setSelectedSize] = useState(data.sizes?.[1] || data.sizes?.[0] || null);
+  const [selectedSize, setSelectedSize] = useState(
+    data.sizes?.[1] || data.sizes?.[0] || null
+  );
   const [selectedImage, setSelectedImage] = useState(data.imageSrc);
 
   const themeColors = {
@@ -195,7 +197,6 @@ export function ProductDetailsLayout({ data }: { data: ProductDetails }) {
                       themeText
                     )}
                   >
-                    
                     <Anchor className="h-[clamp(10px,0.8vw,14px)] w-[clamp(10px,0.8vw,14px)]" />
                   </div>
                   <span className="text-[11px] leading-tight font-bold text-slate-600 lg:text-[12px] xl:text-[clamp(11px,0.5vw,9px)]">
@@ -222,14 +223,14 @@ export function ProductDetailsLayout({ data }: { data: ProductDetails }) {
 
               {/* Thumbnails */}
               <div className="mt-[clamp(4px,0.6vw,10px)] flex h-[clamp(30px,3vw,44px)] shrink-0 items-center justify-between gap-1 overflow-hidden xl:gap-[clamp(3px,0.4vw,6px)]">
-                <button 
+                <button
                   onClick={() => {
                     if (!data.gallery?.length) return;
                     const idx = data.gallery.indexOf(selectedImage);
                     const prev = idx <= 0 ? data.gallery.length - 1 : idx - 1;
                     setSelectedImage(data.gallery[prev]);
                   }}
-                  className="flex h-[clamp(16px,1.5vw,22px)] w-[clamp(16px,1.5vw,22px)] shrink-0 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-500 shadow-sm hover:border-blue-300 hover:text-blue-600 transition-colors"
+                  className="flex h-[clamp(16px,1.5vw,22px)] w-[clamp(16px,1.5vw,22px)] shrink-0 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-500 shadow-sm transition-colors hover:border-blue-300 hover:text-blue-600"
                 >
                   <ChevronLeft className="h-[clamp(8px,0.7vw,12px)] w-[clamp(8px,0.7vw,12px)]" />
                 </button>
@@ -240,7 +241,9 @@ export function ProductDetailsLayout({ data }: { data: ProductDetails }) {
                       onClick={() => setSelectedImage(src)}
                       className={cn(
                         'relative aspect-square h-full shrink-0 cursor-pointer overflow-hidden rounded-[6px] border-[1.5px] transition-all',
-                        selectedImage === src ? 'border-blue-600' : 'border-transparent'
+                        selectedImage === src
+                          ? 'border-blue-600'
+                          : 'border-transparent'
                       )}
                     >
                       <Image
@@ -253,14 +256,17 @@ export function ProductDetailsLayout({ data }: { data: ProductDetails }) {
                     </div>
                   ))}
                 </div>
-                <button 
+                <button
                   onClick={() => {
                     if (!data.gallery?.length) return;
                     const idx = data.gallery.indexOf(selectedImage);
-                    const next = (idx === -1 || idx === data.gallery.length - 1) ? 0 : idx + 1;
+                    const next =
+                      idx === -1 || idx === data.gallery.length - 1
+                        ? 0
+                        : idx + 1;
                     setSelectedImage(data.gallery[next]);
                   }}
-                  className="flex h-[clamp(16px,1.5vw,22px)] w-[clamp(16px,1.5vw,22px)] shrink-0 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-500 shadow-sm hover:border-blue-300 hover:text-blue-600 transition-colors"
+                  className="flex h-[clamp(16px,1.5vw,22px)] w-[clamp(16px,1.5vw,22px)] shrink-0 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-500 shadow-sm transition-colors hover:border-blue-300 hover:text-blue-600"
                 >
                   <ChevronRight className="h-[clamp(8px,0.7vw,12px)] w-[clamp(8px,0.7vw,12px)]" />
                 </button>
@@ -283,7 +289,8 @@ export function ProductDetailsLayout({ data }: { data: ProductDetails }) {
                     £{(selectedSize?.price ?? data.price).toFixed(2)}
                   </span>
                   <span className="text-[13px] font-bold text-slate-500 lg:text-[14px] xl:text-[clamp(10px,0.8vw,14px)]">
-                    / {data.unit} {selectedSize?.subLabel ? ` ${selectedSize.subLabel}` : ''}
+                    / {data.unit}{' '}
+                    {selectedSize?.subLabel ? ` ${selectedSize.subLabel}` : ''}
                   </span>
                 </div>
                 <Link
@@ -313,7 +320,7 @@ export function ProductDetailsLayout({ data }: { data: ProductDetails }) {
                         className={cn(
                           'flex flex-col items-center justify-center rounded-[6px] border p-0.5 transition-colors',
                           isActive
-                            ? 'border-blue-600 bg-blue-50 text-blue-700 font-bold'
+                            ? 'border-blue-600 bg-blue-50 font-bold text-blue-700'
                             : 'border-slate-200 text-slate-600 hover:border-blue-300'
                         )}
                       >

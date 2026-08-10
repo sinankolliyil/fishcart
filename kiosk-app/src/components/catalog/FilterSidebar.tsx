@@ -163,7 +163,7 @@ export function FilterSidebar({
 
           return (
             <div
-              key={section.id} 
+              key={section.id}
               className="flex min-h-0 flex-col gap-2 border-t border-gray-50 pt-2 first:border-t-0 first:pt-0"
             >
               <h4 className="text-text-heading text-[clamp(11px,min(1.0vw,1.45svh),15px)] font-bold">

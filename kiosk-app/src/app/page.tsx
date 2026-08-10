@@ -1,6 +1,14 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { ArrowRight, CheckCircle2, Droplet, Leaf, Dumbbell, Sparkles, HeartPulse } from 'lucide-react';
+import {
+  ArrowRight,
+  CheckCircle2,
+  Droplet,
+  Leaf,
+  Dumbbell,
+  Sparkles,
+  HeartPulse,
+} from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import { Rating } from '@/components/ui/Rating';
 import { CategoryCard } from '@/components/shared/CategoryCard';
@@ -23,11 +31,11 @@ export default function HomePage() {
       {/* ═══════════════════════════════════════════════════
           ROW 1 — Hero (7 cols) + Categories (5 cols)  33%
           ═══════════════════════════════════════════════════ */}
-      <div className="grid grid-cols-12 gap-[var(--main-gap)] overflow-hidden"> 
+      <div className="grid grid-cols-12 gap-[var(--main-gap)] overflow-hidden">
         {/* ── Hero Card ── */}
         <div className="relative col-span-7 h-full w-full overflow-hidden rounded-[16px] bg-slate-950 shadow-sm">
           <HeroBannerCarousel />
-        </div> 
+        </div>
 
         {/* ── Categories Grid ── */}
         <div className="col-span-5 grid grid-rows-[55fr_45fr] gap-[var(--cat-gap)] overflow-hidden">
@@ -135,7 +143,7 @@ export default function HomePage() {
             ))}
           </div>
 
-          <div className="mt-[var(--recipe-btn-mt)] flex w-fit h-[var(--recipe-btn-h)] items-center rounded-[5px] bg-white px-[clamp(10px,0.83vw,16px)]">
+          <div className="mt-[var(--recipe-btn-mt)] flex h-[var(--recipe-btn-h)] w-fit items-center rounded-[5px] bg-white px-[clamp(10px,0.83vw,16px)]">
             <Link
               href="/cook"
               className="inline-flex items-center gap-3 text-[clamp(10px,min(0.78vw,1.15svh),13px)] font-bold text-[#0D55CF] hover:underline"
@@ -288,7 +296,7 @@ export default function HomePage() {
               src={item.image}
               alt={item.title}
               fill
-              className="object-cover transition-transform duration-300 group-hover:scale-105 mix-blend-multiply"
+              className="object-cover mix-blend-multiply transition-transform duration-300 group-hover:scale-105"
             />
             <div
               className="absolute bottom-[clamp(8px,min(1vw,1.5svh),16px)] left-[clamp(8px,min(1vw,1.5svh),16px)] z-10 rounded-[12px] bg-white px-[clamp(12px,min(1vw,1.5svh),16px)] py-[clamp(8px,min(0.8vw,1.2svh),12px)] shadow-[0px_2px_8px_rgba(0,0,0,0.08)]"
@@ -364,7 +372,6 @@ export default function HomePage() {
             <p className="mb-2 line-clamp-2 text-[clamp(12px,min(0.8vw,1.3svh),13px)] leading-[1.3] text-[#1E293B]">
               Be a part of our journey for healthy and delicious living.
             </p>
-            
           </div>
           <div className="relative shrink-0 rounded-[10px] bg-white p-[clamp(4px,0.4vw,6px)] shadow-[0px_2px_8px_rgba(0,0,0,0.08)]">
             <div className="relative h-[clamp(48px,4.5vw,64px)] w-[clamp(48px,4.5vw,64px)]">

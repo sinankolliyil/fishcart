@@ -150,7 +150,7 @@ export function ProductGrid({
               <Link
                 href={`/product/${product.id}`}
                 key={product.id}
-                className="group flex h-full min-h-0 items-center gap-2.5 overflow-hidden rounded-xl border border-gray-100 bg-white p-1.5 shadow-sm hover:shadow-md cursor-pointer transition-all"
+                className="group flex h-full min-h-0 cursor-pointer items-center gap-2.5 overflow-hidden rounded-xl border border-gray-100 bg-white p-1.5 shadow-sm transition-all hover:shadow-md"
               >
                 {/* Image */}
                 <div className="relative aspect-square h-full shrink-0 overflow-hidden rounded-lg bg-slate-50">

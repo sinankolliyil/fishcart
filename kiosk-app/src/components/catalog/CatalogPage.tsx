@@ -1,13 +1,13 @@
-"use client";
+'use client';
 
-import React, { useState, useMemo } from "react";
-import { CatalogPageData } from "@/types/catalog";
-import { CatalogHero } from "./CatalogHero";
-import { CategoryTabs } from "./CategoryTabs";
-import { FilterSidebar } from "./FilterSidebar";
-import { ProductGrid } from "./ProductGrid";
-import { BottomInfoSection } from "./BottomInfoSection";
-import { Footer } from "@/components/layout/Footer";
+import React, { useState, useMemo } from 'react';
+import { CatalogPageData } from '@/types/catalog';
+import { CatalogHero } from './CatalogHero';
+import { CategoryTabs } from './CategoryTabs';
+import { FilterSidebar } from './FilterSidebar';
+import { ProductGrid } from './ProductGrid';
+import { BottomInfoSection } from './BottomInfoSection';
+import { Footer } from '@/components/layout/Footer';
 
 export interface CatalogPageProps {
   data: CatalogPageData;
@@ -15,10 +15,10 @@ export interface CatalogPageProps {
 
 export function CatalogPage({ data }: CatalogPageProps) {
   // 1. Tab State (e.g. "all-fish", "by-country", "grill-fishes", etc.)
-  const [activeTabId, setActiveTabId] = useState(data.tabs[0]?.id || "all");
+  const [activeTabId, setActiveTabId] = useState(data.tabs[0]?.id || 'all');
 
   // 2. Sorting State (e.g. "newest", "price-low", "price-high", "popularity")
-  const [activeSort, setActiveSort] = useState("newest");
+  const [activeSort, setActiveSort] = useState('newest');
 
   // 3. Checkbox Filters State (sectionId -> list of optionIds)
   const [tempFilters, setTempFilters] = useState<Record<string, string[]>>({
@@ -27,7 +27,9 @@ export function CatalogPage({ data }: CatalogPageProps) {
     size: [],
   });
 
-  const [appliedFilters, setAppliedFilters] = useState<Record<string, string[]>>({
+  const [appliedFilters, setAppliedFilters] = useState<
+    Record<string, string[]>
+  >({
     country: [],
     type: [],
     size: [],
@@ -61,24 +63,35 @@ export function CatalogPage({ data }: CatalogPageProps) {
     let result = [...data.products];
 
     // A. Sub-category Tabs Filtering
-    if (data.category === "fish") {
-      if (activeTabId === "grill-fishes") {
-        result = result.filter((p) => ["salmon", "sea-bass", "tuna-steak", "prawns"].includes(p.id));
-      } else if (activeTabId === "curry-fishes") {
-        result = result.filter((p) => ["mackerel", "tilapia", "prawns", "trout"].includes(p.id));
-      } else if (activeTabId === "by-country") {
-        result = result.filter((p) => ["salmon", "tuna-steak", "tilapia", "prawns", "trout"].includes(p.id));
-      } else if (activeTabId === "other-types") {
-        result = result.filter((p) => ["cod-fillet", "tilapia", "trout"].includes(p.id));
+    if (data.category === 'fish') {
+      if (activeTabId === 'grill-fishes') {
+        result = result.filter((p) =>
+          ['salmon', 'sea-bass', 'tuna-steak', 'prawns'].includes(p.id)
+        );
+      } else if (activeTabId === 'curry-fishes') {
+        result = result.filter((p) =>
+          ['mackerel', 'tilapia', 'prawns', 'trout'].includes(p.id)
+        );
+      } else if (activeTabId === 'by-country') {
+        result = result.filter((p) =>
+          ['salmon', 'tuna-steak', 'tilapia', 'prawns', 'trout'].includes(p.id)
+        );
+      } else if (activeTabId === 'other-types') {
+        result = result.filter((p) =>
+          ['cod-fillet', 'tilapia', 'trout'].includes(p.id)
+        );
       }
     } else {
       // Dynamic tabs filtering for other categories
-      if (activeTabId.includes("beef") || activeTabId.includes("curry")) {
+      if (activeTabId.includes('beef') || activeTabId.includes('curry')) {
         result = result.slice(0, Math.ceil(result.length / 2));
-      } else if (activeTabId.includes("mutton") || activeTabId.includes("boneless")) {
+      } else if (
+        activeTabId.includes('mutton') ||
+        activeTabId.includes('boneless')
+      ) {
         result = result.slice(Math.ceil(result.length / 2));
-      } else if (activeTabId.includes("country")) {
-        result = result.filter((p) => p.origin !== "Local Farms");
+      } else if (activeTabId.includes('country')) {
+        result = result.filter((p) => p.origin !== 'Local Farms');
       }
     }
 
@@ -89,7 +102,8 @@ export function CatalogPage({ data }: CatalogPageProps) {
       result = result.filter((p) => {
         const countryLower = (p.filterCountry || p.origin).toLowerCase();
         return selectedCountries.some((c) => {
-          if (c === "uk") return countryLower === "united kingdom" || countryLower === "uk";
+          if (c === 'uk')
+            return countryLower === 'united kingdom' || countryLower === 'uk';
           return countryLower === c;
         });
       });
@@ -100,14 +114,30 @@ export function CatalogPage({ data }: CatalogPageProps) {
     if (selectedTypes.length > 0) {
       result = result.filter((p) => {
         return selectedTypes.some((t) => {
-          if (t === "grill") return ["salmon", "sea-bass", "tuna-steak", "prawns"].includes(p.id);
-          if (t === "curry") return ["mackerel", "tilapia", "prawns", "trout"].includes(p.id);
-          if (t === "steak") return p.format.toLowerCase().includes("steak");
-          if (t === "whole") return p.format.toLowerCase().includes("whole");
-          if (t === "fillets") return p.format.toLowerCase().includes("filet") || p.format.toLowerCase().includes("fillet");
+          if (t === 'grill')
+            return ['salmon', 'sea-bass', 'tuna-steak', 'prawns'].includes(
+              p.id
+            );
+          if (t === 'curry')
+            return ['mackerel', 'tilapia', 'prawns', 'trout'].includes(p.id);
+          if (t === 'steak') return p.format.toLowerCase().includes('steak');
+          if (t === 'whole') return p.format.toLowerCase().includes('whole');
+          if (t === 'fillets')
+            return (
+              p.format.toLowerCase().includes('filet') ||
+              p.format.toLowerCase().includes('fillet')
+            );
           // For meat/chicken
-          if (t === "boneless") return p.format.toLowerCase().includes("boneless") || p.format.toLowerCase().includes("fillet");
-          if (t === "bone-in") return p.format.toLowerCase().includes("bone") || p.format.toLowerCase().includes("whole");
+          if (t === 'boneless')
+            return (
+              p.format.toLowerCase().includes('boneless') ||
+              p.format.toLowerCase().includes('fillet')
+            );
+          if (t === 'bone-in')
+            return (
+              p.format.toLowerCase().includes('bone') ||
+              p.format.toLowerCase().includes('whole')
+            );
           return false;
         });
       });
@@ -118,20 +148,21 @@ export function CatalogPage({ data }: CatalogPageProps) {
     if (selectedSizes.length > 0) {
       result = result.filter((p) => {
         return selectedSizes.some((s) => {
-          if (s === "small" || s === "pack-6") return p.price < 8.00;
-          if (s === "medium" || s === "pack-12") return p.price >= 8.00 && p.price < 15.00;
-          if (s === "large" || s === "pack-30") return p.price >= 15.00;
+          if (s === 'small' || s === 'pack-6') return p.price < 8.0;
+          if (s === 'medium' || s === 'pack-12')
+            return p.price >= 8.0 && p.price < 15.0;
+          if (s === 'large' || s === 'pack-30') return p.price >= 15.0;
           return false;
         });
       });
     }
 
     // C. Sorting
-    if (activeSort === "price-low") {
+    if (activeSort === 'price-low') {
       result.sort((a, b) => a.price - b.price);
-    } else if (activeSort === "price-high") {
+    } else if (activeSort === 'price-high') {
       result.sort((a, b) => b.price - a.price);
-    } else if (activeSort === "popularity") {
+    } else if (activeSort === 'popularity') {
       result.sort((a, b) => b.title.length - a.title.length);
     }
 
@@ -147,7 +178,7 @@ export function CatalogPage({ data }: CatalogPageProps) {
   return (
     <div className="grid h-full min-h-[950px] w-full grid-rows-[minmax(0,15fr)_minmax(0,10fr)_minmax(0,53fr)_minmax(0,11fr)_minmax(0,11fr)] gap-[var(--main-gap)] select-none">
       {/* 1. Hero Section */}
-      <div className="overflow-hidden h-full w-full">
+      <div className="h-full w-full overflow-hidden">
         <CatalogHero
           breadcrumb={data.breadcrumb}
           title={data.hero.title}
@@ -160,7 +191,7 @@ export function CatalogPage({ data }: CatalogPageProps) {
       </div>
 
       {/* 2. Category Tabs */}
-      <div className="overflow-hidden h-full w-full">
+      <div className="h-full w-full overflow-hidden">
         <CategoryTabs
           tabs={data.tabs}
           activeTabId={activeTabId}
@@ -170,7 +201,7 @@ export function CatalogPage({ data }: CatalogPageProps) {
       </div>
 
       {/* 3. Main Catalog Section (Filters + Product Grid) */}
-      <div className="grid grid-cols-5 gap-[var(--main-gap)] w-full h-full overflow-hidden items-stretch min-h-0">
+      <div className="grid h-full min-h-0 w-full grid-cols-5 items-stretch gap-[var(--main-gap)] overflow-hidden">
         {/* Left Column: Filter Sidebar — 1/5 width to match first category tab */}
         <div className="col-span-1 h-full overflow-hidden">
           <FilterSidebar
@@ -185,7 +216,7 @@ export function CatalogPage({ data }: CatalogPageProps) {
         </div>
 
         {/* Right Column: Product List — 4/5 width */}
-        <div className="col-span-4 h-full overflow-hidden flex flex-col">
+        <div className="col-span-4 flex h-full flex-col overflow-hidden">
           <ProductGrid
             products={processedProducts}
             category={data.category}
@@ -197,7 +228,7 @@ export function CatalogPage({ data }: CatalogPageProps) {
       </div>
 
       {/* 4. Bottom Information Cards */}
-      <div className="overflow-hidden h-full w-full">
+      <div className="h-full w-full overflow-hidden">
         <BottomInfoSection
           bottomInfo={data.bottomInfo}
           category={data.category}
@@ -205,7 +236,7 @@ export function CatalogPage({ data }: CatalogPageProps) {
       </div>
 
       {/* 5. Reusable Footer */}
-      <div className="overflow-hidden h-full w-full shrink-0">
+      <div className="h-full w-full shrink-0 overflow-hidden">
         <Footer />
       </div>
     </div>

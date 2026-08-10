@@ -82,7 +82,7 @@
    * ────────────────────────────────────────────────────────────────────── */
   --main-padding-y: clamp(10px, min(1.25vw, 1.8svh), 22px);
   --main-padding-x: clamp(10px, min(1.25vw, 1.8svh), 22px);
-  --main-gap:       clamp(5px,  min(0.6vw,  0.85svh), 12px);
+  --main-gap:       clamp(12px,  min(1vw,  1.5svh), 24px);
 
   /* ─── Row 1 — Hero ────────────────────────────────────────────────────── */
   --hero-ribbon-h:  clamp(26px, min(2.5vw, 3.8svh), 38px);
@@ -93,17 +93,17 @@
   --hero-btn-h:     clamp(28px, min(1.98vw, 2.9svh), 40px);
 
   /* ─── Row 1 — Categories ──────────────────────────────────────────────── */
-  --cat-gap:          clamp(4px,  min(0.42vw, 0.6svh),  8px);
-  --cat-card-padding: clamp(10px, min(1.25vw, 1.8svh), 22px);
+  --cat-gap:          clamp(10px,  min(0.8vw, 1.2svh),  18px);
+  --cat-card-padding: clamp(16px, min(1.8vw, 2.5svh), 32px);
 
   /* ─── Row 2 — Recipe, Nutrition, Testimonial ──────────────────────────── */
-  --row2-gap:          clamp(4px,  min(0.52vw, 0.75svh),  9px);
-  --recipe-padding:    clamp(10px, min(1.25vw, 1.8svh),  22px);
+  --row2-gap:          clamp(10px,  min(0.8vw, 1.2svh),  18px);
+  --recipe-padding:    clamp(16px, min(1.8vw, 2.5svh), 32px);
   --recipe-btn-mt:     clamp(4px,  min(0.63vw, 0.9svh),  10px);
   --recipe-btn-h:      clamp(24px, min(1.77vw, 2.6svh),  32px);
-  --nutrition-padding: clamp(10px, min(1.25vw, 1.8svh),  22px);
+  --nutrition-padding: clamp(16px, min(1.8vw, 2.5svh), 32px);
   --nutrition-desc-mb: clamp(5px,  min(0.83vw, 1.2svh),  14px);
-  --testimonial-padding: clamp(10px, min(1.04vw, 1.5svh), 18px);
+  --testimonial-padding: clamp(16px, min(1.6vw, 2.2svh), 28px);
 
   /* ─── Row 3 — Showcase Banners ────────────────────────────────────────── */
   --showcase-gap:          clamp(4px,  min(0.83vw, 1.2svh), 14px);
@@ -114,13 +114,13 @@
 
   /* ─── Row 4 — Info Cards ──────────────────────────────────────────────── */
   --info-gap:      clamp(4px,  min(0.83vw, 1.2svh),  14px);
-  --info-padding:  clamp(7px,  min(0.83vw, 1.2svh),  14px);
+  --info-padding:  clamp(12px,  min(1.2vw, 1.8svh),  22px);
   --info-icon-size: clamp(28px, min(2.5vw, 3.5svh), 42px);
   --info-qr-size:   clamp(42px, min(4.17vw, 6.1svh),  72px);
 
   /* ─── Footer ──────────────────────────────────────────────────────────── */
   --footer-gap:         clamp(4px,  min(0.63vw, 0.9svh),  12px);
-  --footer-card-padding: clamp(5px,  min(0.83vw, 1.2svh),  13px);
+  --footer-card-padding: clamp(10px,  min(1.2vw, 1.8svh),  20px);
   --footer-card-gap:     clamp(4px,  min(0.63vw, 0.9svh),  10px);
   --footer-svg-1-size:   clamp(30px, min(4.17vw, 6.1svh),  68px);
   --footer-svg-2-size:   clamp(26px, min(3.13vw, 4.6svh),  52px);
@@ -134,7 +134,7 @@
   --sidebar-item-py:           clamp(7px,  min(0.75vw, 1.1svh), 13px);
   --sidebar-item-px:           clamp(8px,  min(0.83vw, 1.2svh), 14px);
   --sidebar-item-gap:          clamp(8px,  min(0.83vw, 1.2svh), 14px);
-  --sidebar-item-icon-size:    clamp(15px, min(1.1vw,  1.6svh), 20px);
+  --sidebar-item-icon-size:    clamp(24px, min(1.8vw,  2.6svh), 32px);
   /* Minimum button height guarantees comfortable touch / read area */
   --sidebar-item-min-h:        clamp(34px, min(3.0vw,  4.5svh), 44px);
   --sidebar-community-padding: clamp(6px,  min(0.6vw,  0.9svh), 10px);
@@ -154,43 +154,21 @@
   :root {
     --main-padding-y: clamp(8px, 1.1svh, 14px);
     --main-padding-x: clamp(8px, 1.1svh, 14px);
-    --main-gap: clamp(4px, 0.55svh, 8px);
 
     --hero-ribbon-h:  clamp(24px, 3.0svh, 32px);
     --hero-padding-y: clamp(10px, 1.5svh, 20px);
     --hero-padding-x: clamp(12px, 2.0svh, 28px);
 
-    --cat-card-padding: clamp(8px, 1.2svh, 16px);
-    --cat-gap: clamp(3px, 0.45svh, 6px);
-
-    --row2-gap: clamp(3px, 0.45svh, 6px);
-    --recipe-padding: clamp(8px, 1.2svh, 16px);
     --recipe-btn-h: clamp(22px, 3.2svh, 28px);
-    --nutrition-padding: clamp(8px, 1.2svh, 16px);
-    --testimonial-padding: clamp(8px, 1.1svh, 14px);
 
-    --showcase-gap: clamp(3px, 0.45svh, 6px);
     --showcase-label-px: clamp(5px, 0.75svh, 10px);
     --showcase-label-py: clamp(3px, 0.45svh, 6px);
 
-    --info-gap: clamp(3px, 0.45svh, 6px);
-    --info-padding: clamp(5px, 0.75svh, 10px);
     --info-icon-size: clamp(18px, 2.7svh, 28px);
     --info-qr-size: clamp(38px, 5.7svh, 60px);
-
-    --footer-gap: clamp(3px, 0.45svh, 6px);
-    --footer-card-padding: clamp(4px, 0.6svh, 8px);
-    --footer-card-gap: clamp(3px, 0.45svh, 6px);
     --footer-svg-1-size: clamp(26px, 3.9svh, 48px);
     --footer-svg-2-size: clamp(22px, 3.3svh, 38px);
 
-    --sidebar-logo-padding: clamp(8px, 1.1svh, 14px);
-    --sidebar-nav-padding-y: clamp(6px, 0.9svh, 12px);
-    --sidebar-nav-gap: clamp(2px, 0.3svh, 5px);
-    --sidebar-item-py: clamp(6px, 0.85svh, 11px);
-    --sidebar-item-min-h: clamp(30px, 4.0svh, 40px);
-    --sidebar-community-qr-size: clamp(52px, 7.5svh, 86px);
-    --sidebar-community-btn-h: clamp(28px, 4.0svh, 38px);
   }
 }
 
@@ -198,54 +176,25 @@
   :root {
     --main-padding-y: clamp(6px, 0.9svh, 10px);
     --main-padding-x: clamp(6px, 0.9svh, 10px);
-    --main-gap: clamp(3px, 0.45svh, 6px);
 
     --hero-ribbon-h: clamp(22px, 2.8svh, 28px);
     --hero-padding-y: clamp(8px, 1.2svh, 14px);
     --hero-padding-x: clamp(10px, 1.5svh, 20px);
 
-    --cat-card-padding: clamp(7px, 1.05svh, 12px);
-    --cat-gap: clamp(3px, 0.45svh, 5px);
-
-    --row2-gap: clamp(3px, 0.45svh, 5px);
-    --recipe-padding: clamp(7px, 1.05svh, 12px);
     --recipe-btn-mt: clamp(3px, 0.45svh, 6px);
     --recipe-btn-h: clamp(20px, 3.0svh, 26px);
-    --nutrition-padding: clamp(7px, 1.05svh, 12px);
     --nutrition-desc-mb: clamp(3px, 0.45svh, 7px);
-    --testimonial-padding: clamp(7px, 1.05svh, 12px);
 
-    --showcase-gap: clamp(3px, 0.45svh, 5px);
     --showcase-label-bottom: clamp(4px, 0.6svh, 7px);
     --showcase-label-left: clamp(4px, 0.6svh, 7px);
     --showcase-label-px: clamp(5px, 0.75svh, 9px);
     --showcase-label-py: clamp(3px, 0.45svh, 5px);
 
-    --info-gap: clamp(3px, 0.45svh, 5px);
-    --info-padding: clamp(4px, 0.6svh, 8px);
     --info-icon-size: clamp(16px, 2.4svh, 24px);
     --info-qr-size: clamp(32px, 4.8svh, 52px);
-
-    --footer-gap: clamp(3px, 0.45svh, 5px);
-    --footer-card-padding: clamp(4px, 0.6svh, 7px);
-    --footer-card-gap: clamp(3px, 0.45svh, 5px);
     --footer-svg-1-size: clamp(22px, 3.3svh, 38px);
     --footer-svg-2-size: clamp(18px, 2.7svh, 30px);
 
-    --sidebar-logo-padding: clamp(6px, 0.9svh, 10px);
-    --sidebar-nav-padding-y: clamp(5px, 0.75svh, 9px);
-    --sidebar-nav-padding-x: clamp(6px, 0.9svh, 10px);
-    --sidebar-nav-gap: clamp(1px, 0.2svh, 3px);
-    --sidebar-item-py: clamp(4px, 0.6svh, 8px);
-    --sidebar-item-min-h: clamp(26px, 3.5svh, 34px);
-    --sidebar-item-px: clamp(5px, 0.75svh, 10px);
-    --sidebar-item-gap: clamp(5px, 0.75svh, 10px);
-    --sidebar-item-icon-size: clamp(12px, 1.8svh, 17px);
-    --sidebar-community-padding: clamp(4px, 0.6svh, 7px);
-    --sidebar-community-qr-size: clamp(44px, 6.5svh, 70px);
-    --sidebar-community-btn-h: clamp(24px, 3.5svh, 32px);
-    --sidebar-contact-padding: clamp(5px, 0.75svh, 9px);
-    --sidebar-contact-icon-size: clamp(18px, 2.7svh, 26px);
   }
 }
 
@@ -253,52 +202,25 @@
   :root {
     --main-padding-y: 5px;
     --main-padding-x: 5px;
-    --main-gap: 3px;
 
     --hero-ribbon-h: 22px;
     --hero-padding-y: 6px;
     --hero-padding-x: 10px;
 
-    --cat-card-padding: 6px;
-    --cat-gap: 3px;
-
-    --row2-gap: 3px;
-    --recipe-padding: 6px;
     --recipe-btn-mt: 3px;
     --recipe-btn-h: 20px;
-    --nutrition-padding: 6px;
     --nutrition-desc-mb: 3px;
-    --testimonial-padding: 6px;
 
-    --showcase-gap: 3px;
     --showcase-label-bottom: 4px;
     --showcase-label-left: 4px;
     --showcase-label-px: 5px;
     --showcase-label-py: 3px;
 
-    --info-gap: 3px;
-    --info-padding: 4px;
     --info-icon-size: 15px;
     --info-qr-size: 30px;
-
-    --footer-gap: 3px;
-    --footer-card-padding: 4px;
-    --footer-card-gap: 3px;
     --footer-svg-1-size: 20px;
     --footer-svg-2-size: 16px;
 
-    --sidebar-logo-padding: 5px;
-    --sidebar-nav-padding-y: 4px;
-    --sidebar-nav-padding-x: 5px;
-    --sidebar-nav-gap: 1px;
-    --sidebar-item-py: 4px;
-    --sidebar-item-min-h: 24px;
-    --sidebar-item-px: 5px;
-    --sidebar-item-gap: 4px;
-    --sidebar-item-icon-size: 12px;
-    --sidebar-community-padding: 4px;
-    --sidebar-community-qr-size: 38px;
-    --sidebar-community-btn-h: 22px;
   }
 }
 
