@@ -8,12 +8,11 @@ export function HomeFooter() {
       {/* Card 1: About Us */}
       <div className="relative flex flex-col justify-center overflow-hidden rounded-[16px] border border-[#E2E8F0] bg-white p-[clamp(16px,1.8vw,28px)] shadow-sm">
         <div className="relative z-10 flex max-w-[65%] flex-col">
-          <h4 className="mb-2 text-[clamp(14px,min(1vw,1.6svh),18px)] font-bold text-[#0D55CF]">
+          <h4 className="mb-0.5 text-[clamp(14px,min(1vw,1.6svh),18px)] font-bold text-[#0D55CF]">
             About Us
           </h4>
-          <p className="text-[clamp(11px,min(0.8vw,1.2svh),13px)] leading-[1.4] text-[#475569]">
-            We are passionate about delivering fresh and healthy food to your
-            family.
+          <p className="line-clamp-2 text-[clamp(11px,min(0.8vw,1.2svh),13px)] leading-[1.3] text-[#475569]">
+            Delivering fresh & healthy food to your family.
           </p>
         </div>
         <div className="absolute right-0 bottom-0 h-full w-[40%] opacity-90 mix-blend-multiply">
@@ -29,11 +28,11 @@ export function HomeFooter() {
       {/* Card 2: Our Stories */}
       <div className="relative flex flex-col justify-center overflow-hidden rounded-[16px] border border-[#E2E8F0] bg-white p-[clamp(16px,1.8vw,28px)] shadow-sm">
         <div className="relative z-10 flex max-w-[55%] flex-col">
-          <h4 className="mb-2 text-[clamp(14px,min(1vw,1.6svh),18px)] font-bold text-[#0D55CF]">
+          <h4 className="mb-0.5 text-[clamp(14px,min(1vw,1.6svh),18px)] font-bold text-[#0D55CF]">
             Our Stories
           </h4>
-          <p className="text-[clamp(11px,min(0.8vw,1.2svh),13px)] leading-[1.4] text-[#475569]">
-            From ocean to your kitchen, our journey of freshness.
+          <p className="line-clamp-2 text-[clamp(11px,min(0.8vw,1.2svh),13px)] leading-[1.3] text-[#475569]">
+            From ocean to your kitchen, Journey of freshness.
           </p>
         </div>
         <div className="absolute right-0 bottom-0 h-full w-[45%] opacity-90 mix-blend-multiply">
@@ -49,32 +48,30 @@ export function HomeFooter() {
       {/* Card 3: Contact Us */}
       <div className="relative flex flex-col justify-center overflow-hidden rounded-[16px] border border-[#E2E8F0] bg-white p-[clamp(16px,1.8vw,28px)] shadow-sm">
         <div className="relative z-10 flex max-w-[60%] flex-col">
-          <h4 className="mb-2 text-[clamp(14px,min(1vw,1.6svh),18px)] font-bold text-[#0D55CF]">
+          <h4 className="mb-0.5 text-[clamp(14px,min(1vw,1.6svh),18px)] font-bold text-[#0D55CF]">
             Contact Us
           </h4>
-          <p className="text-[clamp(11px,min(0.8vw,1.2svh),13px)] leading-[1.4] text-[#475569]">
+          <p className="line-clamp-2 text-[clamp(11px,min(0.8vw,1.2svh),13px)] leading-[1.3] text-[#475569]">
             We are here to help you. Reach out anytime.
           </p>
         </div>
         <div className="absolute right-0 bottom-0 h-full w-[38%] opacity-90 mix-blend-multiply">
-          <Image 
-            src="/assets/boy.png" 
-            alt="Contact Us" 
-            fill 
-            className="object-contain object-right-bottom" 
+          <Image
+            src="/assets/boy.png"
+            alt="Contact Us"
+            fill
+            className="object-contain object-right-bottom"
           />
         </div>
       </div>
 
       {/* Card 4: Address */}
       <div className="relative flex flex-col justify-center gap-2 overflow-hidden rounded-[16px] border border-[#E2E8F0] bg-white p-[clamp(16px,1.8vw,28px)] shadow-sm">
-        <div className="relative z-10 flex max-w-[65%] flex-col gap-2">
+        <div className="relative z-10 flex max-w-[75%] flex-col gap-2">
           <div className="flex items-center gap-2">
             <MapPin className="h-4 w-4 shrink-0 text-[#0D55CF]" />
-            <span className="text-[clamp(10px,min(0.75vw,1.1svh),12px)] leading-[1.2] text-[#475569]">
-              Unit 5 Hythe Quay,
-              <br />
-              England, CO2 8JB
+            <span className="truncate text-[clamp(10px,min(0.75vw,1.1svh),12px)] leading-[1.2] text-[#475569]">
+              Unit 5 Hythe Quay, England, CO2 8JB
             </span>
           </div>
           <div className="flex items-center gap-2">
@@ -91,7 +88,7 @@ export function HomeFooter() {
           </div>
         </div>
 
-        <div className="absolute top-1/2 right-4 h-[80%] w-[35%] -translate-y-1/2 opacity-90 mix-blend-multiply">
+        <div className="absolute top-1/2 right-1 h-[80%] w-[25%] -translate-y-1/2 opacity-90 mix-blend-multiply">
           <Image
             src="/assets/fishdd.png"
             alt="Address"

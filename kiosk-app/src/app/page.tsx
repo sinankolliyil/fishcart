@@ -8,6 +8,7 @@ import {
   Dumbbell,
   Sparkles,
   HeartPulse,
+  ShieldCheck,
 } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import { Rating } from '@/components/ui/Rating';
@@ -27,7 +28,7 @@ export default function HomePage() {
      * This is mathematically identical to the reference design (1920×1200) and
      * scales proportionally to every shorter landscape viewport without overflow.
      */
-    <div className="grid h-full min-h-[950px] w-full grid-rows-[minmax(0,38fr)_minmax(0,28fr)_minmax(0,16fr)_minmax(0,11fr)_minmax(0,10fr)] gap-[clamp(5px,1vw,15px)]">
+    <div className="grid h-full min-h-[950px] w-full grid-rows-[minmax(0,38fr)_minmax(0,32fr)_minmax(0,16fr)_minmax(0,11fr)_minmax(0,10fr)] gap-[clamp(5px,1vw,15px)]">
       {/* ═══════════════════════════════════════════════════
           ROW 1 — Hero (7 cols) + Categories (5 cols)  33%
           ═══════════════════════════════════════════════════ */}
@@ -172,34 +173,34 @@ export default function HomePage() {
               Learn More <ArrowRight className="h-3 w-3 stroke-[2.5]" />
             </Link>
 
-            <div className="mt-auto flex w-full justify-between">
-              <div className="flex flex-1 flex-col items-center gap-1.5">
-                <div className="flex h-[clamp(24px,2vw,32px)] w-[clamp(24px,2vw,32px)] shrink-0 items-center justify-center text-[#0D55CF]">
+            <div className="mt-auto flex justify-start gap-[clamp(12px,1.5vw,20px)]">
+              <div className="flex flex-col items-start gap-1.5">
+                <div className="flex h-[clamp(24px,2vw,32px)] w-[clamp(24px,2vw,32px)] shrink-0 items-center justify-start text-[#0D55CF]">
                   <Dumbbell className="h-full w-full stroke-[1.5]" />
                 </div>
-                <span className="text-center text-[clamp(10px,min(0.8vw,1.2svh),12px)] leading-[1.2] font-bold text-[#1E293B]">
+                <span className="text-left text-[clamp(10px,min(0.8vw,1.2svh),12px)] leading-[1.2] font-bold text-[#1E293B]">
                   High in
                   <br />
                   Protein
                 </span>
               </div>
               <div className="h-[36px] w-[1px] self-center bg-[#0D55CF]/15" />
-              <div className="flex flex-1 flex-col items-center gap-1.5">
-                <div className="flex h-[clamp(24px,2vw,32px)] w-[clamp(24px,2vw,32px)] shrink-0 items-center justify-center text-[#0D55CF]">
+              <div className="flex flex-col items-start gap-1.5">
+                <div className="flex h-[clamp(24px,2vw,32px)] w-[clamp(24px,2vw,32px)] shrink-0 items-center justify-start text-[#0D55CF]">
                   <Sparkles className="h-full w-full stroke-[1.5]" />
                 </div>
-                <span className="text-center text-[clamp(10px,min(0.8vw,1.2svh),12px)] leading-[1.2] font-bold text-[#1E293B]">
+                <span className="text-left text-[clamp(10px,min(0.8vw,1.2svh),12px)] leading-[1.2] font-bold text-[#1E293B]">
                   Rich in
                   <br />
                   Vitamins
                 </span>
               </div>
               <div className="h-[36px] w-[1px] self-center bg-[#0D55CF]/15" />
-              <div className="flex flex-1 flex-col items-center gap-1.5">
-                <div className="flex h-[clamp(24px,2vw,32px)] w-[clamp(24px,2vw,32px)] shrink-0 items-center justify-center text-[#0D55CF]">
+              <div className="flex flex-col items-start gap-1.5">
+                <div className="flex h-[clamp(24px,2vw,32px)] w-[clamp(24px,2vw,32px)] shrink-0 items-center justify-start text-[#0D55CF]">
                   <HeartPulse className="h-full w-full stroke-[1.5]" />
                 </div>
-                <span className="text-center text-[clamp(10px,min(0.8vw,1.2svh),12px)] leading-[1.2] font-bold text-[#1E293B]">
+                <span className="text-left text-[clamp(10px,min(0.8vw,1.2svh),12px)] leading-[1.2] font-bold text-[#1E293B]">
                   Good for
                   <br />
                   Heart
@@ -364,24 +365,17 @@ export default function HomePage() {
         </div>
 
         {/* Card 4 */}
-        <div className="col-span-1 flex items-center justify-between overflow-hidden rounded-[16px] bg-[#EAF4FE] p-[clamp(12px,1.5vw,20px)] shadow-sm">
+        <div className="col-span-1 flex items-center justify-between overflow-hidden rounded-[16px] bg-[#5CA3F6] p-[clamp(12px,1.5vw,20px)] shadow-sm">
           <div className="mr-2 flex flex-1 flex-col text-left">
-            <h4 className="mb-[2px] truncate text-[clamp(14px,min(1vw,1.6svh),16px)] font-bold text-[#0D55CF]">
-              Join Our Community
+            <h4 className="mb-1 text-[clamp(14px,min(1vw,1.6svh),16px)] leading-[1.2] font-bold text-white">
+              Freshness You Can Trust
             </h4>
-            <p className="mb-2 line-clamp-2 text-[clamp(12px,min(0.8vw,1.3svh),13px)] leading-[1.3] text-[#1E293B]">
-              Be a part of our journey for healthy and delicious living.
+            <p className="line-clamp-3 text-[clamp(12px,min(0.8vw,1.3svh),13px)] leading-[1.3] text-white">
+              We ensure premium quality and freshness in every product we deliver.
             </p>
           </div>
-          <div className="relative shrink-0 rounded-[10px] bg-white p-[clamp(4px,0.4vw,6px)] shadow-[0px_2px_8px_rgba(0,0,0,0.08)]">
-            <div className="relative h-[clamp(48px,4.5vw,64px)] w-[clamp(48px,4.5vw,64px)]">
-              <Image
-                src="/assets/whatsapp_qr.png"
-                alt="QR Code"
-                fill
-                className="rounded-[4px] object-cover"
-              />
-            </div>
+          <div className="shrink-0 text-white">
+            <ShieldCheck className="h-[clamp(36px,3.5vw,54px)] w-[clamp(36px,3.5vw,54px)] stroke-[1]" />
           </div>
         </div>
       </div>

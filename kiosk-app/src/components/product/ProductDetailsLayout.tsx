@@ -62,7 +62,7 @@ export function ProductDetailsLayout({ data }: { data: ProductDetails }) {
      * Overview Section = 60% of 84 = ~50fr.
      * Footer = 10fr.
      */
-    <div className="grid h-full min-h-[950px] w-full grid-rows-[minmax(0,37fr)_minmax(0,35fr)_minmax(0,10fr)] gap-[var(--main-gap)]">
+    <div className="grid h-full min-h-[950px] w-full grid-rows-[minmax(0,37fr)_minmax(0,35fr)_80px] gap-[var(--main-gap)]">
       {/* ═══════════════════════════════════════════════════
           ROW 1 — Hero Section (40% of content)
           Includes Hero Info, Pricing, etc.
