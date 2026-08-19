@@ -5,7 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { ChevronRight, Star, ThumbsUp, ArrowRight } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { Footer } from '@/components/layout/Footer';
+import { HomeFooter } from '@/components/layout/HomeFooter';
 
 // ─── Types ──────────────────────────────────────────────────────────────────
 
@@ -797,7 +797,7 @@ export function TestimonialsPage() {
   };
 
   return (
-    <div className="grid h-full min-h-[850px] w-full grid-rows-[minmax(0,70fr)_80px] gap-[var(--main-gap)]">
+    <div className="grid h-full min-h-[850px] w-full grid-rows-[minmax(0,70fr)_minmax(0,10fr)] gap-[var(--main-gap)]">
       {/* ── Main Content ── */}
       <div className="flex min-h-0 flex-col gap-[clamp(6px,0.6vw,12px)] overflow-hidden">
         {/* Breadcrumb */}
@@ -1177,8 +1177,10 @@ export function TestimonialsPage() {
 
       {/* ── Footer row — same 10fr fraction as homepage row 5 ── */}
       <div className="overflow-hidden">
-        <Footer />
+        <HomeFooter />
       </div>
     </div>
   );
 }
+
+

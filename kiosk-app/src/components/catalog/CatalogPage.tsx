@@ -7,7 +7,7 @@ import { CategoryTabs } from './CategoryTabs';
 import { FilterSidebar } from './FilterSidebar';
 import { ProductGrid } from './ProductGrid';
 import { BottomInfoSection } from './BottomInfoSection';
-import { Footer } from '@/components/layout/Footer';
+import { HomeFooter } from '@/components/layout/HomeFooter';
 
 export interface CatalogPageProps {
   data: CatalogPageData;
@@ -239,7 +239,7 @@ export function CatalogPage({ data }: CatalogPageProps) {
   };
 
   return (
-    <div className="grid h-full min-h-[950px] w-full grid-rows-[minmax(0,15fr)_minmax(0,10fr)_minmax(0,53fr)_minmax(0,11fr)_80px] gap-[var(--main-gap)] select-none">
+    <div className="grid h-full min-h-[950px] w-full grid-rows-[minmax(0,15fr)_minmax(0,10fr)_minmax(0,53fr)_minmax(0,11fr)_minmax(0,10fr)] gap-[var(--main-gap)] select-none">
       {/* 1. Hero Section */}
       <div className="h-full w-full overflow-hidden">
         <CatalogHero
@@ -300,8 +300,10 @@ export function CatalogPage({ data }: CatalogPageProps) {
 
       {/* 5. Reusable Footer */}
       <div className="h-full w-full shrink-0 overflow-hidden">
-        <Footer />
+        <HomeFooter />
       </div>
     </div>
   );
 }
+
+

@@ -15,6 +15,7 @@ import { Rating } from '@/components/ui/Rating';
 import { CategoryCard } from '@/components/shared/CategoryCard';
 import { HomeFooter } from '@/components/layout/HomeFooter';
 import { HeroBannerCarousel } from '@/components/shared/HeroBannerCarousel';
+import { RecipeCarousel } from '@/components/home/RecipeCarousel';
 
 export default function HomePage() {
   return (
@@ -92,57 +93,7 @@ export default function HomePage() {
             </p>
           </div>
 
-          <div className="mt-1 grid min-h-0 flex-1 grid-cols-3 gap-2">
-            {[
-              {
-                img: '/assets/fish2.jpg',
-                title: 'Fish Curry',
-                sub: 'Spicy & Tangy',
-              },
-              {
-                img: '/assets/prod_1_salmon.jpg',
-                title: 'Grilled Fish',
-                sub: 'Healthy & Tasty',
-              },
-              {
-                img: '/assets/prod_7_prawns.jpg',
-                title: 'Prawns',
-                sub: 'Crispy & Juicy',
-              },
-            ].map((recipe, idx) => (
-              <div
-                key={idx}
-                className="group relative h-full w-full cursor-pointer overflow-hidden rounded-[12px] border border-white/10"
-              >
-                <Image
-                  src={recipe.img}
-                  alt={recipe.title}
-                  fill
-                  className="object-cover transition-transform group-hover:scale-105"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent" />
-                <div className="absolute inset-0 z-10 flex items-center justify-center transition-transform group-hover:scale-110">
-                  <div className="flex h-[clamp(20px,min(1.67vw,2.7svh),30px)] w-[clamp(20px,min(1.67vw,2.7svh),30px)] items-center justify-center rounded-full bg-white text-[#0D55CF] shadow-md">
-                    <svg
-                      fill="currentColor"
-                      viewBox="0 0 24 24"
-                      className="ml-0.5 h-[clamp(8px,min(0.73vw,1.1svh),12px)] w-[clamp(8px,min(0.73vw,1.1svh),12px)]"
-                    >
-                      <path d="M5 3l14 9-14 9V3z" />
-                    </svg>
-                  </div>
-                </div>
-                <div className="absolute bottom-2 left-2 z-10">
-                  <p className="text-[clamp(14px,min(1vw,1.5svh),16px)] leading-tight font-bold text-white">
-                    {recipe.title}
-                  </p>
-                  <p className="mt-0.5 text-[clamp(12px,min(0.9vw,1.3svh),14px)] leading-tight text-white/90">
-                    {recipe.sub}
-                  </p>
-                </div>
-              </div> 
-            ))}
-          </div>
+          <RecipeCarousel />
 
           <div className="mt-[var(--recipe-btn-mt)] flex h-[var(--recipe-btn-h)] w-fit items-center rounded-[5px] bg-white px-[clamp(10px,0.83vw,16px)]">
             <Link
@@ -291,13 +242,13 @@ export default function HomePage() {
           <Link
             key={idx}
             href={item.href}
-            className={`group relative col-span-1 cursor-pointer overflow-hidden rounded-[16px] bg-gradient-to-tr ${item.gradient} shadow-[0px_4px_10px_rgba(0,0,0,0.03)] transition-transform hover:-translate-y-1`}
+            className={`group relative col-span-1 cursor-pointer overflow-hidden rounded-[16px] bg-gradient-to-tr ${item.gradient} shadow-[0px_4px_10px_rgba(0,0,0,0.03)]`}
           >
             <Image
               src={item.image}
               alt={item.title}
               fill
-              className="object-cover mix-blend-multiply transition-transform duration-300 group-hover:scale-105"
+              className="object-cover mix-blend-multiply"
             />
             <div
               className="absolute bottom-[clamp(8px,min(1vw,1.5svh),16px)] left-[clamp(8px,min(1vw,1.5svh),16px)] z-10 rounded-[12px] bg-white px-[clamp(12px,min(1vw,1.5svh),16px)] py-[clamp(8px,min(0.8vw,1.2svh),12px)] shadow-[0px_2px_8px_rgba(0,0,0,0.08)]"

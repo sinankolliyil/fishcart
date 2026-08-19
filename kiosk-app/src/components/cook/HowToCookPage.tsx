@@ -1,11 +1,11 @@
 import React from 'react';
 import Link from 'next/link';
 import { ChevronRight, ChefHat, Utensils, Flame, BookOpen } from 'lucide-react';
-import { Footer } from '@/components/layout/Footer';
+import { HomeFooter } from '@/components/layout/HomeFooter';
 
 export function HowToCookPage() {
   return (
-    <div className="grid h-full min-h-[950px] w-full grid-rows-[minmax(0,15fr)_minmax(0,74fr)_80px] gap-[var(--main-gap)] select-none">
+    <div className="grid h-full min-h-[950px] w-full grid-rows-[minmax(0,15fr)_minmax(0,74fr)_minmax(0,10fr)] gap-[var(--main-gap)] select-none">
       {/* ─── 1. Hero Banner ─── */}
       <div className="relative flex h-full w-full items-center overflow-hidden rounded-2xl border border-white/20 bg-gradient-to-r from-[#FFF7ED] via-[#FFF1E0] to-[#FFECD2] px-[clamp(12px,1.5vw,24px)] shadow-sm">
         {/* Decorative background pattern */}
@@ -154,8 +154,10 @@ export function HowToCookPage() {
 
       {/* ─── 3. Footer ─── */}
       <div className="h-full w-full shrink-0 overflow-hidden">
-        <Footer />
+        <HomeFooter />
       </div>
     </div>
   );
 }
+
+

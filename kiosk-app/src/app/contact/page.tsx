@@ -1,4 +1,4 @@
-import { Footer } from '@/components/layout/Footer';
+import { HomeFooter } from '@/components/layout/HomeFooter';
 
 export default function ContactPage() {
   return (
@@ -10,8 +10,10 @@ export default function ContactPage() {
 
       {/* Footer row — same 10fr fraction as homepage row 5 */}
       <div className="overflow-hidden">
-        <Footer />
+        <HomeFooter />
       </div>
     </div>
   );
 }
+
+

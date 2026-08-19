@@ -253,7 +253,7 @@ export default function StoryPage() {
       {/* ROW 4 — From Ocean To Your Shop (25%) */}
       <div className="flex min-h-0 flex-col overflow-hidden rounded-[16px] bg-white p-3 pt-2 pb-3 shadow-sm lg:p-4 lg:pt-3 lg:pb-4 xl:p-[clamp(12px,1.5vw,24px)] xl:pt-[clamp(3px,0.6vw,6px)] xl:pb-[clamp(12px,1.5vw,24px)]">
         <h2 className="mb-[6px] shrink-0 text-[clamp(14px,1.2vw,20px)] font-bold text-[#0D55CF]">
-          From Ocean To Our Shop – Here's How It Happens
+          From Ocean To Our Shop – Here&apos;s How It Happens
         </h2>
 
         <div className="flex min-h-0 flex-1 justify-between gap-[clamp(2px,0.4vw,6px)]">
@@ -360,9 +360,9 @@ export default function StoryPage() {
           <div className="flex h-full flex-1 items-center justify-center pl-2">
             <p className="text-[14px] leading-tight font-bold text-slate-600 italic lg:text-[14px] xl:text-[clamp(11px,1.2vw,16px)]">
               <span className="text-[clamp(20px,2.5vw,32px)] leading-none text-blue-200">
-                "
+                &quot;
               </span>{' '}
-              We don't just sell fish & meat,
+              We don&apos;t just sell fish & meat,
               <br />
               we deliver trust, health and happiness.
             </p>

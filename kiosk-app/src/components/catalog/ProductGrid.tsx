@@ -42,6 +42,14 @@ export function ProductGrid({
   const currentActiveBg = colors[category] || colors.fish;
   const currentTextColor = textThemeColors[category] || textThemeColors.fish;
 
+  const buttonColors = {
+    fish: 'bg-[#0D55CF] hover:bg-[#0c4dbd] shadow-[0_4px_16px_rgba(13,85,207,0.4)]',
+    meat: 'bg-[#F0314A] hover:bg-[#d82a40] shadow-[0_4px_16px_rgba(240,49,74,0.4)]',
+    chicken: 'bg-[#F59000] hover:bg-[#e08300] shadow-[0_4px_16px_rgba(245,144,0,0.4)]',
+    eggs: 'bg-[#10B981] hover:bg-[#0da673] shadow-[0_4px_16px_rgba(16,185,129,0.4)]',
+  };
+  const currentButtonColor = buttonColors[category] || buttonColors.fish;
+
   const scrollRef = useRef<HTMLDivElement>(null);
 
   // Pagination logic: 8 items per page chunked
@@ -150,7 +158,7 @@ export function ProductGrid({
       </div>
 
       {/* Product List Content Grid */}
-      <div className="min-h-0 w-full flex-1 overflow-hidden relative group">
+      <div className="min-h-0 w-full flex-1 overflow-hidden relative">
         {products.length === 0 ? (
           <div className="flex h-full w-full flex-col items-center justify-center rounded-2xl border border-gray-100 bg-white p-4 shadow-sm">
             <svg
@@ -267,11 +275,12 @@ export function ProductGrid({
           <button
             onClick={scrollPrev}
             className={cn(
-              "absolute left-[-10px] top-1/2 z-10 hidden h-[clamp(30px,min(2.5vw,3.5svh),40px)] w-[clamp(30px,min(2.5vw,3.5svh),40px)] -translate-y-1/2 cursor-pointer items-center justify-center rounded-full border border-gray-200 bg-white/95 text-[#0D55CF] shadow-[0_4px_12px_rgba(0,0,0,0.1)] backdrop-blur-sm transition-all hover:scale-110 md:flex",
+              "absolute left-[8px] top-1/2 z-10 flex h-[clamp(40px,min(4vw,6svh),56px)] w-[clamp(40px,min(4vw,6svh),56px)] -translate-y-1/2 cursor-pointer items-center justify-center rounded-full border-2 border-white text-white backdrop-blur-sm transition-all hover:scale-110",
+              currentButtonColor,
               validPage === 1 ? "opacity-0 pointer-events-none" : "opacity-100"
             )}
           >
-            <ChevronLeft className="h-[60%] w-[60%] stroke-[2.5]" />
+            <ChevronLeft className="h-[60%] w-[60%] stroke-[3]" />
           </button>
         )}
 
@@ -280,11 +289,13 @@ export function ProductGrid({
           <button
             onClick={scrollNext}
             className={cn(
-              "absolute right-[-10px] top-1/2 z-10 hidden h-[clamp(30px,min(2.5vw,3.5svh),40px)] w-[clamp(30px,min(2.5vw,3.5svh),40px)] -translate-y-1/2 cursor-pointer items-center justify-center rounded-full border border-gray-200 bg-white/95 text-[#0D55CF] shadow-[0_4px_12px_rgba(0,0,0,0.1)] backdrop-blur-sm transition-all hover:scale-110 md:flex",
-              validPage === totalPages ? "opacity-0 pointer-events-none" : "opacity-100"
+              "absolute right-[8px] top-1/2 z-10 flex h-[clamp(40px,min(4vw,6svh),56px)] w-auto min-w-[clamp(40px,min(4vw,6svh),56px)] -translate-y-1/2 cursor-pointer items-center justify-center gap-[clamp(2px,0.4vw,6px)] rounded-full border-2 border-white px-[clamp(12px,1vw,20px)] text-white backdrop-blur-sm transition-all hover:scale-105",
+              currentButtonColor,
+              validPage === totalPages ? "opacity-0 pointer-events-none" : "opacity-100 animate-pulse hover:animate-none"
             )}
           >
-            <ChevronRight className="h-[60%] w-[60%] stroke-[2.5]" />
+            <span className="text-[clamp(13px,min(1.2vw,1.8svh),18px)] font-bold">Swipe</span>
+            <ChevronRight className="h-[clamp(20px,min(1.8vw,2.5svh),28px)] w-[clamp(20px,min(1.8vw,2.5svh),28px)] stroke-[3]" />
           </button>
         )}
       </div>
