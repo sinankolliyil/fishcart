@@ -82,12 +82,12 @@ export default function HomePage() {
           ═══════════════════════════════════════════════════════════ */}
       <div className="grid grid-cols-3 gap-[var(--row2-gap)] overflow-hidden xl:grid-cols-[1.15fr_1.16fr_0.7fr]">
         {/* ── Recipe ── */}
-        <div className="col-span-1 flex min-h-0 flex-col justify-between overflow-hidden rounded-[16px] bg-[#0D55CF] p-[var(--recipe-padding)] shadow-sm">
+        <div className="col-span-1 flex min-h-0 flex-col justify-between overflow-hidden rounded-[16px] bg-[#A9D3FB] p-[var(--recipe-padding)] shadow-sm">
           <div>
-            <h3 className="mb-1 text-[clamp(17px,min(1.25vw,2svh),22px)] font-bold text-white">
+            <h3 className="mb-1 text-[clamp(17px,min(1.25vw,2svh),22px)] font-bold text-[#0D55CF]">
               How to Make Delicious
             </h3>
-            <p className="text-[clamp(15px,min(0.73vw,1.1svh),13px)] text-white/90">
+            <p className="text-[clamp(15px,min(0.73vw,1.1svh),13px)] text-[#0D55CF]/90">
               Step by step cooking videos for every taste
             </p>
           </div>
@@ -133,14 +133,14 @@ export default function HomePage() {
                   </div>
                 </div>
                 <div className="absolute bottom-2 left-2 z-10">
-                  <p className="text-[clamp(10px,min(0.83vw,1.3svh),14px)] leading-tight font-bold text-white">
+                  <p className="text-[clamp(14px,min(1vw,1.5svh),16px)] leading-tight font-bold text-white">
                     {recipe.title}
                   </p>
-                  <p className="mt-0.5 text-[clamp(8px,min(0.73vw,1.1svh),12px)] leading-tight text-white/90">
+                  <p className="mt-0.5 text-[clamp(12px,min(0.9vw,1.3svh),14px)] leading-tight text-white/90">
                     {recipe.sub}
                   </p>
                 </div>
-              </div>
+              </div> 
             ))}
           </div>
 

@@ -69,7 +69,15 @@ export function ProductCard({ product, category }: ProductCardProps) {
       <div className="flex min-h-0 shrink-0 flex-col border-t border-gray-50 bg-white p-2.5 pt-1.5 select-none">
         <div className="mb-1.5 flex flex-col">
           {/* Title */}
-          <h3 className="text-text-heading group-hover:text-primary mb-0.5 truncate text-[clamp(17px,min(1.2vw,1.8svh),20px)] leading-tight font-black transition-colors">
+          <h3
+            className={cn(
+              "text-text-heading mb-0.5 truncate text-[clamp(17px,min(1.2vw,1.8svh),20px)] leading-tight font-black transition-colors",
+              category === 'fish' ? 'group-hover:text-[#0D55CF]' :
+              category === 'meat' ? 'group-hover:text-[#F0314A]' :
+              category === 'chicken' ? 'group-hover:text-[#F59000]' :
+              'group-hover:text-[#10B981]'
+            )}
+          >
             {product.title}
           </h3>
 

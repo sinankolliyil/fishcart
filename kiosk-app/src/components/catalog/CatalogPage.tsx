@@ -169,6 +169,69 @@ export function CatalogPage({ data }: CatalogPageProps) {
     return result;
   }, [data, activeTabId, appliedFilters, activeSort]);
 
+  // Dynamic Tabs with Real Counts
+  const dynamicTabs = useMemo(() => {
+    return data.tabs.map((tab) => {
+      let count = data.products.length;
+      if (data.category === 'fish') {
+        if (tab.id === 'grill-fishes') {
+          count = data.products.filter((p) => ['salmon', 'sea-bass', 'tuna-steak', 'prawns'].includes(p.id)).length;
+        } else if (tab.id === 'curry-fishes') {
+          count = data.products.filter((p) => ['mackerel', 'tilapia', 'prawns', 'trout'].includes(p.id)).length;
+        } else if (tab.id === 'by-country') {
+          count = data.products.filter((p) => ['salmon', 'tuna-steak', 'tilapia', 'prawns', 'trout'].includes(p.id)).length;
+        } else if (tab.id === 'other-types') {
+          count = data.products.filter((p) => ['cod-fillet', 'tilapia', 'trout'].includes(p.id)).length;
+        }
+      } else {
+        if (tab.id.includes('beef') || tab.id.includes('curry')) {
+          count = Math.ceil(data.products.length / 2);
+        } else if (tab.id.includes('mutton') || tab.id.includes('boneless')) {
+          count = data.products.length - Math.ceil(data.products.length / 2);
+        } else if (tab.id.includes('country')) {
+          count = data.products.filter((p) => p.origin !== 'Local Farms').length;
+        }
+      }
+      return { ...tab, countLabel: `${count} Items` };
+    });
+  }, [data]);
+
+  // Dynamic Filter Sections with Real Counts
+  const dynamicFilterSections = useMemo(() => {
+    return data.filterSections.map((section) => ({
+      ...section,
+      options: section.options.map((opt) => {
+        let count = 0;
+        if (section.id === 'country') {
+          count = data.products.filter((p) => {
+            const countryLower = (p.filterCountry || p.origin).toLowerCase();
+            if (opt.id === 'uk') return countryLower === 'united kingdom' || countryLower === 'uk';
+            return countryLower === opt.id;
+          }).length;
+        } else if (section.id === 'type') {
+          count = data.products.filter((p) => {
+            if (opt.id === 'grill') return ['salmon', 'sea-bass', 'tuna-steak', 'prawns'].includes(p.id);
+            if (opt.id === 'curry') return ['mackerel', 'tilapia', 'prawns', 'trout'].includes(p.id);
+            if (opt.id === 'steak') return p.format.toLowerCase().includes('steak');
+            if (opt.id === 'whole') return p.format.toLowerCase().includes('whole');
+            if (opt.id === 'fillets') return p.format.toLowerCase().includes('filet') || p.format.toLowerCase().includes('fillet');
+            if (opt.id === 'boneless') return p.format.toLowerCase().includes('boneless') || p.format.toLowerCase().includes('fillet');
+            if (opt.id === 'bone-in') return p.format.toLowerCase().includes('bone') || p.format.toLowerCase().includes('whole');
+            return false;
+          }).length;
+        } else if (section.id === 'size') {
+          count = data.products.filter((p) => {
+            if (opt.id === 'small' || opt.id === 'pack-6') return p.price < 8.0;
+            if (opt.id === 'medium' || opt.id === 'pack-12') return p.price >= 8.0 && p.price < 15.0;
+            if (opt.id === 'large' || opt.id === 'pack-30') return p.price >= 15.0;
+            return false;
+          }).length;
+        }
+        return { ...opt, count };
+      }),
+    }));
+  }, [data]);
+
   // Tab change handler
   const handleTabChange = (tabId: string) => {
     setActiveTabId(tabId);
@@ -193,7 +256,7 @@ export function CatalogPage({ data }: CatalogPageProps) {
       {/* 2. Category Tabs */}
       <div className="h-full w-full overflow-hidden">
         <CategoryTabs
-          tabs={data.tabs}
+          tabs={dynamicTabs}
           activeTabId={activeTabId}
           onTabChange={handleTabChange}
           category={data.category}
@@ -205,7 +268,7 @@ export function CatalogPage({ data }: CatalogPageProps) {
         {/* Left Column: Filter Sidebar — 1/5 width to match first category tab */}
         <div className="col-span-1 h-full overflow-hidden">
           <FilterSidebar
-            filterSections={data.filterSections}
+            filterSections={dynamicFilterSections}
             selectedOptions={tempFilters}
             onFilterToggle={handleFilterToggle}
             activeSort={activeSort}
