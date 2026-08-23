@@ -93,11 +93,37 @@ export function ProductGrid({
     <div className="flex h-full min-h-0 w-full flex-1 flex-col justify-between overflow-hidden select-none">
       {/* Product List Header */}
       <div className="mb-2 flex shrink-0 items-center justify-between border-b border-gray-100 pb-1.5">
-        {/* Count Label */}
+        {/* Count Label & Navigation */}
         <div className="flex items-center gap-4">
           <span className="text-[clamp(12px,min(2vw,2.5svh),16px)] font-black text-[#475569]">
             Showing {(validPage - 1) * itemsPerPage + 1}-{Math.min(validPage * itemsPerPage, products.length)} of {totalItems} items
           </span>
+          
+          {/* Inline Navigation Buttons */}
+          {totalPages > 1 && (
+            <div className="flex items-center gap-2">
+              <button
+                onClick={scrollPrev}
+                disabled={validPage === 1}
+                className={cn(
+                  "flex h-7 w-7 items-center justify-center rounded-full border border-gray-200 transition-colors cursor-pointer text-[#1E293B]",
+                  validPage === 1 ? "opacity-30 cursor-not-allowed" : "hover:bg-gray-100"
+                )}
+              >
+                <ChevronLeft className="h-4 w-4 stroke-[3]" />
+              </button>
+              <button
+                onClick={scrollNext}
+                disabled={validPage === totalPages}
+                className={cn(
+                  "flex h-7 w-7 items-center justify-center rounded-full border border-gray-200 transition-colors cursor-pointer text-[#1E293B]",
+                  validPage === totalPages ? "opacity-30 cursor-not-allowed" : "hover:bg-gray-100"
+                )}
+              >
+                <ChevronRight className="h-4 w-4 stroke-[3]" />
+              </button>
+            </div>
+          )}
         </div>
 
         {/* View Controls & Sort */}
@@ -270,34 +296,7 @@ export function ProductGrid({
           </div>
         )}
 
-        {/* Floating Prev Button */}
-        {totalPages > 1 && (
-          <button
-            onClick={scrollPrev}
-            className={cn(
-              "absolute left-[8px] top-1/2 z-10 flex h-[clamp(40px,min(4vw,6svh),56px)] w-[clamp(40px,min(4vw,6svh),56px)] -translate-y-1/2 cursor-pointer items-center justify-center rounded-full border-2 border-white text-white backdrop-blur-sm transition-all hover:scale-110",
-              currentButtonColor,
-              validPage === 1 ? "opacity-0 pointer-events-none" : "opacity-100"
-            )}
-          >
-            <ChevronLeft className="h-[60%] w-[60%] stroke-[3]" />
-          </button>
-        )}
 
-        {/* Floating Next Button */}
-        {totalPages > 1 && (
-          <button
-            onClick={scrollNext}
-            className={cn(
-              "absolute right-[8px] top-1/2 z-10 flex h-[clamp(40px,min(4vw,6svh),56px)] w-auto min-w-[clamp(40px,min(4vw,6svh),56px)] -translate-y-1/2 cursor-pointer items-center justify-center gap-[clamp(2px,0.4vw,6px)] rounded-full border-2 border-white px-[clamp(12px,1vw,20px)] text-white backdrop-blur-sm transition-all hover:scale-105",
-              currentButtonColor,
-              validPage === totalPages ? "opacity-0 pointer-events-none" : "opacity-100 animate-pulse hover:animate-none"
-            )}
-          >
-            <span className="text-[clamp(13px,min(1.2vw,1.8svh),18px)] font-bold">Swipe</span>
-            <ChevronRight className="h-[clamp(20px,min(1.8vw,2.5svh),28px)] w-[clamp(20px,min(1.8vw,2.5svh),28px)] stroke-[3]" />
-          </button>
-        )}
       </div>
     </div>
   );
