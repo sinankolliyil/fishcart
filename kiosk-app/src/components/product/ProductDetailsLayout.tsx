@@ -62,7 +62,7 @@ export function ProductDetailsLayout({ data }: { data: ProductDetails }) {
      * Overview Section = 60% of 84 = ~50fr.
      * Footer = 10fr.
      */
-    <div className="grid h-full min-h-[950px] w-full grid-rows-[minmax(0,37fr)_minmax(0,35fr)_minmax(0,10fr)] gap-[var(--main-gap)]">
+    <div className="grid h-full min-h-0 w-full grid-rows-[minmax(0,33fr)_minmax(0,39fr)_minmax(0,10fr)] gap-[clamp(4px,0.8vw,10px)]">
       {/* ═══════════════════════════════════════════════════
           ROW 1 — Hero Section (40% of content)
           Includes Hero Info, Pricing, etc.
@@ -336,35 +336,6 @@ export function ProductDetailsLayout({ data }: { data: ProductDetails }) {
                 </div>
               </div>
             </div>
-            {/* Cuts */}
-            <div className="flex shrink-0 gap-2 border-t border-slate-100 pt-[clamp(4px,0.6vw,8px)] xl:gap-[clamp(4px,0.6vw,12px)]">
-              <div className="flex-1 overflow-hidden">
-                <div className="mb-[clamp(1px,0.2vw,4px)] flex items-center gap-1 text-[11px] text-slate-500 lg:text-[12px] xl:text-[clamp(11px,0.6vw,11px)]">
-                  <Droplet className="h-[clamp(8px,0.7vw,12px)] w-[clamp(8px,0.7vw,12px)]" />
-                  <span className="truncate font-bold">Cut Options</span>
-                </div>
-                <div className="flex flex-wrap gap-1">
-                  {data.cutOptions?.map((cut) => (
-                    <span
-                      key={cut.id}
-                      className="text-[11px] font-bold text-slate-700 lg:text-[12px] xl:text-[clamp(11px,0.6vw,10px)]"
-                    >
-                      {cut.label}
-                    </span>
-                  ))}
-                </div>
-              </div>
-              <div className="w-px shrink-0 bg-slate-100"></div>
-              <div className="shrink-0">
-                <div className="mb-[clamp(1px,0.2vw,4px)] flex items-center gap-1 text-[11px] text-slate-500 lg:text-[12px] xl:text-[clamp(8px,0.6vw,10px)]">
-                  <Activity className="h-[clamp(8px,0.7vw,12px)] w-[clamp(8px,0.7vw,12px)]" />
-                  <span className="truncate font-bold">Serves</span>
-                </div>
-                <span className="block truncate text-[11px] font-bold text-slate-700 lg:text-[12px] xl:text-[clamp(8px,0.6vw,10px)]">
-                  {data.serves}
-                </span>
-              </div>
-            </div>
 
             {/* Freshness Box */}
             <div className="flex shrink-0 items-start gap-1.5 rounded-[10px] border border-blue-100 bg-blue-50/50 p-[clamp(4px,0.6vw,8px)]">
@@ -473,10 +444,10 @@ export function ProductDetailsLayout({ data }: { data: ProductDetails }) {
         </div>
 
         {/* Tab Content Area */}
-        <div className="flex min-h-0 flex-1 flex-col pt-[clamp(6px,0.8vw,12px)]">
+        <div className="flex min-h-0 flex-1 flex-col pt-2">
           {/* TAB: OVERVIEW */}
           {activeTab === 'overview' && (
-            <div className="grid min-h-0 flex-1 grid-cols-4 grid-rows-2 gap-2.5 xl:p-[clamp(6px,0.8vw,12px)]">
+            <div className="grid min-h-0 flex-1 grid-cols-4 grid-rows-2 gap-2.5 pt-1">
               {/* Catch From */}
               <div className="flex min-h-0 min-w-0 flex-col overflow-hidden rounded-[12px] border border-slate-100 bg-slate-50/50 p-2.5 xl:p-[clamp(6px,0.8vw,12px)]">
                 <div className="mb-[clamp(3px,0.4vw,6px)] flex shrink-0 items-center gap-1.5">
@@ -499,7 +470,7 @@ export function ProductDetailsLayout({ data }: { data: ProductDetails }) {
                   >
                     {data.catchFrom?.location}
                   </p>
-                  <ul className="gap-0.1 flex list-disc flex-col pl-3 text-[11px] font-medium text-slate-600 lg:text-[12px] xl:text-[clamp(11px,0.6vw,10px)]">
+                  <ul className="flex flex-col gap-0.5 text-[11px] font-medium text-slate-600 lg:text-[12px] xl:text-[clamp(11px,0.6vw,10px)]">
                     {data.catchFrom?.points.map((p, i) => (
                       <li key={i} className="line-clamp-1">
                         {p}
@@ -561,7 +532,7 @@ export function ProductDetailsLayout({ data }: { data: ProductDetails }) {
                   </h4>
                 </div>
                 <div className="custom-scrollbar min-h-0 overflow-y-auto pr-1">
-                  <ul className="flex list-disc flex-col gap-0.5 pl-3 text-[11px] font-medium text-slate-600 lg:text-[12px] xl:text-[clamp(12px,0.6vw,10px)]">
+                  <ul className="flex flex-col gap-0.5 text-[11px] font-medium text-slate-600 lg:text-[12px] xl:text-[clamp(12px,0.6vw,10px)]">
                     {data.specialty?.map((s, i) => (
                       <li key={i} className="line-clamp-2 leading-tight">
                         {s}
@@ -585,7 +556,7 @@ export function ProductDetailsLayout({ data }: { data: ProductDetails }) {
                   </h4>
                 </div>
                 <div className="custom-scrollbar min-h-0 overflow-y-auto pr-1">
-                  <ul className="flex list-disc flex-col gap-0.5 pl-3 text-[11px] font-medium text-slate-600 lg:text-[12px] xl:text-[clamp(12px,0.6vw,10px)]">
+                  <ul className="flex flex-col gap-0.5 text-[11px] font-medium text-slate-600 lg:text-[12px] xl:text-[clamp(12px,0.6vw,10px)]">
                     {data.famousOn?.map((s, i) => (
                       <li key={i} className="line-clamp-2 leading-tight">
                         {s}
@@ -663,7 +634,7 @@ export function ProductDetailsLayout({ data }: { data: ProductDetails }) {
                   </h4>
                 </div>
                 <div className="custom-scrollbar flex min-h-0 flex-1 items-start justify-between overflow-y-auto pr-1">
-                  <ul className="flex list-disc flex-col gap-0.5 pl-3 text-[11px] font-medium text-slate-600 lg:text-[12px] xl:text-[clamp(12px,0.6vw,10px)]">
+                  <ul className="flex flex-col gap-0.5 text-[11px] font-medium text-slate-600 lg:text-[12px] xl:text-[clamp(12px,0.6vw,10px)]">
                     {data.goodFor?.map((s, i) => (
                       <li key={i} className="line-clamp-1">
                         {s}
