@@ -103,7 +103,7 @@
   --recipe-btn-h:      clamp(24px, min(1.77vw, 2.6svh),  32px);
   --nutrition-padding: clamp(16px, min(1.8vw, 2.5svh), 32px);
   --nutrition-desc-mb: clamp(5px,  min(0.83vw, 1.2svh),  14px);
-  --testimonial-padding: clamp(16px, min(1.6vw, 2.2svh), 28px);
+  --testimonial-padding: clamp(16px, min(1.8vw, 2.5svh), 32px);
 
   /* ─── Row 3 — Showcase Banners ────────────────────────────────────────── */
   --showcase-gap:          clamp(4px,  min(0.83vw, 1.2svh), 14px);
