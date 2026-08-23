@@ -14,7 +14,7 @@ import {
 
 export default function StoryPage() {
   return (
-    <div className="grid h-full min-h-[950px] w-full grid-rows-[minmax(0,28fr)_minmax(0,25fr)_minmax(0,12fr)_minmax(0,25fr)_minmax(0,10fr)] gap-2 lg:gap-3 xl:gap-[var(--main-gap)]">
+    <div className="grid h-full min-h-0 w-full grid-rows-[minmax(0,35fr)_minmax(0,27fr)_minmax(0,17fr)_minmax(0,24fr)_minmax(0,12fr)] gap-2 lg:gap-3 xl:gap-[var(--main-gap)]">
       {/* ROW 1 — Story Introduction (28%) */}
       <div className="grid min-h-0 grid-cols-[40fr_20fr_40fr] gap-2 overflow-hidden lg:gap-3 xl:grid-cols-[38fr_28fr_34fr] xl:gap-[var(--main-gap)]">
         {/* Left Side: Intro */}
@@ -251,7 +251,7 @@ export default function StoryPage() {
       </div>
 
       {/* ROW 4 — From Ocean To Your Shop (25%) */}
-      <div className="flex min-h-0 flex-col overflow-hidden rounded-[16px] bg-white p-3 pt-2 pb-3 shadow-sm lg:p-4 lg:pt-3 lg:pb-4 xl:p-[clamp(12px,1.5vw,24px)] xl:pt-[clamp(3px,0.6vw,6px)] xl:pb-[clamp(12px,1.5vw,24px)]">
+      <div className="flex min-h-0 flex-col rounded-[16px] bg-white p-3 pt-2 pb-1 shadow-sm lg:p-4 lg:pt-3 lg:pb-2 xl:p-[clamp(12px,1.5vw,24px)] xl:pt-[clamp(3px,0.6vw,6px)] xl:pb-2">
         <h2 className="mb-[6px] shrink-0 text-[clamp(14px,1.2vw,20px)] font-bold text-[#0D55CF]">
           From Ocean To Our Shop – Here&apos;s How It Happens
         </h2>
@@ -261,47 +261,39 @@ export default function StoryPage() {
             {
               img: 'prod_1_salmon.jpg',
               title: 'Daily Catch',
-              desc: 'Fresh fish is caught daily by our trusted fishermen.',
             },
             {
               img: 'prod_2_seabass.jpg',
               title: 'Sorting & Cleaning',
-              desc: 'Fish are sorted, cleaned and checked.',
             },
             {
               img: 'crushed_ice_bg.png',
               title: 'Ice Packing',
-              desc: 'Packed with premium ice to lock freshness.',
             },
             {
               img: 'fish_showcase.png',
               title: 'Air Freight',
-              desc: 'Transported quickly to the airport and sent.',
             },
             {
               img: 'ice_cubes_bg.png',
               title: 'Import & Inspection',
-              desc: 'Strict quality checks and clearance.',
             },
             {
               img: 'meat_showcase.png',
               title: 'Cold Storage & Transport',
-              desc: 'Stored in controlled temperature and transported.',
             },
             {
               img: 'chicken_showcase.png',
               title: 'Final Check at Our Shop',
-              desc: 'Final quality check before it reaches you.',
             },
             {
               img: 'contact_boy.png',
               title: 'Delivered to You',
-              desc: 'Delivered to your door with freshness intact.',
             },
           ].map((step, i, arr) => (
             <React.Fragment key={i}>
               <div className="flex h-full min-w-0 flex-1 flex-col">
-                <div className="relative mb-[clamp(2px,0.3vw,4px)] aspect-[2/1] w-full shrink-0 overflow-hidden rounded-[8px] bg-slate-200">
+                <div className="relative mb-[clamp(2px,0.3vw,4px)] aspect-[2.5/1] w-full shrink-0 overflow-hidden rounded-[8px] bg-slate-200">
                   <div className="absolute top-1 left-1 z-10 flex h-[clamp(12px,1vw,18px)] w-[clamp(12px,1vw,18px)] items-center justify-center rounded-full bg-blue-600 text-[clamp(8px,0.6vw,10px)] font-bold text-white shadow-sm">
                     {i + 1}
                   </div>
@@ -312,12 +304,9 @@ export default function StoryPage() {
                     className="object-cover"
                   />
                 </div>
-                <h4 className="mb-[1px] truncate text-[11px] font-bold text-slate-800 lg:text-[12px] xl:text-[clamp(9px,0.7vw,11px)]">
+                <h4 className="mb-[1px] text-[11px] leading-tight font-bold text-slate-800 lg:text-[12px] xl:text-[clamp(9px,0.7vw,11px)]">
                   {step.title}
                 </h4>
-                <p className="line-clamp-2 text-[11px] leading-tight text-slate-500 lg:text-[12px] xl:text-[clamp(8px,0.6vw,9px)]">
-                  {step.desc}
-                </p>
               </div>
               {i < arr.length - 1 && (
                 <div className="flex shrink-0 flex-col justify-start pt-[clamp(6px,1vw,16px)]">
