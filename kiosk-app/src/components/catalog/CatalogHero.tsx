@@ -106,19 +106,7 @@ export function CatalogHero({
         </p>
       </div>
 
-      {/* Right Image Banner area */}
-      <div className="pointer-events-none absolute top-0 right-0 bottom-0 h-full w-[30%] select-none">
-        <div className="relative h-full w-full">
-          <Image
-            src={imageSrc}
-            alt={imageAlt}
-            fill
-            sizes="25vw"
-            className="scale-[1.05] object-contain object-right-bottom"
-            priority
-          />
-        </div>
-      </div>
+
     </div>
   );
 }

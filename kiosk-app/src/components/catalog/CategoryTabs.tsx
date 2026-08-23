@@ -106,7 +106,7 @@ export function CategoryTabs({
             onClick={() => onTabChange(tab.id)}
             className={cn(
               'flex h-full min-h-0 flex-1 items-center gap-[clamp(4px,min(0.6vw,0.85svh),10px)]',
-              'rounded-xl border px-[clamp(4px,0.8vw,12px)] py-[clamp(2px,0.4vw,6px)]',
+              'rounded-md border px-[clamp(4px,0.8vw,12px)] py-[clamp(2px,0.4vw,6px)]',
               'cursor-pointer overflow-hidden text-left transition-all duration-200',
               isActive
                 ? cn('text-white', currentActiveStyle)

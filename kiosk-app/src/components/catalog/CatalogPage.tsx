@@ -239,7 +239,7 @@ export function CatalogPage({ data }: CatalogPageProps) {
   };
 
   return (
-    <div className="grid h-full min-h-[950px] w-full grid-rows-[minmax(0,15fr)_minmax(0,10fr)_minmax(0,53fr)_minmax(0,11fr)_minmax(0,10fr)] gap-[var(--main-gap)] select-none">
+    <div className="grid h-full min-h-[950px] w-full grid-rows-[minmax(0,12fr)_minmax(0,6fr)_minmax(0,58fr)_minmax(0,11fr)_minmax(0,10fr)] gap-[var(--main-gap)] select-none">
       {/* 1. Hero Section */}
       <div className="h-full w-full overflow-hidden">
         <CatalogHero
