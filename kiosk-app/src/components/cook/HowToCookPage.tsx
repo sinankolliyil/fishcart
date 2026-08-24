@@ -1,50 +1,41 @@
 import React from 'react';
 import Link from 'next/link';
-import { ChevronRight, ChefHat, Utensils, Flame, BookOpen } from 'lucide-react';
+import { ChevronRight, ChefHat, Play, Clock, Bookmark, ArrowRight, Fish, Drumstick, Egg, Beef } from 'lucide-react';
 import { HomeFooter } from '@/components/layout/HomeFooter';
+
+const RECIPES = [
+  { id: 1, title: 'Fish Curry', subtitle: 'Spicy & Tangy', time: '15 min', img: '/assets/fish2.jpg' },
+  { id: 2, title: 'Chicken Roast', subtitle: 'Kerala Style', time: '25 min', img: '/assets/chicken_showcase.png' },
+  { id: 3, title: 'Egg Curry', subtitle: 'Easy & Delicious', time: '12 min', img: '/assets/eggs_showcase.png' },
+  { id: 4, title: 'Fish Fry', subtitle: 'Crispy & Flavorful', time: '18 min', img: '/assets/prod_1_salmon.jpg' },
+  { id: 5, title: 'Chicken Biryani', subtitle: 'Aromatic & Spiced', time: '30 min', img: '/assets/chicken_showcase.png' },
+  { id: 6, title: 'Egg Omelette', subtitle: 'Quick & Healthy', time: '10 min', img: '/assets/eggs_showcase.png' },
+];
 
 export function HowToCookPage() {
   return (
-    <div className="grid h-full min-h-[950px] w-full grid-rows-[minmax(0,15fr)_minmax(0,74fr)_minmax(0,10fr)] gap-[var(--main-gap)] select-none">
+    <div className="grid h-full min-h-0 w-full grid-rows-[minmax(0,15fr)_minmax(0,74fr)_minmax(0,10fr)] gap-[var(--main-gap)] select-none">
+      
       {/* ─── 1. Hero Banner ─── */}
-      <div className="relative flex h-full w-full items-center overflow-hidden rounded-2xl border border-white/20 bg-gradient-to-r from-[#FFF7ED] via-[#FFF1E0] to-[#FFECD2] px-[clamp(12px,1.5vw,24px)] ">
-        {/* Decorative background pattern */}
-        <div className="pointer-events-none absolute inset-0 opacity-[0.04]">
-          <svg className="h-full w-full" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-              <pattern
-                id="cook-pattern"
-                x="0"
-                y="0"
-                width="40"
-                height="40"
-                patternUnits="userSpaceOnUse"
-              >
-                <circle cx="20" cy="20" r="1.5" fill="#F59000" />
-              </pattern>
-            </defs>
-            <rect width="100%" height="100%" fill="url(#cook-pattern)" />
-          </svg>
-        </div>
-
+      <div className="relative flex h-full w-full items-center overflow-hidden rounded-[10px] bg-[#FEF4E6] px-[clamp(16px,2vw,32px)]">
         {/* Left Content */}
-        <div className="relative z-10 flex min-h-0 max-w-[65%] flex-1 flex-col justify-center">
+        <div className="relative z-10 flex min-h-0 flex-1 flex-col justify-center">
           {/* Breadcrumbs */}
-          <nav className="mb-[clamp(2px,0.3vw,6px)] flex items-center gap-1 select-none">
+          <nav className="mb-[clamp(4px,0.5vw,8px)] flex items-center gap-1 select-none">
             <Link
               href="/"
-              className="text-text-muted hover:text-primary text-[clamp(10px,min(0.9vw,1.2svh),14px)] font-bold transition-colors"
+              className="text-[#64748B] hover:text-[#0D55CF] text-[clamp(11px,min(1vw,1.4svh),14px)] font-bold transition-colors"
             >
               Home
             </Link>
-            <ChevronRight className="text-text-muted h-2.5 w-2.5" />
-            <span className="text-text-muted text-[clamp(10px,min(0.9vw,1.2svh),14px)] font-black">
+            <ChevronRight className="text-[#64748B] h-3 w-3" />
+            <span className="text-[#334155] text-[clamp(11px,min(1vw,1.4svh),14px)] font-bold">
               How to Cook
             </span>
           </nav>
 
           {/* Title */}
-          <h2 className="text-[clamp(25px,min(2.1vw,3svh),38px)] leading-tight font-black tracking-tight text-[#1E293B]">
+          <h2 className="text-[clamp(28px,min(2.5vw,3.5svh),44px)] leading-tight font-black tracking-tight text-[#0F172A] mb-1">
             How to Cook
           </h2>
 
@@ -55,100 +46,106 @@ export function HowToCookPage() {
             viewBox="0 0 36 6"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
-            className="my-[clamp(2px,0.25vw,6px)] shrink-0 text-[#F59000]"
+            className="mb-[clamp(4px,0.5vw,8px)] shrink-0 text-[#F59000]"
           >
             <path
               d="M1 3C5 3 7 1 11 1C15 1 17 5 21 5C25 5 27 1 31 1C35 1 37 3 35 3"
               stroke="currentColor"
-              strokeWidth="1.5"
+              strokeWidth="2"
               strokeLinecap="round"
             />
           </svg>
 
           {/* Description */}
-          <p className="max-w-[95%] truncate text-[clamp(16px,min(1vw,1.45svh),20px)] leading-normal font-medium text-[#475569]">
+          <p className="max-w-[95%] truncate text-[clamp(14px,min(1.1vw,1.6svh),18px)] leading-normal font-medium text-[#475569]">
             Discover delicious recipes and easy cooking guides.
           </p>
         </div>
 
         {/* Right decorative chef hat illustration */}
-        <div className="pointer-events-none absolute top-1/2 right-[clamp(16px,3vw,48px)] z-10 -translate-y-1/2 select-none">
-          <div className="flex h-[clamp(50px,min(5vw,7svh),80px)] w-[clamp(50px,min(5vw,7svh),80px)] items-center justify-center rounded-full bg-white/60  backdrop-blur-sm">
-            <ChefHat className="h-[60%] w-[60%] stroke-[1.5] text-[#F59000]" />
+        <div className="absolute right-[clamp(16px,4vw,64px)] top-1/2 -translate-y-1/2">
+          <div className="flex h-[clamp(60px,min(7vw,9svh),100px)] w-[clamp(60px,min(7vw,9svh),100px)] items-center justify-center rounded-full bg-white shadow-sm">
+            <ChefHat className="h-[55%] w-[55%] stroke-[1.5] text-[#F59000]" />
           </div>
         </div>
       </div>
 
-      {/* ─── 2. Main Content: Coming Soon Card ─── */}
-      <div className="flex h-full w-full items-center justify-center overflow-hidden rounded-2xl bg-white p-[clamp(12px,1.5vw,24px)] ">
-        <div className="flex max-w-[clamp(320px,40vw,560px)] flex-col items-center justify-center text-center">
-          {/* Chef Hat Illustration Circle */}
-          <div className="relative mb-[clamp(12px,1.5vw,24px)]">
-            {/* Outer glow ring */}
-            <div className="absolute inset-0 scale-[1.4] rounded-full bg-[#F59000]/5" />
-            <div className="relative flex h-[clamp(70px,min(8vw,10svh),120px)] w-[clamp(70px,min(8vw,10svh),120px)] items-center justify-center rounded-full border border-[#F59000]/10 bg-gradient-to-br from-[#FFF7ED] to-[#FFECD2] ">
-              <ChefHat className="h-[50%] w-[50%] stroke-[1.5] text-[#F59000]" />
-            </div>
-
-            {/* Floating decorative icons */}
-            <div className="absolute -top-2 -right-3 flex h-[clamp(22px,min(2.2vw,3svh),32px)] w-[clamp(22px,min(2.2vw,3svh),32px)] items-center justify-center rounded-full bg-white ">
-              <Utensils className="h-[55%] w-[55%] stroke-[2] text-[#0D55CF]" />
-            </div>
-            <div className="absolute -bottom-1 -left-3 flex h-[clamp(22px,min(2.2vw,3svh),32px)] w-[clamp(22px,min(2.2vw,3svh),32px)] items-center justify-center rounded-full bg-white ">
-              <Flame className="h-[55%] w-[55%] stroke-[2] text-[#F0314A]" />
-            </div>
-            <div className="absolute top-1/2 -right-6 flex h-[clamp(20px,min(2vw,2.8svh),28px)] w-[clamp(20px,min(2vw,2.8svh),28px)] -translate-y-1/2 items-center justify-center rounded-full bg-white ">
-              <BookOpen className="h-[55%] w-[55%] stroke-[2] text-[#10B981]" />
-            </div>
-          </div>
-
-          {/* Heading */}
-          <h3 className="mb-[clamp(6px,0.6vw,12px)] text-[clamp(20px,min(1.8vw,2.6svh),30px)] leading-tight font-black text-[#1E293B]">
-            How to Cook
+      {/* ─── 2. Main Content (Recipes & Filters) ─── */}
+      <div className="flex h-full min-h-0 w-full flex-col overflow-hidden rounded-[10px] bg-white p-[clamp(12px,1.2vw,20px)] pt-[clamp(12px,1.5vw,24px)] border border-slate-100">
+        
+        {/* Header */}
+        <div className="mb-[clamp(12px,1.5vw,20px)] flex shrink-0 items-center justify-between px-1">
+          <h3 className="text-[clamp(18px,min(1.6vw,2.2svh),24px)] font-black text-[#0F172A]">
+            Popular Recipes
           </h3>
+          <Link href="#" className="group flex items-center gap-1.5 text-[clamp(13px,min(1vw,1.4svh),16px)] font-bold text-[#0D55CF]">
+            View All Recipes
+            <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+          </Link>
+        </div>
 
-          {/* Supporting Text */}
-          <p className="mb-[clamp(12px,1.2vw,20px)] text-[clamp(13px,min(0.95vw,1.4svh),17px)] leading-[1.5] font-medium text-[#475569]">
-            We&apos;re preparing a collection of step-by-step recipes, cooking
-            tips, and serving ideas for Fish, Meat, Chicken, and Eggs.
-          </p>
+        {/* Recipe Grid (3 cols, 2 rows) */}
+        <div className="grid min-h-0 flex-1 grid-cols-3 grid-rows-2 gap-[clamp(12px,1.5vw,24px)]">
+          {RECIPES.map((recipe) => (
+            <div key={recipe.id} className="group relative flex h-full min-h-0 w-full flex-col overflow-hidden rounded-[10px] border border-slate-200 bg-white">
+              {/* Image Section (approx 65-70% height) */}
+              <div className="relative flex-1 overflow-hidden bg-slate-100">
+                <img src={recipe.img} alt={recipe.title} className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                
+                {/* Dark Overlay for better contrast */}
+                <div className="absolute inset-0 bg-black/20 transition-opacity group-hover:bg-black/30" />
 
-          {/* Coming Soon Badge */}
-          <div className="inline-flex items-center gap-2 rounded-full border border-[#F59000]/20 bg-gradient-to-r from-[#FFF7ED] to-[#FFECD2] px-[clamp(14px,1.2vw,22px)] py-[clamp(6px,0.5vw,10px)] ">
-            <div className="h-[clamp(6px,0.5vw,8px)] w-[clamp(6px,0.5vw,8px)] animate-pulse rounded-full bg-[#F59000]" />
-            <span className="text-[clamp(11px,min(0.85vw,1.2svh),14px)] font-bold tracking-wide text-[#F59000]">
-              Coming Soon
-            </span>
-          </div>
+                {/* Time Pill */}
+                <div className="absolute right-3 top-3 flex items-center gap-1.5 rounded-full bg-white px-2.5 py-1 shadow-sm">
+                  <Clock className="h-3 w-3 stroke-[2.5] text-[#0F172A]" />
+                  <span className="text-[11px] font-bold text-[#0F172A]">{recipe.time}</span>
+                </div>
 
-          {/* Subtle category pills */}
-          <div className="mt-[clamp(14px,1.4vw,22px)] flex flex-wrap items-center justify-center gap-[clamp(6px,0.5vw,10px)]">
-            {[
-              {
-                label: 'Fish',
-                color: 'bg-blue-50 text-[#0D55CF] border-blue-100',
-              },
-              {
-                label: 'Meat',
-                color: 'bg-red-50 text-[#F0314A] border-red-100',
-              },
-              {
-                label: 'Chicken',
-                color: 'bg-orange-50 text-[#F59000] border-orange-100',
-              },
-              {
-                label: 'Eggs',
-                color: 'bg-emerald-50 text-[#10B981] border-emerald-100',
-              },
-            ].map((cat) => (
-              <span
-                key={cat.label}
-                className={`inline-flex items-center rounded-lg border px-[clamp(8px,0.7vw,14px)] py-[clamp(3px,0.3vw,6px)] text-[clamp(10px,min(0.8vw,1.1svh),13px)] font-bold ${cat.color}`}
-              >
-                {cat.label}
-              </span>
-            ))}
-          </div>
+                {/* Play Button */}
+                <div className="absolute left-1/2 top-1/2 flex h-10 w-10 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-white shadow-lg transition-transform group-hover:scale-110">
+                  <Play className="h-4 w-4 ml-0.5 fill-[#0D55CF] text-[#0D55CF]" />
+                </div>
+              </div>
+
+              {/* Bottom Info Section */}
+              <div className="flex shrink-0 items-center justify-between p-[clamp(8px,1vw,14px)] bg-white">
+                <div className="flex flex-col min-w-0">
+                  <h4 className="truncate text-[clamp(14px,min(1.1vw,1.5svh),16px)] font-bold text-[#0F172A]">
+                    {recipe.title}
+                  </h4>
+                  <p className="truncate text-[clamp(11px,min(0.85vw,1.2svh),13px)] font-medium text-[#64748B]">
+                    {recipe.subtitle}
+                  </p>
+                </div>
+                <button className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full hover:bg-slate-50">
+                  <Bookmark className="h-4 w-4 stroke-[2] text-[#0D55CF]" />
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Bottom Filter Pills */}
+        <div className="mt-[clamp(12px,1.2vw,20px)] flex shrink-0 items-center justify-center gap-4">
+          <button className="flex items-center gap-2 rounded-full bg-[#EEF2FF] px-6 py-2.5 transition-colors hover:bg-blue-100">
+            <Fish className="h-4 w-4 stroke-[2.5] text-[#0D55CF]" />
+            <span className="text-sm font-bold text-[#0D55CF]">Fish</span>
+          </button>
+          
+          <button className="flex items-center gap-2 rounded-full bg-[#FFF1F2] px-6 py-2.5 transition-colors hover:bg-rose-100">
+            <Beef className="h-4 w-4 stroke-[2.5] text-[#E11D48]" />
+            <span className="text-sm font-bold text-[#E11D48]">Meat</span>
+          </button>
+          
+          <button className="flex items-center gap-2 rounded-full bg-[#FFF7ED] px-6 py-2.5 transition-colors hover:bg-orange-100">
+            <Drumstick className="h-4 w-4 stroke-[2.5] text-[#EA580C]" />
+            <span className="text-sm font-bold text-[#EA580C]">Chicken</span>
+          </button>
+          
+          <button className="flex items-center gap-2 rounded-full bg-[#F0FDF4] px-6 py-2.5 transition-colors hover:bg-green-100">
+            <Egg className="h-4 w-4 stroke-[2.5] text-[#16A34A]" />
+            <span className="text-sm font-bold text-[#16A34A]">Eggs</span>
+          </button>
         </div>
       </div>
 
@@ -156,8 +153,7 @@ export function HowToCookPage() {
       <div className="h-full w-full shrink-0 overflow-hidden">
         <HomeFooter />
       </div>
+      
     </div>
   );
 }
-
-
