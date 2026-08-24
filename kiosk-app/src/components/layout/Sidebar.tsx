@@ -129,7 +129,7 @@ export function Sidebar() {
                 'text-[clamp(18px,min(0.82vw,1.2svh),14px)]',
                 isActive
                   ? 'border-[#0D55CF] bg-[#0D55CF] text-white shadow-[0_4px_12px_rgba(13,85,207,0.2)]'
-                  : 'border-gray-100 bg-white text-[#1E293B] shadow-[0_2px_8px_rgba(0,0,0,0.02)] hover:-translate-y-0.5 hover:shadow-md'
+                  : 'border-gray-100 bg-white text-[#1E293B] shadow-[0_2px_8px_rgba(0,0,0,0.02)] hover:-translate-y-0.5 hover:'
               )}
             >
               <item.icon
@@ -149,7 +149,7 @@ export function Sidebar() {
       <div className="px-[var(--sidebar-nav-padding-x)] pb-[var(--sidebar-nav-padding-x)]">
         <div 
           onClick={() => setIsQRModalOpen(true)}
-          className="cursor-pointer rounded-[clamp(10px,min(1vw,1.5svh),16px)] bg-[#0D55CF] p-[var(--sidebar-community-padding)] py-[clamp(12px,min(1.5vw,2svh),20px)] shadow-sm transition-transform hover:-translate-y-0.5 hover:shadow-md flex flex-col items-center justify-center"
+          className="cursor-pointer rounded-[clamp(10px,min(1vw,1.5svh),16px)] bg-[#0D55CF] p-[var(--sidebar-community-padding)] py-[clamp(12px,min(1.5vw,2svh),20px)]  transition-transform hover:-translate-y-0.5 hover: flex flex-col items-center justify-center"
         >
           <QrCode className="mb-[clamp(4px,min(0.5vw,0.7svh),8px)] h-[clamp(28px,min(3vw,4.5svh),42px)] w-[clamp(28px,min(3vw,4.5svh),42px)] text-white" />
           <h3 className="text-center text-[clamp(13px,min(1.2vw,1.6svh),18px)] font-bold text-white">
@@ -169,7 +169,7 @@ export function Sidebar() {
         >
         
           <div 
-            className="relative flex flex-col items-center justify-center rounded-[24px] bg-white p-[clamp(24px,3vw,40px)] shadow-2xl animate-in zoom-in-95 duration-200"
+            className="relative flex flex-col items-center justify-center rounded-[24px] bg-white p-[clamp(24px,3vw,40px)]  animate-in zoom-in-95 duration-200"
             onClick={(e) => e.stopPropagation()}
             
           >
@@ -184,7 +184,7 @@ export function Sidebar() {
             <p className="mb-[clamp(16px,2vw,24px)] text-center text-[clamp(13px,1.2vw,16px)] text-gray-500">
               Scan this QR code with your phone camera <br /> to join our WhatsApp community.
             </p>
-            <div className="rounded-[16px] border-[4px] border-[#0D55CF]/10 p-[clamp(12px,1.5vw,20px)] shadow-sm bg-white">
+            <div className="rounded-[16px] border-[4px] border-[#0D55CF]/10 p-[clamp(12px,1.5vw,20px)]  bg-white">
               <Image
                 src="/assets/whatsapp_qr.png"
                 alt="WhatsApp QR"
@@ -199,7 +199,7 @@ export function Sidebar() {
 
       {/* Bottom Contact Badge — currently hidden
       <div className="mt-auto px-3 pt-2 pb-3 lg:px-[clamp(12px,0.83vw,16px)] lg:pb-[clamp(10px,0.83vw,16px)]">
-        <div className="relative flex items-center justify-between overflow-hidden rounded-[16px] bg-[#0D55CF] p-3 text-white shadow-sm lg:p-[var(--sidebar-contact-padding)]">
+        <div className="relative flex items-center justify-between overflow-hidden rounded-[16px] bg-[#0D55CF] p-3 text-white  lg:p-[var(--sidebar-contact-padding)]">
           <div className="relative z-10 w-[75%]">
             <h4 className="text-[13px] leading-snug font-bold text-white lg:text-[clamp(13px,0.83vw,16px)]">
               Contact Us

@@ -106,7 +106,7 @@ export function ProductGrid({
                 onClick={scrollPrev}
                 disabled={validPage === 1}
                 className={cn(
-                  "flex h-7 w-7 items-center justify-center rounded-full border border-gray-200 transition-colors cursor-pointer text-[#1E293B]",
+                  "flex h-7 w-7 items-center justify-center rounded-full transition-colors cursor-pointer text-[#1E293B]",
                   validPage === 1 ? "opacity-30 cursor-not-allowed" : "hover:bg-gray-100"
                 )}
               >
@@ -116,7 +116,7 @@ export function ProductGrid({
                 onClick={scrollNext}
                 disabled={validPage === totalPages}
                 className={cn(
-                  "flex h-7 w-7 items-center justify-center rounded-full border border-gray-200 transition-colors cursor-pointer text-[#1E293B]",
+                  "flex h-7 w-7 items-center justify-center rounded-full transition-colors cursor-pointer text-[#1E293B]",
                   validPage === totalPages ? "opacity-30 cursor-not-allowed" : "hover:bg-gray-100"
                 )}
               >
@@ -133,7 +133,7 @@ export function ProductGrid({
             <span className="text-text-muted text-[clamp(15px,min(0.9vw,1.25svh),15px)] font-bold">
               View:
             </span>
-            <div className="border-gray-150 flex items-center gap-0.5 rounded-lg border bg-white p-0.5 shadow-sm">
+            <div className="border-gray-150 flex items-center gap-0.5 rounded-lg border bg-white p-0.5 ">
               <button
                 onClick={() => setViewMode('grid')}
                 className={cn(
@@ -170,7 +170,7 @@ export function ProductGrid({
               <select
                 value={activeSort}
                 onChange={(e) => onSortChange(e.target.value)}
-                className="text-text-heading cursor-pointer appearance-none rounded-lg border border-gray-200 bg-white py-0.5 pr-6 pl-2 text-[clamp(14px,min(0.9vw,1.25svh),15px)] font-bold shadow-sm outline-none focus:border-[#0D55CF]"
+                className="text-text-heading cursor-pointer appearance-none rounded-lg bg-white py-0.5 pr-6 pl-2 text-[clamp(14px,min(0.9vw,1.25svh),15px)] font-bold  outline-none focus:border-[#0D55CF]"
               >
                 <option value="newest">Newest First</option>
                 <option value="price-low">Price: Low to High</option>
@@ -186,7 +186,7 @@ export function ProductGrid({
       {/* Product List Content Grid */}
       <div className="min-h-0 w-full flex-1 overflow-hidden relative">
         {products.length === 0 ? (
-          <div className="flex h-full w-full flex-col items-center justify-center rounded-2xl border border-gray-100 bg-white p-4 shadow-sm">
+          <div className="flex h-full w-full flex-col items-center justify-center rounded-2xl bg-white p-4 ">
             <svg
               className="text-text-muted mb-2 h-10 w-10 opacity-40"
               fill="none"
@@ -232,7 +232,7 @@ export function ProductGrid({
                       <Link
                         href={`/product/${product.id}`}
                         key={product.id}
-                        className="group flex h-full min-h-0 cursor-pointer items-center gap-2.5 overflow-hidden rounded-xl border border-gray-100 bg-white p-1.5 shadow-sm transition-all hover:shadow-md"
+                        className="group flex h-full min-h-0 cursor-pointer items-center gap-2.5 overflow-hidden rounded-xl bg-white p-1.5  transition-all hover:"
                       >
                         {/* Image */}
                         <div className="relative aspect-square h-full shrink-0 overflow-hidden rounded-lg bg-slate-50">

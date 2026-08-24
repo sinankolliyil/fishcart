@@ -35,7 +35,7 @@ export default function HomePage() {
           ═══════════════════════════════════════════════════ */}
       <div className="grid grid-cols-12 gap-[var(--main-gap)] overflow-hidden">
         {/* ── Hero Card ── */}
-        <div className="relative col-span-7 h-full w-full overflow-hidden rounded-[16px] bg-slate-950 border border-black/5 shadow-sm">
+        <div className="relative col-span-7 h-full w-full overflow-hidden rounded-[16px] bg-slate-950">
           <HeroBannerCarousel />
         </div>
 
@@ -83,7 +83,7 @@ export default function HomePage() {
           ═══════════════════════════════════════════════════════════ */}
       <div className="grid grid-cols-3 gap-[var(--row2-gap)] overflow-hidden xl:grid-cols-[1.15fr_1.16fr_0.7fr]">
         {/* ── Recipe ── */}
-        <div className="col-span-1 flex min-h-0 flex-col justify-between overflow-hidden rounded-[16px] bg-[#A9D3FB] p-[var(--recipe-padding)] border border-black/5 shadow-sm">
+        <div className="col-span-1 flex min-h-0 flex-col justify-between overflow-hidden rounded-[16px] bg-[#A9D3FB] p-[var(--recipe-padding)]">
           <div>
             <h3 className="mb-[clamp(4px,min(0.5vw,0.75svh),8px)] text-[clamp(17px,min(1.25vw,2svh),22px)] font-bold text-[#0D55CF]">
               How to Make Delicious
@@ -107,7 +107,7 @@ export default function HomePage() {
         </div>
 
         {/* ── Nutrition ── */}
-        <div className="relative col-span-1 flex flex-row overflow-hidden rounded-[16px] bg-[#EBF2FE] p-[var(--nutrition-padding)] border border-black/5 shadow-sm">
+        <div className="relative col-span-1 flex flex-row overflow-hidden rounded-[16px] bg-[#E1EDFA] p-[var(--nutrition-padding)]">
           {/* Left Column (58%) */}
           <div className="relative z-10 flex w-[58%] flex-col pr-2">
             <h3 className="mb-[clamp(4px,min(0.5vw,0.75svh),8px)] text-[clamp(17px,min(1.25vw,2svh),22px)] font-bold text-[#0D55CF]">
@@ -175,7 +175,7 @@ export default function HomePage() {
         </div>
 
         {/* ── Testimonial ── */}
-        <div className="col-span-1 flex min-h-0 flex-col justify-between overflow-hidden rounded-[16px] bg-[#F4F9FF] p-[var(--testimonial-padding)] border border-black/5 shadow-sm">
+        <div className="col-span-1 flex min-h-0 flex-col justify-between overflow-hidden rounded-[16px] bg-[#E1EDFA] p-[var(--testimonial-padding)]">
           <div>
             <h3 className="mb-[clamp(4px,min(0.5vw,0.75svh),8px)] text-[clamp(17px,min(1.25vw,2svh),22px)] font-bold text-[#0D55CF]">
               What Our Customers Say
@@ -242,7 +242,7 @@ export default function HomePage() {
           <Link
             key={idx}
             href={item.href}
-            className={`group relative col-span-1 cursor-pointer overflow-hidden rounded-[16px] bg-gradient-to-tr ${item.gradient} border border-black/5 shadow-sm`}
+            className="group relative col-span-1 cursor-pointer overflow-hidden rounded-[16px] bg-[#DFE8F2]"
           >
             <Image
               src={item.image}
@@ -271,7 +271,7 @@ export default function HomePage() {
           ════════════════════════════════════════ */}
       <div className="grid grid-cols-4 gap-[var(--info-gap)] overflow-hidden">
         {/* Card 1 */}
-        <div className="col-span-1 flex items-center justify-between overflow-hidden rounded-[16px] bg-[#EAF4FE] p-[clamp(12px,1.5vw,20px)] border border-black/5 shadow-sm">
+        <div className="col-span-1 flex items-center justify-between overflow-hidden rounded-[16px] bg-[#EAF4FE] p-[clamp(12px,1.5vw,20px)]">
           <div className="mr-2 flex flex-1 flex-col text-left">
             <h4 className="mb-1 truncate text-[clamp(14px,min(1vw,1.6svh),16px)] font-bold text-[#0D55CF]">
               Daily Selection
@@ -286,7 +286,7 @@ export default function HomePage() {
         </div>
 
         {/* Card 2 */}
-        <div className="col-span-1 flex items-center justify-between overflow-hidden rounded-[16px] bg-[#A7E8DF] p-[clamp(12px,1.5vw,20px)] border border-black/5 shadow-sm">
+        <div className="col-span-1 flex items-center justify-between overflow-hidden rounded-[16px] bg-[#A7E8DF] p-[clamp(12px,1.5vw,20px)]">
           <div className="mr-2 flex flex-1 flex-col text-left">
             <h4 className="mb-1 truncate text-[clamp(14px,min(1vw,1.6svh),16px)] font-bold text-[#0D55CF]">
               Hygienic & Safe
@@ -301,7 +301,7 @@ export default function HomePage() {
         </div>
 
         {/* Card 3 */}
-        <div className="col-span-1 flex items-center justify-between overflow-hidden rounded-[16px] bg-[#CAEFA7] p-[clamp(12px,1.5vw,20px)] border border-black/5 shadow-sm">
+        <div className="col-span-1 flex items-center justify-between overflow-hidden rounded-[16px] bg-[#CAEFA7] p-[clamp(12px,1.5vw,20px)]">
           <div className="mr-2 flex flex-1 flex-col text-left">
             <h4 className="mb-1 truncate text-[clamp(14px,min(1vw,1.6svh),16px)] font-bold text-[#0D55CF]">
               Sourced Responsibly
@@ -316,13 +316,14 @@ export default function HomePage() {
         </div>
 
         {/* Card 4 */}
-        <div className="col-span-1 flex items-center justify-between overflow-hidden rounded-[16px] bg-[#5CA3F6] p-[clamp(12px,1.5vw,20px)] border border-black/5 shadow-sm">
+        <div className="col-span-1 flex items-center justify-between overflow-hidden rounded-[16px] bg-[#5CA3F6] p-[clamp(12px,1.5vw,20px)]">
           <div className="mr-2 flex flex-1 flex-col text-left">
             <h4 className="mb-1 text-[clamp(14px,min(1vw,1.6svh),16px)] leading-[1.2] font-bold text-white">
               Freshness You Can Trust
             </h4>
             <p className="line-clamp-3 text-[clamp(12px,min(0.8vw,1.3svh),13px)] leading-[1.3] text-white">
-              We ensure premium quality and freshness in every product we deliver.
+              We ensure premium quality and freshness in every product we
+              deliver.
             </p>
           </div>
           <div className="shrink-0 text-white">

@@ -85,7 +85,7 @@ export function RecipeCarousel() {
                 href="/cook"
                 className="group relative flex h-full w-full cursor-pointer flex-col items-center justify-center gap-2 rounded-[12px] border border-white/10 bg-[#0D55CF] transition-all duration-300 hover:bg-[#0c4dbd]"
               >
-                <div className="flex h-[clamp(24px,min(2vw,3svh),40px)] w-[clamp(24px,min(2vw,3svh),40px)] items-center justify-center rounded-full bg-white text-[#0D55CF] shadow-md transition-transform group-hover:scale-110">
+                <div className="flex h-[clamp(24px,min(2vw,3svh),40px)] w-[clamp(24px,min(2vw,3svh),40px)] items-center justify-center rounded-full bg-white text-[#0D55CF]  transition-transform group-hover:scale-110">
                   <ArrowRight className="h-[clamp(12px,min(1vw,1.5svh),20px)] w-[clamp(12px,min(1vw,1.5svh),20px)]" />
                 </div>
                 <span className="text-center text-[clamp(10px,min(0.8vw,1.2svh),14px)] font-bold text-white">
@@ -125,7 +125,7 @@ export function RecipeCarousel() {
               }`}
             >
               <div className="flex flex-1 items-center justify-center">
-                <div className="flex h-[clamp(24px,min(2vw,3svh),40px)] w-[clamp(24px,min(2vw,3svh),40px)] items-center justify-center rounded-full bg-white text-[#0D55CF] shadow-md transition-transform hover:scale-110 cursor-pointer">
+                <div className="flex h-[clamp(24px,min(2vw,3svh),40px)] w-[clamp(24px,min(2vw,3svh),40px)] items-center justify-center rounded-full bg-white text-[#0D55CF]  transition-transform hover:scale-110 cursor-pointer">
                   <svg
                     fill="currentColor"
                     viewBox="0 0 24 24"
@@ -152,13 +152,13 @@ export function RecipeCarousel() {
               }`}
             >
               <div className="flex flex-col items-center justify-center gap-1">
-                <div className="flex items-center gap-1 rounded-full bg-white/90 px-3 py-1 text-[#0D55CF] shadow-md backdrop-blur">
+                <div className="flex items-center gap-1 rounded-full bg-white/90 px-3 py-1 text-[#0D55CF]  backdrop-blur">
                   <span className="text-[clamp(10px,min(0.8vw,1.2svh),12px)] font-bold">Swipe</span>
                   <ChevronRight className="h-[clamp(10px,min(1vw,1.5svh),14px)] w-[clamp(10px,min(1vw,1.5svh),14px)]" />
                 </div>
               </div>
               <div className="absolute bottom-2 left-2 right-2">
-                <p className="truncate text-center text-[clamp(11px,min(0.8vw,1.2svh),13px)] leading-tight font-bold text-white shadow-sm">
+                <p className="truncate text-center text-[clamp(11px,min(0.8vw,1.2svh),13px)] leading-tight font-bold text-white ">
                   {recipe.title}
                 </p>
               </div>

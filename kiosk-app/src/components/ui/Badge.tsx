@@ -14,7 +14,7 @@ export function Badge({ className, variant = "default", ...props }: BadgeProps) 
           "bg-primary text-surface hover:bg-primary/80": variant === "default",
           "bg-secondary text-primary hover:bg-secondary/80": variant === "secondary",
           "border border-primary text-primary": variant === "outline",
-          "bg-blue-50 text-primary border border-blue-100": variant === "soft",
+          "bg-blue-50 text-primary ": variant === "soft",
         },
         className
       )}

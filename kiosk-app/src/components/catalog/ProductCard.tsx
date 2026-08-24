@@ -34,7 +34,7 @@ export function ProductCard({ product, category }: ProductCardProps) {
   const currentBadgeBg = badgeBgColors[category] || badgeBgColors.fish;
 
   return (
-    <Link href={`/product/${product.id}`} className="group flex h-full min-h-0 w-full flex-col justify-between overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm transition-all duration-200 select-none hover:shadow-md cursor-pointer">
+    <Link href={`/product/${product.id}`} className="group flex h-full min-h-0 w-full flex-col justify-between overflow-hidden rounded-2xl bg-white  transition-all duration-200 select-none hover: cursor-pointer">
       {/* Product Image Container - flex-grow & min-h-0 to stretch/shrink dynamically */}
       <div className="relative flex min-h-0 w-full flex-1 items-center justify-center overflow-hidden bg-[#F8FAFC] p-1">
         <Image
@@ -52,7 +52,7 @@ export function ProductCard({ product, category }: ProductCardProps) {
             e.stopPropagation();
             setIsFav(!isFav);
           }}
-          className="text-text-muted absolute top-1.5 right-1.5 z-20 cursor-pointer rounded-full bg-white p-1 shadow-sm transition-all duration-200 hover:bg-white hover:shadow-md active:scale-90"
+          className="text-text-muted absolute top-1.5 right-1.5 z-20 cursor-pointer rounded-full bg-white p-1  transition-all duration-200 hover:bg-white hover: active:scale-90"
         >
           <Heart
             className={cn(

@@ -36,7 +36,7 @@ export function ProductCard({
           fill
           className="object-contain mix-blend-multiply transition-transform duration-300 group-hover:scale-105"
         />
-        <button className="absolute top-4 right-4 p-2 rounded-full bg-surface/80 text-text-muted hover:text-primary hover:bg-surface shadow-sm transition-colors">
+        <button className="absolute top-4 right-4 p-2 rounded-full bg-surface/80 text-text-muted hover:text-primary hover:bg-surface  transition-colors">
           <Heart className="h-5 w-5" />
         </button>
       </div>

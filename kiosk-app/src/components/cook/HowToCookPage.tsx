@@ -7,7 +7,7 @@ export function HowToCookPage() {
   return (
     <div className="grid h-full min-h-[950px] w-full grid-rows-[minmax(0,15fr)_minmax(0,74fr)_minmax(0,10fr)] gap-[var(--main-gap)] select-none">
       {/* ─── 1. Hero Banner ─── */}
-      <div className="relative flex h-full w-full items-center overflow-hidden rounded-2xl border border-white/20 bg-gradient-to-r from-[#FFF7ED] via-[#FFF1E0] to-[#FFECD2] px-[clamp(12px,1.5vw,24px)] shadow-sm">
+      <div className="relative flex h-full w-full items-center overflow-hidden rounded-2xl border border-white/20 bg-gradient-to-r from-[#FFF7ED] via-[#FFF1E0] to-[#FFECD2] px-[clamp(12px,1.5vw,24px)] ">
         {/* Decorative background pattern */}
         <div className="pointer-events-none absolute inset-0 opacity-[0.04]">
           <svg className="h-full w-full" xmlns="http://www.w3.org/2000/svg">
@@ -73,31 +73,31 @@ export function HowToCookPage() {
 
         {/* Right decorative chef hat illustration */}
         <div className="pointer-events-none absolute top-1/2 right-[clamp(16px,3vw,48px)] z-10 -translate-y-1/2 select-none">
-          <div className="flex h-[clamp(50px,min(5vw,7svh),80px)] w-[clamp(50px,min(5vw,7svh),80px)] items-center justify-center rounded-full bg-white/60 shadow-sm backdrop-blur-sm">
+          <div className="flex h-[clamp(50px,min(5vw,7svh),80px)] w-[clamp(50px,min(5vw,7svh),80px)] items-center justify-center rounded-full bg-white/60  backdrop-blur-sm">
             <ChefHat className="h-[60%] w-[60%] stroke-[1.5] text-[#F59000]" />
           </div>
         </div>
       </div>
 
       {/* ─── 2. Main Content: Coming Soon Card ─── */}
-      <div className="flex h-full w-full items-center justify-center overflow-hidden rounded-2xl border border-gray-100 bg-white p-[clamp(12px,1.5vw,24px)] shadow-sm">
+      <div className="flex h-full w-full items-center justify-center overflow-hidden rounded-2xl bg-white p-[clamp(12px,1.5vw,24px)] ">
         <div className="flex max-w-[clamp(320px,40vw,560px)] flex-col items-center justify-center text-center">
           {/* Chef Hat Illustration Circle */}
           <div className="relative mb-[clamp(12px,1.5vw,24px)]">
             {/* Outer glow ring */}
             <div className="absolute inset-0 scale-[1.4] rounded-full bg-[#F59000]/5" />
-            <div className="relative flex h-[clamp(70px,min(8vw,10svh),120px)] w-[clamp(70px,min(8vw,10svh),120px)] items-center justify-center rounded-full border border-[#F59000]/10 bg-gradient-to-br from-[#FFF7ED] to-[#FFECD2] shadow-sm">
+            <div className="relative flex h-[clamp(70px,min(8vw,10svh),120px)] w-[clamp(70px,min(8vw,10svh),120px)] items-center justify-center rounded-full border border-[#F59000]/10 bg-gradient-to-br from-[#FFF7ED] to-[#FFECD2] ">
               <ChefHat className="h-[50%] w-[50%] stroke-[1.5] text-[#F59000]" />
             </div>
 
             {/* Floating decorative icons */}
-            <div className="absolute -top-2 -right-3 flex h-[clamp(22px,min(2.2vw,3svh),32px)] w-[clamp(22px,min(2.2vw,3svh),32px)] items-center justify-center rounded-full border border-gray-100 bg-white shadow-sm">
+            <div className="absolute -top-2 -right-3 flex h-[clamp(22px,min(2.2vw,3svh),32px)] w-[clamp(22px,min(2.2vw,3svh),32px)] items-center justify-center rounded-full bg-white ">
               <Utensils className="h-[55%] w-[55%] stroke-[2] text-[#0D55CF]" />
             </div>
-            <div className="absolute -bottom-1 -left-3 flex h-[clamp(22px,min(2.2vw,3svh),32px)] w-[clamp(22px,min(2.2vw,3svh),32px)] items-center justify-center rounded-full border border-gray-100 bg-white shadow-sm">
+            <div className="absolute -bottom-1 -left-3 flex h-[clamp(22px,min(2.2vw,3svh),32px)] w-[clamp(22px,min(2.2vw,3svh),32px)] items-center justify-center rounded-full bg-white ">
               <Flame className="h-[55%] w-[55%] stroke-[2] text-[#F0314A]" />
             </div>
-            <div className="absolute top-1/2 -right-6 flex h-[clamp(20px,min(2vw,2.8svh),28px)] w-[clamp(20px,min(2vw,2.8svh),28px)] -translate-y-1/2 items-center justify-center rounded-full border border-gray-100 bg-white shadow-sm">
+            <div className="absolute top-1/2 -right-6 flex h-[clamp(20px,min(2vw,2.8svh),28px)] w-[clamp(20px,min(2vw,2.8svh),28px)] -translate-y-1/2 items-center justify-center rounded-full bg-white ">
               <BookOpen className="h-[55%] w-[55%] stroke-[2] text-[#10B981]" />
             </div>
           </div>
@@ -114,7 +114,7 @@ export function HowToCookPage() {
           </p>
 
           {/* Coming Soon Badge */}
-          <div className="inline-flex items-center gap-2 rounded-full border border-[#F59000]/20 bg-gradient-to-r from-[#FFF7ED] to-[#FFECD2] px-[clamp(14px,1.2vw,22px)] py-[clamp(6px,0.5vw,10px)] shadow-sm">
+          <div className="inline-flex items-center gap-2 rounded-full border border-[#F59000]/20 bg-gradient-to-r from-[#FFF7ED] to-[#FFECD2] px-[clamp(14px,1.2vw,22px)] py-[clamp(6px,0.5vw,10px)] ">
             <div className="h-[clamp(6px,0.5vw,8px)] w-[clamp(6px,0.5vw,8px)] animate-pulse rounded-full bg-[#F59000]" />
             <span className="text-[clamp(11px,min(0.85vw,1.2svh),14px)] font-bold tracking-wide text-[#F59000]">
               Coming Soon

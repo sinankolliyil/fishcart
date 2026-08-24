@@ -10,7 +10,7 @@ function CountryFlag({ code }: { code: string }) {
       return (
         <svg
           viewBox="0 0 16 12"
-          className="h-3 w-4 shrink-0 rounded-sm border border-black/5 select-none"
+          className="h-3 w-4 shrink-0 rounded-sm select-none"
         >
           <rect width="16" height="12" fill="#012169" />
           <path d="M0 0 L16 12 M0 12 L16 0" stroke="#fff" strokeWidth="2" />
@@ -27,7 +27,7 @@ function CountryFlag({ code }: { code: string }) {
       return (
         <svg
           viewBox="0 0 16 12"
-          className="h-3 w-4 shrink-0 rounded-sm border border-black/5 select-none"
+          className="h-3 w-4 shrink-0 rounded-sm select-none"
         >
           <rect width="16" height="12" fill="#BA0C2F" />
           <path d="M5 0 V12 M0 5 H16" stroke="#fff" strokeWidth="2.5" />
@@ -38,7 +38,7 @@ function CountryFlag({ code }: { code: string }) {
       return (
         <svg
           viewBox="0 0 16 12"
-          className="h-3 w-4 shrink-0 rounded-sm border border-black/5 select-none"
+          className="h-3 w-4 shrink-0 rounded-sm select-none"
         >
           <rect width="16" height="12" fill="#005EB8" />
           <path d="M0 0 L16 12 M0 12 L16 0" stroke="#fff" strokeWidth="1.8" />
@@ -48,7 +48,7 @@ function CountryFlag({ code }: { code: string }) {
       return (
         <svg
           viewBox="0 0 16 12"
-          className="h-3 w-4 shrink-0 rounded-sm border border-black/5 select-none"
+          className="h-3 w-4 shrink-0 rounded-sm select-none"
         >
           <rect width="16" height="12" fill="#003897" />
           <path d="M5 0 V12 M0 5 H16" stroke="#fff" strokeWidth="2.5" />
@@ -59,7 +59,7 @@ function CountryFlag({ code }: { code: string }) {
       return (
         <svg
           viewBox="0 0 16 12"
-          className="h-3 w-4 shrink-0 rounded-sm border border-black/5 select-none"
+          className="h-3 w-4 shrink-0 rounded-sm select-none"
         >
           <rect width="16" height="4" fill="#AE1C28" />
           <rect y="4" width="16" height="4" fill="#FFF" />
@@ -108,7 +108,7 @@ export function FilterSidebar({
   const currentCheckboxBg = checkboxBgColors[category] || checkboxBgColors.fish;
 
   return (
-    <div className="flex h-full min-h-0 w-full flex-col justify-between overflow-hidden rounded-2xl border border-gray-100 bg-white p-[clamp(10px,1.2vw,16px)] shadow-sm select-none">
+    <div className="flex h-full min-h-0 w-full flex-col justify-between overflow-hidden rounded-2xl bg-white p-[clamp(10px,1.2vw,16px)]  select-none">
       {/* Inline styles for custom minimal scrollbar inside the sidebar */}
       <style
         dangerouslySetInnerHTML={{
@@ -143,7 +143,7 @@ export function FilterSidebar({
             <select
               value={activeSort}
               onChange={(e) => onSortChange(e.target.value)}
-              className="border-gray-250 w-full cursor-pointer appearance-none rounded-lg border bg-white py-1 pr-8 pl-3 text-[clamp(10px,min(0.9vw,1.35svh),14px)] font-bold text-[#1E293B] shadow-sm transition-colors outline-none focus:border-[#0D55CF]"
+              className="border-gray-250 w-full cursor-pointer appearance-none rounded-lg border bg-white py-1 pr-8 pl-3 text-[clamp(10px,min(0.9vw,1.35svh),14px)] font-bold text-[#1E293B]  transition-colors outline-none focus:border-[#0D55CF]"
             >
               <option value="newest">Newest First</option>
               <option value="price-low">Price: Low to High</option>
@@ -240,7 +240,7 @@ export function FilterSidebar({
       <button
         onClick={onApply}
         className={cn(
-          'flex w-full shrink-0 cursor-pointer items-center justify-center rounded-xl py-2 text-[clamp(10px,min(0.9vw,1.35svh),14px)] font-bold text-white shadow-md transition-all duration-150',
+          'flex w-full shrink-0 cursor-pointer items-center justify-center rounded-xl py-2 text-[clamp(10px,min(0.9vw,1.35svh),14px)] font-bold text-white  transition-all duration-150',
           applyBtnClass
         )}
       >

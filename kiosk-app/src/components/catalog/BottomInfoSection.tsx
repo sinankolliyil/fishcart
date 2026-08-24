@@ -40,7 +40,7 @@ export function BottomInfoSection({
       {bottomInfo.map((info, idx) => (
         <div
           key={idx}
-          className="flex h-full min-h-0 items-center gap-[clamp(8px,0.9vw,14px)] rounded-xl border border-gray-100 bg-white px-[clamp(12px,1vw,18px)] py-[clamp(10px,1vw,16px)] shadow-sm"
+          className="flex h-full min-h-0 items-center gap-[clamp(8px,0.9vw,14px)] rounded-xl bg-white px-[clamp(12px,1vw,18px)] py-[clamp(10px,1vw,16px)] "
         >
           {/* Circular Icon Container */}
           <div

@@ -110,7 +110,7 @@ export function CategoryTabs({
               'cursor-pointer overflow-hidden text-left transition-all duration-200',
               isActive
                 ? cn('text-white', currentActiveStyle)
-                : 'border-gray-100 bg-white text-[#1E293B] shadow-[0_1px_4px_rgba(0,0,0,0.01)] hover:-translate-y-0.5 hover:shadow-sm'
+                : 'border-gray-100 bg-white text-[#1E293B] shadow-[0_1px_4px_rgba(0,0,0,0.01)] hover:-translate-y-0.5 hover:'
             )}
           >
             {/* Icon Circle Wrapper */}

@@ -347,11 +347,11 @@ export function HeroBannerCarousel() {
             <div className="pointer-events-none absolute inset-0 z-20">
               <div className="flex h-full items-start pt-[calc(var(--hero-ribbon-h)+clamp(16px,2vw,32px))]">
                 <div className="ml-[8%] max-w-[520px] text-white">
-                  <h2 className="text-[clamp(30px,3.5vw,44px)] leading-[1.08] font-extrabold tracking-tight !text-white drop-shadow-md">
+                  <h2 className="text-[clamp(30px,3.5vw,44px)] leading-[1.08] font-extrabold tracking-tight !text-white ">
                     {slide.title}
                   </h2>
 
-                  <p className="mt-3 text-[18px] leading-[1.4] font-medium text-slate-200 drop-shadow-sm">
+                  <p className="mt-3 text-[18px] leading-[1.4] font-medium text-slate-200 ">
                     {slide.description}
                   </p>
                 </div>
@@ -409,7 +409,7 @@ export function HeroBannerCarousel() {
             onClick={() => handleDotClick(idx)}
             className={`cursor-pointer transition-all duration-300 focus:outline-none ${
               activeDotIndex === idx
-                ? 'h-1.5 w-6 rounded-full bg-white shadow-sm'
+                ? 'h-1.5 w-6 rounded-full bg-white '
                 : 'h-1.5 w-1.5 rounded-full bg-white/40 hover:bg-white/70'
             }`}
             aria-label={`Go to slide ${idx + 1}`}

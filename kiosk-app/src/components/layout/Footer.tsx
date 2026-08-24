@@ -5,7 +5,7 @@ export function Footer() {
     <footer className="grid h-full w-full grid-cols-5 items-stretch gap-[var(--footer-gap)]">
       {/* ================= CARD 1 ================= */}
 
-      <div className="flex items-center gap-[var(--footer-card-gap)] rounded-[clamp(13px,0.78vw,15px)] bg-white p-[var(--footer-card-padding)] shadow-sm">
+      <div className="flex items-center gap-[var(--footer-card-gap)] rounded-[clamp(13px,0.78vw,15px)] bg-white p-[var(--footer-card-padding)] ">
         <div className="flex shrink-0 items-center justify-center opacity-60">
           <svg
             viewBox="0 0 64 64"
@@ -49,7 +49,7 @@ export function Footer() {
 
       {/* ================= CARD 2 ================= */}
 
-      <div className="flex items-center gap-[var(--footer-card-gap)] rounded-[clamp(13px,0.78vw,15px)] bg-white p-[var(--footer-card-padding)] shadow-sm">
+      <div className="flex items-center gap-[var(--footer-card-gap)] rounded-[clamp(13px,0.78vw,15px)] bg-white p-[var(--footer-card-padding)] ">
         <div className="flex shrink-0 items-center justify-center opacity-60">
           <svg
             className="h-[clamp(28px,2vw,38px)] w-[clamp(28px,2vw,38px)]"
@@ -78,7 +78,7 @@ export function Footer() {
 
       {/* ================= CARD 3 ================= */}
 
-      <div className="flex items-center gap-[var(--footer-card-gap)] rounded-[clamp(13px,0.78vw,15px)] bg-white p-[var(--footer-card-padding)] shadow-sm">
+      <div className="flex items-center gap-[var(--footer-card-gap)] rounded-[clamp(13px,0.78vw,15px)] bg-white p-[var(--footer-card-padding)] ">
         <div className="flex shrink-0 items-center justify-center opacity-60">
           <svg
             className="h-[clamp(28px,2vw,38px)] w-[clamp(28px,2vw,38px)]"
@@ -108,7 +108,7 @@ export function Footer() {
 
       {/* ================= CARD 4 ================= */}
 
-      <div className="flex items-center gap-[var(--footer-card-gap)] rounded-[clamp(13px,0.78vw,15px)] bg-white p-[var(--footer-card-padding)] shadow-sm">
+      <div className="flex items-center gap-[var(--footer-card-gap)] rounded-[clamp(13px,0.78vw,15px)] bg-white p-[var(--footer-card-padding)] ">
         <div className="flex shrink-0 items-center justify-center opacity-60">
           <svg
             className="h-[clamp(28px,2vw,38px)] w-[clamp(28px,2vw,38px)]"
@@ -137,7 +137,7 @@ export function Footer() {
 
       {/* ================= CARD 5 ================= */}
 
-      <div className="flex items-center gap-[var(--footer-card-gap)] rounded-[clamp(13px,0.78vw,15px)] bg-white p-[var(--footer-card-padding)] shadow-sm">
+      <div className="flex items-center gap-[var(--footer-card-gap)] rounded-[clamp(13px,0.78vw,15px)] bg-white p-[var(--footer-card-padding)] ">
         <div className="flex shrink-0 items-center justify-center opacity-60">
           <svg
             className="h-[clamp(28px,2vw,38px)] w-[clamp(28px,2vw,38px)]"

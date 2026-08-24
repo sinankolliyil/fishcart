@@ -401,9 +401,9 @@ const PLATFORMS: {
         <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
       </svg>
     ),
-    activeClass: 'bg-[#1877F2] text-white shadow-lg shadow-blue-200',
+    activeClass: 'bg-[#1877F2] text-white  shadow-blue-200',
     inactiveClass:
-      'bg-white text-slate-700 border border-slate-200 hover:border-[#1877F2]/40',
+      'bg-white text-slate-700 hover:border-[#1877F2]/40',
   },
   {
     id: 'instagram',
@@ -419,9 +419,9 @@ const PLATFORMS: {
       </svg>
     ),
     activeClass:
-      'bg-gradient-to-r from-[#f09433] via-[#e6683c] via-[#dc2743] via-[#cc2366] to-[#bc1888] text-white shadow-lg shadow-pink-200',
+      'bg-gradient-to-r from-[#f09433] via-[#e6683c] via-[#dc2743] via-[#cc2366] to-[#bc1888] text-white  shadow-pink-200',
     inactiveClass:
-      'bg-white text-slate-700 border border-slate-200 hover:border-pink-400/40',
+      'bg-white text-slate-700 hover:border-pink-400/40',
   },
   {
     id: 'google',
@@ -451,9 +451,9 @@ const PLATFORMS: {
       </svg>
     ),
     activeClass:
-      'bg-white text-slate-800 border-2 border-[#4285F4] shadow-lg shadow-blue-100',
+      'bg-white text-slate-800 border-2 border-[#4285F4]  shadow-blue-100',
     inactiveClass:
-      'bg-white text-slate-700 border border-slate-200 hover:border-[#4285F4]/40',
+      'bg-white text-slate-700 hover:border-[#4285F4]/40',
   },
   {
     id: 'all',
@@ -471,9 +471,9 @@ const PLATFORMS: {
       </svg>
     ),
     activeClass:
-      'bg-white text-[#0D55CF] border-2 border-[#0D55CF] shadow-lg shadow-blue-100',
+      'bg-white text-[#0D55CF] border-2 border-[#0D55CF]  shadow-blue-100',
     inactiveClass:
-      'bg-white text-slate-700 border border-slate-200 hover:border-[#0D55CF]/40',
+      'bg-white text-slate-700 hover:border-[#0D55CF]/40',
   },
 ];
 
@@ -527,7 +527,7 @@ function PlatformIcon({
   return (
     <div
       className={cn(
-        'flex shrink-0 items-center justify-center rounded-full border border-slate-200 bg-white shadow-sm',
+        'flex shrink-0 items-center justify-center rounded-full bg-white ',
         size === 'lg'
           ? 'h-[clamp(26px,2vw,36px)] w-[clamp(26px,2vw,36px)]'
           : 'h-[clamp(20px,1.6vw,26px)] w-[clamp(20px,1.6vw,26px)]'
@@ -597,7 +597,7 @@ function ReviewCard({
   return (
     <div
       className={cn(
-        'flex min-h-0 flex-col justify-between overflow-hidden rounded-[clamp(10px,0.8vw,14px)] bg-white shadow-sm',
+        'flex min-h-0 flex-col justify-between overflow-hidden rounded-[clamp(10px,0.8vw,14px)] bg-white ',
         compact ? 'p-[clamp(8px,0.7vw,12px)]' : 'p-[clamp(10px,0.9vw,16px)]'
       )}
     >
@@ -957,7 +957,7 @@ export function TestimonialsPage() {
                 {CUSTOMER_PHOTOS.map((c, i) => (
                   <div
                     key={i}
-                    className="overflow-hidden rounded-[clamp(8px,0.6vw,12px)] bg-white shadow-sm"
+                    className="overflow-hidden rounded-[clamp(8px,0.6vw,12px)] bg-white "
                   >
                     <div className="relative aspect-[4/3] w-full">
                       <Image
@@ -980,7 +980,7 @@ export function TestimonialsPage() {
           {/* Right panel: We're Everywhere + Feedback form + Hygiene rating */}
           <div className="flex min-h-0 flex-col gap-[clamp(6px,0.6vw,10px)] overflow-x-hidden overflow-y-auto">
             {/* Share Your Opinion */}
-            <div className="shrink-0 rounded-[clamp(10px,0.8vw,14px)] bg-white p-[clamp(10px,0.9vw,16px)] shadow-sm">
+            <div className="shrink-0 rounded-[clamp(10px,0.8vw,14px)] bg-white p-[clamp(10px,0.9vw,16px)] ">
               <div className="mb-[clamp(5px,0.5vw,9px)] flex items-center gap-2">
                 <svg
                   viewBox="0 0 24 24"
@@ -1008,7 +1008,7 @@ export function TestimonialsPage() {
                   <input
                     type="text"
                     placeholder="Enter your name"
-                    className="w-full rounded-[6px] border border-slate-200 px-[clamp(6px,0.5vw,10px)] py-[clamp(4px,0.35vw,7px)] text-[clamp(9px,0.6vw,11px)] transition-colors outline-none focus:border-[#0D55CF]"
+                    className="w-full rounded-[6px] px-[clamp(6px,0.5vw,10px)] py-[clamp(4px,0.35vw,7px)] text-[clamp(9px,0.6vw,11px)] transition-colors outline-none focus:border-[#0D55CF]"
                   />
                 </div>
                 <div>
@@ -1018,7 +1018,7 @@ export function TestimonialsPage() {
                   <input
                     type="text"
                     placeholder="e.g. Great Service, Excellent Quality"
-                    className="w-full rounded-[6px] border border-slate-200 px-[clamp(6px,0.5vw,10px)] py-[clamp(4px,0.35vw,7px)] text-[clamp(9px,0.6vw,11px)] transition-colors outline-none focus:border-[#0D55CF]"
+                    className="w-full rounded-[6px] px-[clamp(6px,0.5vw,10px)] py-[clamp(4px,0.35vw,7px)] text-[clamp(9px,0.6vw,11px)] transition-colors outline-none focus:border-[#0D55CF]"
                   />
                 </div>
                 <div>
@@ -1029,7 +1029,7 @@ export function TestimonialsPage() {
                   <textarea
                     rows={3}
                     placeholder="Write your suggestions or feedback here..."
-                    className="w-full resize-none rounded-[6px] border border-slate-200 px-[clamp(6px,0.5vw,10px)] py-[clamp(4px,0.35vw,7px)] text-[clamp(9px,0.6vw,11px)] transition-colors outline-none focus:border-[#0D55CF]"
+                    className="w-full resize-none rounded-[6px] px-[clamp(6px,0.5vw,10px)] py-[clamp(4px,0.35vw,7px)] text-[clamp(9px,0.6vw,11px)] transition-colors outline-none focus:border-[#0D55CF]"
                   />
                 </div>
                 <div>
@@ -1040,7 +1040,7 @@ export function TestimonialsPage() {
                     </span>
                   </label>
                   <div className="flex gap-1">
-                    <select className="rounded-[6px] border border-slate-200 px-1 py-[clamp(4px,0.35vw,7px)] text-[clamp(9px,0.6vw,11px)] outline-none focus:border-[#0D55CF]">
+                    <select className="rounded-[6px] px-1 py-[clamp(4px,0.35vw,7px)] text-[clamp(9px,0.6vw,11px)] outline-none focus:border-[#0D55CF]">
                       <option>+44</option>
                       <option>+91</option>
                       <option>+1</option>
@@ -1048,7 +1048,7 @@ export function TestimonialsPage() {
                     <input
                       type="tel"
                       placeholder="Enter your phone number"
-                      className="flex-1 rounded-[6px] border border-slate-200 px-[clamp(6px,0.5vw,10px)] py-[clamp(4px,0.35vw,7px)] text-[clamp(9px,0.6vw,11px)] transition-colors outline-none focus:border-[#0D55CF]"
+                      className="flex-1 rounded-[6px] px-[clamp(6px,0.5vw,10px)] py-[clamp(4px,0.35vw,7px)] text-[clamp(9px,0.6vw,11px)] transition-colors outline-none focus:border-[#0D55CF]"
                     />
                   </div>
                 </div>
@@ -1060,7 +1060,7 @@ export function TestimonialsPage() {
             </div>
 
             {/* We're Everywhere */}
-            <div className="shrink-0 rounded-[clamp(10px,0.8vw,14px)] bg-white p-[clamp(10px,0.9vw,16px)] shadow-sm">
+            <div className="shrink-0 rounded-[clamp(10px,0.8vw,14px)] bg-white p-[clamp(10px,0.9vw,16px)] ">
               <h3 className="mb-[clamp(3px,0.3vw,5px)] text-[clamp(11px,0.85vw,14px)] font-bold text-[#0D55CF]">
                 We're Everywhere!
               </h3>
@@ -1122,7 +1122,7 @@ export function TestimonialsPage() {
             </div>
 
             {/* Food Hygiene Rating */}
-            <div className="shrink-0 rounded-[clamp(10px,0.8vw,14px)] bg-white p-[clamp(10px,0.9vw,16px)] shadow-sm">
+            <div className="shrink-0 rounded-[clamp(10px,0.8vw,14px)] bg-white p-[clamp(10px,0.9vw,16px)] ">
               <h3 className="mb-[clamp(3px,0.3vw,5px)] text-[clamp(11px,0.85vw,14px)] font-bold text-[#0D55CF]">
                 Food Hygiene Rating
               </h3>
@@ -1141,13 +1141,13 @@ export function TestimonialsPage() {
                       {n}
                     </div>
                   ))}
-                  <div className="flex h-[clamp(24px,2vw,34px)] w-[clamp(24px,2vw,34px)] items-center justify-center rounded-full bg-[#2E7D32] text-[clamp(9px,0.7vw,13px)] font-bold text-white shadow-md">
+                  <div className="flex h-[clamp(24px,2vw,34px)] w-[clamp(24px,2vw,34px)] items-center justify-center rounded-full bg-[#2E7D32] text-[clamp(9px,0.7vw,13px)] font-bold text-white ">
                     5
                   </div>
                 </div>
                 {/* Badge */}
                 <div className="flex flex-col items-end">
-                  <div className="flex h-[clamp(28px,2.5vw,42px)] w-[clamp(28px,2.5vw,42px)] items-center justify-center rounded-full bg-[#2E7D32] shadow-md">
+                  <div className="flex h-[clamp(28px,2.5vw,42px)] w-[clamp(28px,2.5vw,42px)] items-center justify-center rounded-full bg-[#2E7D32] ">
                     <svg
                       viewBox="0 0 24 24"
                       className="h-[clamp(14px,1.2vw,22px)] w-[clamp(14px,1.2vw,22px)] text-white"
@@ -1182,5 +1182,3 @@ export function TestimonialsPage() {
     </div>
   );
 }
-
-

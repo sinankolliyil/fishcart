@@ -53,7 +53,7 @@ export function CategoryCard({
     <Link
       href={href}
       className={cn(
-        'group relative flex h-full w-full overflow-hidden rounded-2xl border border-black/5 shadow-sm transition-transform',
+        'group relative flex h-full w-full overflow-hidden rounded-2xl transition-transform',
         currentStyle.bg,
         className
       )}
@@ -84,7 +84,7 @@ export function CategoryCard({
           src={imageSrc}
           alt={title}
           className={cn(
-            'h-full w-full object-contain object-right-bottom drop-shadow-md transition-transform duration-300',
+            'h-full w-full object-contain object-right-bottom  transition-transform duration-300',
             variant === 'eggs' ? '' :
             variant === 'fish' ? 'origin-bottom-right scale-[1.55] translate-x-[8%]' :
             'origin-bottom-right scale-[1.4]'
@@ -96,7 +96,7 @@ export function CategoryCard({
       <div className="absolute right-3 bottom-3 z-10">
         <div
           className={cn(
-            'flex h-[clamp(24px,min(1.67vw,2.7svh),30px)] w-[clamp(22px,min(1.67vw,2.7svh),30px)] items-center justify-center rounded-full bg-white shadow-sm transition-transform group-hover:scale-110',
+            'flex h-[clamp(24px,min(1.67vw,2.7svh),30px)] w-[clamp(22px,min(1.67vw,2.7svh),30px)] items-center justify-center rounded-full bg-white  transition-transform group-hover:scale-110',
             currentStyle.arrow
           )}
         >

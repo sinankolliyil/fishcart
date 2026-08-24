@@ -14,7 +14,7 @@ export function SearchBar({ placeholder = "Search for fresh fish...", className 
       <Input 
         type="search"
         placeholder={placeholder}
-        className="pl-12 h-12 rounded-full border-gray-200 text-base shadow-sm focus-visible:ring-primary focus-visible:border-primary"
+        className="pl-12 h-12 rounded-full border-gray-200 text-base  focus-visible:ring-primary focus-visible:border-primary"
       />
     </div>
   )
