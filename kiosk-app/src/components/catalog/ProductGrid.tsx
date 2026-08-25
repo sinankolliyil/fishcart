@@ -93,6 +93,44 @@ export function ProductGrid({
     <div className="flex h-full min-h-0 w-full flex-1 flex-col justify-between overflow-hidden select-none">
       {/* Product List Header */}
       <div className="mb-2 flex shrink-0 items-center justify-between border-b border-gray-100 pb-1.5">
+        {/* View Controls & Sort */}
+        <div className="flex items-center gap-3">
+          {/* View As Toggle */}
+          <div className="flex items-center gap-1.5">
+            <span className="text-text-muted text-[clamp(15px,min(0.9vw,1.25svh),15px)] font-bold">
+              View:
+            </span>
+            <div className="border-gray-150 flex items-center gap-0.5 rounded-[4px] border bg-white p-0.5 ">
+              <button
+                onClick={() => setViewMode('grid')}
+                className={cn(
+                  'cursor-pointer rounded-[2px] p-1 transition-all duration-150',
+                  viewMode === 'grid'
+                    ? currentActiveBg
+                    : 'text-text-muted hover:text-text-heading hover:bg-slate-50'
+                )}
+                title="Grid view"
+              >
+                <Grid className="h-3.5 w-3.5 stroke-[2.5]" />
+              </button>
+              <button
+                onClick={() => setViewMode('list')}
+                className={cn(
+                  'cursor-pointer rounded-[2px] p-1 transition-all duration-150',
+                  viewMode === 'list'
+                    ? currentActiveBg
+                    : 'text-text-muted hover:text-text-heading hover:bg-slate-50'
+                )}
+                title="List view"
+              >
+                <List className="h-3.5 w-3.5 stroke-[2.5]" />
+              </button>
+            </div>
+          </div>
+
+
+        </div>
+
         {/* Count Label & Navigation */}
         <div className="flex items-center gap-4">
           <span className="text-[clamp(12px,min(2vw,2.5svh),16px)] font-black text-[#475569]">
@@ -125,68 +163,12 @@ export function ProductGrid({
             </div>
           )}
         </div>
-
-        {/* View Controls & Sort */}
-        <div className="flex items-center gap-3">
-          {/* View As Toggle */}
-          <div className="flex items-center gap-1.5">
-            <span className="text-text-muted text-[clamp(15px,min(0.9vw,1.25svh),15px)] font-bold">
-              View:
-            </span>
-            <div className="border-gray-150 flex items-center gap-0.5 rounded-lg border bg-white p-0.5 ">
-              <button
-                onClick={() => setViewMode('grid')}
-                className={cn(
-                  'cursor-pointer rounded p-1 transition-all duration-150',
-                  viewMode === 'grid'
-                    ? currentActiveBg
-                    : 'text-text-muted hover:text-text-heading hover:bg-slate-50'
-                )}
-                title="Grid view"
-              >
-                <Grid className="h-3.5 w-3.5 stroke-[2.5]" />
-              </button>
-              <button
-                onClick={() => setViewMode('list')}
-                className={cn(
-                  'cursor-pointer rounded p-1 transition-all duration-150',
-                  viewMode === 'list'
-                    ? currentActiveBg
-                    : 'text-text-muted hover:text-text-heading hover:bg-slate-50'
-                )}
-                title="List view"
-              >
-                <List className="h-3.5 w-3.5 stroke-[2.5]" />
-              </button>
-            </div>
-          </div>
-
-          {/* Sort By Dropdown */}
-          <div className="flex items-center gap-1.5">
-            <span className="text-text-muted text-[clamp(15px,min(0.9vw,1.25svh),15px)] font-bold">
-              Sort:
-            </span>
-            <div className="relative">
-              <select
-                value={activeSort}
-                onChange={(e) => onSortChange(e.target.value)}
-                className="text-text-heading cursor-pointer appearance-none rounded-lg bg-white py-0.5 pr-6 pl-2 text-[clamp(14px,min(0.9vw,1.25svh),15px)] font-bold  outline-none focus:border-[#0D55CF]"
-              >
-                <option value="newest">Newest First</option>
-                <option value="price-low">Price: Low to High</option>
-                <option value="price-high">Price: High to Low</option>
-                <option value="popularity">Popularity</option>
-              </select>
-              <ChevronDown className="text-text-muted pointer-events-none absolute top-1/2 right-1.5 h-3 w-3 -translate-y-1/2 stroke-[2.5]" />
-            </div>
-          </div>
-        </div>
       </div>
 
       {/* Product List Content Grid */}
       <div className="min-h-0 w-full flex-1 overflow-hidden relative">
         {products.length === 0 ? (
-          <div className="flex h-full w-full flex-col items-center justify-center rounded-2xl bg-white p-4 ">
+          <div className="flex h-full w-full flex-col items-center justify-center rounded-[8px] bg-white p-4 ">
             <svg
               className="text-text-muted mb-2 h-10 w-10 opacity-40"
               fill="none"
@@ -232,7 +214,7 @@ export function ProductGrid({
                       <Link
                         href={`/product/${product.id}`}
                         key={product.id}
-                        className="group flex h-full min-h-0 cursor-pointer items-center gap-2.5 overflow-hidden rounded-xl bg-white p-1.5  transition-all hover:"
+                        className="group flex h-full min-h-0 cursor-pointer items-center gap-2.5 overflow-hidden rounded-[8px] bg-white p-1.5  transition-all hover:"
                       >
                         {/* Image */}
                         <div className="relative aspect-square h-full shrink-0 overflow-hidden rounded-lg bg-slate-50">

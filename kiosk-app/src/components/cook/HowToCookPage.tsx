@@ -17,7 +17,7 @@ export function HowToCookPage() {
     <div className="grid h-full min-h-0 w-full grid-rows-[minmax(0,15fr)_minmax(0,74fr)_minmax(0,10fr)] gap-[var(--main-gap)] select-none">
       
       {/* ─── 1. Hero Banner ─── */}
-      <div className="relative flex h-full w-full items-center overflow-hidden rounded-[10px] bg-[#FEF4E6] px-[clamp(16px,2vw,32px)]">
+      <div className="relative flex h-full w-full items-center overflow-hidden rounded-[8px] bg-[#FEF4E6] px-[clamp(16px,2vw,32px)]">
         {/* Left Content */}
         <div className="relative z-10 flex min-h-0 flex-1 flex-col justify-center">
           {/* Breadcrumbs */}
@@ -71,7 +71,7 @@ export function HowToCookPage() {
       </div>
 
       {/* ─── 2. Main Content (Recipes & Filters) ─── */}
-      <div className="flex h-full min-h-0 w-full flex-col overflow-hidden rounded-[10px] bg-white p-[clamp(12px,1.2vw,20px)] pt-[clamp(12px,1.5vw,24px)] border border-slate-100">
+      <div className="flex h-full min-h-0 w-full flex-col overflow-hidden rounded-[8px] bg-white p-[clamp(12px,1.2vw,20px)] pt-[clamp(12px,1.5vw,24px)] border border-slate-100">
         
         {/* Header */}
         <div className="mb-[clamp(12px,1.5vw,20px)] flex shrink-0 items-center justify-between px-1">
@@ -87,7 +87,7 @@ export function HowToCookPage() {
         {/* Recipe Grid (3 cols, 2 rows) */}
         <div className="grid min-h-0 flex-1 grid-cols-3 grid-rows-2 gap-[clamp(12px,1.5vw,24px)]">
           {RECIPES.map((recipe) => (
-            <div key={recipe.id} className="group relative flex h-full min-h-0 w-full flex-col overflow-hidden rounded-[10px] border border-slate-200 bg-white">
+            <div key={recipe.id} className="group relative flex h-full min-h-0 w-full flex-col overflow-hidden rounded-[8px] border border-slate-200 bg-white">
               {/* Image Section (approx 65-70% height) */}
               <div className="relative flex-1 overflow-hidden bg-slate-100">
                 <img src={recipe.img} alt={recipe.title} className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />

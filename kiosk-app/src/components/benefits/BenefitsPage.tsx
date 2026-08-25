@@ -255,7 +255,7 @@ export function BenefitsPage() {
   return (
     <div className="grid h-full min-h-[950px] w-full grid-rows-[minmax(0,13fr)_minmax(0,9fr)_minmax(0,52fr)_minmax(0,10fr)_minmax(0,10fr)] gap-[var(--main-gap)] select-none">
       {/* ─── 1. Hero Banner ─── */}
-      <div className="relative flex h-full w-full items-center overflow-hidden rounded-2xl border border-white/20 bg-gradient-to-r from-[#EFF6FF] via-[#E8F3FA] to-[#DBEAFE] px-[clamp(12px,1.5vw,24px)] ">
+      <div className="relative flex h-full w-full items-center overflow-hidden rounded-[8px] border border-white/20 bg-gradient-to-r from-[#EFF6FF] via-[#E8F3FA] to-[#DBEAFE] px-[clamp(12px,1.5vw,24px)] ">
         {/* Decorative dot pattern */}
         <div className="pointer-events-none absolute inset-0 opacity-[0.035]">
           <svg className="h-full w-full" xmlns="http://www.w3.org/2000/svg">
@@ -334,7 +334,7 @@ export function BenefitsPage() {
               key={cat.id}
               onClick={() => setActiveCategory(cat.id)}
               className={cn(
-                'flex h-full min-h-0 cursor-pointer items-center gap-[clamp(6px,0.6vw,12px)] overflow-hidden rounded-xl border px-[clamp(8px,1vw,16px)] transition-all duration-200',
+                'flex h-full min-h-0 cursor-pointer items-center gap-[clamp(6px,0.6vw,12px)] overflow-hidden rounded-[8px] border px-[clamp(8px,1vw,16px)] transition-all duration-200',
                 isActive
                   ? cn('text-white', cat.activeBg)
                   : 'border-gray-100 bg-white text-[#1E293B] shadow-[0_1px_4px_rgba(0,0,0,0.01)] hover:-translate-y-0.5 hover:'
@@ -366,14 +366,14 @@ export function BenefitsPage() {
             <div
               key={`${activeCategory}-${idx}`}
               className={cn(
-                'flex h-full min-h-0 items-center gap-[clamp(8px,0.8vw,14px)] overflow-hidden rounded-2xl border bg-white p-[clamp(10px,1vw,18px)]  transition-all duration-200 hover:',
+                'flex h-full min-h-0 items-center gap-[clamp(8px,0.8vw,14px)] overflow-hidden rounded-[8px] border bg-white p-[clamp(10px,1vw,18px)]  transition-all duration-200 hover:',
                 activeCfg.cardBorder
               )}
             >
               {/* Icon Circle */}
               <div
                 className={cn(
-                  'flex h-[clamp(32px,min(2.8vw,4svh),48px)] w-[clamp(32px,min(2.8vw,4svh),48px)] shrink-0 items-center justify-center rounded-xl',
+                  'flex h-[clamp(32px,min(2.8vw,4svh),48px)] w-[clamp(32px,min(2.8vw,4svh),48px)] shrink-0 items-center justify-center rounded-[8px]',
                   activeCfg.iconBg
                 )}
               >
@@ -397,7 +397,7 @@ export function BenefitsPage() {
       {/* ─── 4. Why Fresh Matters — educational strip ─── */}
       <div
         className={cn(
-          'flex h-full min-h-0 w-full items-center overflow-hidden rounded-2xl border px-[clamp(14px,1.5vw,24px)] ',
+          'flex h-full min-h-0 w-full items-center overflow-hidden rounded-[8px] border px-[clamp(14px,1.5vw,24px)] ',
           activeCfg.cardBorder,
           activeCfg.badgeBg
         )}

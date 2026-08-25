@@ -184,7 +184,7 @@ export function Sidebar() {
             <p className="mb-[clamp(16px,2vw,24px)] text-center text-[clamp(13px,1.2vw,16px)] text-gray-500">
               Scan this QR code with your phone camera <br /> to join our WhatsApp community.
             </p>
-            <div className="rounded-[16px] border-[4px] border-[#0D55CF]/10 p-[clamp(12px,1.5vw,20px)]  bg-white">
+            <div className="rounded-[8px] border-[4px] border-[#0D55CF]/10 p-[clamp(12px,1.5vw,20px)]  bg-white">
               <Image
                 src="/assets/whatsapp_qr.png"
                 alt="WhatsApp QR"
@@ -199,7 +199,7 @@ export function Sidebar() {
 
       {/* Bottom Contact Badge — currently hidden
       <div className="mt-auto px-3 pt-2 pb-3 lg:px-[clamp(12px,0.83vw,16px)] lg:pb-[clamp(10px,0.83vw,16px)]">
-        <div className="relative flex items-center justify-between overflow-hidden rounded-[16px] bg-[#0D55CF] p-3 text-white  lg:p-[var(--sidebar-contact-padding)]">
+        <div className="relative flex items-center justify-between overflow-hidden rounded-[8px] bg-[#0D55CF] p-3 text-white  lg:p-[var(--sidebar-contact-padding)]">
           <div className="relative z-10 w-[75%]">
             <h4 className="text-[13px] leading-snug font-bold text-white lg:text-[clamp(13px,0.83vw,16px)]">
               Contact Us

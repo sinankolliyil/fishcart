@@ -46,7 +46,7 @@ export function CatalogHero({
 
   return (
     <div
-      className={`relative overflow-hidden rounded-2xl bg-gradient-to-r ${gradientClass} flex h-full min-h-0 w-full items-center justify-between border border-white/20 px-[clamp(8px,1.2vw,18px)] py-[clamp(6px,0.8vw,12px)] `}
+      className={`relative overflow-hidden rounded-[8px] bg-gradient-to-r ${gradientClass} flex h-full min-h-0 w-full items-center justify-between border border-white/20 px-[clamp(8px,1.2vw,18px)] py-[clamp(6px,0.8vw,12px)] `}
     >
       {category === 'fish' && (
         <div className="pointer-events-none absolute inset-0 bg-[url('/assets/crushed_ice_bg.png')] bg-cover opacity-10 mix-blend-overlay" />

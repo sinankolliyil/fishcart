@@ -108,7 +108,7 @@ export function FilterSidebar({
   const currentCheckboxBg = checkboxBgColors[category] || checkboxBgColors.fish;
 
   return (
-    <div className="flex h-full min-h-0 w-full flex-col justify-between overflow-hidden rounded-2xl bg-white p-[clamp(10px,1.2vw,16px)]  select-none">
+    <div className="flex h-full min-h-0 w-full flex-col justify-between overflow-hidden rounded-[8px] bg-white p-[clamp(10px,1.2vw,16px)]  select-none">
       {/* Inline styles for custom minimal scrollbar inside the sidebar */}
       <style
         dangerouslySetInnerHTML={{
@@ -240,7 +240,7 @@ export function FilterSidebar({
       <button
         onClick={onApply}
         className={cn(
-          'flex w-full shrink-0 cursor-pointer items-center justify-center rounded-xl py-2 text-[clamp(10px,min(0.9vw,1.35svh),14px)] font-bold text-white  transition-all duration-150',
+          'flex w-full shrink-0 cursor-pointer items-center justify-center rounded-[8px] py-2 text-[clamp(10px,min(0.9vw,1.35svh),14px)] font-bold text-white  transition-all duration-150',
           applyBtnClass
         )}
       >

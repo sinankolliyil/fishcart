@@ -39,7 +39,7 @@ export default function StoryPage() {
         </div>
 
         {/* Center: Hero Image */}
-        <div className="relative min-h-0 overflow-hidden rounded-[16px] bg-slate-100 ">
+        <div className="relative min-h-0 overflow-hidden rounded-[8px] bg-slate-100 ">
           <Image
             src="/assets/story_hero.png"
             alt="FishCart Family"
@@ -127,7 +127,7 @@ export default function StoryPage() {
       {/* ROW 2 — Journey (25%) */}
       <div className="grid min-h-0 grid-cols-2 gap-[var(--main-gap)] overflow-hidden">
         {/* Left Card */}
-        <div className="flex h-full min-h-0 items-center justify-between overflow-hidden rounded-[16px] bg-white p-3  lg:p-4 xl:p-[clamp(12px,1.5vw,24px)]">
+        <div className="flex h-full min-h-0 items-center justify-between overflow-hidden rounded-[8px] bg-white p-3  lg:p-4 xl:p-[clamp(12px,1.5vw,24px)]">
           <div className="flex min-h-0 flex-1 flex-col justify-center pr-3 lg:pr-4 xl:pr-[clamp(12px,1.5vw,24px)]">
             <h2 className="mb-2 text-[clamp(14px,1.5vw,22px)] leading-tight font-bold text-[#0D55CF] xl:mb-[clamp(4px,0.8vw,12px)]">
               How It All Started
@@ -166,7 +166,7 @@ export default function StoryPage() {
         </div>
 
         {/* Right Card */}
-        <div className="flex h-full min-h-0 items-center justify-between overflow-hidden rounded-[16px] bg-white p-3  lg:p-4 xl:p-[clamp(12px,1.5vw,24px)]">
+        <div className="flex h-full min-h-0 items-center justify-between overflow-hidden rounded-[8px] bg-white p-3  lg:p-4 xl:p-[clamp(12px,1.5vw,24px)]">
           <div className="flex min-h-0 flex-1 flex-col justify-center pr-3 lg:pr-4 xl:pr-[clamp(12px,1.5vw,24px)]">
             <h2 className="mb-2 text-[clamp(14px,1.5vw,22px)] leading-tight font-bold text-[#0D55CF] xl:mb-[clamp(4px,0.8vw,12px)]">
               Growing With You
@@ -205,7 +205,7 @@ export default function StoryPage() {
       </div>
 
       {/* ROW 3 — Promise Strip (12%) */}
-      <div className="flex min-h-0 items-center overflow-hidden rounded-[16px] bg-white ">
+      <div className="flex min-h-0 items-center overflow-hidden rounded-[8px] bg-white ">
         <div className="flex flex-1 items-center justify-between px-3 py-2 lg:px-4 lg:py-3 xl:px-[clamp(12px,1.5vw,24px)] xl:py-[clamp(6px,1vw,16px)]">
           <div className="w-[15%] shrink-0">
             <h2 className="text-[clamp(15px,1.2vw,20px)] leading-tight font-bold text-[#0D55CF]">
@@ -251,7 +251,7 @@ export default function StoryPage() {
       </div>
 
       {/* ROW 4 — From Ocean To Your Shop (25%) */}
-      <div className="flex min-h-0 flex-col rounded-[16px] bg-white p-3 pt-2 pb-1  lg:p-4 lg:pt-3 lg:pb-2 xl:p-[clamp(12px,1.5vw,24px)] xl:pt-[clamp(3px,0.6vw,6px)] xl:pb-2">
+      <div className="flex min-h-0 flex-col rounded-[8px] bg-white p-3 pt-2 pb-1  lg:p-4 lg:pt-3 lg:pb-2 xl:p-[clamp(12px,1.5vw,24px)] xl:pt-[clamp(3px,0.6vw,6px)] xl:pb-2">
         <h2 className="mb-[6px] shrink-0 text-[clamp(14px,1.2vw,20px)] font-bold text-[#0D55CF]">
           From Ocean To Our Shop – Here&apos;s How It Happens
         </h2>
@@ -321,7 +321,7 @@ export default function StoryPage() {
       {/* ROW 5 — Thank You Footer (10%) */}
       <div className="grid min-h-0 grid-cols-2 gap-[var(--main-gap)] overflow-hidden">
         {/* Left Footer Card */}
-        <div className="flex h-full min-h-0 items-center justify-between overflow-hidden rounded-[16px] bg-white p-2  lg:p-3 xl:p-[clamp(8px,1vw,16px)]">
+        <div className="flex h-full min-h-0 items-center justify-between overflow-hidden rounded-[8px] bg-white p-2  lg:p-3 xl:p-[clamp(8px,1vw,16px)]">
           <div className="flex min-h-0 flex-1 items-center gap-[clamp(8px,1vw,16px)] pr-2">
             <Heart className="h-[clamp(24px,2.5vw,40px)] w-[clamp(24px,2.5vw,40px)] shrink-0 text-red-500" />
             <div className="flex min-h-0 flex-col">
@@ -345,7 +345,7 @@ export default function StoryPage() {
         </div>
 
         {/* Right Footer Card */}
-        <div className="flex h-full min-h-0 items-center justify-between overflow-hidden rounded-[16px] bg-white p-2  lg:p-3 xl:p-[clamp(8px,1vw,16px)]">
+        <div className="flex h-full min-h-0 items-center justify-between overflow-hidden rounded-[8px] bg-white p-2  lg:p-3 xl:p-[clamp(8px,1vw,16px)]">
           <div className="flex h-full flex-1 items-center justify-center pl-2">
             <p className="text-[14px] leading-tight font-bold text-slate-600 italic lg:text-[14px] xl:text-[clamp(11px,1.2vw,16px)]">
               <span className="text-[clamp(20px,2.5vw,32px)] leading-none text-blue-200">

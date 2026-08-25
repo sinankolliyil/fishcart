@@ -71,7 +71,7 @@ export function ProductDetailsLayout({ data }: { data: ProductDetails }) {
         {/* Hero & Pricing Split */}
         <div className="grid min-h-0 w-full flex-1 grid-cols-12 gap-[var(--main-gap)] overflow-hidden">
           {/* Left Column - Product Info & Image (8 cols) */}
-          <div className="col-span-8 flex min-h-0 min-w-0 gap-3 overflow-hidden rounded-[16px] bg-white p-3  xl:p-[clamp(8px,1vw,16px)]">
+          <div className="col-span-8 flex min-h-0 min-w-0 gap-3 overflow-hidden rounded-[8px] bg-white p-3  xl:p-[clamp(8px,1vw,16px)]">
             {/* Info text column */}
             <div className="flex w-1/3 min-w-0 flex-col justify-between overflow-hidden">
               <div className="flex min-h-0 flex-col overflow-hidden">
@@ -210,7 +210,7 @@ export function ProductDetailsLayout({ data }: { data: ProductDetails }) {
 
             {/* Image column */}
             <div className="flex min-w-0 flex-1 flex-col justify-between overflow-hidden">
-              <div className="relative min-h-0 w-full flex-1 overflow-hidden rounded-[10px] bg-slate-50">
+              <div className="relative min-h-0 w-full flex-1 overflow-hidden rounded-[8px] bg-slate-50">
                 <Image
                   src={selectedImage}
                   alt={data.title}
@@ -275,7 +275,7 @@ export function ProductDetailsLayout({ data }: { data: ProductDetails }) {
           </div>
 
           {/* Right Column - Selection & Pricing (4 cols) */}
-          <div className="jjustify-start col-span-4 flex min-h-0 min-w-0 flex-col gap-1 overflow-hidden rounded-[16px] bg-white px-3 pt-2 pb-3  xl:gap-[clamp(4px,0.6vw,8px)] xl:p-[clamp(8px,1vw,16px)]">
+          <div className="jjustify-start col-span-4 flex min-h-0 min-w-0 flex-col gap-1 overflow-hidden rounded-[8px] bg-white px-3 pt-2 pb-3  xl:gap-[clamp(4px,0.6vw,8px)] xl:p-[clamp(8px,1vw,16px)]">
             <div className="space-y-1">
               {/* Price & Back */}
               <div className="-mt-2 flex shrink-0 items-start justify-between">
@@ -338,7 +338,7 @@ export function ProductDetailsLayout({ data }: { data: ProductDetails }) {
             </div>
 
             {/* Freshness Box */}
-            <div className="flex shrink-0 items-start gap-1.5 rounded-[10px] bg-blue-50/50 p-[clamp(4px,0.6vw,8px)]">
+            <div className="flex shrink-0 items-start gap-1.5 rounded-[8px] bg-blue-50/50 p-[clamp(4px,0.6vw,8px)]">
               <div className={cn('mt-[1px] shrink-0', themeText)}>
                 <ShieldCheck className="h-[clamp(12px,1vw,16px)] w-[clamp(12px,1vw,16px)]" />
               </div>
@@ -378,7 +378,7 @@ export function ProductDetailsLayout({ data }: { data: ProductDetails }) {
             {/* Got Questions */}
             <div
               className={cn(
-                'flex shrink-0 items-center justify-between overflow-hidden rounded-[10px] p-[clamp(6px,0.8vw,10px)] ',
+                'flex shrink-0 items-center justify-between overflow-hidden rounded-[8px] p-[clamp(6px,0.8vw,10px)] ',
                 themeBg
               )}
             >
@@ -406,7 +406,7 @@ export function ProductDetailsLayout({ data }: { data: ProductDetails }) {
           ROW 2 — Overview Section (60% of content)
           Includes Tabs and Info Cards
           ═══════════════════════════════════════════════════ */}
-      <div className="flex min-h-0 w-full flex-col overflow-hidden rounded-[16px] bg-white p-3  xl:p-[clamp(8px,1vw,16px)]">
+      <div className="flex min-h-0 w-full flex-col overflow-hidden rounded-[8px] bg-white p-3  xl:p-[clamp(8px,1vw,16px)]">
         {/* Tabs */}
         <div className="flex w-full shrink-0 items-center justify-between border-b border-slate-100 px-[clamp(4px,0.5vw,8px)] pb-[clamp(4px,0.6vw,8px)]">
           {[

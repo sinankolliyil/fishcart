@@ -4,7 +4,7 @@ import { MapPin, PhoneCall, Mail } from 'lucide-react';
 
 export function HomeFooter() {
   return (
-    <footer className="grid h-full w-full grid-cols-4 items-stretch overflow-hidden rounded-[16px] border border-slate-200 bg-white">
+    <footer className="grid h-full w-full grid-cols-4 items-stretch overflow-hidden rounded-[8px] border border-slate-200 bg-white">
       {/* Card 1: About Us */}
       <div className="relative flex flex-col justify-center overflow-hidden p-[clamp(16px,1.8vw,28px)]">
         <div className="relative z-10 flex max-w-[65%] flex-col">

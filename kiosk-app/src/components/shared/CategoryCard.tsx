@@ -53,16 +53,16 @@ export function CategoryCard({
     <Link
       href={href}
       className={cn(
-        'group relative flex h-full w-full overflow-hidden rounded-2xl transition-transform',
+        'group relative flex h-full w-full overflow-hidden rounded-[8px] transition-transform',
         currentStyle.bg,
         className
       )}
     >
       {/* Text Region: 35-40% reserved on the left */}
-      <div className="relative z-10 flex w-[40%] flex-col p-[var(--cat-card-padding)]">
+      <div className="relative z-10 flex w-[40%] flex-col px-[var(--cat-card-padding)] pt-[clamp(8px,1vw,16px)] pb-[var(--cat-card-padding)]">
         <h3
           className={cn(
-            'mb-0.5 text-[clamp(21px,min(1.25vw,2svh),22px)] leading-tight font-bold',
+            'mb-0 text-[clamp(21px,min(1.25vw,2svh),22px)] leading-none font-bold',
             currentStyle.title
           )}
         >
