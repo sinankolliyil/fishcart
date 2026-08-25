@@ -419,7 +419,7 @@ export const chickenCatalogData: CatalogPageData = {
       badgeLabel: "Antibiotic-Free",
       price: 8.99,
       unit: "kg",
-      imageSrc: "/assets/boneless_chicken.jpg",
+      imageSrc: "/assets/c_boneless_chicken.png",
     },
     {
       id: "chicken-full",
@@ -429,7 +429,7 @@ export const chickenCatalogData: CatalogPageData = {
       badgeLabel: "Free Range",
       price: 7.50,
       unit: "kg",
-      imageSrc: "/assets/chicken_full.jpg",
+      imageSrc: "/assets/c_whole_chicken.png",
     },
     {
       id: "chicken-liver",
@@ -439,7 +439,7 @@ export const chickenCatalogData: CatalogPageData = {
       badgeLabel: "Iron Rich",
       price: 4.99,
       unit: "kg",
-      imageSrc: "/assets/chicken_liver.jpg",
+      imageSrc: "/assets/c_chicken_liver.png",
     },
     {
       id: "boneless-chicken-mock1",
@@ -449,7 +449,7 @@ export const chickenCatalogData: CatalogPageData = {
       badgeLabel: "Antibiotic-Free",
       price: 8.99,
       unit: "kg",
-      imageSrc: "/assets/boneless_chicken.jpg",
+      imageSrc: "/assets/c_boneless_chicken.png",
     },
     {
       id: "boneless-chicken-mock2",
@@ -459,7 +459,7 @@ export const chickenCatalogData: CatalogPageData = {
       badgeLabel: "Antibiotic-Free",
       price: 8.99,
       unit: "kg",
-      imageSrc: "/assets/boneless_chicken.jpg",
+      imageSrc: "/assets/c_boneless_chicken.png",
     },
     {
       id: "boneless-chicken-mock3",
@@ -469,7 +469,7 @@ export const chickenCatalogData: CatalogPageData = {
       badgeLabel: "Antibiotic-Free",
       price: 8.99,
       unit: "kg",
-      imageSrc: "/assets/boneless_chicken.jpg",
+      imageSrc: "/assets/c_boneless_chicken.png",
     },
     {
       id: "boneless-chicken-mock4",
@@ -479,7 +479,7 @@ export const chickenCatalogData: CatalogPageData = {
       badgeLabel: "Antibiotic-Free",
       price: 8.99,
       unit: "kg",
-      imageSrc: "/assets/boneless_chicken.jpg",
+      imageSrc: "/assets/c_boneless_chicken.png",
     },
     {
       id: "boneless-chicken-mock5",
@@ -489,7 +489,7 @@ export const chickenCatalogData: CatalogPageData = {
       badgeLabel: "Antibiotic-Free",
       price: 8.99,
       unit: "kg",
-      imageSrc: "/assets/boneless_chicken.jpg",
+      imageSrc: "/assets/c_boneless_chicken.png",
     },
     {
       id: "boneless-chicken-mock6",
@@ -499,7 +499,7 @@ export const chickenCatalogData: CatalogPageData = {
       badgeLabel: "Antibiotic-Free",
       price: 8.99,
       unit: "kg",
-      imageSrc: "/assets/boneless_chicken.jpg",
+      imageSrc: "/assets/c_boneless_chicken.png",
     },
   ],
   bottomInfo: [
@@ -575,7 +575,7 @@ export const eggsCatalogData: CatalogPageData = {
       badgeLabel: "Free Range",
       price: 3.80,
       unit: "pack",
-      imageSrc: "/assets/chicken_egg.jpg",
+      imageSrc: "/assets/d_chickenegg.png",
     },
     {
       id: "duck-eggs",
@@ -585,7 +585,7 @@ export const eggsCatalogData: CatalogPageData = {
       badgeLabel: "Rich & Creamy",
       price: 4.50,
       unit: "pack",
-      imageSrc: "/assets/duck_egg.jpg",
+      imageSrc: "/assets/d_duck_egg.png",
     },
     {
       id: "quail-eggs",
@@ -595,7 +595,7 @@ export const eggsCatalogData: CatalogPageData = {
       badgeLabel: "Nutrient Dense",
       price: 5.20,
       unit: "pack",
-      imageSrc: "/assets/quail_egg.jpg",
+      imageSrc: "/assets/d_quail_egg.png",
     },
     {
       id: "chicken-eggs-mock1",
@@ -605,7 +605,7 @@ export const eggsCatalogData: CatalogPageData = {
       badgeLabel: "Free Range",
       price: 3.80,
       unit: "pack",
-      imageSrc: "/assets/chicken_egg.jpg",
+      imageSrc: "/assets/d_chickenegg.png",
     },
     {
       id: "chicken-eggs-mock2",
@@ -615,7 +615,7 @@ export const eggsCatalogData: CatalogPageData = {
       badgeLabel: "Free Range",
       price: 3.80,
       unit: "pack",
-      imageSrc: "/assets/chicken_egg.jpg",
+      imageSrc: "/assets/d_chickenegg.png",
     },
     {
       id: "chicken-eggs-mock3",
@@ -625,7 +625,7 @@ export const eggsCatalogData: CatalogPageData = {
       badgeLabel: "Free Range",
       price: 3.80,
       unit: "pack",
-      imageSrc: "/assets/chicken_egg.jpg",
+      imageSrc: "/assets/d_chickenegg.png",
     },
     {
       id: "chicken-eggs-mock4",
@@ -635,7 +635,7 @@ export const eggsCatalogData: CatalogPageData = {
       badgeLabel: "Free Range",
       price: 3.80,
       unit: "pack",
-      imageSrc: "/assets/chicken_egg.jpg",
+      imageSrc: "/assets/d_chickenegg.png",
     },
     {
       id: "chicken-eggs-mock5",
@@ -645,7 +645,7 @@ export const eggsCatalogData: CatalogPageData = {
       badgeLabel: "Free Range",
       price: 3.80,
       unit: "pack",
-      imageSrc: "/assets/chicken_egg.jpg",
+      imageSrc: "/assets/d_chickenegg.png",
     },
     {
       id: "chicken-eggs-mock6",
@@ -655,7 +655,7 @@ export const eggsCatalogData: CatalogPageData = {
       badgeLabel: "Free Range",
       price: 3.80,
       unit: "pack",
-      imageSrc: "/assets/chicken_egg.jpg",
+      imageSrc: "/assets/d_chickenegg.png",
     },
   ],
   bottomInfo: [
