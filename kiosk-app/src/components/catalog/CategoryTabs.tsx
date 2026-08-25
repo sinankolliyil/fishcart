@@ -130,12 +130,12 @@ export function CategoryTabs({
 
             {/* Text container */}
             <div className="flex min-w-0 flex-col">
-              <span className="truncate text-[clamp(15px,min(1vw,1.45svh),20px)] leading-none font-extrabold">
+              <span className="truncate text-[clamp(15px,min(1vw,1.45svh),20px)] leading-tight font-extrabold pb-[2px]">
                 {tab.label}
               </span>
               <span
                 className={cn(
-                  'mt-0.5 text-[clamp(10px,min(0.82vw,1.15svh),13px)] leading-none font-semibold',
+                  'mt-0.5 text-[clamp(10px,min(0.82vw,1.15svh),13px)] leading-tight font-semibold pb-[1px]',
                   isActive ? 'text-white/80' : 'text-text-muted'
                 )}
               >

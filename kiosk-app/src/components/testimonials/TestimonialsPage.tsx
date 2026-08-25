@@ -3,13 +3,23 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { ChevronRight, Star, ThumbsUp, ArrowRight } from 'lucide-react';
+import {
+  ChevronRight,
+  Star,
+  ThumbsUp,
+  ArrowRight,
+  User,
+  Edit3,
+  Phone,
+  Send,
+  MessageSquareHeart,
+} from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { HomeFooter } from '@/components/layout/HomeFooter';
 
 // ─── Types ──────────────────────────────────────────────────────────────────
 
-type Platform = 'facebook' | 'instagram' | 'google' | 'all';
+type Platform = 'facebook' | 'instagram' | 'google' | 'all' | 'feedback';
 
 interface Review {
   id: number;
@@ -331,7 +341,7 @@ const googleReviews: Review[] = [
 
 // ─── Rating summaries per platform ───────────────────────────────────────────
 
-const ratingSummaries: Record<Platform, RatingSummary> = {
+const ratingSummaries: Record<Exclude<Platform, 'feedback'>, RatingSummary> =  {
   facebook: {
     average: 4.8,
     total: 126,
@@ -389,21 +399,38 @@ const PLATFORMS: {
   inactiveClass: string;
 }[] = [
   {
+    id: 'feedback',
+    label: 'Share Opinion',
+    sublabel: "We'd love to hear",
+    icon: (
+      <svg
+        viewBox="0 0 24 24"
+        className="h-[20px] w-[20px]"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth={2}
+      >
+        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+      </svg>
+    ),
+    activeClass: 'bg-[#0D55CF] text-white shadow-blue-200 shadow-sm',
+    inactiveClass: 'bg-white text-slate-700 hover:border-[#0D55CF]/40',
+  },
+  {
     id: 'facebook',
     label: 'Facebook Reviews',
     sublabel: '4.8 (126 reviews)',
     icon: (
       <svg
         viewBox="0 0 24 24"
-        className="h-[clamp(14px,1.2vw,20px)] w-[clamp(14px,1.2vw,20px)]"
+        className="h-[20px] w-[20px]"
         fill="currentColor"
       >
         <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
       </svg>
     ),
     activeClass: 'bg-[#1877F2] text-white  shadow-blue-200',
-    inactiveClass:
-      'bg-white text-slate-700 hover:border-[#1877F2]/40',
+    inactiveClass: 'bg-white text-slate-700 hover:border-[#1877F2]/40',
   },
   {
     id: 'instagram',
@@ -412,7 +439,7 @@ const PLATFORMS: {
     icon: (
       <svg
         viewBox="0 0 24 24"
-        className="h-[clamp(14px,1.2vw,20px)] w-[clamp(14px,1.2vw,20px)]"
+        className="h-[20px] w-[20px]"
         fill="currentColor"
       >
         <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
@@ -420,18 +447,14 @@ const PLATFORMS: {
     ),
     activeClass:
       'bg-gradient-to-r from-[#f09433] via-[#e6683c] via-[#dc2743] via-[#cc2366] to-[#bc1888] text-white  shadow-pink-200',
-    inactiveClass:
-      'bg-white text-slate-700 hover:border-pink-400/40',
+    inactiveClass: 'bg-white text-slate-700 hover:border-pink-400/40',
   },
   {
     id: 'google',
     label: 'Google Reviews',
     sublabel: '4.9 (245 reviews)',
     icon: (
-      <svg
-        viewBox="0 0 24 24"
-        className="h-[clamp(14px,1.2vw,20px)] w-[clamp(14px,1.2vw,20px)]"
-      >
+      <svg viewBox="0 0 24 24" className="h-[20px] w-[20px]">
         <path
           d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
           fill="#4285F4"
@@ -450,10 +473,8 @@ const PLATFORMS: {
         />
       </svg>
     ),
-    activeClass:
-      'bg-white text-slate-800 border-2 border-[#4285F4]  shadow-blue-100',
-    inactiveClass:
-      'bg-white text-slate-700 hover:border-[#4285F4]/40',
+    activeClass: 'bg-white text-slate-800 border-[#4285F4] shadow-blue-100',
+    inactiveClass: 'bg-white text-slate-700 hover:border-[#4285F4]/40',
   },
   {
     id: 'all',
@@ -462,7 +483,7 @@ const PLATFORMS: {
     icon: (
       <svg
         viewBox="0 0 24 24"
-        className="h-[clamp(14px,1.2vw,20px)] w-[clamp(14px,1.2vw,20px)]"
+        className="h-[20px] w-[20px]"
         fill="none"
         stroke="currentColor"
         strokeWidth={1.8}
@@ -470,10 +491,8 @@ const PLATFORMS: {
         <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
       </svg>
     ),
-    activeClass:
-      'bg-white text-[#0D55CF] border-2 border-[#0D55CF]  shadow-blue-100',
-    inactiveClass:
-      'bg-white text-slate-700 hover:border-[#0D55CF]/40',
+    activeClass: 'bg-white text-[#0D55CF] border-[#0D55CF] shadow-blue-100',
+    inactiveClass: 'bg-white text-slate-700 hover:border-[#0D55CF]/40',
   },
 ];
 
@@ -486,19 +505,14 @@ function PlatformIcon({
   platform: Review['platform'];
   size?: 'sm' | 'lg';
 }) {
-  const cls =
-    size === 'lg'
-      ? 'h-[clamp(20px,1.8vw,28px)] w-[clamp(20px,1.8vw,28px)]'
-      : 'h-[clamp(14px,1.1vw,18px)] w-[clamp(14px,1.1vw,18px)]';
+  const cls = size === 'lg' ? 'h-[28px] w-[28px]' : 'h-[18px] w-[18px]';
 
   if (platform === 'facebook') {
     return (
       <div
         className={cn(
           'flex shrink-0 items-center justify-center rounded-full bg-[#1877F2] text-white',
-          size === 'lg'
-            ? 'h-[clamp(26px,2vw,36px)] w-[clamp(26px,2vw,36px)]'
-            : 'h-[clamp(20px,1.6vw,26px)] w-[clamp(20px,1.6vw,26px)]'
+          size === 'lg' ? 'h-[36px] w-[36px]' : 'h-[26px] w-[26px]'
         )}
       >
         <svg viewBox="0 0 24 24" className={cls} fill="currentColor">
@@ -512,9 +526,7 @@ function PlatformIcon({
       <div
         className={cn(
           'flex shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-[#f09433] via-[#dc2743] to-[#bc1888] text-white',
-          size === 'lg'
-            ? 'h-[clamp(26px,2vw,36px)] w-[clamp(26px,2vw,36px)]'
-            : 'h-[clamp(20px,1.6vw,26px)] w-[clamp(20px,1.6vw,26px)]'
+          size === 'lg' ? 'h-[36px] w-[36px]' : 'h-[26px] w-[26px]'
         )}
       >
         <svg viewBox="0 0 24 24" className={cls} fill="currentColor">
@@ -527,10 +539,8 @@ function PlatformIcon({
   return (
     <div
       className={cn(
-        'flex shrink-0 items-center justify-center rounded-full bg-white ',
-        size === 'lg'
-          ? 'h-[clamp(26px,2vw,36px)] w-[clamp(26px,2vw,36px)]'
-          : 'h-[clamp(20px,1.6vw,26px)] w-[clamp(20px,1.6vw,26px)]'
+        'flex shrink-0 items-center justify-center rounded-full bg-white',
+        size === 'lg' ? 'h-[36px] w-[36px]' : 'h-[26px] w-[26px]'
       )}
     >
       <svg viewBox="0 0 24 24" className={cls}>
@@ -564,10 +574,7 @@ function Stars({
   rating: number;
   size?: 'sm' | 'lg';
 }) {
-  const cls =
-    size === 'lg'
-      ? 'h-[clamp(12px,1vw,16px)] w-[clamp(12px,1vw,16px)]'
-      : 'h-[clamp(10px,0.8vw,13px)] w-[clamp(10px,0.8vw,13px)]';
+  const cls = size === 'lg' ? 'h-[16px] w-[16px]' : 'h-[13px] w-[13px]';
   return (
     <div className="flex items-center gap-0.5">
       {Array.from({ length: 5 }).map((_, i) => (
@@ -597,20 +604,20 @@ function ReviewCard({
   return (
     <div
       className={cn(
-        'flex min-h-0 flex-col justify-between overflow-hidden rounded-[clamp(10px,0.8vw,14px)] bg-white ',
-        compact ? 'p-[clamp(8px,0.7vw,12px)]' : 'p-[clamp(10px,0.9vw,16px)]'
+        'flex h-full flex-col justify-between overflow-hidden rounded-[14px] bg-white shadow-sm',
+        compact ? 'p-[12px]' : 'p-[18px]'
       )}
     >
       <div>
         {/* Header */}
-        <div className="mb-[clamp(4px,0.4vw,8px)] flex items-start justify-between gap-2">
-          <div className="flex items-center gap-[clamp(6px,0.6vw,10px)]">
+        <div className="mb-[8px] flex items-start justify-between gap-2">
+          <div className="flex items-center gap-[10px]">
             <div
               className={cn(
                 'flex shrink-0 items-center justify-center rounded-full font-bold text-white',
                 compact
-                  ? 'h-[clamp(22px,1.8vw,30px)] w-[clamp(22px,1.8vw,30px)] text-[clamp(9px,0.6vw,11px)]'
-                  : 'h-[clamp(26px,2vw,36px)] w-[clamp(26px,2vw,36px)] text-[clamp(10px,0.7vw,12px)]',
+                  ? 'h-[30px] w-[30px] text-[11px]'
+                  : 'h-[36px] w-[36px] text-[12px]',
                 review.platform === 'facebook'
                   ? 'bg-[#1877F2]'
                   : review.platform === 'instagram'
@@ -624,9 +631,7 @@ function ReviewCard({
               <p
                 className={cn(
                   'leading-tight font-bold text-slate-800',
-                  compact
-                    ? 'text-[clamp(10px,0.7vw,12px)]'
-                    : 'text-[clamp(11px,0.8vw,14px)]'
+                  compact ? 'text-[12px]' : 'text-[14px]'
                 )}
               >
                 {review.name}
@@ -634,9 +639,7 @@ function ReviewCard({
               <p
                 className={cn(
                   'text-slate-400',
-                  compact
-                    ? 'text-[clamp(9px,0.55vw,10px)]'
-                    : 'text-[clamp(10px,0.6vw,11px)]'
+                  compact ? 'text-[10px]' : 'text-[11px]'
                 )}
               >
                 {review.timeAgo}
@@ -647,7 +650,7 @@ function ReviewCard({
         </div>
 
         {/* Stars */}
-        <div className="mb-[clamp(4px,0.4vw,7px)]">
+        <div className="mb-[7px]">
           <Stars rating={review.rating} />
         </div>
 
@@ -655,9 +658,7 @@ function ReviewCard({
         <p
           className={cn(
             'leading-snug text-slate-600',
-            compact
-              ? 'line-clamp-2 text-[clamp(9px,0.6vw,11px)]'
-              : 'line-clamp-3 text-[clamp(10px,0.7vw,12px)]'
+            compact ? 'line-clamp-2 text-[11px]' : 'line-clamp-3 text-[12px]'
           )}
         >
           {review.text}
@@ -668,23 +669,17 @@ function ReviewCard({
       <div
         className={cn(
           'flex items-center gap-3',
-          compact ? 'mt-[clamp(4px,0.3vw,6px)]' : 'mt-[clamp(6px,0.5vw,10px)]'
+          compact ? 'mt-[6px]' : 'mt-[10px]'
         )}
       >
         <button className="flex items-center gap-1 text-slate-400 transition-colors hover:text-[#0D55CF]">
           <ThumbsUp
-            className={cn(
-              compact
-                ? 'h-[8px] w-[8px]'
-                : 'h-[clamp(10px,0.7vw,12px)] w-[clamp(10px,0.7vw,12px)]'
-            )}
+            className={cn(compact ? 'h-[8px] w-[8px]' : 'h-[12px] w-[12px]')}
           />
           <span
             className={cn(
               'font-medium',
-              compact
-                ? 'text-[clamp(8px,0.5vw,10px)]'
-                : 'text-[clamp(9px,0.6vw,11px)]'
+              compact ? 'text-[10px]' : 'text-[11px]'
             )}
           >
             {review.likes}
@@ -693,9 +688,7 @@ function ReviewCard({
         <button
           className={cn(
             'font-medium text-slate-400 transition-colors hover:text-slate-600',
-            compact
-              ? 'text-[clamp(8px,0.5vw,10px)]'
-              : 'text-[clamp(9px,0.6vw,11px)]'
+            compact ? 'text-[10px]' : 'text-[11px]'
           )}
         >
           Reply
@@ -726,12 +719,12 @@ function RatingBar({
           : 'bg-[#0D55CF]';
 
   return (
-    <div className="flex items-center gap-[clamp(4px,0.4vw,8px)]">
-      <span className="w-3 shrink-0 text-right text-[clamp(9px,0.65vw,11px)] font-medium text-slate-500">
+    <div className="flex items-center gap-[8px]">
+      <span className="w-3 shrink-0 text-right text-[11px] font-medium text-slate-500">
         {stars}
       </span>
-      <Star className="h-[clamp(8px,0.6vw,10px)] w-[clamp(8px,0.6vw,10px)] shrink-0 fill-[#F59E0B] text-[#F59E0B]" />
-      <div className="h-[clamp(4px,0.35vw,6px)] flex-1 overflow-hidden rounded-full bg-slate-100">
+      <Star className="h-[10px] w-[10px] shrink-0 fill-[#F59E0B] text-[#F59E0B]" />
+      <div className="h-[6px] flex-1 overflow-hidden rounded-full bg-slate-100">
         <div
           className={cn(
             'h-full rounded-full transition-all duration-500',
@@ -740,7 +733,7 @@ function RatingBar({
           style={{ width: `${pct}%` }}
         />
       </div>
-      <span className="w-7 shrink-0 text-right text-[clamp(9px,0.65vw,11px)] font-medium text-slate-500">
+      <span className="w-7 shrink-0 text-right text-[11px] font-medium text-slate-500">
         {pct}%
       </span>
     </div>
@@ -754,12 +747,13 @@ const CUSTOMER_PHOTOS = [
   { src: '/assets/prod_6_tilapia.jpg', rating: 5 },
   { src: '/assets/prod_7_prawns.jpg', rating: 4.5 },
   { src: '/assets/prod_8_trout.jpg', rating: 5 },
+  { src: '/assets/prod_2_seabass.jpg', rating: 5 },
 ];
 
 // ─── Main Component ───────────────────────────────────────────────────────────
 
 export function TestimonialsPage() {
-  const [activePlatform, setActivePlatform] = useState<Platform>('all');
+  const [activePlatform, setActivePlatform] = useState<Platform>('feedback');
   const [page, setPage] = useState(0);
 
   // Compute displayed reviews
@@ -784,7 +778,10 @@ export function TestimonialsPage() {
     page * PAGE_SIZE + PAGE_SIZE
   );
 
-  const summary = ratingSummaries[activePlatform];
+  const summary =
+    activePlatform === 'feedback'
+      ? ratingSummaries['all']
+      : ratingSummaries[activePlatform];
 
   // Reset page when platform changes
   const handlePlatformChange = (p: Platform) => {
@@ -797,11 +794,11 @@ export function TestimonialsPage() {
   };
 
   return (
-    <div className="grid h-full min-h-[850px] w-full grid-rows-[minmax(0,70fr)_minmax(0,10fr)] gap-[var(--main-gap)]">
+    <div className="grid h-full min-h-0 w-full grid-rows-[minmax(0,89fr)_minmax(0,10fr)] gap-[var(--main-gap)] overflow-hidden">
       {/* ── Main Content ── */}
-      <div className="flex min-h-0 flex-col gap-[clamp(6px,0.6vw,12px)] overflow-hidden">
+      <div className="flex min-h-0 flex-col gap-[12px] overflow-hidden">
         {/* Breadcrumb */}
-        <nav className="flex shrink-0 items-center gap-1.5 text-[clamp(10px,0.75vw,12px)] font-semibold">
+        <nav className="flex shrink-0 items-center gap-1.5 text-[12px] font-semibold">
           <Link href="/" className="text-[#0D55CF] hover:underline">
             Home
           </Link>
@@ -810,17 +807,17 @@ export function TestimonialsPage() {
         </nav>
 
         {/* ── ROW A: Hero + Platform tabs ── */}
-        <div className="grid shrink-0 grid-cols-[1fr_auto] gap-[clamp(10px,1vw,18px)]">
+        <div className="grid shrink-0 grid-cols-[1fr_auto] gap-[18px]">
           {/* Left: heading + tabs */}
-          <div className="flex min-w-0 flex-col gap-[clamp(6px,0.6vw,12px)]">
+          <div className="flex min-w-0 flex-col gap-[12px]">
             <div>
-              <h1 className="text-[clamp(18px,2vw,32px)] leading-tight font-black text-slate-900">
+              <h1 className="text-[32px] leading-tight font-black text-slate-900">
                 What Our Customers Say
               </h1>
               {/* Decorative wave */}
               <svg
                 viewBox="0 0 80 12"
-                className="mt-0.5 h-[clamp(6px,0.5vw,10px)] w-[clamp(40px,3vw,70px)]"
+                className="mt-0.5 h-[10px] w-[70px]"
                 fill="none"
               >
                 <path
@@ -830,7 +827,7 @@ export function TestimonialsPage() {
                   strokeLinecap="round"
                 />
               </svg>
-              <p className="mt-[clamp(3px,0.3vw,6px)] text-[clamp(10px,0.75vw,13px)] leading-snug text-slate-500">
+              <p className="mt-[6px] text-[13px] leading-snug text-slate-500">
                 We value every feedback. Here's what our amazing customers have
                 to say about
                 <br />
@@ -839,24 +836,24 @@ export function TestimonialsPage() {
             </div>
 
             {/* Platform tabs */}
-            <div className="grid grid-cols-4 gap-[clamp(5px,0.5vw,10px)]">
+            <div className="grid grid-cols-5 gap-[10px]">
               {PLATFORMS.map((p) => (
                 <button
                   key={p.id}
                   onClick={() => handlePlatformChange(p.id)}
                   className={cn(
-                    'flex items-center gap-[clamp(5px,0.5vw,9px)] rounded-[clamp(8px,0.7vw,12px)] px-[clamp(8px,0.8vw,14px)] py-[clamp(7px,0.65vw,12px)] transition-all duration-200',
+                    'flex items-center gap-[9px] rounded-[12px] border-2 border-transparent px-[14px] py-[12px] transition-all duration-200',
                     activePlatform === p.id ? p.activeClass : p.inactiveClass
                   )}
                 >
                   <span className="shrink-0">{p.icon}</span>
                   <span className="flex min-w-0 flex-col items-start">
-                    <span className="truncate text-[clamp(10px,0.75vw,13px)] leading-tight font-bold">
+                    <span className="truncate text-[13px] leading-tight font-bold">
                       {p.label}
                     </span>
                     <span
                       className={cn(
-                        'text-[clamp(9px,0.6vw,11px)] leading-tight',
+                        'text-[11px] leading-tight',
                         activePlatform === p.id
                           ? 'opacity-80'
                           : 'text-slate-400'
@@ -869,309 +866,339 @@ export function TestimonialsPage() {
               ))}
             </div>
           </div>
-
-          {/* Right: hero fish image */}
-          <div className="relative h-[clamp(80px,8vw,130px)] w-[clamp(120px,12vw,200px)] shrink-0 overflow-hidden rounded-[clamp(10px,0.8vw,16px)]">
-            <Image
-              src="/assets/prod_1_salmon.jpg"
-              alt="Fresh fish"
-              fill
-              className="object-cover object-center"
-              sizes="200px"
-            />
-          </div>
         </div>
 
         {/* ── ROW B: Reviews section + Right panel ── */}
-        <div className="grid min-h-0 flex-1 grid-cols-[1fr_minmax(0,clamp(180px,18vw,280px))] gap-[clamp(8px,0.8vw,14px)] overflow-hidden">
-          {/* Left: Rating summary + Review cards */}
-          <div className="flex min-h-0 flex-col gap-[clamp(6px,0.6vw,10px)] overflow-hidden">
-            {/* Rating summary + cards row */}
-            <div
-              className={cn(
-                'grid min-h-0 flex-1 gap-[clamp(8px,0.8vw,14px)] overflow-hidden',
-                activePlatform === 'all'
-                  ? 'grid-cols-[minmax(0,160px)_1fr]'
-                  : 'grid-cols-[minmax(0,160px)_1fr_1fr_1fr]'
-              )}
-            >
-              {/* Rating summary */}
-              <div className="flex min-h-0 flex-col justify-center gap-[clamp(3px,0.3vw,6px)]">
-                <div
-                  className={cn(
-                    'leading-none font-black text-[#0D55CF]',
-                    'text-[clamp(28px,3vw,52px)]'
-                  )}
-                >
-                  {summary.average}
+        <div
+          className={cn(
+            'grid min-h-0 flex-1 gap-[14px] overflow-hidden',
+            activePlatform === 'all' || activePlatform === 'feedback'
+              ? 'grid-cols-1'
+              : 'grid-cols-[1fr_minmax(0,280px)]'
+          )}
+        >
+          {/* Main View Area */}
+          {activePlatform === 'feedback' ? (
+            <div className="flex h-full min-h-0 w-full flex-1 flex-col overflow-y-auto rounded-[16px] border border-slate-100 bg-white shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)]">
+              {/* Top Banner */}
+              <div className="flex items-center gap-[24px] bg-[#F8FBFF] p-[24px]">
+                {/* Left Illustration placeholder */}
+                <div className="relative flex h-[65px] w-[90px] shrink-0 items-center justify-center">
+                  <MessageSquareHeart className="absolute -bottom-4 -left-4 h-full w-full text-[#0D55CF] opacity-20" />
+                  <MessageSquareHeart className="relative z-10 h-[80%] w-[80%] text-[#0D55CF]" />
+                  <Star className="absolute top-0 left-0 h-[16px] w-[16px] fill-blue-400 text-blue-400" />
+                  <Star className="absolute top-4 right-0 h-[14px] w-[14px] fill-blue-300 text-blue-300" />
+                  <Star className="absolute -right-4 bottom-4 h-[12px] w-[12px] fill-blue-500 text-blue-500" />
                 </div>
-                <Stars rating={5} size="lg" />
-                <p className="text-[clamp(9px,0.65vw,11px)] text-slate-500">
-                  Based on {summary.total} reviews
-                </p>
-                <div className="mt-[clamp(4px,0.4vw,8px)] flex flex-col gap-[clamp(2px,0.2vw,4px)]">
-                  {summary.distribution.map((d) => (
-                    <RatingBar
-                      key={d.stars}
-                      stars={d.stars}
-                      pct={d.pct}
-                      platform={activePlatform}
-                    />
-                  ))}
+                {/* Right Text */}
+                <div className="flex flex-col gap-1">
+                  <h2 className="text-[24px] font-bold text-slate-800">
+                    We Value Your Opinion!
+                  </h2>
+                  <p className="max-w-lg text-[14px] leading-relaxed text-slate-500">
+                    Your opinion helps us improve our products and service every
+                    day.
+                  </p>
                 </div>
               </div>
 
-              {/* Review cards */}
-              {activePlatform === 'all' ? (
-                <div className="grid min-h-0 grid-cols-4 grid-rows-2 gap-[clamp(5px,0.5vw,8px)] overflow-hidden">
-                  {displayedReviews.map((r) => (
-                    <ReviewCard key={r.id} review={r} compact />
-                  ))}
-                </div>
-              ) : (
-                displayedReviews.map((r) => (
-                  <ReviewCard key={r.id} review={r} />
-                ))
-              )}
-            </div>
-
-            {/* View More button */}
-            {totalPages > 1 && (
-              <div className="flex shrink-0 justify-center">
-                <button
-                  onClick={handleViewMore}
-                  className="flex items-center gap-2 rounded-full border border-[#0D55CF] px-[clamp(14px,1.2vw,22px)] py-[clamp(6px,0.5vw,10px)] text-[clamp(10px,0.75vw,13px)] font-bold text-[#0D55CF] transition-all hover:bg-[#0D55CF] hover:text-white"
-                >
-                  View More Reviews{' '}
-                  <ArrowRight className="h-[clamp(10px,0.7vw,14px)] w-[clamp(10px,0.7vw,14px)]" />
-                </button>
-              </div>
-            )}
-
-            {/* ── Happy Customers row ── */}
-            <div className="shrink-0">
-              <h3 className="mb-[clamp(4px,0.4vw,8px)] text-[clamp(11px,0.85vw,14px)] font-bold text-slate-800">
-                Happy Customers
-              </h3>
-              <div className="grid grid-cols-4 gap-[clamp(5px,0.5vw,8px)]">
-                {CUSTOMER_PHOTOS.map((c, i) => (
-                  <div
-                    key={i}
-                    className="overflow-hidden rounded-[clamp(8px,0.6vw,12px)] bg-white "
-                  >
-                    <div className="relative aspect-[4/3] w-full">
-                      <Image
-                        src={c.src}
-                        alt="Happy customer"
-                        fill
-                        className="object-cover"
-                        sizes="150px"
+              {/* Form Fields */}
+              <div className="flex flex-col gap-[20px] p-[24px]">
+                {/* Row 1: Name and Title */}
+                <div className="grid grid-cols-2 gap-[20px]">
+                  <div className="flex flex-col gap-[8px]">
+                    <label className="text-[13px] font-bold text-slate-800">
+                      Your Name <span className="text-red-500">*</span>
+                    </label>
+                    <div className="relative">
+                      <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-[16px] text-slate-400">
+                        <User className="h-[18px] w-[18px]" />
+                      </div>
+                      <input
+                        type="text"
+                        placeholder="Enter your name"
+                        className="w-full rounded-[8px] border border-slate-200 py-[10px] pr-[16px] pl-[44px] text-[13px] transition-colors outline-none focus:border-[#0D55CF] focus:ring-1 focus:ring-[#0D55CF]"
                       />
                     </div>
-                    <div className="flex justify-center py-[clamp(3px,0.3vw,5px)]">
-                      <Stars rating={Math.floor(c.rating)} />
+                  </div>
+
+                  <div className="flex flex-col gap-[8px]">
+                    <label className="text-[13px] font-bold text-slate-800">
+                      Title <span className="text-red-500">*</span>
+                    </label>
+                    <div className="relative">
+                      <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-[16px] text-slate-400">
+                        <Edit3 className="h-[18px] w-[18px]" />
+                      </div>
+                      <input
+                        type="text"
+                        placeholder="e.g. Great Service, Excellent Quality"
+                        className="w-full rounded-[8px] border border-slate-200 py-[10px] pr-[16px] pl-[44px] text-[13px] transition-colors outline-none focus:border-[#0D55CF] focus:ring-1 focus:ring-[#0D55CF]"
+                      />
                     </div>
                   </div>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          {/* Right panel: We're Everywhere + Feedback form + Hygiene rating */}
-          <div className="flex min-h-0 flex-col gap-[clamp(6px,0.6vw,10px)] overflow-x-hidden overflow-y-auto">
-            {/* Share Your Opinion */}
-            <div className="shrink-0 rounded-[clamp(10px,0.8vw,14px)] bg-white p-[clamp(10px,0.9vw,16px)] ">
-              <div className="mb-[clamp(5px,0.5vw,9px)] flex items-center gap-2">
-                <svg
-                  viewBox="0 0 24 24"
-                  className="h-[clamp(12px,0.9vw,16px)] w-[clamp(12px,0.9vw,16px)] text-[#0D55CF]"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth={2}
-                >
-                  <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
-                </svg>
-                <h3 className="text-[clamp(11px,0.85vw,14px)] font-bold text-slate-800">
-                  Share Your Opinion
-                </h3>
-              </div>
-              <p className="mb-[clamp(6px,0.6vw,10px)] text-[clamp(9px,0.65vw,11px)] leading-snug text-slate-500">
-                We'd love to hear your suggestions and feedback to serve you
-                better.
-              </p>
-
-              <div className="flex flex-col gap-[clamp(5px,0.45vw,8px)]">
-                <div>
-                  <label className="mb-0.5 block text-[clamp(9px,0.6vw,11px)] font-semibold text-slate-700">
-                    Your Name <span className="text-red-500">*</span>
-                  </label>
-                  <input
-                    type="text"
-                    placeholder="Enter your name"
-                    className="w-full rounded-[6px] px-[clamp(6px,0.5vw,10px)] py-[clamp(4px,0.35vw,7px)] text-[clamp(9px,0.6vw,11px)] transition-colors outline-none focus:border-[#0D55CF]"
-                  />
                 </div>
-                <div>
-                  <label className="mb-0.5 block text-[clamp(9px,0.6vw,11px)] font-semibold text-slate-700">
-                    Title <span className="text-red-500">*</span>
-                  </label>
-                  <input
-                    type="text"
-                    placeholder="e.g. Great Service, Excellent Quality"
-                    className="w-full rounded-[6px] px-[clamp(6px,0.5vw,10px)] py-[clamp(4px,0.35vw,7px)] text-[clamp(9px,0.6vw,11px)] transition-colors outline-none focus:border-[#0D55CF]"
-                  />
-                </div>
-                <div>
-                  <label className="mb-0.5 block text-[clamp(9px,0.6vw,11px)] font-semibold text-slate-700">
-                    Your Suggestion / Feedback{' '}
+
+                {/* Row 2: Suggestion/Feedback */}
+                <div className="flex flex-col gap-[8px]">
+                  <label className="text-[13px] font-bold text-slate-800">
+                    Your Suggestion / Opinion{' '}
                     <span className="text-red-500">*</span>
                   </label>
                   <textarea
                     rows={3}
-                    placeholder="Write your suggestions or feedback here..."
-                    className="w-full resize-none rounded-[6px] px-[clamp(6px,0.5vw,10px)] py-[clamp(4px,0.35vw,7px)] text-[clamp(9px,0.6vw,11px)] transition-colors outline-none focus:border-[#0D55CF]"
+                    placeholder="Write your suggestions or opinion here..."
+                    className="w-full resize-none rounded-[8px] border border-slate-200 p-[12px] text-[13px] transition-colors outline-none focus:border-[#0D55CF] focus:ring-1 focus:ring-[#0D55CF]"
                   />
                 </div>
-                <div>
-                  <label className="mb-0.5 block text-[clamp(9px,0.6vw,11px)] font-semibold text-slate-700">
-                    Phone Number{' '}
-                    <span className="text-[clamp(8px,0.55vw,10px)] font-normal text-slate-400">
-                      (Optional)
-                    </span>
-                  </label>
-                  <div className="flex gap-1">
-                    <select className="rounded-[6px] px-1 py-[clamp(4px,0.35vw,7px)] text-[clamp(9px,0.6vw,11px)] outline-none focus:border-[#0D55CF]">
-                      <option>+44</option>
-                      <option>+91</option>
-                      <option>+1</option>
-                    </select>
-                    <input
-                      type="tel"
-                      placeholder="Enter your phone number"
-                      className="flex-1 rounded-[6px] px-[clamp(6px,0.5vw,10px)] py-[clamp(4px,0.35vw,7px)] text-[clamp(9px,0.6vw,11px)] transition-colors outline-none focus:border-[#0D55CF]"
-                    />
-                  </div>
-                </div>
 
-                <button className="mt-1 w-full rounded-[clamp(6px,0.5vw,10px)] bg-[#0D55CF] py-[clamp(6px,0.55vw,10px)] text-[clamp(10px,0.7vw,13px)] font-bold text-white transition-colors hover:bg-[#0A40A0]">
-                  Submit Feedback
-                </button>
-              </div>
-            </div>
-
-            {/* We're Everywhere */}
-            <div className="shrink-0 rounded-[clamp(10px,0.8vw,14px)] bg-white p-[clamp(10px,0.9vw,16px)] ">
-              <h3 className="mb-[clamp(3px,0.3vw,5px)] text-[clamp(11px,0.85vw,14px)] font-bold text-[#0D55CF]">
-                We're Everywhere!
-              </h3>
-              <p className="mb-[clamp(5px,0.5vw,9px)] text-[clamp(9px,0.6vw,11px)] leading-snug text-slate-500">
-                Follow us on social media to stay updated with fresh arrivals,
-                recipes &amp; more.
-              </p>
-              <div className="mb-[clamp(5px,0.5vw,8px)] flex gap-[clamp(6px,0.6vw,10px)]">
-                {/* Facebook */}
-                <a
-                  href="#"
-                  className="flex h-[clamp(26px,2.2vw,38px)] w-[clamp(26px,2.2vw,38px)] items-center justify-center rounded-full bg-[#1877F2] text-white transition-opacity hover:opacity-90"
-                >
-                  <svg
-                    viewBox="0 0 24 24"
-                    className="h-[clamp(12px,1vw,18px)] w-[clamp(12px,1vw,18px)]"
-                    fill="currentColor"
-                  >
-                    <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
-                  </svg>
-                </a>
-                {/* Instagram */}
-                <a
-                  href="#"
-                  className="flex h-[clamp(26px,2.2vw,38px)] w-[clamp(26px,2.2vw,38px)] items-center justify-center rounded-full bg-gradient-to-br from-[#f09433] via-[#dc2743] to-[#bc1888] text-white transition-opacity hover:opacity-90"
-                >
-                  <svg
-                    viewBox="0 0 24 24"
-                    className="h-[clamp(12px,1vw,18px)] w-[clamp(12px,1vw,18px)]"
-                    fill="currentColor"
-                  >
-                    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
-                  </svg>
-                </a>
-                {/* YouTube */}
-                <a
-                  href="#"
-                  className="flex h-[clamp(26px,2.2vw,38px)] w-[clamp(26px,2.2vw,38px)] items-center justify-center rounded-full bg-[#FF0000] text-white transition-opacity hover:opacity-90"
-                >
-                  <svg
-                    viewBox="0 0 24 24"
-                    className="h-[clamp(12px,1vw,18px)] w-[clamp(12px,1vw,18px)]"
-                    fill="currentColor"
-                  >
-                    <path d="M23.495 6.205a3.007 3.007 0 0 0-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 0 0 .527 6.205a31.247 31.247 0 0 0-.522 5.805 31.247 31.247 0 0 0 .522 5.783 3.007 3.007 0 0 0 2.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 0 0 2.088-2.088 31.247 31.247 0 0 0 .5-5.783 31.247 31.247 0 0 0-.5-5.805zM9.609 15.601V8.408l6.264 3.602z" />
-                  </svg>
-                </a>
-              </div>
-              <p className="text-[clamp(9px,0.6vw,11px)] font-semibold text-slate-600">
-                @fishcart.dailyfresh
-              </p>
-              <a
-                href="#"
-                className="mt-1 flex items-center gap-1 text-[clamp(9px,0.6vw,11px)] font-bold text-[#0D55CF] hover:underline"
-              >
-                View All Posts{' '}
-                <ArrowRight className="h-[clamp(8px,0.6vw,10px)] w-[clamp(8px,0.6vw,10px)]" />
-              </a>
-            </div>
-
-            {/* Food Hygiene Rating */}
-            <div className="shrink-0 rounded-[clamp(10px,0.8vw,14px)] bg-white p-[clamp(10px,0.9vw,16px)] ">
-              <h3 className="mb-[clamp(3px,0.3vw,5px)] text-[clamp(11px,0.85vw,14px)] font-bold text-[#0D55CF]">
-                Food Hygiene Rating
-              </h3>
-              <p className="mb-[clamp(5px,0.5vw,8px)] text-[clamp(9px,0.6vw,11px)] leading-snug text-slate-500">
-                We are committed to the highest standards of hygiene and food
-                safety.
-              </p>
-              <div className="flex items-center justify-between">
-                {/* Rating circles 0–5 */}
-                <div className="flex items-center gap-[clamp(3px,0.3vw,5px)]">
-                  {[0, 1, 2, 3, 4].map((n) => (
-                    <div
-                      key={n}
-                      className="flex h-[clamp(20px,1.7vw,28px)] w-[clamp(20px,1.7vw,28px)] items-center justify-center rounded-full border-2 border-slate-300 text-[clamp(8px,0.6vw,11px)] font-bold text-slate-500"
-                    >
-                      {n}
+                {/* Row 3: Phone Number and Submit */}
+                <div className="grid grid-cols-2 items-end gap-[20px]">
+                  <div className="flex flex-col gap-[8px]">
+                    <label className="text-[13px] font-bold text-slate-800">
+                      Phone Number{' '}
+                      <span className="font-normal text-slate-400">
+                        (Optional)
+                      </span>
+                    </label>
+                    <div className="flex gap-2">
+                      <select className="rounded-[8px] border border-slate-200 bg-white px-[16px] py-[10px] text-[13px] transition-colors outline-none focus:border-[#0D55CF] focus:ring-1 focus:ring-[#0D55CF]">
+                        <option>+44</option>
+                        <option>+91</option>
+                        <option>+1</option>
+                      </select>
+                      <div className="relative flex-1">
+                        <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-[16px] text-slate-400">
+                          <Phone className="h-[18px] w-[18px]" />
+                        </div>
+                        <input
+                          type="tel"
+                          placeholder="Enter your phone number"
+                          className="w-full rounded-[8px] border border-slate-200 py-[10px] pr-[16px] pl-[44px] text-[13px] transition-colors outline-none focus:border-[#0D55CF] focus:ring-1 focus:ring-[#0D55CF]"
+                        />
+                      </div>
                     </div>
-                  ))}
-                  <div className="flex h-[clamp(24px,2vw,34px)] w-[clamp(24px,2vw,34px)] items-center justify-center rounded-full bg-[#2E7D32] text-[clamp(9px,0.7vw,13px)] font-bold text-white ">
-                    5
+                  </div>
+
+                  <div className="flex justify-end">
+                    <button className="flex items-center justify-center gap-2 rounded-[8px] border border-transparent bg-[#0D55CF] px-[40px] py-[10px] text-[14px] font-bold text-white transition-colors hover:bg-[#0A40A0]">
+                      <Send className="h-[16px] w-[16px]" />
+                      Submit Opinion
+                    </button>
                   </div>
                 </div>
-                {/* Badge */}
-                <div className="flex flex-col items-end">
-                  <div className="flex h-[clamp(28px,2.5vw,42px)] w-[clamp(28px,2.5vw,42px)] items-center justify-center rounded-full bg-[#2E7D32] ">
+              </div>
+            </div>
+          ) : (
+            <div className="flex min-h-0 flex-col gap-[10px] overflow-hidden">
+              {/* Rating summary + cards row */}
+              <div className="grid min-h-0 flex-1 grid-cols-[minmax(0,160px)_1fr] gap-[14px] overflow-hidden">
+                {/* Rating summary */}
+                <div className="flex min-h-0 flex-col justify-start gap-[6px] pt-2">
+                  <div
+                    className={cn(
+                      'leading-none font-black text-[#0D55CF]',
+                      'text-[40px]'
+                    )}
+                  >
+                    {summary.average}
+                  </div>
+                  <Stars rating={5} size="lg" />
+                  <p className="text-[11px] text-slate-500">
+                    Based on {summary.total} reviews
+                  </p>
+                  <div className="mt-[8px] flex flex-col gap-[4px]">
+                    {summary.distribution.map((d) => (
+                      <RatingBar
+                        key={d.stars}
+                        stars={d.stars}
+                        pct={d.pct}
+                        platform={activePlatform}
+                      />
+                    ))}
+                  </div>
+                </div>
+
+                {/* Right column: Review cards + View More + Happy Customers */}
+                <div className="flex min-h-0 flex-col gap-[10px] overflow-hidden">
+                  {/* Review cards */}
+                  {activePlatform === 'all' ? (
+                    <div className="grid min-h-0 grid-cols-4 grid-rows-2 gap-[8px] overflow-hidden">
+                      {displayedReviews.map((r) => (
+                        <ReviewCard key={r.id} review={r} compact />
+                      ))}
+                    </div>
+                  ) : (
+                    <div className="grid min-h-0 grid-cols-3 gap-[8px] overflow-hidden">
+                      {displayedReviews.map((r) => (
+                        <ReviewCard key={r.id} review={r} />
+                      ))}
+                    </div>
+                  )}
+
+                  {/* View More button */}
+                  {totalPages > 1 && (
+                    <div className="flex shrink-0 justify-end">
+                      <button
+                        onClick={handleViewMore}
+                        className="flex items-center gap-2 rounded-full border border-[#0D55CF] px-[22px] py-[10px] text-[13px] font-bold text-[#0D55CF] transition-all hover:bg-[#0D55CF] hover:text-white"
+                      >
+                        View More Reviews{' '}
+                        <ArrowRight className="h-[14px] w-[14px]" />
+                      </button>
+                    </div>
+                  )}
+                </div>
+              </div>
+
+              {/* ── Happy Customers row ── */}
+              {activePlatform !== 'all' && (
+                <div className="mt-auto shrink-0">
+                  <h3 className="mb-[8px] text-center text-[18px] font-bold text-[#0D55CF]">
+                    Happy Customers
+                  </h3>
+                  <div className="grid w-full grid-cols-5 gap-[8px]">
+                    {CUSTOMER_PHOTOS.map((c, i) => (
+                      <div
+                        key={i}
+                        className="overflow-hidden rounded-[12px] bg-white"
+                      >
+                        <div className="relative aspect-[4/3] w-full">
+                          <Image
+                            src={c.src}
+                            alt="Happy customer"
+                            fill
+                            className="object-cover"
+                            sizes="150px"
+                          />
+                        </div>
+                        <div className="flex justify-center py-[5px]">
+                          <Stars rating={Math.floor(c.rating)} />
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+          )}
+
+          {/* Right panel: We're Everywhere + Hygiene rating */}
+          {activePlatform !== 'all' && activePlatform !== 'feedback' && (
+            <div className="flex min-h-0 flex-col gap-[10px] overflow-x-hidden overflow-y-auto">
+              {/* We're Everywhere */}
+              <div className="shrink-0 rounded-[14px] bg-white p-[16px]">
+                <h3 className="mb-[5px] text-[14px] font-bold text-[#0D55CF]">
+                  We're Everywhere!
+                </h3>
+                <p className="mb-[9px] text-[11px] leading-snug text-slate-500">
+                  Follow us on social media to stay updated with fresh arrivals,
+                  recipes &amp; more.
+                </p>
+                <div className="mb-[8px] flex gap-[10px]">
+                  {/* Facebook */}
+                  <a
+                    href="#"
+                    className="flex h-[38px] w-[38px] items-center justify-center rounded-full bg-[#1877F2] text-white transition-opacity hover:opacity-90"
+                  >
                     <svg
                       viewBox="0 0 24 24"
-                      className="h-[clamp(14px,1.2vw,22px)] w-[clamp(14px,1.2vw,22px)] text-white"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth={2.5}
+                      className="h-[18px] w-[18px]"
+                      fill="currentColor"
                     >
-                      <path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                      <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
                     </svg>
-                  </div>
-                  <p className="mt-0.5 text-right text-[clamp(7px,0.5vw,9px)] leading-tight font-semibold text-slate-400">
-                    Rated by
-                    <br />
-                    Food Standards
-                    <br />
-                    Agency
-                  </p>
+                  </a>
+                  {/* Instagram */}
+                  <a
+                    href="#"
+                    className="flex h-[38px] w-[38px] items-center justify-center rounded-full bg-gradient-to-br from-[#f09433] via-[#dc2743] to-[#bc1888] text-white transition-opacity hover:opacity-90"
+                  >
+                    <svg
+                      viewBox="0 0 24 24"
+                      className="h-[18px] w-[18px]"
+                      fill="currentColor"
+                    >
+                      <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+                    </svg>
+                  </a>
+                  {/* YouTube */}
+                  <a
+                    href="#"
+                    className="flex h-[38px] w-[38px] items-center justify-center rounded-full bg-[#FF0000] text-white transition-opacity hover:opacity-90"
+                  >
+                    <svg
+                      viewBox="0 0 24 24"
+                      className="h-[18px] w-[18px]"
+                      fill="currentColor"
+                    >
+                      <path d="M23.495 6.205a3.007 3.007 0 0 0-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 0 0 .527 6.205a31.247 31.247 0 0 0-.522 5.805 31.247 31.247 0 0 0 .522 5.783 3.007 3.007 0 0 0 2.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 0 0 2.088-2.088 31.247 31.247 0 0 0 .5-5.783 31.247 31.247 0 0 0-.5-5.805zM9.609 15.601V8.408l6.264 3.602z" />
+                    </svg>
+                  </a>
                 </div>
+                <p className="text-[11px] font-semibold text-slate-600">
+                  @fishcart.dailyfresh
+                </p>
+                <a
+                  href="#"
+                  className="mt-1 flex items-center gap-1 text-[11px] font-bold text-[#0D55CF] hover:underline"
+                >
+                  View All Posts <ArrowRight className="h-[10px] w-[10px]" />
+                </a>
               </div>
-              <p className="mt-[clamp(3px,0.3vw,5px)] text-[clamp(8px,0.55vw,10px)] font-bold tracking-widest text-[#2E7D32] uppercase">
-                Very Good
-              </p>
+
+              {/* Food Hygiene Rating */}
+              <div className="shrink-0 rounded-[14px] bg-white p-[16px]">
+                <h3 className="mb-[5px] text-[14px] font-bold text-[#0D55CF]">
+                  Food Hygiene Rating
+                </h3>
+                <p className="mb-[8px] text-[11px] leading-snug text-slate-500">
+                  We are committed to the highest standards of hygiene and food
+                  safety.
+                </p>
+                <div className="flex items-center justify-between">
+                  {/* Rating circles 0–5 */}
+                  <div className="flex items-center gap-[5px]">
+                    {[0, 1, 2, 3, 4].map((n) => (
+                      <div
+                        key={n}
+                        className="flex h-[28px] w-[28px] items-center justify-center rounded-full border-2 border-slate-300 text-[11px] font-bold text-slate-500"
+                      >
+                        {n}
+                      </div>
+                    ))}
+                    <div className="flex h-[34px] w-[34px] items-center justify-center rounded-full bg-[#2E7D32] text-[13px] font-bold text-white">
+                      5
+                    </div>
+                  </div>
+                  {/* Badge */}
+                  <div className="flex flex-col items-end">
+                    <div className="flex h-[42px] w-[42px] items-center justify-center rounded-full bg-[#2E7D32]">
+                      <svg
+                        viewBox="0 0 24 24"
+                        className="h-[22px] w-[22px] text-white"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth={2.5}
+                      >
+                        <path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                      </svg>
+                    </div>
+                    <p className="mt-0.5 text-right text-[9px] leading-tight font-semibold text-slate-400">
+                      Rated by
+                      <br />
+                      Food Standards
+                      <br />
+                      Agency
+                    </p>
+                  </div>
+                </div>
+                <p className="mt-[5px] text-[10px] font-bold tracking-widest text-[#2E7D32] uppercase">
+                  Very Good
+                </p>
+              </div>
             </div>
-          </div>
+          )}
         </div>
       </div>
 

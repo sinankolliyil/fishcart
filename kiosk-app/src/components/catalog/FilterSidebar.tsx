@@ -214,7 +214,7 @@ export function FilterSidebar({
 
                         <span
                           className={cn(
-                            'group-hover:text-text-heading inline-block max-w-[140px] truncate leading-none font-bold text-[#475569] transition-colors',
+                            'group-hover:text-text-heading inline-block max-w-[140px] truncate leading-tight font-bold text-[#475569] transition-colors pb-[2px]',
                             isChecked && 'font-black text-[#1E293B]'
                           )}
                         >

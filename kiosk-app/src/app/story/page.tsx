@@ -226,17 +226,19 @@ export default function StoryPage() {
               { icon: Package, text: 'Delivered with care & on time' },
               { icon: Heart, text: '100% satisfaction or we make it right' },
               { icon: ShieldCheck, text: 'Sustainable Sourcing' },
-            ].map((item, i) => (
-              <div
-                key={i}
-                className="flex min-w-0 items-center gap-[clamp(4px,0.4vw,8px)]"
-              >
-                <item.icon className="h-[clamp(14px,1.2vw,20px)] w-[clamp(14px,1.2vw,20px)] shrink-0 text-blue-600" />
+            ].map((item, i, arr) => (
+              <React.Fragment key={i}>
+                <div className="flex min-w-0 items-center gap-[clamp(4px,0.4vw,8px)]">
+                  <item.icon className="h-[clamp(14px,1.2vw,20px)] w-[clamp(14px,1.2vw,20px)] shrink-0 text-blue-600" />
 
-                <span className="text-[11px] leading-tight font-semibold text-slate-700 lg:text-[12px] xl:text-[clamp(12px,0.65vw,10px)]">
-                  {item.text}
-                </span>
-              </div>
+                  <span className="text-[11px] leading-tight font-semibold text-slate-700 lg:text-[12px] xl:text-[clamp(12px,0.65vw,10px)]">
+                    {item.text}
+                  </span>
+                </div>
+                {i < arr.length - 1 && (
+                  <div className="h-6 lg:h-8 w-[1px] shrink-0 bg-slate-300" />
+                )}
+              </React.Fragment>
             ))}
           </div>
         </div>
@@ -271,7 +273,7 @@ export default function StoryPage() {
               title: 'Ice Packing',
             },
             {
-              img: 'fish_showcase.png',
+              img: 'fish.png',
               title: 'Air Freight',
             },
             {
@@ -279,11 +281,11 @@ export default function StoryPage() {
               title: 'Import & Inspection',
             },
             {
-              img: 'meat_showcase.png',
+              img: 'meat.png',
               title: 'Cold Storage & Transport',
             },
             {
-              img: 'chicken_showcase.png',
+              img: 'chicken.png',
               title: 'Final Check at Our Shop',
             },
             {
@@ -339,7 +341,7 @@ export default function StoryPage() {
               src="/assets/story_family_footer.png"
               alt="Family"
               fill
-              className="object-contain object-right"
+              className="object-contain object-center scale-[1.9]"
             />
           </div>
         </div>
@@ -361,7 +363,7 @@ export default function StoryPage() {
               src="/assets/story_family_footer.png"
               alt="Boat Illustration"
               fill
-              className="object-contain object-center"
+              className="object-contain object-center scale-[1.9]"
             />
           </div>
         </div>
