@@ -175,13 +175,23 @@ export function CatalogPage({ data }: CatalogPageProps) {
       let count = data.products.length;
       if (data.category === 'fish') {
         if (tab.id === 'grill-fishes') {
-          count = data.products.filter((p) => ['salmon', 'sea-bass', 'tuna-steak', 'prawns'].includes(p.id)).length;
+          count = data.products.filter((p) =>
+            ['salmon', 'sea-bass', 'tuna-steak', 'prawns'].includes(p.id)
+          ).length;
         } else if (tab.id === 'curry-fishes') {
-          count = data.products.filter((p) => ['mackerel', 'tilapia', 'prawns', 'trout'].includes(p.id)).length;
+          count = data.products.filter((p) =>
+            ['mackerel', 'tilapia', 'prawns', 'trout'].includes(p.id)
+          ).length;
         } else if (tab.id === 'by-country') {
-          count = data.products.filter((p) => ['salmon', 'tuna-steak', 'tilapia', 'prawns', 'trout'].includes(p.id)).length;
+          count = data.products.filter((p) =>
+            ['salmon', 'tuna-steak', 'tilapia', 'prawns', 'trout'].includes(
+              p.id
+            )
+          ).length;
         } else if (tab.id === 'other-types') {
-          count = data.products.filter((p) => ['cod-fillet', 'tilapia', 'trout'].includes(p.id)).length;
+          count = data.products.filter((p) =>
+            ['cod-fillet', 'tilapia', 'trout'].includes(p.id)
+          ).length;
         }
       } else {
         if (tab.id.includes('beef') || tab.id.includes('curry')) {
@@ -189,7 +199,9 @@ export function CatalogPage({ data }: CatalogPageProps) {
         } else if (tab.id.includes('mutton') || tab.id.includes('boneless')) {
           count = data.products.length - Math.ceil(data.products.length / 2);
         } else if (tab.id.includes('country')) {
-          count = data.products.filter((p) => p.origin !== 'Local Farms').length;
+          count = data.products.filter(
+            (p) => p.origin !== 'Local Farms'
+          ).length;
         }
       }
       return { ...tab, countLabel: `${count} Items` };
@@ -205,25 +217,46 @@ export function CatalogPage({ data }: CatalogPageProps) {
         if (section.id === 'country') {
           count = data.products.filter((p) => {
             const countryLower = (p.filterCountry || p.origin).toLowerCase();
-            if (opt.id === 'uk') return countryLower === 'united kingdom' || countryLower === 'uk';
+            if (opt.id === 'uk')
+              return countryLower === 'united kingdom' || countryLower === 'uk';
             return countryLower === opt.id;
           }).length;
         } else if (section.id === 'type') {
           count = data.products.filter((p) => {
-            if (opt.id === 'grill') return ['salmon', 'sea-bass', 'tuna-steak', 'prawns'].includes(p.id);
-            if (opt.id === 'curry') return ['mackerel', 'tilapia', 'prawns', 'trout'].includes(p.id);
-            if (opt.id === 'steak') return p.format.toLowerCase().includes('steak');
-            if (opt.id === 'whole') return p.format.toLowerCase().includes('whole');
-            if (opt.id === 'fillets') return p.format.toLowerCase().includes('filet') || p.format.toLowerCase().includes('fillet');
-            if (opt.id === 'boneless') return p.format.toLowerCase().includes('boneless') || p.format.toLowerCase().includes('fillet');
-            if (opt.id === 'bone-in') return p.format.toLowerCase().includes('bone') || p.format.toLowerCase().includes('whole');
+            if (opt.id === 'grill')
+              return ['salmon', 'sea-bass', 'tuna-steak', 'prawns'].includes(
+                p.id
+              );
+            if (opt.id === 'curry')
+              return ['mackerel', 'tilapia', 'prawns', 'trout'].includes(p.id);
+            if (opt.id === 'steak')
+              return p.format.toLowerCase().includes('steak');
+            if (opt.id === 'whole')
+              return p.format.toLowerCase().includes('whole');
+            if (opt.id === 'fillets')
+              return (
+                p.format.toLowerCase().includes('filet') ||
+                p.format.toLowerCase().includes('fillet')
+              );
+            if (opt.id === 'boneless')
+              return (
+                p.format.toLowerCase().includes('boneless') ||
+                p.format.toLowerCase().includes('fillet')
+              );
+            if (opt.id === 'bone-in')
+              return (
+                p.format.toLowerCase().includes('bone') ||
+                p.format.toLowerCase().includes('whole')
+              );
             return false;
           }).length;
         } else if (section.id === 'size') {
           count = data.products.filter((p) => {
             if (opt.id === 'small' || opt.id === 'pack-6') return p.price < 8.0;
-            if (opt.id === 'medium' || opt.id === 'pack-12') return p.price >= 8.0 && p.price < 15.0;
-            if (opt.id === 'large' || opt.id === 'pack-30') return p.price >= 15.0;
+            if (opt.id === 'medium' || opt.id === 'pack-12')
+              return p.price >= 8.0 && p.price < 15.0;
+            if (opt.id === 'large' || opt.id === 'pack-30')
+              return p.price >= 15.0;
             return false;
           }).length;
         }
@@ -239,7 +272,7 @@ export function CatalogPage({ data }: CatalogPageProps) {
   };
 
   return (
-    <div className="grid h-full min-h-[840px] w-full grid-rows-[minmax(0,14fr)_minmax(0,7fr)_minmax(0,58fr)_minmax(0,11fr)_minmax(0,10fr)] gap-[var(--main-gap)] select-none">
+    <div className="grid h-full min-h-[950px] w-full grid-rows-[minmax(0,14fr)_minmax(0,7fr)_minmax(0,58fr)_minmax(0,11fr)_minmax(0,10fr)] gap-[var(--main-gap)] select-none">
       {/* 1. Hero Section */}
       <div className="h-full w-full overflow-hidden">
         <CatalogHero
@@ -279,7 +312,7 @@ export function CatalogPage({ data }: CatalogPageProps) {
         </div>
 
         {/* Right Column: Product List — 4/5 width */}
-        <div className="col-span-4 flex h-full flex-col overflow-hidden">
+        <div className="col-span-4 flex h-full flex-col overflow-hidden rounded-[8px] bg-white p-2 shadow-sm border border-slate-100">
           <ProductGrid
             products={processedProducts}
             category={data.category}
@@ -305,5 +338,3 @@ export function CatalogPage({ data }: CatalogPageProps) {
     </div>
   );
 }
-
-

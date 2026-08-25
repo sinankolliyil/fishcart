@@ -215,7 +215,7 @@ export function ProductDetailsLayout({ data }: { data: ProductDetails }) {
                   src={selectedImage}
                   alt={data.title}
                   fill
-                  className="object-cover"
+                  className="object-contain"
                   sizes="30vw"
                   priority
                 />
@@ -250,7 +250,7 @@ export function ProductDetailsLayout({ data }: { data: ProductDetails }) {
                         src={src}
                         alt=""
                         fill
-                        className="object-cover"
+                        className="object-contain"
                         sizes="5vw"
                       />
                     </div>

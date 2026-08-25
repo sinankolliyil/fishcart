@@ -1,7 +1,13 @@
 import React, { useState, useRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Grid, List, ChevronDown, ChevronLeft, ChevronRight } from 'lucide-react';
+import {
+  Grid,
+  List,
+  ChevronDown,
+  ChevronLeft,
+  ChevronRight,
+} from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { ProductItem } from '@/types/catalog';
 import { PriceDisplay } from '@/components/shared/PriceDisplay';
@@ -45,7 +51,8 @@ export function ProductGrid({
   const buttonColors = {
     fish: 'bg-[#0D55CF] hover:bg-[#0c4dbd] shadow-[0_4px_16px_rgba(13,85,207,0.4)]',
     meat: 'bg-[#F0314A] hover:bg-[#d82a40] shadow-[0_4px_16px_rgba(240,49,74,0.4)]',
-    chicken: 'bg-[#F59000] hover:bg-[#e08300] shadow-[0_4px_16px_rgba(245,144,0,0.4)]',
+    chicken:
+      'bg-[#F59000] hover:bg-[#e08300] shadow-[0_4px_16px_rgba(245,144,0,0.4)]',
     eggs: 'bg-[#10B981] hover:bg-[#0da673] shadow-[0_4px_16px_rgba(16,185,129,0.4)]',
   };
   const currentButtonColor = buttonColors[category] || buttonColors.fish;
@@ -59,7 +66,7 @@ export function ProductGrid({
     pages.push(products.slice(i, i + itemsPerPage));
   }
   const totalPages = pages.length;
-  
+
   // Ensure currentPage is valid if products change
   const validPage = Math.min(currentPage, Math.max(1, totalPages));
   if (validPage !== currentPage && validPage > 0) {
@@ -79,13 +86,19 @@ export function ProductGrid({
 
   const scrollPrev = () => {
     if (scrollRef.current) {
-      scrollRef.current.scrollBy({ left: -scrollRef.current.clientWidth, behavior: 'smooth' });
+      scrollRef.current.scrollBy({
+        left: -scrollRef.current.clientWidth,
+        behavior: 'smooth',
+      });
     }
   };
 
   const scrollNext = () => {
     if (scrollRef.current) {
-      scrollRef.current.scrollBy({ left: scrollRef.current.clientWidth, behavior: 'smooth' });
+      scrollRef.current.scrollBy({
+        left: scrollRef.current.clientWidth,
+        behavior: 'smooth',
+      });
     }
   };
 
@@ -100,7 +113,7 @@ export function ProductGrid({
             <span className="text-text-muted text-[clamp(15px,min(0.9vw,1.25svh),15px)] font-bold">
               View:
             </span>
-            <div className="border-gray-150 flex items-center gap-0.5 rounded-[4px] border bg-white p-0.5 ">
+            <div className="border-gray-150 flex items-center gap-0.5 rounded-[4px] border bg-white p-0.5">
               <button
                 onClick={() => setViewMode('grid')}
                 className={cn(
@@ -127,16 +140,16 @@ export function ProductGrid({
               </button>
             </div>
           </div>
-
-
         </div>
 
         {/* Count Label & Navigation */}
         <div className="flex items-center gap-4">
           <span className="text-[clamp(12px,min(2vw,2.5svh),16px)] font-black text-[#475569]">
-            Showing {(validPage - 1) * itemsPerPage + 1}-{Math.min(validPage * itemsPerPage, products.length)} of {totalItems} items
+            Showing {(validPage - 1) * itemsPerPage + 1}-
+            {Math.min(validPage * itemsPerPage, products.length)} of{' '}
+            {totalItems} items
           </span>
-          
+
           {/* Inline Navigation Buttons */}
           {totalPages > 1 && (
             <div className="flex items-center gap-2">
@@ -144,8 +157,10 @@ export function ProductGrid({
                 onClick={scrollPrev}
                 disabled={validPage === 1}
                 className={cn(
-                  "flex h-7 w-7 items-center justify-center rounded-full transition-colors cursor-pointer text-[#1E293B]",
-                  validPage === 1 ? "opacity-30 cursor-not-allowed" : "hover:bg-gray-100"
+                  'flex h-7 w-7 cursor-pointer items-center justify-center rounded-full text-[#1E293B] transition-colors',
+                  validPage === 1
+                    ? 'cursor-not-allowed opacity-30'
+                    : 'hover:bg-gray-100'
                 )}
               >
                 <ChevronLeft className="h-4 w-4 stroke-[3]" />
@@ -154,8 +169,10 @@ export function ProductGrid({
                 onClick={scrollNext}
                 disabled={validPage === totalPages}
                 className={cn(
-                  "flex h-7 w-7 items-center justify-center rounded-full transition-colors cursor-pointer text-[#1E293B]",
-                  validPage === totalPages ? "opacity-30 cursor-not-allowed" : "hover:bg-gray-100"
+                  'flex h-7 w-7 cursor-pointer items-center justify-center rounded-full text-[#1E293B] transition-colors',
+                  validPage === totalPages
+                    ? 'cursor-not-allowed opacity-30'
+                    : 'hover:bg-gray-100'
                 )}
               >
                 <ChevronRight className="h-4 w-4 stroke-[3]" />
@@ -166,9 +183,9 @@ export function ProductGrid({
       </div>
 
       {/* Product List Content Grid */}
-      <div className="min-h-0 w-full flex-1 overflow-hidden relative">
+      <div className="relative min-h-0 w-full flex-1 overflow-hidden">
         {products.length === 0 ? (
-          <div className="flex h-full w-full flex-col items-center justify-center rounded-[8px] bg-white p-4 ">
+          <div className="flex h-full w-full flex-col items-center justify-center rounded-[8px] bg-white p-4">
             <svg
               className="text-text-muted mb-2 h-10 w-10 opacity-40"
               fill="none"
@@ -190,14 +207,17 @@ export function ProductGrid({
             </p>
           </div>
         ) : (
-          <div 
-            ref={scrollRef} 
+          <div
+            ref={scrollRef}
             onScroll={handleScroll}
-            className="flex h-full w-full overflow-x-auto snap-x snap-mandatory scroll-smooth [&::-webkit-scrollbar]:hidden"
+            className="flex h-full w-full snap-x snap-mandatory overflow-x-auto scroll-smooth [&::-webkit-scrollbar]:hidden"
             style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
           >
             {pages.map((pageProducts, pageIdx) => (
-              <div key={pageIdx} className="min-w-full h-full snap-center shrink-0">
+              <div
+                key={pageIdx}
+                className="h-full min-w-full shrink-0 snap-center"
+              >
                 {viewMode === 'grid' ? (
                   <div className="grid h-full min-h-0 w-full grid-cols-4 grid-rows-2 gap-[var(--main-gap)] overflow-hidden">
                     {pageProducts.map((product) => (
@@ -214,7 +234,7 @@ export function ProductGrid({
                       <Link
                         href={`/product/${product.id}`}
                         key={product.id}
-                        className="group flex h-full min-h-0 cursor-pointer items-center gap-2.5 overflow-hidden rounded-[8px] bg-white p-1.5  transition-all hover:"
+                        className="group hover: flex h-full min-h-0 cursor-pointer items-center gap-2.5 overflow-hidden rounded-[8px] bg-[#F8FAFC] p-1.5 transition-all"
                       >
                         {/* Image */}
                         <div className="relative aspect-square h-full shrink-0 overflow-hidden rounded-lg bg-slate-50">
@@ -223,19 +243,22 @@ export function ProductGrid({
                             alt={product.title}
                             fill
                             sizes="10vw"
-                            className="object-cover transition-transform duration-300 group-hover:scale-105"
+                            className="object-contain transition-transform duration-300 group-hover:scale-105"
                           />
                         </div>
-        
+
                         {/* Title & Origin info */}
                         <div className="flex min-w-0 flex-1 flex-col">
-                          <h4 
+                          <h4
                             className={cn(
-                              "text-text-heading truncate text-[clamp(9px,0.8vw,11.5px)] leading-none font-extrabold transition-colors",
-                              category === 'fish' ? 'group-hover:text-[#0D55CF]' :
-                              category === 'meat' ? 'group-hover:text-[#F0314A]' :
-                              category === 'chicken' ? 'group-hover:text-[#F59000]' :
-                              'group-hover:text-[#10B981]'
+                              'text-text-heading truncate text-[clamp(9px,0.8vw,11.5px)] leading-none font-extrabold transition-colors',
+                              category === 'fish'
+                                ? 'group-hover:text-[#0D55CF]'
+                                : category === 'meat'
+                                  ? 'group-hover:text-[#F0314A]'
+                                  : category === 'chicken'
+                                    ? 'group-hover:text-[#F59000]'
+                                    : 'group-hover:text-[#10B981]'
                             )}
                           >
                             {product.title}
@@ -260,7 +283,7 @@ export function ProductGrid({
                             </span>
                           )}
                         </div>
-        
+
                         {/* Price Display */}
                         <div className="shrink-0 pr-1 text-right">
                           <PriceDisplay
@@ -277,8 +300,6 @@ export function ProductGrid({
             ))}
           </div>
         )}
-
-
       </div>
     </div>
   );

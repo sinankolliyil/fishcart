@@ -27,7 +27,7 @@ export const fishCatalogData: CatalogPageData = {
       title: "By Country",
       hasViewMore: true,
       options: [
-        { id: "uk", label: "United Kingdom (Local)", count: 45, flag: "UK" },
+        { id: "uk", label: "United Kingdom", count: 45, flag: "UK" },
         { id: "norway", label: "Norway", count: 28, flag: "Norway" },
         { id: "scotland", label: "Scotland", count: 18, flag: "Scotland" },
         { id: "iceland", label: "Iceland", count: 12, flag: "Iceland" },
@@ -66,7 +66,7 @@ export const fishCatalogData: CatalogPageData = {
       badgeLabel: "Rich in Omega-3",
       price: 14.99,
       unit: "kg",
-      imageSrc: "/assets/prod_1_salmon.jpg",
+      imageSrc: "/assets/aa_salmon.png",
     },
     {
       id: "sea-bass",
@@ -77,7 +77,7 @@ export const fishCatalogData: CatalogPageData = {
       badgeLabel: "High in Protein",
       price: 12.50,
       unit: "kg",
-      imageSrc: "/assets/prod_2_seabass.jpg",
+      imageSrc: "/assets/a_sea_bass.png",
     },
     {
       id: "mackerel",
@@ -88,7 +88,7 @@ export const fishCatalogData: CatalogPageData = {
       badgeLabel: "Rich in Omega-3",
       price: 6.99,
       unit: "kg",
-      imageSrc: "/assets/prod_3_mackerel.jpg",
+      imageSrc: "/assets/a_mackerel.png",
     },
     {
       id: "cod-fillet",
@@ -99,7 +99,7 @@ export const fishCatalogData: CatalogPageData = {
       badgeLabel: "Low Fat",
       price: 11.99,
       unit: "kg",
-      imageSrc: "/assets/prod_4_cod.jpg",
+      imageSrc: "/assets/a_cod_fillet.png",
     },
     {
       id: "tuna-steak",
@@ -110,7 +110,7 @@ export const fishCatalogData: CatalogPageData = {
       badgeLabel: "High in Protein",
       price: 15.50,
       unit: "kg",
-      imageSrc: "/assets/prod_5_tuna.jpg",
+      imageSrc: "/assets/a_tuna_steck.png",
     },
     {
       id: "tilapia",
@@ -121,7 +121,7 @@ export const fishCatalogData: CatalogPageData = {
       badgeLabel: "Good Source of Protein",
       price: 5.99,
       unit: "kg",
-      imageSrc: "/assets/prod_6_tilapia.jpg",
+      imageSrc: "/assets/a_tilapia.png",
     },
     {
       id: "prawns",
@@ -132,7 +132,7 @@ export const fishCatalogData: CatalogPageData = {
       badgeLabel: "High in Protein",
       price: 16.99,
       unit: "kg",
-      imageSrc: "/assets/prod_7_prawns.jpg",
+      imageSrc: "/assets/a_prawns_king.png",
     },
     {
       id: "trout",
@@ -143,7 +143,7 @@ export const fishCatalogData: CatalogPageData = {
       badgeLabel: "Rich in Vitamins",
       price: 7.99,
       unit: "kg",
-      imageSrc: "/assets/prod_8_trout.jpg",
+      imageSrc: "/assets/a_trout.png",
     },
     {
       id: "salmon-mock1",
@@ -154,7 +154,7 @@ export const fishCatalogData: CatalogPageData = {
       badgeLabel: "Rich in Omega-3",
       price: 14.99,
       unit: "kg",
-      imageSrc: "/assets/prod_1_salmon.jpg",
+      imageSrc: "/assets/aa_salmon.png",
     },
     {
       id: "salmon-mock2",
@@ -165,7 +165,7 @@ export const fishCatalogData: CatalogPageData = {
       badgeLabel: "Rich in Omega-3",
       price: 14.99,
       unit: "kg",
-      imageSrc: "/assets/prod_1_salmon.jpg",
+      imageSrc: "/assets/aa_salmon.png",
     },
   ],
   bottomInfo: [

@@ -34,7 +34,10 @@ export function ProductCard({ product, category }: ProductCardProps) {
   const currentBadgeBg = badgeBgColors[category] || badgeBgColors.fish;
 
   return (
-    <Link href={`/product/${product.id}`} className="group flex h-full min-h-0 w-full flex-col justify-between overflow-hidden rounded-[8px] bg-white  transition-all duration-200 select-none hover: cursor-pointer">
+    <Link
+      href={`/product/${product.id}`}
+      className="group flex h-full min-h-0 w-full flex-col justify-between overflow-hidden rounded-[8px] border border-slate-200 bg-[#F8FAFC] transition-all duration-200 select-none hover:cursor-pointer"
+    >
       {/* Product Image Container - flex-grow & min-h-0 to stretch/shrink dynamically */}
       <div className="relative flex min-h-0 w-full flex-1 items-center justify-center overflow-hidden bg-[#F8FAFC] p-1">
         <Image
@@ -42,7 +45,7 @@ export function ProductCard({ product, category }: ProductCardProps) {
           alt={product.title}
           fill
           sizes="20vw"
-          className="object-cover transition-transform duration-300 group-hover:scale-105"
+          className="object-contain transition-transform duration-300 group-hover:scale-105"
         />
 
         {/* Favorite Heart Button */}
@@ -52,7 +55,7 @@ export function ProductCard({ product, category }: ProductCardProps) {
             e.stopPropagation();
             setIsFav(!isFav);
           }}
-          className="text-text-muted absolute top-1.5 right-1.5 z-20 cursor-pointer rounded-full bg-white p-1  transition-all duration-200 hover:bg-white hover: active:scale-90"
+          className="text-text-muted hover: absolute top-1.5 right-1.5 z-20 cursor-pointer rounded-full bg-white p-1 transition-all duration-200 hover:bg-white active:scale-90"
         >
           <Heart
             className={cn(
@@ -66,16 +69,19 @@ export function ProductCard({ product, category }: ProductCardProps) {
       </div>
 
       {/* Product Content Details - shrink-0 to retain vertical space */}
-      <div className="flex min-h-0 shrink-0 flex-col border-t border-gray-50 bg-white p-2.5 pt-1.5 select-none">
+      <div className="flex min-h-0 shrink-0 flex-col p-2.5 pt-1.5 select-none">
         <div className="mb-1.5 flex flex-col">
           {/* Title */}
           <h3
             className={cn(
-              "text-text-heading mb-0.5 truncate text-[clamp(17px,min(1.2vw,1.8svh),20px)] leading-tight font-black transition-colors",
-              category === 'fish' ? 'group-hover:text-[#0D55CF]' :
-              category === 'meat' ? 'group-hover:text-[#F0314A]' :
-              category === 'chicken' ? 'group-hover:text-[#F59000]' :
-              'group-hover:text-[#10B981]'
+              'text-text-heading mb-0.5 truncate text-[clamp(17px,min(1.2vw,1.8svh),20px)] leading-tight font-black transition-colors',
+              category === 'fish'
+                ? 'group-hover:text-[#0D55CF]'
+                : category === 'meat'
+                  ? 'group-hover:text-[#F0314A]'
+                  : category === 'chicken'
+                    ? 'group-hover:text-[#F59000]'
+                    : 'group-hover:text-[#10B981]'
             )}
           >
             {product.title}
