@@ -251,7 +251,7 @@ export const meatCatalogData: CatalogPageData = {
       badgeLabel: "Premium Cut",
       price: 18.50,
       unit: "kg",
-      imageSrc: "/assets/beef_chunks.jpg",
+      imageSrc: "/assets/b_beef_chunks.png",
     },
     {
       id: "boar-boneless",
@@ -261,7 +261,7 @@ export const meatCatalogData: CatalogPageData = {
       badgeLabel: "Exotic Meat",
       price: 22.99,
       unit: "kg",
-      imageSrc: "/assets/boar_meat_bonless.jpg",
+      imageSrc: "/assets/b_boar_meat.png",
     },
     {
       id: "boar-bone-in",
@@ -271,7 +271,7 @@ export const meatCatalogData: CatalogPageData = {
       badgeLabel: "Rich Flavor",
       price: 19.99,
       unit: "kg",
-      imageSrc: "/assets/boar_meat_with_bone.jpg",
+      imageSrc: "/assets/b_boar_ribs.png",
     },
     {
       id: "deer-meat",
@@ -281,7 +281,7 @@ export const meatCatalogData: CatalogPageData = {
       badgeLabel: "Lean & Healthy",
       price: 28.00,
       unit: "kg",
-      imageSrc: "/assets/deer_meat.jpg",
+      imageSrc: "/assets/bb_deer_venison.png",
     },
     {
       id: "lamb-cutlets",
@@ -291,7 +291,7 @@ export const meatCatalogData: CatalogPageData = {
       badgeLabel: "Tender Cut",
       price: 24.50,
       unit: "kg",
-      imageSrc: "/assets/lamb.jpg",
+      imageSrc: "/assets/b_lamb_cutlets.png",
     },
     {
       id: "mutton-leg",
@@ -301,7 +301,7 @@ export const meatCatalogData: CatalogPageData = {
       badgeLabel: "Great for Roast",
       price: 16.50,
       unit: "kg",
-      imageSrc: "/assets/mutton_leg.jpg",
+      imageSrc: "/assets/b_mutton_leg.png",
     },
     {
       id: "beef-chunks-mock1",
@@ -311,7 +311,7 @@ export const meatCatalogData: CatalogPageData = {
       badgeLabel: "Premium Cut",
       price: 18.50,
       unit: "kg",
-      imageSrc: "/assets/beef_chunks.jpg",
+      imageSrc: "/assets/b_beef_chunks.png",
     },
     {
       id: "beef-chunks-mock2",
@@ -321,7 +321,7 @@ export const meatCatalogData: CatalogPageData = {
       badgeLabel: "Premium Cut",
       price: 18.50,
       unit: "kg",
-      imageSrc: "/assets/beef_chunks.jpg",
+      imageSrc: "/assets/b_beef_chunks.png",
     },
     {
       id: "beef-chunks-mock3",
@@ -331,7 +331,7 @@ export const meatCatalogData: CatalogPageData = {
       badgeLabel: "Premium Cut",
       price: 18.50,
       unit: "kg",
-      imageSrc: "/assets/beef_chunks.jpg",
+      imageSrc: "/assets/b_beef_chunks.png",
     },
     {
       id: "beef-chunks-mock4",
@@ -341,7 +341,7 @@ export const meatCatalogData: CatalogPageData = {
       badgeLabel: "Premium Cut",
       price: 18.50,
       unit: "kg",
-      imageSrc: "/assets/beef_chunks.jpg",
+      imageSrc: "/assets/b_beef_chunks.png",
     },
   ],
   bottomInfo: [

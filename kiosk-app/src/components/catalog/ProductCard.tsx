@@ -45,7 +45,7 @@ export function ProductCard({ product, category }: ProductCardProps) {
           alt={product.title}
           fill
           sizes="20vw"
-          className="object-contain transition-transform duration-300 group-hover:scale-105"
+          className="object-contain"
         />
 
         {/* Favorite Heart Button */}

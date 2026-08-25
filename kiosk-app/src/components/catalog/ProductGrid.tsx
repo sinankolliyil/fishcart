@@ -243,7 +243,7 @@ export function ProductGrid({
                             alt={product.title}
                             fill
                             sizes="10vw"
-                            className="object-contain transition-transform duration-300 group-hover:scale-105"
+                            className="object-contain"
                           />
                         </div>
 
