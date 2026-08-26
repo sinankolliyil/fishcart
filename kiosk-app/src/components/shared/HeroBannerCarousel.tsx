@@ -11,25 +11,25 @@ const SLIDES = [
       'Caught daily, packed hygienically, and delivered fresh to your doorstep.',
   },
   {
-    image: '/assets/meat_showcase.png',
+    image: '/assets/fresh_fish_on_ice_1783634420753.png',
     title: 'Premium Cut Meats',
     description:
       'Tender, juicy cuts of mutton and beef sourced from certified farms.',
   },
   {
-    image: '/assets/chicken_showcase.png',
+    image: '/assets/fresh_fish_on_ice_1783634420753.png',
     title: 'Farm Fresh Chicken',
     description:
       '100% natural, antibiotic-free chicken prepared fresh for every order.',
   },
   {
-    image: '/assets/eggs_showcase.png',
+    image: '/assets/fresh_fish_on_ice_1783634420753.png',
     title: 'Nutritious Farm Eggs',
     description:
       'Freshly sourced organic and free-range eggs rich in high-quality protein.',
   },
   {
-    image: '/assets/fish_showcase.png',
+    image: '/assets/fresh_fish_on_ice_1783634420753.png',
     title: 'Gourmet Seafood Delights',
     description:
       'Premium salmon, prawns, and exotic seafood frozen at peak freshness.',
@@ -347,11 +347,11 @@ export function HeroBannerCarousel() {
             <div className="pointer-events-none absolute inset-0 z-20">
               <div className="flex h-full items-start pt-[calc(var(--hero-ribbon-h)+clamp(16px,2vw,32px))]">
                 <div className="ml-[8%] max-w-[520px] text-white">
-                  <h2 className="text-[clamp(30px,3.5vw,44px)] leading-[1.08] font-extrabold tracking-tight !text-white ">
+                  <h2 className="text-[clamp(30px,3.5vw,44px)] leading-[1.08] font-extrabold tracking-tight !text-white">
                     {slide.title}
                   </h2>
 
-                  <p className="mt-3 text-[18px] leading-[1.4] font-medium text-slate-200 ">
+                  <p className="mt-3 text-[18px] leading-[1.4] font-medium text-slate-200">
                     {slide.description}
                   </p>
                 </div>
@@ -409,7 +409,7 @@ export function HeroBannerCarousel() {
             onClick={() => handleDotClick(idx)}
             className={`cursor-pointer transition-all duration-300 focus:outline-none ${
               activeDotIndex === idx
-                ? 'h-1.5 w-6 rounded-full bg-white '
+                ? 'h-1.5 w-6 rounded-full bg-white'
                 : 'h-1.5 w-1.5 rounded-full bg-white/40 hover:bg-white/70'
             }`}
             aria-label={`Go to slide ${idx + 1}`}
