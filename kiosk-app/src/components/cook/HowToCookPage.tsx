@@ -157,6 +157,27 @@ const ALL_RECIPES: Recipe[] = [
     ],
   },
   {
+    id: 9,
+    title: 'SPICY FISH TACOS',
+    subtitle: 'Fresh & zesty',
+    time: '15:00',
+    img: '/assets/fish.png',
+    category: 'Fish',
+    rating: '4.9',
+    reviews: 312,
+    likes: 215,
+    description: 'Crispy fried fish wrapped in soft tortillas with a zesty slaw.',
+    overviewShort: 'Fresh & zesty',
+    overviewFull: 'A colorful mix of crispy fried fish, crunchy cabbage slaw, and a spicy crema wrapped in soft corn tortillas.',
+    ingredients: [
+      '500g White Fish',
+      '8 Corn Tortillas',
+      '1 cup Shredded Cabbage',
+      'Spicy Crema',
+      'Lime wedges',
+    ],
+  },
+  {
     id: 6,
     title: 'GRILLED STEAK',
     subtitle: 'Juicy & tender',
@@ -270,27 +291,18 @@ export function HowToCookPage() {
     setRecipeState([0, 1]);
   };
 
-  const handleRecipeClick = (index: number) => {
-    if (index === recipeIndex) return;
-    // Determine direction based on index difference
-    const dir = index > recipeIndex ? 1 : -1;
-    setRecipeState([index, dir]);
-  };
-
-  const CATEGORIES: Category[] = ['Fish', 'Meat', 'Chicken', 'Egg'];
-
-  const handleNext = () => {
-    const currentIndex = CATEGORIES.indexOf(activeCategory);
-    const nextIndex = (currentIndex + 1) % CATEGORIES.length;
-    setActiveCategory(CATEGORIES[nextIndex]);
-    setRecipeState([0, 1]);
-  };
-
-  const handlePrev = () => {
-    const currentIndex = CATEGORIES.indexOf(activeCategory);
-    const prevIndex = currentIndex === 0 ? CATEGORIES.length - 1 : currentIndex - 1;
-    setActiveCategory(CATEGORIES[prevIndex]);
-    setRecipeState([0, -1]);
+  const handleRecipeSelect = (recipe: Recipe) => {
+    if (recipe.category !== activeCategory) {
+      setActiveCategory(recipe.category);
+      const categoryRecipes = ALL_RECIPES.filter((r) => r.category === recipe.category);
+      const targetIndex = categoryRecipes.findIndex((r) => r.id === recipe.id);
+      setRecipeState([targetIndex, 1]);
+    } else {
+      const targetIndex = filteredRecipes.findIndex((r) => r.id === recipe.id);
+      if (targetIndex === recipeIndex) return;
+      const targetDirection = targetIndex > recipeIndex ? 1 : -1;
+      setRecipeState([targetIndex, targetDirection]);
+    }
   };
 
   // --- Animation Variants ---
@@ -308,7 +320,7 @@ export function HowToCookPage() {
       scale: 1,
       transition: {
         duration: 0.9,
-        ease: [0.34, 1.56, 0.64, 1] as [number, number, number, number],
+        ease: 'easeOut' as const,
       },
     },
     exit: (dir: number) => ({
@@ -317,7 +329,7 @@ export function HowToCookPage() {
       scale: 0.6,
       transition: {
         duration: 0.9,
-        ease: [0.34, 1.56, 0.64, 1] as [number, number, number, number],
+        ease: 'easeOut' as const,
       },
     }),
   };
@@ -331,14 +343,14 @@ export function HowToCookPage() {
       rotate: 0,
       transition: {
         duration: 0.9,
-        ease: [0.34, 1.56, 0.64, 1] as [number, number, number, number],
+        ease: 'easeOut' as const,
       },
     },
     exit: (dir: number) => ({
       rotate: dir === 1 ? 90 : -90,
       transition: {
         duration: 0.9,
-        ease: [0.34, 1.56, 0.64, 1] as [number, number, number, number],
+        ease: 'easeOut' as const,
       },
     }),
   };
@@ -351,7 +363,7 @@ export function HowToCookPage() {
   };
 
   return (
-    <div className="relative flex h-full w-full flex-col overflow-hidden bg-white font-sans select-none">
+    <div className="relative flex h-full w-full flex-col overflow-hidden rounded-[20px] bg-white font-sans select-none">
       {/* ─── Top Breadcrumbs ─── */}
       <nav className="absolute top-[16px] left-[24px] z-30 flex items-center gap-1 select-none">
         <Link
@@ -367,7 +379,7 @@ export function HowToCookPage() {
       </nav>
 
       {/* ─── Top Hero Section ─── */}
-      <div className="flex min-h-0 flex-1 pt-[20px] pr-[40px] pb-[10px] pl-[40px]">
+      <div className="flex h-[40vh] min-h-0 shrink-0 pt-[20px] pr-[40px] pb-[10px] pl-[40px]">
         {/* Left: Main Image (Animated Arc) */}
         <div className="relative flex h-full w-[45%] shrink-0 items-center justify-center">
           <AnimatePresence initial={false} custom={direction} mode="popLayout">
@@ -380,7 +392,7 @@ export function HowToCookPage() {
               exit="exit"
               // Set origin far above to create an upward circular arc path
               style={{ transformOrigin: 'center -150%' }}
-              className="absolute flex h-[90%] w-[90%] items-center justify-center"
+              className="absolute flex w-[95%] aspect-[16/9] items-center justify-center"
             >
               {/* Inner counter-rotating container */}
               <motion.div
@@ -415,7 +427,7 @@ export function HowToCookPage() {
                 {activeRecipe.subtitle}
               </p>
 
-              <h1 className="max-w-[400px] text-[48px] leading-[1.1] font-black tracking-tight text-[#1A1A1A] uppercase">
+              <h1 className="max-w-[400px] text-[40px] leading-[1.1] font-black tracking-tight text-[#1A1A1A] uppercase">
                 {activeRecipe.title}
               </h1>
 
@@ -449,8 +461,8 @@ export function HowToCookPage() {
         </div>
 
         {/* Right: Floating Info Card */}
-        <div className="z-10 flex w-[280px] shrink-0 items-center justify-center">
-          <div className="w-full rounded-[24px] bg-white p-[24px] shadow-xl">
+        <div className="z-10 flex w-[280px] shrink-0 items-center justify-center py-2">
+          <div className="flex h-full w-full flex-col rounded-[24px] border border-slate-200 bg-white p-[16px] shadow-xl">
             {/* Tabs */}
             <div className="mb-[20px] flex gap-[20px] border-b border-slate-100">
               <button
@@ -491,54 +503,27 @@ export function HowToCookPage() {
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -10 }}
                 transition={{ duration: 0.3 }}
+                className="flex-1 overflow-y-auto pr-2"
+                style={{ scrollbarWidth: 'none' }}
               >
                 {activeTab === 'overview' ? (
                   <div className="flex flex-col">
-                    <div className="mb-[16px] flex items-center gap-2">
-                      <div className="flex flex-col items-center rounded-xl bg-[#C1DF97] px-4 py-2">
-                        <span className="text-[24px] leading-none font-black text-[#1A1A1A]">
+                    <div className="mb-[8px] flex items-center gap-2">
+                      <div className="flex w-fit items-center gap-1.5 rounded-md bg-[#C1DF97] px-3 py-1">
+                        <span className="text-[18px] font-black text-[#1A1A1A]">
                           {activeRecipe.rating}
                         </span>
-                        <Star className="mt-1 h-3 w-3 fill-current text-[#1A1A1A]" />
+                        <Star className="h-3.5 w-3.5 fill-current text-[#1A1A1A]" />
                       </div>
                     </div>
 
                     <h3 className="mb-1 text-[18px] font-bold text-[#1A1A1A]">
                       {activeRecipe.overviewShort}
                     </h3>
-                    <p className="mb-4 text-[13px] font-medium text-slate-500">
-                      ({activeRecipe.reviews} reviews)
-                    </p>
 
                     <p className="mb-[24px] text-[14px] leading-relaxed text-slate-600">
                       {activeRecipe.overviewFull}
                     </p>
-
-                    <div className="flex items-center gap-[12px]">
-                      <button
-                        onClick={handleLike}
-                        className={cn(
-                          'flex items-center gap-2 rounded-full px-4 py-2 text-[13px] font-bold transition-colors',
-                          userLikes[activeRecipe.id] === 'like'
-                            ? 'bg-red-500 text-white hover:bg-red-600'
-                            : 'bg-slate-100 text-[#1A1A1A] hover:bg-slate-200'
-                        )}
-                      >
-                        <ThumbsUp className="h-4 w-4 fill-current" />
-                        {displayLikes} likes
-                      </button>
-                      <button
-                        onClick={handleDislike}
-                        className={cn(
-                          'flex items-center justify-center rounded-full p-2 transition-colors',
-                          userLikes[activeRecipe.id] === 'dislike'
-                            ? 'bg-red-500 text-white hover:bg-red-600'
-                            : 'bg-slate-100 text-slate-400 hover:bg-slate-200 hover:text-slate-600'
-                        )}
-                      >
-                        <ThumbsDown className="h-4 w-4 fill-current" />
-                      </button>
-                    </div>
                   </div>
                 ) : (
                   <div className="flex flex-col text-[14px] text-slate-600">
@@ -551,190 +536,134 @@ export function HowToCookPage() {
                 )}
               </motion.div>
             </AnimatePresence>
+
+            {/* Fixed Action Buttons */}
+            <div className="mt-auto flex items-center justify-between">
+              <button
+                onClick={handleLike}
+                className={cn(
+                  'flex items-center gap-2 rounded-full px-4 py-2 text-[13px] font-bold transition-colors',
+                  userLikes[activeRecipe.id] === 'like'
+                    ? 'bg-red-500 text-white hover:bg-red-600'
+                    : 'bg-slate-100 text-[#1A1A1A] hover:bg-slate-200'
+                )}
+              >
+                <ThumbsUp className="h-4 w-4 fill-current" />
+                {displayLikes} likes
+              </button>
+              <button
+                onClick={handleDislike}
+                className={cn(
+                  'flex items-center justify-center rounded-full p-2 transition-colors',
+                  userLikes[activeRecipe.id] === 'dislike'
+                    ? 'bg-red-500 text-white hover:bg-red-600'
+                    : 'bg-slate-100 text-slate-400 hover:bg-slate-200 hover:text-slate-600'
+                )}
+              >
+                <ThumbsDown className="h-4 w-4 fill-current" />
+              </button>
+            </div>
           </div>
         </div>
       </div>
 
-      {/* ─── Middle Carousel Section ─── */}
-      <div className="relative z-20 mt-[20px] flex h-[220px] shrink-0 items-center justify-center px-[40px]">
-        <button
-          onClick={handlePrev}
-          className="mr-[20px] flex h-[40px] w-[40px] shrink-0 items-center justify-center rounded-full bg-white shadow-md transition-transform hover:bg-slate-50 active:scale-95"
-        >
-          <ChevronLeft className="h-6 w-6 text-[#1A1A1A]" />
-        </button>
-
-        <div className="flex flex-1 justify-center gap-[30px] px-4">
-          {filteredRecipes.slice(0, 5).map((recipe, index) => (
-            <button
-              key={recipe.id}
-              onClick={() => handleRecipeClick(index)}
-              className="group flex w-[120px] flex-col items-center"
-            >
-              <div
-                className={cn(
-                  'relative mb-[12px] h-[100px] w-[100px] rounded-full p-[2px] transition-all duration-300',
-                  activeRecipe.id === recipe.id
-                    ? 'scale-110 bg-red-500'
-                    : 'bg-transparent hover:scale-105 hover:bg-slate-300'
-                )}
+      {/* ─── Bottom Category Filter ─── */}
+      <div className="relative z-20 mt-[10px] flex h-[75px] shrink-0 items-center justify-center px-[40px] pb-[20px]">
+        <div className="flex h-full w-full max-w-[800px] items-center rounded-full bg-slate-100 p-1.5">
+          {(['Fish', 'Meat', 'Chicken', 'Egg'] as Category[]).map((cat) => {
+            const Icon =
+              cat === 'Fish'
+                ? Fish
+                : cat === 'Meat'
+                ? Beef
+                : cat === 'Chicken'
+                ? Drumstick
+                : Egg;
+            const isActive = activeCategory === cat;
+            
+            return (
+              <button
+                key={cat}
+                onClick={() => handleCategoryChange(cat)}
+                className="group relative flex h-full flex-1 items-center justify-center gap-2 rounded-full"
               >
-                <div className="relative h-full w-full overflow-hidden rounded-full border-2 border-white bg-white shadow-inner">
+                {isActive && (
+                  <motion.div
+                    layoutId="activeTabPill"
+                    className="absolute inset-0 rounded-full bg-white shadow-sm"
+                    transition={{ type: 'spring', bounce: 0.2, duration: 0.6 }}
+                  />
+                )}
+                <div className="relative z-10 flex items-center gap-2">
+                  <Icon
+                    className={cn(
+                      'h-5 w-5 stroke-[2]',
+                      isActive
+                        ? 'text-red-500'
+                        : 'text-slate-500 group-hover:text-slate-700'
+                    )}
+                  />
+                  <span
+                    className={cn(
+                      'text-[15px] font-bold transition-colors',
+                      isActive
+                        ? 'text-red-500'
+                        : 'text-slate-500 group-hover:text-slate-700'
+                    )}
+                  >
+                    {cat}
+                  </span>
+                </div>
+              </button>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* ─── Recipe Library Grid Section ─── */}
+      <div className="flex-1 overflow-y-auto snap-y snap-mandatory">
+        {Array.from({ length: Math.ceil(filteredRecipes.length / 5) }).map((_, rowIndex) => (
+          <div
+            key={rowIndex}
+            className="mx-auto grid h-full w-full max-w-[1400px] shrink-0 snap-start grid-cols-5 gap-6 px-[40px] pt-[20px] pb-[40px]"
+          >
+            {filteredRecipes.slice(rowIndex * 5, rowIndex * 5 + 5).map((recipe) => (
+              <div
+                key={recipe.id}
+                onClick={() => handleRecipeSelect(recipe)}
+                className="group relative flex flex-col h-full w-full cursor-pointer overflow-hidden transition-transform hover:-translate-y-1"
+              >
+                {/* Smaller image container */}
+                <div className="relative w-full aspect-square overflow-hidden rounded-[16px] bg-slate-100 shadow-md">
                   <Image
                     src={recipe.img}
                     alt={recipe.title}
                     fill
-                    className="object-cover"
+                    className="object-cover transition-transform duration-500 group-hover:scale-110"
                   />
+                  
+                  {/* Overlay on hover for selection effect */}
+                  <div className="absolute inset-0 bg-black/0 transition-colors duration-300 group-hover:bg-black/10" />
+                  
+                  {/* Optional: Show active state */}
+                  {activeRecipe.id === recipe.id && (
+                    <div className="absolute inset-0 border-4 border-red-500 rounded-[16px]" />
+                  )}
+                </div>
+
+                {/* Title outside */}
+                <div className="mt-3 flex w-full flex-col px-1">
+                  <h4 className="line-clamp-2 text-[14px] font-bold text-[#1A1A1A] leading-tight group-hover:text-red-500 transition-colors">
+                    {recipe.title}
+                  </h4>
+                  <p className="mt-1 text-[12px] font-medium text-slate-500">
+                    {recipe.category}
+                  </p>
                 </div>
               </div>
-              <h4 className="text-center text-[13px] leading-tight font-bold text-[#1A1A1A]">
-                {recipe.title
-                  .split(' ')
-                  .map((w) => w.charAt(0) + w.slice(1).toLowerCase())
-                  .join(' ')}
-              </h4>
-              <p className="mt-1 text-[12px] font-medium text-slate-500">
-                {recipe.time}
-              </p>
-            </button>
-          ))}
-        </div>
-
-        <button
-          onClick={handleNext}
-          className="ml-[20px] flex h-[40px] w-[40px] shrink-0 items-center justify-center rounded-full bg-white shadow-md transition-transform hover:bg-slate-50 active:scale-95"
-        >
-          <ChevronRight className="h-6 w-6 text-[#1A1A1A]" />
-        </button>
-      </div>
-
-      {/* ─── Bottom Category Filter ─── */}
-      <div className="relative z-20 flex h-[80px] shrink-0 items-center justify-center px-[40px] pb-[20px]">
-        <div className="flex h-full w-full max-w-[1000px] items-center justify-around rounded-[24px] bg-white px-[20px] shadow-sm">
-          <button
-            onClick={() => handleCategoryChange('Fish')}
-            className="group relative flex h-full flex-1 items-center justify-center gap-3"
-          >
-            <Fish
-              className={cn(
-                'h-6 w-6 stroke-[1.5]',
-                activeCategory === 'Fish'
-                  ? 'text-red-500'
-                  : 'text-[#1A1A1A] group-hover:text-slate-600'
-              )}
-            />
-            <span
-              className={cn(
-                'text-[16px] font-bold transition-colors',
-                activeCategory === 'Fish'
-                  ? 'text-red-500'
-                  : 'text-[#1A1A1A] group-hover:text-slate-600'
-              )}
-            >
-              Fish
-            </span>
-            {activeCategory === 'Fish' && (
-              <motion.div
-                layoutId="activeTab"
-                className="absolute bottom-0 left-1/2 h-[3px] w-[60px] -translate-x-1/2 rounded-t-full bg-red-500"
-              />
-            )}
-            <div className="absolute right-0 h-[40%] w-px bg-slate-200"></div>
-          </button>
-
-          <button
-            onClick={() => handleCategoryChange('Meat')}
-            className="group relative flex h-full flex-1 items-center justify-center gap-3"
-          >
-            <Beef
-              className={cn(
-                'h-6 w-6 stroke-[1.5]',
-                activeCategory === 'Meat'
-                  ? 'text-red-500'
-                  : 'text-[#1A1A1A] group-hover:text-slate-600'
-              )}
-            />
-            <span
-              className={cn(
-                'text-[16px] font-bold transition-colors',
-                activeCategory === 'Meat'
-                  ? 'text-red-500'
-                  : 'text-[#1A1A1A] group-hover:text-slate-600'
-              )}
-            >
-              Meat
-            </span>
-            {activeCategory === 'Meat' && (
-              <motion.div
-                layoutId="activeTab"
-                className="absolute bottom-0 left-1/2 h-[3px] w-[60px] -translate-x-1/2 rounded-t-full bg-red-500"
-              />
-            )}
-            <div className="absolute right-0 h-[40%] w-px bg-slate-200"></div>
-          </button>
-
-          <button
-            onClick={() => handleCategoryChange('Chicken')}
-            className="group relative flex h-full flex-1 items-center justify-center gap-3"
-          >
-            <Drumstick
-              className={cn(
-                'h-6 w-6 stroke-[1.5]',
-                activeCategory === 'Chicken'
-                  ? 'text-red-500'
-                  : 'text-[#1A1A1A] group-hover:text-slate-600'
-              )}
-            />
-            <span
-              className={cn(
-                'text-[16px] font-bold transition-colors',
-                activeCategory === 'Chicken'
-                  ? 'text-red-500'
-                  : 'text-[#1A1A1A] group-hover:text-slate-600'
-              )}
-            >
-              Chicken
-            </span>
-            {activeCategory === 'Chicken' && (
-              <motion.div
-                layoutId="activeTab"
-                className="absolute bottom-0 left-1/2 h-[3px] w-[60px] -translate-x-1/2 rounded-t-full bg-red-500"
-              />
-            )}
-            <div className="absolute right-0 h-[40%] w-px bg-slate-200"></div>
-          </button>
-
-          <button
-            onClick={() => handleCategoryChange('Egg')}
-            className="group relative flex h-full flex-1 items-center justify-center gap-3"
-          >
-            <Egg
-              className={cn(
-                'h-6 w-6 stroke-[1.5]',
-                activeCategory === 'Egg'
-                  ? 'text-red-500'
-                  : 'text-[#1A1A1A] group-hover:text-slate-600'
-              )}
-            />
-            <span
-              className={cn(
-                'text-[16px] font-bold transition-colors',
-                activeCategory === 'Egg'
-                  ? 'text-red-500'
-                  : 'text-[#1A1A1A] group-hover:text-slate-600'
-              )}
-            >
-              Egg
-            </span>
-            {activeCategory === 'Egg' && (
-              <motion.div
-                layoutId="activeTab"
-                className="absolute bottom-0 left-1/2 h-[3px] w-[60px] -translate-x-1/2 rounded-t-full bg-red-500"
-              />
-            )}
-          </button>
-        </div>
+            ))}
+          </div>
+        ))}
       </div>
 
       {/* ─── Video Modal ─── */}
