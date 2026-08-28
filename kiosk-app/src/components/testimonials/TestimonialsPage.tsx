@@ -883,12 +883,8 @@ export function TestimonialsPage() {
               {/* Top Banner */}
               <div className="flex items-center gap-[24px] bg-[#F8FBFF] p-[24px]">
                 {/* Left Illustration placeholder */}
-                <div className="relative flex h-[65px] w-[90px] shrink-0 items-center justify-center">
-                  <MessageSquareHeart className="absolute -bottom-4 -left-4 h-full w-full text-[#0D55CF] opacity-20" />
-                  <MessageSquareHeart className="relative z-10 h-[80%] w-[80%] text-[#0D55CF]" />
-                  <Star className="absolute top-0 left-0 h-[16px] w-[16px] fill-blue-400 text-blue-400" />
-                  <Star className="absolute top-4 right-0 h-[14px] w-[14px] fill-blue-300 text-blue-300" />
-                  <Star className="absolute -right-4 bottom-4 h-[12px] w-[12px] fill-blue-500 text-blue-500" />
+                <div className="relative flex h-[60px] w-[60px] shrink-0 items-center justify-center rounded-full bg-blue-100 shadow-inner border border-blue-200">
+                  <MessageSquareHeart className="h-[30px] w-[30px] text-blue-600" />
                 </div>
                 {/* Right Text */}
                 <div className="flex flex-col gap-1">
