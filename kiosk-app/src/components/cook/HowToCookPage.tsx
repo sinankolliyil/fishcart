@@ -161,7 +161,7 @@ const ALL_RECIPES: Recipe[] = [
     title: 'SPICY FISH TACOS',
     subtitle: 'Fresh & zesty',
     time: '15:00',
-    img: '/assets/fish.png',
+    img: '/assets/aa_fish.png',
     category: 'Fish',
     rating: '4.9',
     reviews: 312,

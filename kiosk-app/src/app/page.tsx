@@ -45,7 +45,7 @@ export default function HomePage() {
             <CategoryCard
               title="Fish"
               subtitle="100+ Items"
-              imageSrc="/assets/fish.png"
+              imageSrc="/assets/aa_fish.png"
               variant="fish"
               href="/fish"
               className="h-full"

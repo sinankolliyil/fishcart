@@ -273,7 +273,7 @@ export default function StoryPage() {
               title: 'Ice Packing',
             },
             {
-              img: 'fish.png',
+              img: 'aa_fish.png',
               title: 'Air Freight',
             },
             {
