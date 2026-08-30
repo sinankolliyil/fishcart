@@ -15,6 +15,8 @@ import {
   HeartPulse,
   BookOpen,
   Info,
+  MessageSquareHeart,
+  Users,
   Phone,
   ShieldCheck,
   X,
@@ -32,7 +34,7 @@ const NAV_ITEMS = [
     icon: Drumstick,
     color: 'text-[#F59000]',
   },
-  { href: '/eggs', label: 'Eggs', icon: Egg, color: 'text-[#F5A623]' },
+  { href: '/eggs', label: 'Eggs', icon: Egg, color: 'text-[#10B981]' },
   { href: '/cook', label: 'How to Cook', icon: ChefHat, color: 'text-[#0D55CF]' },
   { href: '/benefits', label: 'Benefits', icon: HeartPulse, color: 'text-[#0D55CF]' },
   {
@@ -41,8 +43,8 @@ const NAV_ITEMS = [
     icon: BookOpen,
     color: 'text-[#0D55CF] ',
   },
-  { href: '/testimonials', label: 'Testimonials', icon: Info, color: 'text-[#0D55CF]' },
-  { href: '/about', label: 'About Us', icon: Info, color: 'text-[#0D55CF]' },
+  { href: '/testimonials', label: 'Testimonials', icon: MessageSquareHeart, color: 'text-[#0D55CF]' },
+  { href: '/about', label: 'About Us', icon: Users, color: 'text-[#0D55CF]' },
   { href: '/contact', label: 'Contact Us', icon: Phone, color: 'text-[#0D55CF]' },
 ];
 
