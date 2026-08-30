@@ -79,7 +79,19 @@ export function AboutPage() {
             </p>
           </div>
 
-           <div className="grid flex-1 grid-cols-4 gap-4">
+          <div className="grid flex-1 grid-cols-4 gap-4">
+            {/* Define the SVG clip path for the custom organic glass card */}
+            <svg width="0" height="0" className="pointer-events-none absolute">
+              <defs>
+                <clipPath id="glass-shape" clipPathUnits="objectBoundingBox">
+                  {/* Main Card */}
+                  <path d="M 0.08 0 H 0.92 Q 1 0 1 0.08 V 0.42 Q 1 0.5 0.93 0.57 L 0.57 0.93 Q 0.5 1 0.42 1 H 0.08 Q 0 1 0 0.92 V 0.08 Q 0 0 0.08 0 Z" />
+                  {/* Small Card */}
+                  <path d="M 0.88 0.75 H 0.92 Q 1 0.75 1 0.83 V 0.92 Q 1 1 0.92 1 H 0.65 Q 0.60 1 0.63 0.97 L 0.82 0.78 Q 0.85 0.75 0.88 0.75 Z" />
+                </clipPath>
+              </defs>
+            </svg>
+
             {[
               { title: 'Fish', img: '/assets/about_fish.png', href: '/fish' },
               { title: 'Meat', img: '/assets/about_meat.png', href: '/meat' },
@@ -93,10 +105,46 @@ export function AboutPage() {
               <Link
                 key={idx}
                 href={cat.href}
-                className="group relative flex h-[220px] w-full flex-col overflow-hidden rounded-[24px] border-2 border-white bg-gradient-to-b from-white/95 to-white/70 shadow-[0_8px_24px_rgba(224,212,210,0.5)] backdrop-blur-md transition-transform duration-300 hover:-translate-y-1"
+                className="group relative flex h-[220px] w-full flex-col transition-transform duration-300 hover:-translate-y-1"
               >
-                {/* Image Container */}
-                <div className="relative mt-1 h-[135px] w-full px-1">
+                {/* Unified Glassmorphism Base (Main + Small Card) */}
+                <div className="absolute inset-0 drop-shadow-[0_6px_12px_rgba(0,0,0,0.08)] filter">
+                  {/* Clipped Glass Background */}
+                  <div
+                    className="absolute inset-0 bg-rose-100/30 backdrop-blur-[16px]"
+                    style={{ clipPath: 'url(#glass-shape)' }}
+                  >
+                    {/* 3D Inner Highlight & Shade (glare top-left, shadow bottom-right) */}
+                    <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-white/80 via-rose-100/20 to-rose-900/10" />
+                  </div>
+
+                  {/* Illuminated SVG Border Overlay */}
+                  <svg
+                    className="pointer-events-none absolute inset-0 h-full w-full"
+                    viewBox="0 0 1 1"
+                    preserveAspectRatio="none"
+                  >
+                    {/* Main Card Stroke */}
+                    <path
+                      d="M 0.08 0 H 0.92 Q 1 0 1 0.08 V 0.42 Q 1 0.5 0.93 0.57 L 0.57 0.93 Q 0.5 1 0.42 1 H 0.08 Q 0 1 0 0.92 V 0.08 Q 0 0 0.08 0 Z"
+                      fill="none"
+                      stroke="rgba(255, 255, 255, 0.8)"
+                      strokeWidth="1.5"
+                      vectorEffect="non-scaling-stroke"
+                    />
+                    {/* Small Card Stroke */}
+                    <path
+                      d="M 0.88 0.75 H 0.92 Q 1 0.75 1 0.83 V 0.92 Q 1 1 0.92 1 H 0.65 Q 0.60 1 0.63 0.97 L 0.82 0.78 Q 0.85 0.75 0.88 0.75 Z"
+                      fill="none"
+                      stroke="rgba(255, 255, 255, 0.8)"
+                      strokeWidth="1.5"
+                      vectorEffect="non-scaling-stroke"
+                    />
+                  </svg>
+                </div>
+
+                {/* Product Image Container */}
+                <div className="relative z-10 mt-2 h-[125px] w-[85%] px-2">
                   <Image
                     src={cat.img}
                     alt={cat.title}
@@ -105,37 +153,16 @@ export function AboutPage() {
                   />
                 </div>
 
-                {/* Inner Glow */}
-                <div className="pointer-events-none absolute inset-0 rounded-[24px] shadow-[inset_0_0_12px_rgba(255,255,255,1)]" />
-
-                {/* Title */}
-                <div className="absolute bottom-4 left-5 z-20 text-[22px] font-extrabold tracking-tight text-[#1e293b]">
-                  <span className="text-[#E63946]">{cat.title.charAt(0)}</span>
+                {/* Product Title */}
+                <div className="absolute bottom-5 left-5 z-20 text-[22px] font-extrabold tracking-tight text-[#0E1A2B]">
+                  <span className="text-[#EF1D23]">{cat.title.charAt(0)}</span>
                   {cat.title.slice(1)}
                 </div>
 
-                {/* --- Seamless Geometric Cutout --- */}
-                <svg
-                  className="pointer-events-none absolute right-[-2px] bottom-[-2px] z-10 h-[64px] w-[110px]"
-                  viewBox="0 0 110 64"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M 110 64 H 0 Q 16 64, 24 44 L 24 32 Q 24 12, 40 12 L 90 12 Q 110 12, 110 0 Z"
-                    fill="#F8F2EF"
-                  />
-                  <path
-                    d="M 0 64 Q 16 64, 24 44 L 24 32 Q 24 12, 40 12 L 90 12 Q 110 12, 110 0"
-                    stroke="white"
-                    strokeWidth="4"
-                  />
-                </svg>
-
-                {/* Arrow Navigation Tab */}
-                <div className="absolute right-3 bottom-3 z-20 flex h-[32px] w-[48px] items-center justify-center rounded-full border border-white bg-white shadow-[0_4px_12px_rgba(220,200,200,0.6)] transition-transform group-hover:translate-x-1">
+                {/* Arrow Navigation Icon (Centered perfectly in the small card's bounding box) */}
+                <div className="absolute top-[75%] left-[70%] z-20 flex h-[25%] w-[30%] items-center justify-center transition-transform duration-300 group-hover:translate-x-1">
                   <ArrowRight
-                    className="h-4 w-4 text-[#E63946]"
+                    className="h-5 w-5 text-[#EF1D23]"
                     strokeWidth={2.5}
                   />
                 </div>
