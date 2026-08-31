@@ -364,19 +364,7 @@ export function HowToCookPage() {
 
   return (
     <div className="relative flex h-full w-full flex-col overflow-hidden rounded-[20px] bg-white font-sans select-none">
-      {/* ─── Top Breadcrumbs ─── */}
-      <nav className="z-30 flex shrink-0 items-center gap-1 px-[40px] pt-[24px] select-none">
-        <Link
-          href="/"
-          className="text-[clamp(11px,min(1vw,1.4svh),14px)] font-bold text-[#64748B] transition-colors hover:text-[#0D55CF]"
-        >
-          Home
-        </Link>
-        <ChevronRight className="h-3 w-3 text-[#64748B]" />
-        <span className="text-[clamp(11px,min(1vw,1.4svh),14px)] font-bold text-[#334155]">
-          How to Cook
-        </span>
-      </nav>
+
 
       {/* ─── Top Hero Section ─── */}
       <div className="flex min-h-[350px] shrink-0 pt-[16px] pr-[40px] pb-[10px] pl-[40px]">

@@ -19,13 +19,7 @@ export default function StoryPage() {
       <div className="grid min-h-0 grid-cols-[40fr_20fr_40fr] gap-2 overflow-hidden lg:gap-3 xl:grid-cols-[38fr_28fr_34fr] xl:gap-[var(--main-gap)]">
         {/* Left Side: Intro */}
         <div className="flex min-h-0 flex-col justify-start pt-[clamp(8px,1vw,16px)] pl-[clamp(8px,1vw,16px)]">
-          <nav className="mb-[clamp(8px,1vw,20px)] flex shrink-0 items-center gap-2 text-[12px] font-bold lg:text-[13px] xl:text-[clamp(9px,0.8vw,12px)]">
-            <Link href="/" className="text-blue-600 hover:underline">
-              Home
-            </Link>
-            <ChevronRight className="h-[clamp(10px,1vw,14px)] w-[clamp(10px,1vw,14px)] text-slate-400" />
-            <span className="text-slate-500">Our Stories</span>
-          </nav>
+
 
           <h1 className="mb-[clamp(4px,0.6vw,12px)] shrink-0 text-[clamp(24px,3vw,48px)] leading-none font-bold text-slate-900">
             Our Story

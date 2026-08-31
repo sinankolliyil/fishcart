@@ -156,7 +156,7 @@ export function FilterSidebar({
       </div>
 
       {/* Options List Container - Vertically scrollable with custom minimal scrollbar */}
-      <div className="scrollbar-minimal min-h-0 flex-1 overflow-x-hidden overflow-y-auto pr-1">
+      <div className="scrollbar-minimal min-h-0 flex-1 overflow-x-hidden overflow-y-auto pr-1 pb-4">
         {' '}
         {filterSections.map((section) => {
           const visibleOptions = section.options;
@@ -243,7 +243,7 @@ export function FilterSidebar({
       <button
         onClick={onApply}
         className={cn(
-          'flex w-full shrink-0 cursor-pointer items-center justify-center rounded-[8px] py-2 text-[clamp(12px,min(1.1vw,1.55svh),16px)] font-bold text-white  transition-all duration-150',
+          'mt-3 flex w-full shrink-0 cursor-pointer items-center justify-center rounded-[8px] py-2 text-[clamp(12px,min(1.1vw,1.55svh),16px)] font-bold text-white  transition-all duration-150',
           applyBtnClass
         )}
       >

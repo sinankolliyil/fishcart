@@ -63,28 +63,7 @@ export function CatalogHero({
 
       {/* Left Content Area */}
       <div className="relative z-10 flex min-h-0 max-w-[65%] flex-1 flex-col justify-center">
-        {/* Breadcrumbs */}
-        <nav className="mb-[clamp(1px,0.2vw,4px)] flex items-center gap-1 select-none">
-          {breadcrumb.map((crumb, idx) => (
-            <React.Fragment key={idx}>
-              {idx > 0 && (
-                <ChevronRight className="text-text-muted h-2.5 w-2.5" />
-              )}
-              {crumb.href ? (
-                <Link
-                  href={crumb.href}
-                  className={cn("text-[clamp(10px,min(0.9vw,1.2svh),14px)] font-bold transition-colors", currentDarkTextColor, "opacity-90 hover:opacity-100")}
-                >
-                  {crumb.label}
-                </Link>
-              ) : (
-                <span className={cn("text-[clamp(10px,min(0.9vw,1.2svh),14px)] font-bold", currentDarkTextColor)}>
-                  {crumb.label}
-                </span>
-              )}
-            </React.Fragment>
-          ))}
-        </nav>
+
 
         {/* Title */}
         <h2 className={cn("text-[clamp(32px,min(3vw,4svh),44px)] leading-tight font-bold tracking-tight", currentDarkTextColor)}>
@@ -93,19 +72,16 @@ export function CatalogHero({
 
         {/* Squeegly Wave SVG Line */}
         <svg
-          width="36"
-          height="6"
-          viewBox="0 0 36 6"
+          viewBox="0 0 80 12"
+          className={`my-[clamp(2px,0.25vw,6px)] h-[clamp(8px,1vw,12px)] w-[clamp(50px,6vw,70px)] shrink-0 ${waveColor}`}
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
-          className={`my-[clamp(2px,0.25vw,6px)] shrink-0 ${waveColor}`}
         >
           <path
-            d="M1 3C5 3 7 1 11 1C15 1 17 5 21 5C25 5 27 1 31 1C35 1 37 3 35 3"
+            d="M0 6 Q10 0 20 6 T40 6 T60 6 T80 6"
             stroke="currentColor"
-            strokeWidth="3"
+            strokeWidth="3.5"
             strokeLinecap="round"
-            strokeLinejoin="round"
           />
         </svg>
 

@@ -797,37 +797,30 @@ export function TestimonialsPage() {
     <div className="grid h-full min-h-0 w-full grid-rows-[minmax(0,89fr)_minmax(0,10fr)] gap-[var(--main-gap)] overflow-hidden">
       {/* ── Main Content ── */}
       <div className="flex min-h-0 flex-col gap-[12px] overflow-hidden">
-        {/* Breadcrumb */}
-        <nav className="flex shrink-0 items-center gap-1.5 text-[12px] font-semibold">
-          <Link href="/" className="text-[#0D55CF] hover:underline">
-            Home
-          </Link>
-          <ChevronRight className="h-[10px] w-[10px] text-slate-400" />
-          <span className="text-slate-500">Testimonials</span>
-        </nav>
+
 
         {/* ── ROW A: Hero + Platform tabs ── */}
         <div className="grid shrink-0 grid-cols-[1fr_auto] gap-[18px]">
           {/* Left: heading + tabs */}
           <div className="flex min-w-0 flex-col gap-[12px]">
-            <div>
-              <h1 className="text-[32px] leading-tight font-bold text-slate-900">
+            <div className="relative overflow-hidden rounded-[8px] bg-gradient-to-r from-[#F4F9FF] via-[#EAF3FF] to-[#D4E6FC] flex flex-col justify-center border border-white/20 px-[clamp(8px,1.2vw,18px)] py-[clamp(6px,0.8vw,12px)]">
+              <h1 className="text-[clamp(32px,min(3vw,4svh),44px)] leading-tight font-bold tracking-tight text-[#102B7B]">
                 What Our Customers Say
               </h1>
               {/* Decorative wave */}
               <svg
                 viewBox="0 0 80 12"
-                className="mt-0.5 h-[10px] w-[70px]"
+                className="mt-0.5 h-[clamp(8px,1vw,12px)] w-[clamp(50px,6vw,70px)]"
                 fill="none"
               >
                 <path
                   d="M0 6 Q10 0 20 6 T40 6 T60 6 T80 6"
                   stroke="#0D55CF"
-                  strokeWidth="2.5"
+                  strokeWidth="3.5"
                   strokeLinecap="round"
                 />
               </svg>
-              <p className="mt-[6px] text-[13px] leading-snug text-slate-500">
+              <p className="text-[clamp(11px,min(1vw,1.4svh),15px)] font-bold mt-[clamp(2px,0.5vw,8px)] opacity-90 text-[#102B7B]">
                 We value every feedback. Here's what our amazing customers have
                 to say about
                 <br />

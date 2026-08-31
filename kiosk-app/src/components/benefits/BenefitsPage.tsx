@@ -176,13 +176,7 @@ export function BenefitsPage() {
 
         {/* Content */}
         <div className="relative z-10 flex flex-col justify-center text-slate-900">
-          <nav className="mb-2 flex items-center gap-1 text-slate-500 select-none">
-            <Link href="/" className="text-[13px] font-bold hover:text-slate-900 transition-colors">
-              Home
-            </Link>
-            <ChevronRight className="h-3 w-3" />
-            <span className="text-[13px] font-bold text-slate-900">Benefits</span>
-          </nav>
+
           
           <h2 className="text-[42px] font-bold tracking-tight leading-none drop-shadow-sm">
             Nutritional Value
