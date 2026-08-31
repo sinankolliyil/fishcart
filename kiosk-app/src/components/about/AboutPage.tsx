@@ -37,7 +37,7 @@ export function AboutPage() {
 
           {/* 1. Hero Section */}
           <div className="relative z-10 flex min-h-[400px] w-full items-center justify-start">
-            <div className="-mt-45 flex w-1/2 flex-col pr-10">
+            <div className="-mt-35 flex w-1/2 flex-col pr-10">
               <div className="mb-2 flex items-center gap-2">
                 <span className="text-sm font-bold text-red-600 italic">
                   About Us
