@@ -365,7 +365,7 @@ export function HowToCookPage() {
   return (
     <div className="relative flex h-full w-full flex-col overflow-hidden rounded-[20px] bg-white font-sans select-none">
       {/* ─── Top Breadcrumbs ─── */}
-      <nav className="absolute top-[16px] left-[24px] z-30 flex items-center gap-1 select-none">
+      <nav className="z-30 flex shrink-0 items-center gap-1 px-[40px] pt-[24px] select-none">
         <Link
           href="/"
           className="text-[clamp(11px,min(1vw,1.4svh),14px)] font-bold text-[#64748B] transition-colors hover:text-[#0D55CF]"
@@ -379,9 +379,9 @@ export function HowToCookPage() {
       </nav>
 
       {/* ─── Top Hero Section ─── */}
-      <div className="flex h-[40vh] min-h-0 shrink-0 pt-[20px] pr-[40px] pb-[10px] pl-[40px]">
+      <div className="flex min-h-[350px] shrink-0 pt-[16px] pr-[40px] pb-[10px] pl-[40px]">
         {/* Left: Main Image (Animated Arc) */}
-        <div className="relative flex h-full w-[45%] shrink-0 items-center justify-center">
+        <div className="relative flex h-full w-[40%] shrink-0 items-center justify-center">
           <AnimatePresence initial={false} custom={direction} mode="popLayout">
             <motion.div
               key={activeRecipe.id}
@@ -392,7 +392,7 @@ export function HowToCookPage() {
               exit="exit"
               // Set origin far above to create an upward circular arc path
               style={{ transformOrigin: 'center -150%' }}
-              className="absolute flex w-[95%] aspect-[16/9] items-center justify-center"
+              className="absolute flex h-[90%] w-[95%] items-center justify-center"
             >
               {/* Inner counter-rotating container */}
               <motion.div
@@ -413,7 +413,7 @@ export function HowToCookPage() {
         </div>
 
         {/* Center: Title & Actions (Animated Crossfade) */}
-        <div className="relative flex flex-1 flex-col justify-center px-[30px] pt-[40px]">
+        <div className="relative flex flex-1 flex-col justify-center px-[30px]">
           <AnimatePresence mode="wait">
             <motion.div
               key={activeRecipe.id}
@@ -427,11 +427,11 @@ export function HowToCookPage() {
                 {activeRecipe.subtitle}
               </p>
 
-              <h1 className="max-w-[400px] text-[40px] leading-[1.1] font-black tracking-tight text-[#1A1A1A] uppercase">
+              <h1 className="max-w-[420px] text-[clamp(28px,3vw,40px)] leading-[1.15] font-black tracking-tight text-[#1A1A1A] uppercase">
                 {activeRecipe.title}
               </h1>
 
-              <div className="mt-[30px] flex items-center gap-[40px]">
+              <div className="mt-[24px] flex items-center gap-[30px]">
                 <button
                   className="group flex items-center gap-2 font-bold text-[#1A1A1A] transition-colors hover:text-[#0D55CF]"
                   onClick={() => setIsVideoModalOpen(true)}
@@ -453,7 +453,7 @@ export function HowToCookPage() {
                 </button>
               </div>
 
-              <p className="mt-[30px] max-w-[320px] text-[16px] leading-[1.6] font-medium text-slate-600">
+              <p className="mt-[24px] max-w-[340px] line-clamp-3 text-[16px] leading-[1.6] font-medium text-slate-600">
                 {activeRecipe.description}
               </p>
             </motion.div>
@@ -461,22 +461,22 @@ export function HowToCookPage() {
         </div>
 
         {/* Right: Floating Info Card */}
-        <div className="z-10 flex w-[280px] shrink-0 items-center justify-center py-2">
+        <div className="z-10 flex w-[280px] shrink-0 items-center justify-center py-4">
           <div className="flex h-full w-full flex-col rounded-[24px] border border-slate-200 bg-white p-[16px] shadow-xl">
             {/* Tabs */}
-            <div className="mb-[20px] flex gap-[20px] border-b border-slate-100">
+            <div className="mb-[16px] flex gap-[20px] border-b border-slate-100">
               <button
                 onClick={() => setActiveTab('overview')}
                 className={cn(
                   'relative pb-3 text-[14px] font-bold transition-colors',
                   activeTab === 'overview'
-                    ? 'text-red-500'
+                    ? 'text-[#0D55CF]'
                     : 'text-slate-400 hover:text-slate-600'
                 )}
               >
                 Overview
                 {activeTab === 'overview' && (
-                  <div className="absolute bottom-[-1px] left-0 h-[2px] w-full rounded-t-full bg-red-500"></div>
+                  <div className="absolute bottom-[-1px] left-0 h-[2px] w-full rounded-t-full bg-[#0D55CF]"></div>
                 )}
               </button>
               <button
@@ -484,13 +484,13 @@ export function HowToCookPage() {
                 className={cn(
                   'relative pb-3 text-[14px] font-bold transition-colors',
                   activeTab === 'ingredients'
-                    ? 'text-red-500'
+                    ? 'text-[#0D55CF]'
                     : 'text-slate-400 hover:text-slate-600'
                 )}
               >
                 Ingredients
                 {activeTab === 'ingredients' && (
-                  <div className="absolute bottom-[-1px] left-0 h-[2px] w-full rounded-t-full bg-red-500"></div>
+                  <div className="absolute bottom-[-1px] left-0 h-[2px] w-full rounded-t-full bg-[#0D55CF]"></div>
                 )}
               </button>
             </div>
@@ -510,24 +510,24 @@ export function HowToCookPage() {
                   <div className="flex flex-col">
                     <div className="mb-[8px] flex items-center gap-2">
                       <div className="flex w-fit items-center gap-1.5 rounded-md bg-[#C1DF97] px-3 py-1">
-                        <span className="text-[18px] font-black text-[#1A1A1A]">
+                        <span className="text-[16px] font-black text-[#1A1A1A]">
                           {activeRecipe.rating}
                         </span>
                         <Star className="h-3.5 w-3.5 fill-current text-[#1A1A1A]" />
                       </div>
                     </div>
 
-                    <h3 className="mb-1 text-[18px] font-bold text-[#1A1A1A]">
+                    <h3 className="mb-1 line-clamp-1 text-[16px] font-bold text-[#1A1A1A]">
                       {activeRecipe.overviewShort}
                     </h3>
 
-                    <p className="mb-[24px] text-[14px] leading-relaxed text-slate-600">
+                    <p className="mb-[16px] text-[13px] leading-relaxed text-slate-600">
                       {activeRecipe.overviewFull}
                     </p>
                   </div>
                 ) : (
-                  <div className="flex flex-col text-[14px] text-slate-600">
-                    <ul className="list-disc space-y-2 pl-5">
+                  <div className="flex flex-col text-[13px] text-slate-600">
+                    <ul className="list-disc space-y-1.5 pl-4">
                       {activeRecipe.ingredients.map((ingredient, i) => (
                         <li key={i}>{ingredient}</li>
                       ))}
@@ -538,17 +538,17 @@ export function HowToCookPage() {
             </AnimatePresence>
 
             {/* Fixed Action Buttons */}
-            <div className="mt-auto flex items-center justify-between">
+            <div className="mt-auto pt-2 flex items-center justify-between border-t border-slate-100">
               <button
                 onClick={handleLike}
                 className={cn(
-                  'flex items-center gap-2 rounded-full px-4 py-2 text-[13px] font-bold transition-colors',
+                  'flex items-center gap-2 rounded-full px-4 py-2 text-[12px] font-bold transition-colors',
                   userLikes[activeRecipe.id] === 'like'
-                    ? 'bg-red-500 text-white hover:bg-red-600'
+                    ? 'bg-[#0D55CF] text-white hover:bg-blue-700'
                     : 'bg-slate-100 text-[#1A1A1A] hover:bg-slate-200'
                 )}
               >
-                <ThumbsUp className="h-4 w-4 fill-current" />
+                <ThumbsUp className="h-3.5 w-3.5 fill-current" />
                 {displayLikes} likes
               </button>
               <button
@@ -556,11 +556,11 @@ export function HowToCookPage() {
                 className={cn(
                   'flex items-center justify-center rounded-full p-2 transition-colors',
                   userLikes[activeRecipe.id] === 'dislike'
-                    ? 'bg-red-500 text-white hover:bg-red-600'
+                    ? 'bg-[#F0314A] text-white hover:bg-red-600'
                     : 'bg-slate-100 text-slate-400 hover:bg-slate-200 hover:text-slate-600'
                 )}
               >
-                <ThumbsDown className="h-4 w-4 fill-current" />
+                <ThumbsDown className="h-3.5 w-3.5 fill-current" />
               </button>
             </div>
           </div>
@@ -568,8 +568,8 @@ export function HowToCookPage() {
       </div>
 
       {/* ─── Bottom Category Filter ─── */}
-      <div className="relative z-20 mt-[10px] flex h-[75px] shrink-0 items-center justify-center px-[40px] pb-[20px]">
-        <div className="flex h-full w-full max-w-[800px] items-center rounded-full bg-slate-100 p-1.5">
+      <div className="relative z-20 mt-[16px] flex h-[60px] shrink-0 items-center justify-center px-[40px] pb-[16px]">
+        <div className="flex h-full w-full max-w-[800px] items-center rounded-full bg-slate-100 p-1.5 shadow-inner">
           {(['Fish', 'Meat', 'Chicken', 'Egg'] as Category[]).map((cat) => {
             const Icon =
               cat === 'Fish'
@@ -581,6 +581,12 @@ export function HowToCookPage() {
                 : Egg;
             const isActive = activeCategory === cat;
             
+            const activeColorClass = 
+              cat === 'Fish' ? 'text-[#0D55CF]' :
+              cat === 'Meat' ? 'text-[#F0314A]' :
+              cat === 'Chicken' ? 'text-[#F59000]' :
+              'text-[#10B981]'; // Egg
+            
             return (
               <button
                 key={cat}
@@ -589,8 +595,8 @@ export function HowToCookPage() {
               >
                 {isActive && (
                   <motion.div
-                    layoutId="activeTabPill"
-                    className="absolute inset-0 rounded-full bg-white shadow-sm"
+                    layoutId="activeTabPillCook"
+                    className="absolute inset-0 rounded-full bg-white shadow-md"
                     transition={{ type: 'spring', bounce: 0.2, duration: 0.6 }}
                   />
                 )}
@@ -599,15 +605,15 @@ export function HowToCookPage() {
                     className={cn(
                       'h-5 w-5 stroke-[2]',
                       isActive
-                        ? 'text-red-500'
-                        : 'text-slate-500 group-hover:text-slate-700'
+                        ? activeColorClass
+                        : 'text-slate-400 group-hover:text-slate-600'
                     )}
                   />
                   <span
                     className={cn(
                       'text-[15px] font-bold transition-colors',
                       isActive
-                        ? 'text-red-500'
+                        ? activeColorClass
                         : 'text-slate-500 group-hover:text-slate-700'
                     )}
                   >
