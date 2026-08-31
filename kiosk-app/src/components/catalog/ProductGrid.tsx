@@ -144,7 +144,7 @@ export function ProductGrid({
 
         {/* Count Label & Navigation */}
         <div className="flex items-center gap-4">
-          <span className="text-[clamp(12px,min(2vw,2.5svh),16px)] font-black text-[#475569]">
+          <span className="text-[clamp(12px,min(2vw,2.5svh),16px)] font-bold text-[#475569]">
             Showing {(validPage - 1) * itemsPerPage + 1}-
             {Math.min(validPage * itemsPerPage, products.length)} of{' '}
             {totalItems} items
@@ -251,7 +251,7 @@ export function ProductGrid({
                         <div className="flex min-w-0 flex-1 flex-col">
                           <h4
                             className={cn(
-                              'text-text-heading truncate text-[clamp(9px,0.8vw,11.5px)] leading-none font-extrabold transition-colors',
+                              'text-text-heading truncate text-[clamp(9px,0.8vw,11.5px)] leading-none font-bold transition-colors',
                               category === 'fish'
                                 ? 'group-hover:text-[#0D55CF]'
                                 : category === 'meat'
@@ -269,7 +269,7 @@ export function ProductGrid({
                           {product.badgeLabel && (
                             <span
                               className={cn(
-                                'py-0.2 mt-1 w-fit rounded border px-1 text-[clamp(7px,0.55vw,9px)] leading-none font-extrabold',
+                                'py-0.2 mt-1 w-fit rounded border px-1 text-[clamp(7px,0.55vw,9px)] leading-none font-bold',
                                 category === 'fish'
                                   ? 'border-blue-100 bg-blue-50/70 text-[#0D55CF]'
                                   : category === 'meat'
@@ -289,7 +289,7 @@ export function ProductGrid({
                           <PriceDisplay
                             price={product.price}
                             unit={product.unit}
-                            className="text-text-heading text-[clamp(9px,0.8vw,12px)] font-black"
+                            className="text-text-heading text-[clamp(9px,0.8vw,12px)] font-bold"
                           />
                         </div>
                       </Link>

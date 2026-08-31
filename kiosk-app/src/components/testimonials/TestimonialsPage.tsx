@@ -811,7 +811,7 @@ export function TestimonialsPage() {
           {/* Left: heading + tabs */}
           <div className="flex min-w-0 flex-col gap-[12px]">
             <div>
-              <h1 className="text-[32px] leading-tight font-black text-slate-900">
+              <h1 className="text-[32px] leading-tight font-bold text-slate-900">
                 What Our Customers Say
               </h1>
               {/* Decorative wave */}
@@ -993,7 +993,7 @@ export function TestimonialsPage() {
                 <div className="flex min-h-0 flex-col justify-start gap-[6px] pt-2">
                   <div
                     className={cn(
-                      'leading-none font-black text-[#0D55CF]',
+                      'leading-none font-bold text-[#0D55CF]',
                       'text-[40px]'
                     )}
                   >

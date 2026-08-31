@@ -108,7 +108,7 @@ export function ProductDetailsLayout({ data }: { data: ProductDetails }) {
                   Premium Choice
                 </Badge>
                 <div className="flex items-center gap-1.5">
-                  <h1 className="truncate text-[clamp(20px,1.8vw,28px)] leading-none font-black text-slate-800">
+                  <h1 className="truncate text-[clamp(20px,1.8vw,28px)] leading-none font-bold text-slate-800">
                     {data.title}
                   </h1>
                   <button className="flex h-[clamp(20px,1.5vw,28px)] w-[clamp(20px,1.5vw,28px)] shrink-0 items-center justify-center rounded-full text-slate-400 transition-colors hover:border-red-200 hover:text-red-500">
@@ -282,7 +282,7 @@ export function ProductDetailsLayout({ data }: { data: ProductDetails }) {
                 <div className="flex items-baseline gap-1">
                   <span
                     className={cn(
-                      'text-[clamp(18px,2vw,28px)] leading-none font-black',
+                      'text-[clamp(18px,2vw,28px)] leading-none font-bold',
                       themeText
                     )}
                   >
@@ -345,7 +345,7 @@ export function ProductDetailsLayout({ data }: { data: ProductDetails }) {
               <div className="min-w-0">
                 <h4
                   className={cn(
-                    'truncate text-[11px] font-black lg:text-[12px] xl:text-[clamp(9px,0.7vw,11px)]',
+                    'truncate text-[11px] font-bold lg:text-[12px] xl:text-[clamp(9px,0.7vw,11px)]',
                     themeText
                   )}
                 >
@@ -383,7 +383,7 @@ export function ProductDetailsLayout({ data }: { data: ProductDetails }) {
               )}
             >
               <div className="min-w-0 pr-1">
-                <h4 className="truncate text-[12px] font-black text-white lg:text-[12px] xl:text-[12px]">
+                <h4 className="truncate text-[12px] font-bold text-white lg:text-[12px] xl:text-[12px]">
                   Got Questions?
                 </h4>
                 <p className="line-clamp-1 text-[10px] text-white/90 lg:text-[12px] xl:text-[11px]">
@@ -457,7 +457,7 @@ export function ProductDetailsLayout({ data }: { data: ProductDetails }) {
                       themeText
                     )}
                   />
-                  <h4 className="truncate text-[12px] font-black text-slate-800 lg:text-[13px] xl:text-[clamp(14px,0.8vw,12px)]">
+                  <h4 className="truncate text-[12px] font-bold text-slate-800 lg:text-[13px] xl:text-[clamp(14px,0.8vw,12px)]">
                     Catch From
                   </h4>
                 </div>
@@ -489,7 +489,7 @@ export function ProductDetailsLayout({ data }: { data: ProductDetails }) {
                       themeText
                     )}
                   />
-                  <h4 className="truncate text-[12px] font-black text-slate-800 lg:text-[13px] xl:text-[clamp(14px,0.8vw,12px)]">
+                  <h4 className="truncate text-[12px] font-bold text-slate-800 lg:text-[13px] xl:text-[clamp(14px,0.8vw,12px)]">
                     Best For
                   </h4>
                 </div>
@@ -527,7 +527,7 @@ export function ProductDetailsLayout({ data }: { data: ProductDetails }) {
                       themeText
                     )}
                   />
-                  <h4 className="truncate text-[12px] font-black text-slate-800 lg:text-[13px] xl:text-[clamp(14px,0.8vw,12px)]">
+                  <h4 className="truncate text-[12px] font-bold text-slate-800 lg:text-[13px] xl:text-[clamp(14px,0.8vw,12px)]">
                     Specialty
                   </h4>
                 </div>
@@ -551,7 +551,7 @@ export function ProductDetailsLayout({ data }: { data: ProductDetails }) {
                       themeText
                     )}
                   />
-                  <h4 className="truncate text-[12px] font-black text-slate-800 lg:text-[13px] xl:text-[clamp(14px,0.8vw,12px)]">
+                  <h4 className="truncate text-[12px] font-bold text-slate-800 lg:text-[13px] xl:text-[clamp(14px,0.8vw,12px)]">
                     Famous On
                   </h4>
                 </div>
@@ -575,7 +575,7 @@ export function ProductDetailsLayout({ data }: { data: ProductDetails }) {
                       themeText
                     )}
                   />
-                  <h4 className="truncate text-[12px] font-black text-slate-800 lg:text-[13px] xl:text-[clamp(14px,0.8vw,12px)]">
+                  <h4 className="truncate text-[12px] font-bold text-slate-800 lg:text-[13px] xl:text-[clamp(14px,0.8vw,12px)]">
                     Nutrition{' '}
                     <span className="font-medium text-slate-400">
                       ({data.nutritionInfo?.amount})
@@ -588,7 +588,7 @@ export function ProductDetailsLayout({ data }: { data: ProductDetails }) {
                       <span className="text-[10px] font-bold text-slate-500 lg:text-[11px] xl:text-[clamp(10px,0.4vw,8px)]">
                         Protein
                       </span>
-                      <span className="text-[11px] font-black text-slate-800 lg:text-[12px] xl:text-[clamp(12px,0.6vw,10px)]">
+                      <span className="text-[11px] font-bold text-slate-800 lg:text-[12px] xl:text-[clamp(12px,0.6vw,10px)]">
                         {data.nutritionInfo?.protein}
                       </span>
                     </div>
@@ -596,7 +596,7 @@ export function ProductDetailsLayout({ data }: { data: ProductDetails }) {
                       <span className="text-[10px] font-bold text-slate-500 lg:text-[11px] xl:text-[clamp(10px,0.4vw,8px)]">
                         Calories
                       </span>
-                      <span className="text-[11px] font-black text-slate-800 lg:text-[12px] xl:text-[clamp(12px,0.6vw,10px)]">
+                      <span className="text-[11px] font-bold text-slate-800 lg:text-[12px] xl:text-[clamp(12px,0.6vw,10px)]">
                         {data.nutritionInfo?.calories}
                       </span>
                     </div>
@@ -604,7 +604,7 @@ export function ProductDetailsLayout({ data }: { data: ProductDetails }) {
                       <span className="text-[10px] font-bold text-slate-500 lg:text-[11px] xl:text-[clamp(10px,0.4vw,8px)]">
                         Omega-3
                       </span>
-                      <span className="text-[11px] font-black text-slate-800 lg:text-[12px] xl:text-[clamp(12px,0.6vw,10px)]">
+                      <span className="text-[11px] font-bold text-slate-800 lg:text-[12px] xl:text-[clamp(12px,0.6vw,10px)]">
                         {data.nutritionInfo?.omega3}
                       </span>
                     </div>
@@ -612,7 +612,7 @@ export function ProductDetailsLayout({ data }: { data: ProductDetails }) {
                       <span className="text-[10px] font-bold text-slate-500 lg:text-[11px] xl:text-[clamp(10px,0.4vw,8px)]">
                         Fat
                       </span>
-                      <span className="text-[11px] font-black text-slate-800 lg:text-[12px] xl:text-[clamp(12px,0.6vw,10px)]">
+                      <span className="text-[11px] font-bold text-slate-800 lg:text-[12px] xl:text-[clamp(12px,0.6vw,10px)]">
                         {data.nutritionInfo?.fat}
                       </span>
                     </div>
@@ -629,7 +629,7 @@ export function ProductDetailsLayout({ data }: { data: ProductDetails }) {
                       themeText
                     )}
                   />
-                  <h4 className="truncate text-[12px] font-black text-slate-800 lg:text-[13px] xl:text-[clamp(14px,0.8vw,12px)]">
+                  <h4 className="truncate text-[12px] font-bold text-slate-800 lg:text-[13px] xl:text-[clamp(14px,0.8vw,12px)]">
                     Good For
                   </h4>
                 </div>
@@ -656,7 +656,7 @@ export function ProductDetailsLayout({ data }: { data: ProductDetails }) {
               <div className="flex min-h-0 min-w-0 flex-col overflow-hidden rounded-[12px] bg-slate-50/50 p-2.5 xl:p-[clamp(6px,0.8vw,12px)]">
                 <div className="mb-[clamp(3px,0.4vw,6px)] flex shrink-0 items-center gap-1.5">
                   <AlertTriangle className="h-[clamp(10px,0.8vw,14px)] w-[clamp(10px,0.8vw,14px)] text-red-500" />
-                  <h4 className="truncate text-[12px] font-black text-slate-800 lg:text-[13px] xl:text-[clamp(14px,0.8vw,12px)]">
+                  <h4 className="truncate text-[12px] font-bold text-slate-800 lg:text-[13px] xl:text-[clamp(14px,0.8vw,12px)]">
                     Allergy Info
                   </h4>
                 </div>
@@ -676,7 +676,7 @@ export function ProductDetailsLayout({ data }: { data: ProductDetails }) {
               {/* How to Cook */}
               <div className="flex min-h-0 min-w-0 flex-col overflow-hidden rounded-[12px] bg-slate-50/50 p-2.5 xl:p-[clamp(6px,0.8vw,12px)]">
                 <div className="mb-[clamp(3px,0.4vw,6px)] flex shrink-0 items-center justify-between">
-                  <h4 className="truncate text-[12px] font-black text-slate-800 lg:text-[13px] xl:text-[clamp(14px,0.8vw,12px)]">
+                  <h4 className="truncate text-[12px] font-bold text-slate-800 lg:text-[13px] xl:text-[clamp(14px,0.8vw,12px)]">
                     How to Cook
                   </h4>
                   <Link
@@ -737,7 +737,7 @@ export function ProductDetailsLayout({ data }: { data: ProductDetails }) {
                       themeText
                     )}
                   />
-                  <h4 className="truncate text-[13px] font-black text-slate-800 lg:text-[14px] xl:text-[clamp(16px,0.9vw,14px)]">
+                  <h4 className="truncate text-[13px] font-bold text-slate-800 lg:text-[14px] xl:text-[clamp(16px,0.9vw,14px)]">
                     Nutritional Facts{' '}
                     <span className="font-medium text-slate-400">
                       ({data.nutritionInfo?.amount})
@@ -750,7 +750,7 @@ export function ProductDetailsLayout({ data }: { data: ProductDetails }) {
                       <span className="text-[11px] font-bold text-slate-500 lg:text-[12px] xl:text-[clamp(14px,0.7vw,11px)]">
                         Protein
                       </span>
-                      <span className="text-[13px] font-black text-slate-800 lg:text-[14px] xl:text-[clamp(12px,1vw,16px)]">
+                      <span className="text-[13px] font-bold text-slate-800 lg:text-[14px] xl:text-[clamp(12px,1vw,16px)]">
                         {data.nutritionInfo?.protein}
                       </span>
                     </div>
@@ -758,7 +758,7 @@ export function ProductDetailsLayout({ data }: { data: ProductDetails }) {
                       <span className="text-[11px] font-bold text-slate-500 lg:text-[12px] xl:text-[clamp(14px,0.7vw,11px)]">
                         Calories
                       </span>
-                      <span className="text-[13px] font-black text-slate-800 lg:text-[14px] xl:text-[clamp(12px,1vw,16px)]">
+                      <span className="text-[13px] font-bold text-slate-800 lg:text-[14px] xl:text-[clamp(12px,1vw,16px)]">
                         {data.nutritionInfo?.calories}
                       </span>
                     </div>
@@ -766,7 +766,7 @@ export function ProductDetailsLayout({ data }: { data: ProductDetails }) {
                       <span className="text-[11px] font-bold text-slate-500 lg:text-[12px] xl:text-[clamp(14px,0.7vw,11px)]">
                         Omega-3
                       </span>
-                      <span className="text-[13px] font-black text-slate-800 lg:text-[14px] xl:text-[clamp(12px,1vw,16px)]">
+                      <span className="text-[13px] font-bold text-slate-800 lg:text-[14px] xl:text-[clamp(12px,1vw,16px)]">
                         {data.nutritionInfo?.omega3}
                       </span>
                     </div>
@@ -774,7 +774,7 @@ export function ProductDetailsLayout({ data }: { data: ProductDetails }) {
                       <span className="text-[11px] font-bold text-slate-500 lg:text-[12px] xl:text-[clamp(14px,0.7vw,11px)]">
                         Total Fat
                       </span>
-                      <span className="text-[13px] font-black text-slate-800 lg:text-[14px] xl:text-[clamp(12px,1vw,16px)]">
+                      <span className="text-[13px] font-bold text-slate-800 lg:text-[14px] xl:text-[clamp(12px,1vw,16px)]">
                         {data.nutritionInfo?.fat}
                       </span>
                     </div>
@@ -791,7 +791,7 @@ export function ProductDetailsLayout({ data }: { data: ProductDetails }) {
                       themeText
                     )}
                   />
-                  <h4 className="truncate text-[13px] font-black text-slate-800 lg:text-[14px] xl:text-[clamp(16px,0.9vw,14px)]">
+                  <h4 className="truncate text-[13px] font-bold text-slate-800 lg:text-[14px] xl:text-[clamp(16px,0.9vw,14px)]">
                     Health Benefits
                   </h4>
                 </div>
@@ -829,7 +829,7 @@ export function ProductDetailsLayout({ data }: { data: ProductDetails }) {
                       themeText
                     )}
                   />
-                  <h4 className="truncate text-[13px] font-black text-slate-800 lg:text-[14px] xl:text-[clamp(16px,0.9vw,14px)]">
+                  <h4 className="truncate text-[13px] font-bold text-slate-800 lg:text-[14px] xl:text-[clamp(16px,0.9vw,14px)]">
                     How to Cook {data.title}
                   </h4>
                 </div>
@@ -859,7 +859,7 @@ export function ProductDetailsLayout({ data }: { data: ProductDetails }) {
                     <div className="absolute inset-0 flex flex-col justify-between p-3 text-white">
                       <PlayCircle className="my-auto h-[clamp(24px,2vw,32px)] w-[clamp(24px,2vw,32px)] self-center  transition-transform group-hover:scale-110" />
                       <div>
-                        <p className="line-clamp-2 text-[13px] leading-tight font-black  lg:text-[14px] xl:text-[clamp(16px,0.8vw,14px)]">
+                        <p className="line-clamp-2 text-[13px] leading-tight font-bold  lg:text-[14px] xl:text-[clamp(16px,0.8vw,14px)]">
                           {recipe.title}
                         </p>
                         <div className="mt-1 flex items-center justify-between text-[11px] font-medium text-white/90 lg:text-[12px] xl:text-[clamp(16px,0.6vw,10px)]">
@@ -889,7 +889,7 @@ export function ProductDetailsLayout({ data }: { data: ProductDetails }) {
                       themeText
                     )}
                   />
-                  <h4 className="truncate text-[13px] font-black text-slate-800 lg:text-[14px] xl:text-[clamp(16px,0.9vw,14px)]">
+                  <h4 className="truncate text-[13px] font-bold text-slate-800 lg:text-[14px] xl:text-[clamp(16px,0.9vw,14px)]">
                     Product Information
                   </h4>
                 </div>
@@ -920,7 +920,7 @@ export function ProductDetailsLayout({ data }: { data: ProductDetails }) {
                       themeText
                     )}
                   />
-                  <h4 className="truncate text-[13px] font-black text-slate-800 lg:text-[14px] xl:text-[clamp(16px,0.9vw,14px)]">
+                  <h4 className="truncate text-[13px] font-bold text-slate-800 lg:text-[14px] xl:text-[clamp(16px,0.9vw,14px)]">
                     Quality & Highlights
                   </h4>
                 </div>
@@ -949,7 +949,7 @@ export function ProductDetailsLayout({ data }: { data: ProductDetails }) {
                       themeText
                     )}
                   />
-                  <h4 className="truncate text-[13px] font-black text-slate-800 lg:text-[14px] xl:text-[clamp(16px,0.9vw,14px)]">
+                  <h4 className="truncate text-[13px] font-bold text-slate-800 lg:text-[14px] xl:text-[clamp(16px,0.9vw,14px)]">
                     Available Sizes
                   </h4>
                 </div>
@@ -960,7 +960,7 @@ export function ProductDetailsLayout({ data }: { data: ProductDetails }) {
                         key={i}
                         className="flex items-center justify-between rounded-[8px] bg-white p-2 "
                       >
-                        <span className="text-[12px] font-black text-slate-800 lg:text-[13px] xl:text-[clamp(14px,0.8vw,12px)]">
+                        <span className="text-[12px] font-bold text-slate-800 lg:text-[13px] xl:text-[clamp(14px,0.8vw,12px)]">
                           {size.label}
                         </span>
                         <span className="text-[11px] font-bold text-slate-500 lg:text-[12px] xl:text-[clamp(12px,0.7vw,11px)]">
@@ -979,7 +979,7 @@ export function ProductDetailsLayout({ data }: { data: ProductDetails }) {
                       themeText
                     )}
                   />
-                  <h4 className="truncate text-[13px] font-black text-slate-800 lg:text-[14px] xl:text-[clamp(16px,0.9vw,14px)]">
+                  <h4 className="truncate text-[13px] font-bold text-slate-800 lg:text-[14px] xl:text-[clamp(16px,0.9vw,14px)]">
                     Cut Options
                   </h4>
                 </div>
@@ -1010,7 +1010,7 @@ export function ProductDetailsLayout({ data }: { data: ProductDetails }) {
               <div className="mb-[clamp(6px,0.8vw,12px)] flex h-[clamp(36px,3vw,48px)] w-[clamp(36px,3vw,48px)] shrink-0 items-center justify-center rounded-full bg-red-100 text-red-500">
                 <AlertTriangle className="h-[clamp(18px,1.5vw,24px)] w-[clamp(18px,1.5vw,24px)]" />
               </div>
-              <h4 className="mb-1 truncate text-center text-[clamp(18px,1.2vw,18px)] font-black text-red-600">
+              <h4 className="mb-1 truncate text-center text-[clamp(18px,1.2vw,18px)] font-bold text-red-600">
                 {data.allergyInfo?.title}
               </h4>
               <p className="mb-3 max-w-[80%] text-center text-[12px] leading-relaxed font-medium text-slate-600 lg:text-[13px] xl:text-[clamp(14px,0.8vw,12px)]">

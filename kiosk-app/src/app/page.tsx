@@ -95,7 +95,7 @@ export default function HomePage() {
 
           <RecipeCarousel />
 
-          <div className="mt-[var(--recipe-btn-mt)] flex h-[var(--recipe-btn-h)] w-fit items-center rounded-[5px] bg-white px-[clamp(10px,0.83vw,16px)]">
+          <div className="mt-[var(--recipe-padding)] flex h-[var(--recipe-btn-h)] w-fit items-center justify-center rounded-[5px] bg-white px-[clamp(10px,0.83vw,16px)]">
             <Link
               href="/cook"
               className="inline-flex items-center gap-3 text-[clamp(10px,min(0.78vw,1.15svh),13px)] font-bold text-[#0D55CF] hover:underline"

@@ -57,7 +57,7 @@ export function BottomInfoSection({
 
           {/* Text content details */}
           <div className="flex min-w-0 flex-1 flex-col justify-center pr-2">
-            <h4 className="text-text-heading text-[clamp(15px,min(0.95vw,1.3svh),20px)] leading-tight font-black">
+            <h4 className="text-text-heading text-[clamp(15px,min(0.95vw,1.3svh),20px)] leading-tight font-bold">
               {' '}
               {info.title}
             </h4>

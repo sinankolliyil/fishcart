@@ -2,6 +2,7 @@ import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { ChevronRight } from 'lucide-react';
+import { cn } from '@/lib/utils';
 
 interface BreadcrumbItem {
   label: string;
@@ -34,6 +35,13 @@ export function CatalogHero({
     eggs: 'text-[#F5A623]',
   };
 
+  const darkTextColors = {
+    fish: 'text-[#102B7B]',
+    meat: 'text-[#5C1422]',
+    chicken: 'text-[#663500]',
+    eggs: 'text-[#09402B]',
+  };
+
   const waveColors = {
     fish: 'text-[#0D55CF]',
     meat: 'text-[#F0314A]',
@@ -42,6 +50,7 @@ export function CatalogHero({
   };
 
   const currentColor = textColors[category] || 'text-[#0D55CF]';
+  const currentDarkTextColor = darkTextColors[category] || 'text-[#0A1835]';
   const waveColor = waveColors[category] || currentColor;
 
   return (
@@ -64,12 +73,12 @@ export function CatalogHero({
               {crumb.href ? (
                 <Link
                   href={crumb.href}
-                  className="text-text-muted hover:text-primary text-[clamp(10px,min(0.9vw,1.2svh),14px)] font-bold transition-colors"
+                  className={cn("text-[clamp(10px,min(0.9vw,1.2svh),14px)] font-bold transition-colors", currentDarkTextColor, "opacity-90 hover:opacity-100")}
                 >
                   {crumb.label}
                 </Link>
               ) : (
-                <span className="text-text-muted text-[clamp(10px,min(0.9vw,1.2svh),14px)] font-black">
+                <span className={cn("text-[clamp(10px,min(0.9vw,1.2svh),14px)] font-bold", currentDarkTextColor)}>
                   {crumb.label}
                 </span>
               )}
@@ -78,7 +87,7 @@ export function CatalogHero({
         </nav>
 
         {/* Title */}
-        <h2 className="text-[clamp(25px,min(2.1vw,3svh),38px)] leading-tight font-black tracking-tight text-[#1E293B]">
+        <h2 className={cn("text-[clamp(32px,min(3vw,4svh),44px)] leading-tight font-bold tracking-tight", currentDarkTextColor)}>
           {title}
         </h2>
 
@@ -101,7 +110,7 @@ export function CatalogHero({
         </svg>
 
         {/* Description Subtitle */}
-        <p className="max-w-[95%] truncate text-[clamp(16px,min(1vw,1.45svh),20px)] leading-normal font-medium text-[#475569]">
+        <p className={cn("max-w-[95%] truncate text-[clamp(17px,min(1.2vw,1.6svh),22px)] leading-normal font-normal", currentDarkTextColor, "opacity-80")}>
           {description}
         </p>
       </div>

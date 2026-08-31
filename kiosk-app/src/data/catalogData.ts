@@ -10,7 +10,7 @@ export const fishCatalogData: CatalogPageData = {
   hero: {
     title: "All Fish Items",
     description: "Explore our wide variety of fresh fish sourced daily for unbeatable taste and nutrition.",
-    imageSrc: "/assets/header_fish3_nobg.png",
+    imageSrc: "/assets/1_image.png",
     imageAlt: "Fresh fish on ice with lemons",
     gradientClass: "from-[#F4F9FF] via-[#EAF3FF] to-[#D4E6FC]",
   },
@@ -27,11 +27,11 @@ export const fishCatalogData: CatalogPageData = {
       title: "By Country",
       hasViewMore: true,
       options: [
-        { id: "uk", label: "United Kingdom", count: 45, flag: "UK" },
-        { id: "norway", label: "Norway", count: 28, flag: "Norway" },
-        { id: "scotland", label: "Scotland", count: 18, flag: "Scotland" },
-        { id: "iceland", label: "Iceland", count: 12, flag: "Iceland" },
-        { id: "netherlands", label: "Netherlands", count: 10, flag: "Netherlands" },
+        { id: "uk", label: "United Kingdom", count: 45 },
+        { id: "norway", label: "Norway", count: 28 },
+        { id: "scotland", label: "Scotland", count: 18 },
+        { id: "iceland", label: "Iceland", count: 12 },
+        { id: "netherlands", label: "Netherlands", count: 10 },
       ],
     },
     {
@@ -66,7 +66,7 @@ export const fishCatalogData: CatalogPageData = {
       badgeLabel: "Rich in Omega-3",
       price: 14.99,
       unit: "kg",
-      imageSrc: "/assets/aa_salmon.png",
+      imageSrc: "/assets/2_image.png",
     },
     {
       id: "sea-bass",
@@ -77,7 +77,7 @@ export const fishCatalogData: CatalogPageData = {
       badgeLabel: "High in Protein",
       price: 12.50,
       unit: "kg",
-      imageSrc: "/assets/a_sea_bass.png",
+      imageSrc: "/assets/3_image.png",
     },
     {
       id: "mackerel",
@@ -88,7 +88,7 @@ export const fishCatalogData: CatalogPageData = {
       badgeLabel: "Rich in Omega-3",
       price: 6.99,
       unit: "kg",
-      imageSrc: "/assets/a_mackerel.png",
+      imageSrc: "/assets/4_image.png",
     },
     {
       id: "cod-fillet",
@@ -99,7 +99,7 @@ export const fishCatalogData: CatalogPageData = {
       badgeLabel: "Low Fat",
       price: 11.99,
       unit: "kg",
-      imageSrc: "/assets/a_cod_fillet.png",
+      imageSrc: "/assets/5_image.png",
     },
     {
       id: "tuna-steak",
@@ -110,7 +110,7 @@ export const fishCatalogData: CatalogPageData = {
       badgeLabel: "High in Protein",
       price: 15.50,
       unit: "kg",
-      imageSrc: "/assets/a_tuna_steck.png",
+      imageSrc: "/assets/6_image.png",
     },
     {
       id: "tilapia",
@@ -121,7 +121,7 @@ export const fishCatalogData: CatalogPageData = {
       badgeLabel: "Good Source of Protein",
       price: 5.99,
       unit: "kg",
-      imageSrc: "/assets/a_tilapia.png",
+      imageSrc: "/assets/7_image.png",
     },
     {
       id: "prawns",
@@ -132,7 +132,7 @@ export const fishCatalogData: CatalogPageData = {
       badgeLabel: "High in Protein",
       price: 16.99,
       unit: "kg",
-      imageSrc: "/assets/a_prawns_king.png",
+      imageSrc: "/assets/8_image.png",
     },
     {
       id: "trout",
@@ -143,7 +143,7 @@ export const fishCatalogData: CatalogPageData = {
       badgeLabel: "Rich in Vitamins",
       price: 7.99,
       unit: "kg",
-      imageSrc: "/assets/a_trout.png",
+      imageSrc: "/assets/1_image.png",
     },
     {
       id: "salmon-mock1",
@@ -154,7 +154,7 @@ export const fishCatalogData: CatalogPageData = {
       badgeLabel: "Rich in Omega-3",
       price: 14.99,
       unit: "kg",
-      imageSrc: "/assets/aa_salmon.png",
+      imageSrc: "/assets/2_image.png",
     },
     {
       id: "salmon-mock2",
@@ -165,7 +165,7 @@ export const fishCatalogData: CatalogPageData = {
       badgeLabel: "Rich in Omega-3",
       price: 14.99,
       unit: "kg",
-      imageSrc: "/assets/aa_salmon.png",
+      imageSrc: "/assets/3_image.png",
     },
   ],
   bottomInfo: [
@@ -202,7 +202,7 @@ export const meatCatalogData: CatalogPageData = {
   hero: {
     title: "Premium Meat Selection",
     description: "Tender, juicy cuts of beef and mutton sourced from certified organic farms.",
-    imageSrc: "/assets/header_meeaat_nobg.png",
+    imageSrc: "/assets/4_image.png",
     imageAlt: "Premium raw meat cuts",
     gradientClass: "from-[#FFF5F5] via-[#FFEBEB] to-[#FCD4D4]",
   },
@@ -218,8 +218,8 @@ export const meatCatalogData: CatalogPageData = {
       id: "country",
       title: "By Country",
       options: [
-        { id: "uk", label: "United Kingdom (Local)", count: 20, flag: "UK" },
-        { id: "nz", label: "New Zealand", count: 15, flag: "Scotland" }, // Mock Scotland flag or others
+        { id: "uk", label: "United Kingdom (Local)", count: 20 },
+        { id: "nz", label: "New Zealand", count: 15 }, // Mock Scotland flag or others
         { id: "spain", label: "Spain", count: 10 },
       ],
     },
@@ -251,7 +251,7 @@ export const meatCatalogData: CatalogPageData = {
       badgeLabel: "Premium Cut",
       price: 18.50,
       unit: "kg",
-      imageSrc: "/assets/b_beef_chunks.png",
+      imageSrc: "/assets/5_image.png",
     },
     {
       id: "boar-boneless",
@@ -261,7 +261,7 @@ export const meatCatalogData: CatalogPageData = {
       badgeLabel: "Exotic Meat",
       price: 22.99,
       unit: "kg",
-      imageSrc: "/assets/b_boar_meat.png",
+      imageSrc: "/assets/6_image.png",
     },
     {
       id: "boar-bone-in",
@@ -271,7 +271,7 @@ export const meatCatalogData: CatalogPageData = {
       badgeLabel: "Rich Flavor",
       price: 19.99,
       unit: "kg",
-      imageSrc: "/assets/b_boar_ribs.png",
+      imageSrc: "/assets/7_image.png",
     },
     {
       id: "deer-meat",
@@ -281,7 +281,7 @@ export const meatCatalogData: CatalogPageData = {
       badgeLabel: "Lean & Healthy",
       price: 28.00,
       unit: "kg",
-      imageSrc: "/assets/bb_deer_venison.png",
+      imageSrc: "/assets/8_image.png",
     },
     {
       id: "lamb-cutlets",
@@ -291,7 +291,7 @@ export const meatCatalogData: CatalogPageData = {
       badgeLabel: "Tender Cut",
       price: 24.50,
       unit: "kg",
-      imageSrc: "/assets/b_lamb_cutlets.png",
+      imageSrc: "/assets/1_image.png",
     },
     {
       id: "mutton-leg",
@@ -301,7 +301,7 @@ export const meatCatalogData: CatalogPageData = {
       badgeLabel: "Great for Roast",
       price: 16.50,
       unit: "kg",
-      imageSrc: "/assets/b_mutton_leg.png",
+      imageSrc: "/assets/2_image.png",
     },
     {
       id: "beef-chunks-mock1",
@@ -311,7 +311,7 @@ export const meatCatalogData: CatalogPageData = {
       badgeLabel: "Premium Cut",
       price: 18.50,
       unit: "kg",
-      imageSrc: "/assets/b_beef_chunks.png",
+      imageSrc: "/assets/3_image.png",
     },
     {
       id: "beef-chunks-mock2",
@@ -321,7 +321,7 @@ export const meatCatalogData: CatalogPageData = {
       badgeLabel: "Premium Cut",
       price: 18.50,
       unit: "kg",
-      imageSrc: "/assets/b_beef_chunks.png",
+      imageSrc: "/assets/4_image.png",
     },
     {
       id: "beef-chunks-mock3",
@@ -331,7 +331,7 @@ export const meatCatalogData: CatalogPageData = {
       badgeLabel: "Premium Cut",
       price: 18.50,
       unit: "kg",
-      imageSrc: "/assets/b_beef_chunks.png",
+      imageSrc: "/assets/5_image.png",
     },
     {
       id: "beef-chunks-mock4",
@@ -341,7 +341,7 @@ export const meatCatalogData: CatalogPageData = {
       badgeLabel: "Premium Cut",
       price: 18.50,
       unit: "kg",
-      imageSrc: "/assets/b_beef_chunks.png",
+      imageSrc: "/assets/6_image.png",
     },
   ],
   bottomInfo: [
@@ -378,7 +378,7 @@ export const chickenCatalogData: CatalogPageData = {
   hero: {
     title: "Farm Fresh Chicken",
     description: "100% natural, antibiotic-free chicken prepared fresh for every order.",
-    imageSrc: "/assets/cat_chicken.png",
+    imageSrc: "/assets/7_image.png",
     imageAlt: "Farm fresh chicken",
     gradientClass: "from-[#FFF9F0] via-[#FFF6E5] to-[#FCEAD4]",
   },
@@ -419,7 +419,7 @@ export const chickenCatalogData: CatalogPageData = {
       badgeLabel: "Antibiotic-Free",
       price: 8.99,
       unit: "kg",
-      imageSrc: "/assets/c_boneless_chicken.png",
+      imageSrc: "/assets/8_image.png",
     },
     {
       id: "chicken-full",
@@ -429,7 +429,7 @@ export const chickenCatalogData: CatalogPageData = {
       badgeLabel: "Free Range",
       price: 7.50,
       unit: "kg",
-      imageSrc: "/assets/c_whole_chicken.png",
+      imageSrc: "/assets/1_image.png",
     },
     {
       id: "chicken-liver",
@@ -439,7 +439,7 @@ export const chickenCatalogData: CatalogPageData = {
       badgeLabel: "Iron Rich",
       price: 4.99,
       unit: "kg",
-      imageSrc: "/assets/c_chicken_liver.png",
+      imageSrc: "/assets/2_image.png",
     },
     {
       id: "boneless-chicken-mock1",
@@ -449,7 +449,7 @@ export const chickenCatalogData: CatalogPageData = {
       badgeLabel: "Antibiotic-Free",
       price: 8.99,
       unit: "kg",
-      imageSrc: "/assets/c_boneless_chicken.png",
+      imageSrc: "/assets/3_image.png",
     },
     {
       id: "boneless-chicken-mock2",
@@ -459,7 +459,7 @@ export const chickenCatalogData: CatalogPageData = {
       badgeLabel: "Antibiotic-Free",
       price: 8.99,
       unit: "kg",
-      imageSrc: "/assets/c_boneless_chicken.png",
+      imageSrc: "/assets/4_image.png",
     },
     {
       id: "boneless-chicken-mock3",
@@ -469,7 +469,7 @@ export const chickenCatalogData: CatalogPageData = {
       badgeLabel: "Antibiotic-Free",
       price: 8.99,
       unit: "kg",
-      imageSrc: "/assets/c_boneless_chicken.png",
+      imageSrc: "/assets/5_image.png",
     },
     {
       id: "boneless-chicken-mock4",
@@ -479,7 +479,7 @@ export const chickenCatalogData: CatalogPageData = {
       badgeLabel: "Antibiotic-Free",
       price: 8.99,
       unit: "kg",
-      imageSrc: "/assets/c_boneless_chicken.png",
+      imageSrc: "/assets/6_image.png",
     },
     {
       id: "boneless-chicken-mock5",
@@ -489,7 +489,7 @@ export const chickenCatalogData: CatalogPageData = {
       badgeLabel: "Antibiotic-Free",
       price: 8.99,
       unit: "kg",
-      imageSrc: "/assets/c_boneless_chicken.png",
+      imageSrc: "/assets/7_image.png",
     },
     {
       id: "boneless-chicken-mock6",
@@ -499,7 +499,7 @@ export const chickenCatalogData: CatalogPageData = {
       badgeLabel: "Antibiotic-Free",
       price: 8.99,
       unit: "kg",
-      imageSrc: "/assets/c_boneless_chicken.png",
+      imageSrc: "/assets/8_image.png",
     },
   ],
   bottomInfo: [
@@ -536,7 +536,7 @@ export const eggsCatalogData: CatalogPageData = {
   hero: {
     title: "Nutritious Farm Eggs",
     description: "Freshly sourced organic, free-range, and specialty eggs rich in vitamins.",
-    imageSrc: "/assets/cat_eggs.png",
+    imageSrc: "/assets/1_image.png",
     imageAlt: "Organic farm eggs",
     gradientClass: "from-[#F5FFF0] via-[#EEFCE5] to-[#DFECD4]",
   },
@@ -575,7 +575,7 @@ export const eggsCatalogData: CatalogPageData = {
       badgeLabel: "Free Range",
       price: 3.80,
       unit: "pack",
-      imageSrc: "/assets/d_chickenegg.png",
+      imageSrc: "/assets/2_image.png",
     },
     {
       id: "duck-eggs",
@@ -585,7 +585,7 @@ export const eggsCatalogData: CatalogPageData = {
       badgeLabel: "Rich & Creamy",
       price: 4.50,
       unit: "pack",
-      imageSrc: "/assets/d_duck_egg.png",
+      imageSrc: "/assets/3_image.png",
     },
     {
       id: "quail-eggs",
@@ -595,7 +595,7 @@ export const eggsCatalogData: CatalogPageData = {
       badgeLabel: "Nutrient Dense",
       price: 5.20,
       unit: "pack",
-      imageSrc: "/assets/d_quail_egg.png",
+      imageSrc: "/assets/4_image.png",
     },
     {
       id: "chicken-eggs-mock1",
@@ -605,7 +605,7 @@ export const eggsCatalogData: CatalogPageData = {
       badgeLabel: "Free Range",
       price: 3.80,
       unit: "pack",
-      imageSrc: "/assets/d_chickenegg.png",
+      imageSrc: "/assets/5_image.png",
     },
     {
       id: "chicken-eggs-mock2",
@@ -615,7 +615,7 @@ export const eggsCatalogData: CatalogPageData = {
       badgeLabel: "Free Range",
       price: 3.80,
       unit: "pack",
-      imageSrc: "/assets/d_chickenegg.png",
+      imageSrc: "/assets/6_image.png",
     },
     {
       id: "chicken-eggs-mock3",
@@ -625,7 +625,7 @@ export const eggsCatalogData: CatalogPageData = {
       badgeLabel: "Free Range",
       price: 3.80,
       unit: "pack",
-      imageSrc: "/assets/d_chickenegg.png",
+      imageSrc: "/assets/7_image.png",
     },
     {
       id: "chicken-eggs-mock4",
@@ -635,7 +635,7 @@ export const eggsCatalogData: CatalogPageData = {
       badgeLabel: "Free Range",
       price: 3.80,
       unit: "pack",
-      imageSrc: "/assets/d_chickenegg.png",
+      imageSrc: "/assets/8_image.png",
     },
     {
       id: "chicken-eggs-mock5",
@@ -645,7 +645,7 @@ export const eggsCatalogData: CatalogPageData = {
       badgeLabel: "Free Range",
       price: 3.80,
       unit: "pack",
-      imageSrc: "/assets/d_chickenegg.png",
+      imageSrc: "/assets/1_image.png",
     },
     {
       id: "chicken-eggs-mock6",
@@ -655,7 +655,7 @@ export const eggsCatalogData: CatalogPageData = {
       badgeLabel: "Free Range",
       price: 3.80,
       unit: "pack",
-      imageSrc: "/assets/d_chickenegg.png",
+      imageSrc: "/assets/2_image.png",
     },
   ],
   bottomInfo: [

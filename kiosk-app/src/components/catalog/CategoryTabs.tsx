@@ -92,8 +92,16 @@ export function CategoryTabs({
     eggs: 'text-[#10B981]',
   };
 
+  const darkTextColors = {
+    fish: 'text-[#102B7B]',
+    meat: 'text-[#5C1422]',
+    chicken: 'text-[#663500]',
+    eggs: 'text-[#09402B]',
+  };
+
   const currentActiveStyle = activeBgColors[category] || activeBgColors.fish;
   const currentIconColor = iconColors[category] || iconColors.fish;
+  const currentDarkTextColor = darkTextColors[category] || 'text-[#0A1835]';
 
   return (
     <div className="grid h-full min-h-0 w-full grid-cols-5 gap-[var(--main-gap)] overflow-hidden select-none">
@@ -110,7 +118,7 @@ export function CategoryTabs({
               'cursor-pointer overflow-hidden text-left transition-all duration-200',
               isActive
                 ? cn('text-white', currentActiveStyle)
-                : 'border-gray-100 bg-white text-[#1E293B] shadow-[0_1px_4px_rgba(0,0,0,0.01)] hover:-translate-y-0.5 hover:'
+                : cn('border-gray-100 bg-white shadow-[0_1px_4px_rgba(0,0,0,0.01)] hover:-translate-y-0.5 hover:', currentDarkTextColor)
             )}
           >
             {/* Icon Circle Wrapper */}
@@ -130,13 +138,13 @@ export function CategoryTabs({
 
             {/* Text container */}
             <div className="flex min-w-0 flex-col">
-              <span className="truncate text-[clamp(15px,min(1vw,1.45svh),20px)] leading-tight font-extrabold pb-[2px]">
+              <span className="truncate text-[clamp(17px,min(1.2vw,1.6svh),22px)] leading-tight font-bold pb-[2px]">
                 {tab.label}
               </span>
               <span
                 className={cn(
-                  'mt-0.5 text-[clamp(10px,min(0.82vw,1.15svh),13px)] leading-tight font-semibold pb-[1px]',
-                  isActive ? 'text-white/80' : 'text-text-muted'
+                  'mt-0.5 text-[clamp(11px,min(0.9vw,1.25svh),14px)] leading-tight font-medium pb-[1px]',
+                  isActive ? 'text-white/80' : 'opacity-80'
                 )}
               >
                 {tab.countLabel}

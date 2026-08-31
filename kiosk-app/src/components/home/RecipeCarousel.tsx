@@ -152,7 +152,7 @@ export function RecipeCarousel() {
               }`}
             >
               <div className="flex flex-col items-center justify-center gap-1">
-                <div className="flex items-center gap-1 rounded-full bg-white/90 px-3 py-1 text-[#0D55CF]  backdrop-blur">
+                <div className="flex items-center justify-center gap-1 rounded-full bg-white/90 px-3 py-1 text-[#0D55CF]  backdrop-blur">
                   <span className="text-[clamp(10px,min(0.8vw,1.2svh),12px)] font-bold">Swipe</span>
                   <ChevronRight className="h-[clamp(10px,min(1vw,1.5svh),14px)] w-[clamp(10px,min(1vw,1.5svh),14px)]" />
                 </div>

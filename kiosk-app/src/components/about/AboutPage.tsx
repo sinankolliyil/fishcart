@@ -44,7 +44,7 @@ export function AboutPage() {
                 </span>
                 <div className="h-[2px] w-12 bg-red-100" />
               </div>
-              <h1 className="text-[clamp(28px,2.5vw,48px)] leading-[1.1] font-black tracking-tight text-slate-900">
+              <h1 className="text-[clamp(28px,2.5vw,48px)] leading-[1.1] font-bold tracking-tight text-slate-900">
                 Fresh. Hygienic. <br />
                 Trusted. <span className="text-red-600">Delivered.</span>
               </h1>
@@ -70,7 +70,7 @@ export function AboutPage() {
               </span>
               <div className="h-[1px] w-8 bg-red-200" />
             </div>
-            <h2 className="text-3xl font-black text-slate-900">
+            <h2 className="text-3xl font-bold text-slate-900">
               Explore Our Fresh Selection
             </h2>
             <p className="mt-2 text-sm font-medium text-slate-500">
@@ -154,7 +154,7 @@ export function AboutPage() {
                 </div>
 
                 {/* Product Title */}
-                <div className="absolute bottom-5 left-5 z-20 text-[22px] font-extrabold tracking-tight text-[#0E1A2B]">
+                <div className="absolute bottom-5 left-5 z-20 text-[22px] font-bold tracking-tight text-[#0E1A2B]">
                   <span className="text-[#EF1D23]">{cat.title.charAt(0)}</span>
                   {cat.title.slice(1)}
                 </div>

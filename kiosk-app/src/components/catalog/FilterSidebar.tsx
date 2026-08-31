@@ -132,18 +132,18 @@ export function FilterSidebar({
 
       {/* Header Section: Title & Sort By Selection */}
       <div className="flex shrink-0 flex-col gap-2 border-b border-gray-100 pb-2">
-        <h3 className="text-text-heading text-[clamp(13px,min(1.2vw,1.75svh),18px)] font-black">
+        <h3 className="text-text-heading text-[clamp(15px,min(1.4vw,2svh),20px)] font-bold">
           Filters
         </h3>
         <div className="mt-1 flex items-center justify-between gap-2">
-          <label className="text-[clamp(10px,min(0.9vw,1.35svh),14px)] font-bold text-[#475569]">
+          <label className="text-[clamp(12px,min(1.1vw,1.55svh),16px)] font-bold text-[#475569]">
             Sort By
           </label>
           <div className="relative max-w-[72%] flex-1">
             <select
               value={activeSort}
               onChange={(e) => onSortChange(e.target.value)}
-              className="border-gray-250 w-full cursor-pointer appearance-none rounded-lg border bg-white py-1 pr-8 pl-3 text-[clamp(10px,min(0.9vw,1.35svh),14px)] font-bold text-[#1E293B]  transition-colors outline-none focus:border-[#0D55CF]"
+              className="border-gray-250 w-full cursor-pointer appearance-none rounded-lg border bg-white py-1 pr-8 pl-3 text-[clamp(12px,min(1.1vw,1.55svh),16px)] font-bold text-[#1E293B]  transition-colors outline-none focus:border-[#0D55CF]"
             >
               <option value="newest">Newest First</option>
               <option value="price-low">Price: Low to High</option>
@@ -166,7 +166,7 @@ export function FilterSidebar({
               key={section.id}
               className="flex min-h-0 flex-col gap-2 border-t border-gray-50 pt-2 first:border-t-0 first:pt-0"
             >
-              <h4 className="text-text-heading text-[clamp(11px,min(1.0vw,1.45svh),15px)] font-bold">
+              <h4 className="text-text-heading text-[clamp(13px,min(1.2vw,1.75svh),18px)] font-bold">
                 {section.title}
               </h4>
 
@@ -179,7 +179,7 @@ export function FilterSidebar({
                   return (
                     <label
                       key={option.id}
-                      className="group flex cursor-pointer items-center justify-between text-[clamp(10px,min(0.9vw,1.35svh),14px)]"
+                      className="group flex cursor-pointer items-center justify-between text-[clamp(12px,min(1.1vw,1.55svh),16px)]"
                     >
                       <span className="flex items-center gap-2">
                         <span className="relative flex shrink-0 items-center">
@@ -198,7 +198,10 @@ export function FilterSidebar({
                             )}
                           >
                             <svg
-                              className="h-[clamp(8px,0.7vw,11px)] w-[clamp(8px,0.7vw,11px)] scale-0 stroke-[4.5] text-white transition-transform peer-checked:scale-100"
+                              className={cn(
+                                "h-[clamp(8px,0.7vw,11px)] w-[clamp(8px,0.7vw,11px)] stroke-[4.5] text-white transition-transform",
+                                isChecked ? "scale-100" : "scale-0"
+                              )}
                               viewBox="0 0 24 24"
                               fill="none"
                               stroke="currentColor"
@@ -210,12 +213,12 @@ export function FilterSidebar({
                           </span>
                         </span>
 
-                        {option.flag && <CountryFlag code={option.flag} />}
+                        
 
                         <span
                           className={cn(
                             'group-hover:text-text-heading inline-block max-w-[140px] truncate leading-tight font-bold text-[#475569] transition-colors pb-[2px]',
-                            isChecked && 'font-black text-[#1E293B]'
+                            isChecked && 'font-bold text-[#1E293B]'
                           )}
                         >
                           {option.label}
@@ -223,7 +226,7 @@ export function FilterSidebar({
                       </span>
 
                       {option.count !== undefined && (
-                        <span className="text-text-muted shrink-0 text-[clamp(9px,min(0.8vw,1.15svh),12px)] font-bold">
+                        <span className="text-text-muted shrink-0 text-[clamp(11px,min(0.95vw,1.4svh),14px)] font-bold">
                           {option.count}
                         </span>
                       )}
@@ -240,7 +243,7 @@ export function FilterSidebar({
       <button
         onClick={onApply}
         className={cn(
-          'flex w-full shrink-0 cursor-pointer items-center justify-center rounded-[8px] py-2 text-[clamp(10px,min(0.9vw,1.35svh),14px)] font-bold text-white  transition-all duration-150',
+          'flex w-full shrink-0 cursor-pointer items-center justify-center rounded-[8px] py-2 text-[clamp(12px,min(1.1vw,1.55svh),16px)] font-bold text-white  transition-all duration-150',
           applyBtnClass
         )}
       >

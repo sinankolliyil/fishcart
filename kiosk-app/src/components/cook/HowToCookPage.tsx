@@ -427,7 +427,7 @@ export function HowToCookPage() {
                 {activeRecipe.subtitle}
               </p>
 
-              <h1 className="max-w-[420px] text-[clamp(28px,3vw,40px)] leading-[1.15] font-black tracking-tight text-[#1A1A1A] uppercase">
+              <h1 className="max-w-[420px] text-[clamp(28px,3vw,40px)] leading-[1.15] font-bold tracking-tight text-[#1A1A1A] uppercase">
                 {activeRecipe.title}
               </h1>
 
@@ -510,7 +510,7 @@ export function HowToCookPage() {
                   <div className="flex flex-col">
                     <div className="mb-[8px] flex items-center gap-2">
                       <div className="flex w-fit items-center gap-1.5 rounded-md bg-[#C1DF97] px-3 py-1">
-                        <span className="text-[16px] font-black text-[#1A1A1A]">
+                        <span className="text-[16px] font-bold text-[#1A1A1A]">
                           {activeRecipe.rating}
                         </span>
                         <Star className="h-3.5 w-3.5 fill-current text-[#1A1A1A]" />

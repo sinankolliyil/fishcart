@@ -45,7 +45,7 @@ export function ProductCard({ product, category }: ProductCardProps) {
           alt={product.title}
           fill
           sizes="20vw"
-          className="object-contain"
+          className="object-cover"
         />
 
         {/* Favorite Heart Button */}
@@ -74,7 +74,7 @@ export function ProductCard({ product, category }: ProductCardProps) {
           {/* Title */}
           <h3
             className={cn(
-              'text-text-heading mb-0.5 truncate text-[clamp(17px,min(1.2vw,1.8svh),20px)] leading-tight font-black transition-colors',
+              'mb-0.5 truncate text-[14px] leading-tight font-bold transition-colors text-slate-800',
               category === 'fish'
                 ? 'group-hover:text-[#0D55CF]'
                 : category === 'meat'
@@ -89,7 +89,7 @@ export function ProductCard({ product, category }: ProductCardProps) {
 
           {/* Details (Origin • Format) ,badge */}
           <div className="mt-1 flex flex-wrap items-center gap-2">
-            <span className="text-text-muted text-[clamp(8px,0.68vw,9.5px)] leading-none font-bold">
+            <span className="text-slate-500 text-[11px] leading-none font-medium">
               {product.origin} • {product.format}
             </span>
 
@@ -97,7 +97,7 @@ export function ProductCard({ product, category }: ProductCardProps) {
               <Badge
                 variant="soft"
                 className={cn(
-                  'rounded border px-2 py-0.5 text-[clamp(7px,0.55vw,9px)] leading-none font-bold',
+                  'rounded border px-1.5 py-0.5 text-[10px] leading-none font-bold',
                   currentBadgeBg
                 )}
               >
@@ -112,12 +112,12 @@ export function ProductCard({ product, category }: ProductCardProps) {
           <PriceDisplay
             price={product.price}
             unit={product.unit}
-            className="text-text-heading text-[clamp(10px,min(0.85vw,1.25svh),13px)] leading-none font-black"
+            className="text-slate-900 text-[14px] leading-none font-bold"
           />
 
           <div
             className={cn(
-              'inline-flex shrink-0 items-center gap-0.5 text-[clamp(13px,min(0.9vw,1.2svh),14px)] font-extrabold transition-all duration-150',
+              'inline-flex shrink-0 items-center gap-1 text-[11px] font-bold transition-all duration-150',
               currentColorClass
             )}
           >

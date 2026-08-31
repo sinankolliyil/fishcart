@@ -181,10 +181,10 @@ export function BenefitsPage() {
               Home
             </Link>
             <ChevronRight className="h-3 w-3" />
-            <span className="text-[13px] font-black text-slate-900">Benefits</span>
+            <span className="text-[13px] font-bold text-slate-900">Benefits</span>
           </nav>
           
-          <h2 className="text-[42px] font-black tracking-tight leading-none drop-shadow-sm">
+          <h2 className="text-[42px] font-bold tracking-tight leading-none drop-shadow-sm">
             Nutritional Value
           </h2>
           <p className="mt-2 text-[18px] font-medium text-slate-600">

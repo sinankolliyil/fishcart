@@ -36,7 +36,7 @@ export default function ContactPage() {
         <div className="absolute top-[5%] -right-[2%] h-[250px] w-[250px] rounded-full bg-white/10 blur-xl"></div>
 
         <div className="relative z-10 mt-2 flex flex-col items-center text-center">
-          <h1 className="text-[clamp(32px,3.5vw,48px)] font-black tracking-tight drop-shadow-sm">
+          <h1 className="text-[clamp(32px,3.5vw,48px)] font-bold tracking-tight text-white drop-shadow-sm">
             Contact Us
           </h1>
           <p className="mt-1 max-w-[500px] text-[clamp(12px,1vw,14px)] leading-relaxed font-medium text-white/90">
@@ -48,32 +48,28 @@ export default function ContactPage() {
 
         {/* Floating Elements - perfectly matched to screenshot positions & scaled to fit */}
         {/* Left meat */}
-        <div className="absolute top-[15%] left-[8%] z-20 h-[80px] w-[80px] overflow-hidden rounded-full border-[3px] border-white/30 bg-white shadow-xl">
+        <div className="absolute top-[15%] left-[8%] z-20 h-[80px] w-[80px] overflow-hidden rounded-full border border-white/30 bg-white shadow-xl">
           <Image
-            src="/assets/meat.png"
+            src="/assets/5_image.png"
             alt="Meat"
             fill
-            className="object-cover p-1"
+            className="object-cover"
           />
         </div>
-        {/* Left phone icon */}
        
         {/* Left chicken (nestled in curve) */}
-        <div className="absolute bottom-[20px] left-[26%] z-20 h-[90px] w-[90px] overflow-hidden rounded-full border-[3px] border-white shadow-2xl">
-          <Image src="/assets/c_whole_chicken.png" alt="Chicken" fill className="object-cover" />
+        <div className="absolute bottom-[20px] left-[26%] z-20 h-[90px] w-[90px] overflow-hidden rounded-full border border-white shadow-2xl">
+          <Image src="/assets/boneless_chicken.jpg" alt="Chicken" fill className="object-cover" />
         </div>
         
         {/* Right fish */}
-        <div className="absolute top-[15%] right-[10%] z-20 h-[80px] w-[80px] overflow-hidden rounded-full border-[3px] border-white/30 bg-white shadow-xl">
-          <Image src="/assets/fish2.jpg" alt="Fish" fill className="object-cover" />
+        <div className="absolute top-[15%] right-[10%] z-20 h-[80px] w-[80px] overflow-hidden rounded-full border border-white/30 bg-white shadow-xl">
+          <Image src="/assets/1_image.png" alt="Fish" fill className="object-cover" />
         </div>
-        {/* Right mail icon */}
-        <div className="absolute top-[25%] right-[26%] flex h-8 w-8 items-center justify-center rounded-full bg-white shadow-lg z-20">
-           <Mail className="h-3 w-3 text-[#0D55CF]" />
-        </div>
+
         {/* Right mince (nestled in curve) */}
-        <div className="absolute bottom-[25px] right-[28%] z-20 h-[80px] w-[80px] overflow-hidden rounded-full border-[3px] border-white shadow-2xl">
-          <Image src="/assets/b_lamb_cutlets.png" alt="Mince" fill className="object-cover p-1" />
+        <div className="absolute bottom-[25px] right-[28%] z-20 h-[80px] w-[80px] overflow-hidden rounded-full border border-white shadow-2xl">
+          <Image src="/assets/boar_meat_bonless.jpg" alt="Mince" fill className="object-cover" />
         </div>
 
         {/* SVG Wave Separator */}
@@ -110,7 +106,7 @@ export default function ContactPage() {
         <div className="flex h-full w-full max-w-[1000px] gap-8 md:items-center lg:gap-16">
           {/* Left: Contact Info */}
           <div className="flex w-[40%] flex-col">
-            <h2 className="mb-4 text-[22px] font-black text-slate-800">
+            <h2 className="mb-4 text-[22px] font-bold text-slate-800">
               Get in <span className="text-[#0D55CF]">touch</span>
               <div className="mt-1 h-0.5 w-10 bg-[#0D55CF]"></div>
             </h2>

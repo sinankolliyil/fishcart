@@ -87,7 +87,7 @@ export function Sidebar() {
             </svg>
           </div>
           <div className="mt-0.5">
-            <h1 className="text-primary text-[clamp(14px,min(1.2vw,1.75svh),22px)] leading-none font-black tracking-wide">
+            <h1 className="text-primary text-[clamp(14px,min(1.2vw,1.75svh),22px)] leading-none font-bold tracking-wide">
               FISHCART
             </h1>
             <p className="text-primary/70 mt-0.5 text-[clamp(9px,min(0.65vw,0.95svh),12px)] font-semibold tracking-wide">

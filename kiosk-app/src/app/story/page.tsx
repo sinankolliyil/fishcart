@@ -27,7 +27,7 @@ export default function StoryPage() {
             <span className="text-slate-500">Our Stories</span>
           </nav>
 
-          <h1 className="mb-[clamp(4px,0.6vw,12px)] shrink-0 text-[clamp(24px,3vw,48px)] leading-none font-black text-slate-900">
+          <h1 className="mb-[clamp(4px,0.6vw,12px)] shrink-0 text-[clamp(24px,3vw,48px)] leading-none font-bold text-slate-900">
             Our Story
           </h1>
 
@@ -54,7 +54,7 @@ export default function StoryPage() {
             <div className="flex items-center gap-[clamp(8px,0.8vw,12px)]">
               <Award className="h-[clamp(20px,1.6vw,28px)] w-[clamp(20px,1.6vw,28px)] shrink-0 text-blue-600" />
 
-              <div className="text-[clamp(15px,1.5vw,24px)] leading-none font-black text-slate-900">
+              <div className="text-[clamp(15px,1.5vw,24px)] leading-none font-bold text-slate-900">
                 1+
               </div>
             </div>
@@ -72,7 +72,7 @@ export default function StoryPage() {
             <div className="flex items-center gap-[clamp(8px,0.8vw,12px)]">
               <Heart className="h-[clamp(20px,1.6vw,28px)] w-[clamp(20px,1.6vw,28px)] shrink-0 text-blue-600" />
 
-              <div className="text-[clamp(15px,1.5vw,24px)] leading-none font-black text-slate-900">
+              <div className="text-[clamp(15px,1.5vw,24px)] leading-none font-bold text-slate-900">
                 10,000+
               </div>
             </div>
@@ -90,7 +90,7 @@ export default function StoryPage() {
             <div className="flex items-center gap-[clamp(8px,0.8vw,12px)]">
               <Truck className="h-[clamp(20px,1.6vw,28px)] w-[clamp(20px,1.6vw,28px)] shrink-0 text-blue-600" />
 
-              <div className="text-[clamp(15px,1.5vw,24px)] leading-none font-black text-slate-900">
+              <div className="text-[clamp(15px,1.5vw,24px)] leading-none font-bold text-slate-900">
                 15,000+
               </div>
             </div>
@@ -108,7 +108,7 @@ export default function StoryPage() {
             <div className="flex items-center gap-[clamp(8px,0.8vw,12px)]">
               <ShieldCheck className="h-[clamp(20px,1.6vw,28px)] w-[clamp(20px,1.6vw,28px)] shrink-0 text-blue-600" />
 
-              <div className="text-[clamp(15px,1.5vw,24px)] leading-none font-black text-slate-900">
+              <div className="text-[clamp(15px,1.5vw,24px)] leading-none font-bold text-slate-900">
                 100%
               </div>
             </div>
@@ -327,7 +327,7 @@ export default function StoryPage() {
           <div className="flex min-h-0 flex-1 items-center gap-[clamp(8px,1vw,16px)] pr-2">
             <Heart className="h-[clamp(24px,2.5vw,40px)] w-[clamp(24px,2.5vw,40px)] shrink-0 text-red-500" />
             <div className="flex min-h-0 flex-col">
-              <h2 className="mb-1 text-[clamp(16px,1.5vw,20px)] font-black text-[#0D55CF]">
+              <h2 className="mb-1 text-[clamp(16px,1.5vw,20px)] font-bold text-[#0D55CF]">
                 Thank You!
               </h2>
               <p className="line-clamp-2 text-[14px] leading-tight font-medium text-slate-600 lg:text-[12px] xl:text-[clamp(9px,0.8vw,11px)]">

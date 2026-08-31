@@ -241,7 +241,8 @@
   }
 
   ::-webkit-scrollbar {
-    display: none;
+    width: 12px;
+    height: 12px;
   }
 
   ::-webkit-scrollbar-track {
@@ -249,7 +250,12 @@
   }
 
   ::-webkit-scrollbar-thumb {
-    background: transparent;
+    background: rgba(148, 163, 184, 0.8);
+    border-radius: 10px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(100, 116, 139, 0.9);
   }
   
   h1, h2, h3, h4, h5, h6 {

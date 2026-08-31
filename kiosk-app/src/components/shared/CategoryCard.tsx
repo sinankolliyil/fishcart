@@ -86,7 +86,7 @@ export function CategoryCard({
           className={cn(
             'h-full w-full object-contain object-right-bottom  transition-transform duration-300',
             variant === 'eggs' ? '' :
-            variant === 'fish' ? 'origin-bottom-right scale-[1.55] translate-x-[8%]' :
+            variant === 'fish' ? 'origin-bottom-right scale-[1.4] translate-x-[8%]' :
             'origin-bottom-right scale-[1.4]'
           )}
         />
