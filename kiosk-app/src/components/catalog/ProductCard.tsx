@@ -44,7 +44,7 @@ export function ProductCard({ product, category }: ProductCardProps) {
           src={product.imageSrc}
           alt={product.title}
           fill
-          sizes="20vw"
+          sizes="(max-width: 768px) 50vw, 25vw"
           className="object-cover"
         />
 
@@ -55,11 +55,11 @@ export function ProductCard({ product, category }: ProductCardProps) {
             e.stopPropagation();
             setIsFav(!isFav);
           }}
-          className="text-text-muted hover: absolute top-1.5 right-1.5 z-20 cursor-pointer rounded-full bg-white p-1 transition-all duration-200 hover:bg-white active:scale-90"
+          className="text-text-muted hover: absolute top-[clamp(2px,0.4vw,6px)] right-[clamp(2px,0.4vw,6px)] z-20 cursor-pointer rounded-full bg-white p-[clamp(2px,0.3vw,4px)] transition-all duration-200 hover:bg-white active:scale-90"
         >
           <Heart
             className={cn(
-              'h-3.5 w-3.5 stroke-[2.5]',
+              'h-[clamp(10px,1vw,14px)] w-[clamp(10px,1vw,14px)] stroke-[2.5]',
               isFav
                 ? 'fill-[#F0314A] text-[#F0314A]'
                 : 'text-text-muted hover:text-text-heading'
@@ -69,12 +69,12 @@ export function ProductCard({ product, category }: ProductCardProps) {
       </div>
 
       {/* Product Content Details - shrink-0 to retain vertical space */}
-      <div className="flex min-h-0 shrink-0 flex-col p-2.5 pt-1.5 select-none">
+      <div className="flex min-h-0 shrink-0 flex-col p-[clamp(4px,0.6vw,10px)] pt-[clamp(2px,0.4vw,6px)] select-none">
         <div className="mb-1.5 flex flex-col">
           {/* Title */}
           <h3
             className={cn(
-              'mb-0.5 truncate text-[14px] leading-tight font-bold transition-colors text-slate-800',
+              'mb-[clamp(1px,0.2vw,2px)] truncate text-[clamp(11px,min(1vw,1.4svh),14px)] leading-tight font-bold transition-colors text-slate-800',
               category === 'fish'
                 ? 'group-hover:text-[#0D55CF]'
                 : category === 'meat'
@@ -88,8 +88,8 @@ export function ProductCard({ product, category }: ProductCardProps) {
           </h3>
 
           {/* Details (Origin • Format) ,badge */}
-          <div className="mt-1 flex flex-wrap items-center gap-2">
-            <span className="text-slate-500 text-[11px] leading-none font-medium">
+          <div className="mt-[clamp(2px,0.4vw,4px)] flex flex-wrap items-center gap-[clamp(2px,0.4vw,8px)]">
+            <span className="text-slate-500 text-[clamp(8.5px,min(0.8vw,1.1svh),11px)] leading-none font-medium">
               {product.origin} • {product.format}
             </span>
 
@@ -97,7 +97,7 @@ export function ProductCard({ product, category }: ProductCardProps) {
               <Badge
                 variant="soft"
                 className={cn(
-                  'rounded border px-1.5 py-0.5 text-[10px] leading-none font-bold',
+                  'rounded border px-[clamp(3px,0.4vw,6px)] py-[clamp(1px,0.2vw,2px)] text-[clamp(8px,min(0.7vw,1svh),10px)] leading-none font-bold',
                   currentBadgeBg
                 )}
               >
@@ -108,21 +108,21 @@ export function ProductCard({ product, category }: ProductCardProps) {
         </div>
 
         {/* Price and Details link */}
-        <div className="flex items-center justify-between border-t border-gray-50 pt-1">
+        <div className="flex items-center justify-between border-t border-gray-50 pt-[clamp(2px,0.4vw,4px)]">
           <PriceDisplay
             price={product.price}
             unit={product.unit}
-            className="text-slate-900 text-[14px] leading-none font-bold"
+            className="text-slate-900 text-[clamp(11px,min(1vw,1.4svh),14px)] leading-none font-bold [&>span]:text-[clamp(8px,min(0.7vw,1svh),11px)]"
           />
 
           <div
             className={cn(
-              'inline-flex shrink-0 items-center gap-1 text-[11px] font-bold transition-all duration-150',
+              'inline-flex shrink-0 items-center gap-[clamp(2px,0.3vw,4px)] text-[clamp(9px,min(0.8vw,1.1svh),11px)] font-bold transition-all duration-150',
               currentColorClass
             )}
           >
             <span className="group-hover:underline">Details</span>
-            <ArrowRight className="h-3 w-3 stroke-[2.5]" />
+            <ArrowRight className="h-[clamp(9px,0.8vw,12px)] w-[clamp(9px,0.8vw,12px)] stroke-[2.5]" />
           </div>
         </div>
       </div>

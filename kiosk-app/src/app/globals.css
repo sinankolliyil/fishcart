@@ -67,7 +67,7 @@
    * proportional on tall+narrow and short+wide landscape viewports.
    * Min 220px ensures nav buttons never feel cramped.
    */
-  --container-sidebar: clamp(220px, min(16vw, 24svh), 300px);
+  --container-sidebar: clamp(220px, 16vw, 280px);
   --container-content: calc(100vw - var(--container-sidebar));
   --container-max: 3840px;
 }

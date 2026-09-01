@@ -31,7 +31,24 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} font-sans antialiased h-full w-full overflow-hidden`}>
+    <html lang="en" suppressHydrationWarning className={`${inter.variable} font-sans antialiased h-full w-full overflow-hidden`}>
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                try {
+                  var vw = window.innerWidth;
+                  var vh = window.innerHeight;
+                  var scale = Math.min(vw / 1366, vh / 768);
+                  var clamped = Math.max(0.4, Math.min(3, scale));
+                  document.documentElement.style.zoom = clamped;
+                } catch(e) {}
+              })();
+            `,
+          }}
+        />
+      </head>
       <body className="m-0 p-0 h-full w-full overflow-hidden">
         <ViewportScaler />
         <AppShell>{children}</AppShell>
