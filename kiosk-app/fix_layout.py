@@ -31,7 +31,7 @@ new_return = '''  return (
                     : 'border-gray-200 bg-white text-slate-600 hover:bg-gray-50'
                 )}
               >
-                {cat}
+                {cat}  
               </button>
             ))}
           </div>

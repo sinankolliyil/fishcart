@@ -31,7 +31,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning className={`${inter.variable} font-sans antialiased h-full w-full overflow-hidden`}>
+    <html
+      lang="en"
+      suppressHydrationWarning
+      className={`${inter.variable} h-full w-full overflow-hidden font-sans antialiased`}
+    >
       <head>
         <script
           dangerouslySetInnerHTML={{
@@ -49,7 +53,7 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className="m-0 p-0 h-full w-full overflow-hidden">
+      <body className="m-0 h-full w-full overflow-hidden p-0">
         <ViewportScaler />
         <AppShell>{children}</AppShell>
       </body>

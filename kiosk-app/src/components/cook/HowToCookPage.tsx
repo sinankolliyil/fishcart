@@ -22,7 +22,6 @@ import {
   ChevronRight,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { HomeFooter } from '@/components/layout/HomeFooter';
 import { motion } from 'framer-motion';
 
 // --- Types ---
@@ -804,7 +803,7 @@ export function HowToCookPage() {
       {/* 2. 3-Column Main Grid */}
       <div className="grid min-h-0 grid-cols-12 gap-6 px-[clamp(8px,1vw,16px)]">
         {/* A. Main Video Player (Left, spanning 6 cols) */}
-        <div className="col-span-12 flex min-h-0 flex-col xl:col-span-6">
+        <div className="col-span-6 flex min-h-0 flex-col">
           {/* Categories */}
           <div className="mb-3 flex h-10 w-fit shrink-0 items-center rounded-lg border border-slate-200 bg-white p-1 shadow-sm">
             {(['Fish', 'Meat', 'Chicken', 'Egg'] as Category[]).map((cat) => {
@@ -814,7 +813,9 @@ export function HowToCookPage() {
                   key={cat}
                   onClick={() => {
                     setActiveCategory(cat);
-                    const firstVideo = MOCK_VIDEOS.find((v) => v.category === cat);
+                    const firstVideo = MOCK_VIDEOS.find(
+                      (v) => v.category === cat
+                    );
                     if (firstVideo) setActiveVideo(firstVideo);
                   }}
                   className="group relative flex h-full flex-1 items-center justify-center gap-2 rounded-md px-5 outline-none"
@@ -943,7 +944,7 @@ export function HowToCookPage() {
         </div>
 
         {/* B. Ingredients Overview (Middle, spanning 3 cols) */}
-        <div className="col-span-12 flex min-h-0 flex-col rounded-xl border border-gray-100 bg-white p-5 shadow-sm md:col-span-6 xl:col-span-3">
+        <div className="col-span-3 flex min-h-0 flex-col rounded-xl border border-gray-100 bg-white p-5 shadow-sm">
           <div className="mb-4 flex shrink-0 items-center justify-between border-b border-gray-100 pb-4">
             <h3 className="text-lg font-bold text-[#0B1F5B]">
               Ingredients Overview
@@ -968,7 +969,7 @@ export function HowToCookPage() {
                         {ing.icon}
                       </div>
                       <div className="flex min-w-0 flex-col justify-center">
-                        <span className="truncate text-sm font-bold leading-tight text-[#0D55CF]">
+                        <span className="truncate text-sm leading-tight font-bold text-[#0D55CF]">
                           {ing.name}
                         </span>
                         <span className="mt-0.5 truncate text-[10px] font-semibold text-blue-500/80 group-hover:underline">
@@ -1008,9 +1009,13 @@ export function HowToCookPage() {
             })}
           </div>
 
-          <a 
-            href={activeVideo.id === 1 ? '/assets/grilled_sea_bass_recipe.pdf' : '#'}
-            download={activeVideo.id === 1 ? 'Grilled_Sea_Bass_Recipe.pdf' : undefined}
+          <a
+            href={
+              activeVideo.id === 1 ? '/assets/grilled_sea_bass_recipe.pdf' : '#'
+            }
+            download={
+              activeVideo.id === 1 ? 'Grilled_Sea_Bass_Recipe.pdf' : undefined
+            }
             target={activeVideo.id === 1 ? '_blank' : undefined}
             rel="noreferrer"
             onClick={(e) => {
@@ -1019,7 +1024,7 @@ export function HowToCookPage() {
                 // Real implementation would fetch PDF from backend for other recipes
               }
             }}
-            className="group mt-4 flex w-full shrink-0 items-center justify-between rounded-lg bg-[#F4F7FB] px-4 py-3 transition-colors hover:bg-[#E5EEFF] cursor-pointer"
+            className="group mt-4 flex w-full shrink-0 cursor-pointer items-center justify-between rounded-lg bg-[#F4F7FB] px-4 py-3 transition-colors hover:bg-[#E5EEFF]"
           >
             <div className="flex items-center gap-2 text-sm font-bold text-[#0D55CF]">
               <Download className="h-4 w-4" /> Download Recipe
@@ -1031,7 +1036,7 @@ export function HowToCookPage() {
         </div>
 
         {/* C. Follow Other Videos (Right, spanning 3 cols) */}
-        <div className="col-span-12 flex min-h-0 flex-col rounded-xl border border-gray-100 bg-white p-5 shadow-sm md:col-span-6 xl:col-span-3">
+        <div className="col-span-3 flex min-h-0 flex-col rounded-xl border border-gray-100 bg-white p-5 shadow-sm">
           <h3 className="mb-4 shrink-0 text-lg font-bold text-[#0B1F5B]">
             Follow Other Videos
           </h3>
@@ -1083,7 +1088,7 @@ export function HowToCookPage() {
         </div>
 
         {/* Grid of 5 videos max */}
-        <div className="grid min-h-0 flex-1 grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
+        <div className="grid min-h-0 flex-1 grid-cols-5 gap-6">
           {uniqueCategoryVideos.slice(0, 5).map((v) => (
             <div
               key={v.id}

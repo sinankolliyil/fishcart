@@ -341,7 +341,7 @@ const googleReviews: Review[] = [
 
 // ─── Rating summaries per platform ───────────────────────────────────────────
 
-const ratingSummaries: Record<Exclude<Platform, 'feedback'>, RatingSummary> =  {
+const ratingSummaries: Record<Exclude<Platform, 'feedback'>, RatingSummary> = {
   facebook: {
     average: 4.8,
     total: 126,
@@ -797,13 +797,11 @@ export function TestimonialsPage() {
     <div className="grid h-full min-h-0 w-full grid-rows-[minmax(0,89fr)_minmax(0,10fr)] gap-[var(--main-gap)] overflow-hidden">
       {/* ── Main Content ── */}
       <div className="flex min-h-0 flex-col gap-[12px] overflow-hidden">
-
-
         {/* ── ROW A: Hero + Platform tabs ── */}
         <div className="grid shrink-0 grid-cols-[1fr_auto] gap-[18px]">
           {/* Left: heading + tabs */}
           <div className="flex min-w-0 flex-col gap-[12px]">
-            <div className="relative overflow-hidden rounded-[8px] bg-gradient-to-r from-[#F4F9FF] via-[#EAF3FF] to-[#D4E6FC] flex flex-col justify-center border border-white/20 px-[clamp(8px,1.2vw,18px)] py-[clamp(6px,0.8vw,12px)]">
+            <div className="relative flex flex-col justify-center overflow-hidden rounded-[8px] border border-white/20 bg-gradient-to-r from-[#F4F9FF] via-[#EAF3FF] to-[#D4E6FC] px-[clamp(8px,1.2vw,18px)] py-[clamp(6px,0.8vw,12px)]">
               <h1 className="text-[clamp(32px,min(3vw,4svh),44px)] leading-tight font-bold tracking-tight text-[#102B7B]">
                 What Our Customers Say
               </h1>
@@ -820,7 +818,7 @@ export function TestimonialsPage() {
                   strokeLinecap="round"
                 />
               </svg>
-              <p className="text-[clamp(11px,min(1vw,1.4svh),15px)] font-bold mt-[clamp(2px,0.5vw,8px)] opacity-90 text-[#102B7B]">
+              <p className="mt-[clamp(2px,0.5vw,8px)] text-[clamp(11px,min(1vw,1.4svh),15px)] font-bold text-[#102B7B] opacity-90">
                 We value every feedback. Here's what our amazing customers have
                 to say about
                 <br />
@@ -876,7 +874,7 @@ export function TestimonialsPage() {
               {/* Top Banner */}
               <div className="flex items-center gap-[24px] bg-[#F8FBFF] p-[24px]">
                 {/* Left Illustration placeholder */}
-                <div className="relative flex h-[60px] w-[60px] shrink-0 items-center justify-center rounded-full bg-blue-100 shadow-inner border border-blue-200">
+                <div className="relative flex h-[60px] w-[60px] shrink-0 items-center justify-center rounded-full border border-blue-200 bg-blue-100 shadow-inner">
                   <MessageSquareHeart className="h-[30px] w-[30px] text-blue-600" />
                 </div>
                 {/* Right Text */}
