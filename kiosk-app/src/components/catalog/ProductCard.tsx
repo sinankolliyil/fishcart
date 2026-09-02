@@ -88,8 +88,8 @@ export function ProductCard({ product, category }: ProductCardProps) {
           </h3>
 
           {/* Details (Origin • Format) ,badge */}
-          <div className="mt-[clamp(2px,0.4vw,4px)] flex flex-wrap items-center gap-[clamp(2px,0.4vw,8px)]">
-            <span className="text-slate-500 text-[clamp(8.5px,min(0.8vw,1.1svh),11px)] leading-none font-medium">
+          <div className="mt-[clamp(2px,0.4vw,4px)] flex flex-col items-start gap-[clamp(2px,0.4vw,6px)]">
+            <span className="text-slate-500 text-[clamp(10px,min(0.9vw,1.2svh),12.5px)] leading-none font-medium">
               {product.origin} • {product.format}
             </span>
 
@@ -108,11 +108,11 @@ export function ProductCard({ product, category }: ProductCardProps) {
         </div>
 
         {/* Price and Details link */}
-        <div className="flex items-center justify-between border-t border-gray-50 pt-[clamp(2px,0.4vw,4px)]">
+        <div className="mt-auto flex items-center justify-between border-t border-gray-50 pt-[clamp(4px,0.6vw,8px)]">
           <PriceDisplay
             price={product.price}
             unit={product.unit}
-            className="text-slate-900 text-[clamp(11px,min(1vw,1.4svh),14px)] leading-none font-bold [&>span]:text-[clamp(8px,min(0.7vw,1svh),11px)]"
+            className="text-slate-900 text-[clamp(9.5px,min(0.8vw,1.1svh),11.5px)] leading-none font-bold [&>span]:text-[clamp(7px,min(0.55vw,0.7svh),8.5px)]"
           />
 
           <div

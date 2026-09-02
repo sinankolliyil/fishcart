@@ -272,7 +272,7 @@ export function CatalogPage({ data }: CatalogPageProps) {
   };
 
   return (
-    <div className="grid h-full min-h-[950px] w-full grid-rows-[minmax(0,15fr)_minmax(0,8fr)_minmax(0,65fr)_minmax(0,11fr)_minmax(0,10fr)] gap-[var(--main-gap)] select-none">
+    <div className="grid h-full min-h-[950px] w-full grid-rows-[minmax(0,14fr)_minmax(0,7fr)_minmax(0,70fr)_minmax(0,11fr)_minmax(0,10fr)] gap-[var(--main-gap)] select-none">
       {/* 1. Hero Section */}
       <div className="h-full w-full overflow-hidden">
         <CatalogHero
@@ -283,7 +283,7 @@ export function CatalogPage({ data }: CatalogPageProps) {
           imageAlt={data.hero.imageAlt}
           gradientClass={data.hero.gradientClass}
           category={data.category}
-        /> 
+        />
       </div>
 
       {/* 2. Category Tabs */}
@@ -312,7 +312,7 @@ export function CatalogPage({ data }: CatalogPageProps) {
         </div>
 
         {/* Right Column: Product List — 4/5 width */}
-        <div className="col-span-4 flex h-full flex-col overflow-hidden rounded-[8px] bg-white p-2 shadow-sm border border-slate-100">
+        <div className="col-span-4 flex h-full flex-col overflow-hidden rounded-[8px] border border-slate-100 bg-white p-2 shadow-sm">
           <ProductGrid
             products={processedProducts}
             category={data.category}

@@ -19,7 +19,7 @@ import { HomeFooter } from '@/components/layout/HomeFooter';
 
 export function AboutPage() {
   return (
-    <div className="flex h-full w-full scrollbar-thin scrollbar-thumb-slate-200 flex-col overflow-x-hidden overflow-y-auto bg-[#F8F2EF] select-none">
+    <div className="flex h-full w-full scrollbar-thin scrollbar-thumb-slate-200 flex-col overflow-x-hidden overflow-y-auto bg-[#EFF2FA] select-none">
       {/* ─── Main Content ─── */}
       <div className="flex w-full flex-1 flex-col gap-4 px-[clamp(20px,4vw,60px)] py-4">
         {/* ─── Hero & Features Wrapper ─── */}
@@ -27,10 +27,10 @@ export function AboutPage() {
           {/* Full Hero Image containing all elements */}
           <div className="pointer-events-none absolute inset-0 z-0 -mx-[clamp(20px,4vw,60px)] -mt-10 overflow-visible">
             <Image
-              src="/assets/about_hero.png"
+              src="/assets/new_aboutus.png"
               alt="Fresh Meat and Fish Hero"
               fill
-              className="origin-right -translate-x-16 -translate-y-6 scale-[1.1] object-contain object-right"
+              className="origin-right -translate-x-18 -translate-y-3 scale-[1.09] object-contain object-right"
               priority
             />
           </div>
@@ -39,21 +39,21 @@ export function AboutPage() {
           <div className="relative z-10 flex min-h-[400px] w-full items-center justify-start">
             <div className="-mt-35 flex w-1/2 flex-col pr-10">
               <div className="mb-2 flex items-center gap-2">
-                <span className="text-sm font-bold text-red-600 italic">
+                <span className="text-sm font-bold text-[#0D55CF] italic">
                   About Us
                 </span>
-                <div className="h-[2px] w-12 bg-red-100" />
+                <div className="h-[2px] w-12 bg-blue-200" />
               </div>
               <h1 className="text-[clamp(28px,2.5vw,48px)] leading-[1.1] font-bold tracking-tight text-slate-900">
                 Fresh. Hygienic. <br />
-                Trusted. <span className="text-red-600">Delivered.</span>
+                Trusted. <span className="text-[#0D55CF]">Delivered.</span>
               </h1>
               <p className="mt-4 max-w-[85%] text-[clamp(13px,1vw,16px)] leading-relaxed font-medium text-slate-500">
                 We are passionate about delivering the freshest non-veg products
                 to your doorstep. Quality, hygiene and trust are at the heart of
                 everything we do.
               </p>
-              <div className="font-handwriting mt-6 text-2xl font-medium text-red-600 italic opacity-80">
+              <div className="font-handwriting mt-6 text-2xl font-medium text-[#0D55CF] italic opacity-80">
                 Team FishCart
               </div>
             </div>
@@ -64,11 +64,11 @@ export function AboutPage() {
         <div className="relative z-20 -mt-[160px] flex w-full flex-col">
           <div className="mb-4 flex flex-col items-center justify-center text-center">
             <div className="mb-2 flex items-center gap-2">
-              <div className="h-[1px] w-8 bg-red-200" />
-              <span className="text-xs font-bold tracking-wider text-red-600 uppercase">
+              <div className="h-[1px] w-8 bg-blue-200" />
+              <span className="text-xs font-bold tracking-wider text-[#0D55CF] uppercase">
                 What We Offer
               </span>
-              <div className="h-[1px] w-8 bg-red-200" />
+              <div className="h-[1px] w-8 bg-blue-200" />
             </div>
             <h2 className="text-3xl font-bold text-slate-900">
               Explore Our Fresh Selection
@@ -111,11 +111,11 @@ export function AboutPage() {
                 <div className="absolute inset-0 drop-shadow-[0_6px_12px_rgba(0,0,0,0.08)] filter">
                   {/* Clipped Glass Background */}
                   <div
-                    className="absolute inset-0 bg-rose-100/30 backdrop-blur-[16px]"
+                    className="absolute inset-0 bg-blue-100/30 backdrop-blur-[16px]"
                     style={{ clipPath: 'url(#glass-shape)' }}
                   >
                     {/* 3D Inner Highlight & Shade (glare top-left, shadow bottom-right) */}
-                    <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-white/80 via-rose-100/20 to-rose-900/10" />
+                    <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-white/80 via-blue-100/20 to-blue-900/10" />
                   </div>
 
                   {/* Illuminated SVG Border Overlay */}
@@ -155,14 +155,14 @@ export function AboutPage() {
 
                 {/* Product Title */}
                 <div className="absolute bottom-5 left-5 z-20 text-[22px] font-bold tracking-tight text-[#0E1A2B]">
-                  <span className="text-[#EF1D23]">{cat.title.charAt(0)}</span>
+                  <span className="text-[#0D55CF]">{cat.title.charAt(0)}</span>
                   {cat.title.slice(1)}
                 </div>
 
                 {/* Arrow Navigation Icon (Centered perfectly in the small card's bounding box) */}
                 <div className="absolute top-[75%] left-[70%] z-20 flex h-[25%] w-[30%] items-center justify-center transition-transform duration-300 group-hover:translate-x-1">
                   <ArrowRight
-                    className="h-5 w-5 text-[#EF1D23]"
+                    className="h-5 w-5 text-[#0D55CF]"
                     strokeWidth={2.5}
                   />
                 </div>
@@ -179,28 +179,28 @@ export function AboutPage() {
           <div className="grid grid-cols-4 gap-4">
             {[
               {
-                icon: <Medal className="h-7 w-7 text-red-500" />,
+                icon: <Medal className="h-7 w-7 text-[#0D55CF]" />,
                 title: 'Premium Quality',
                 desc: 'We never compromise on quality.',
               },
               {
-                icon: <Thermometer className="h-7 w-7 text-red-500" />,
+                icon: <Thermometer className="h-7 w-7 text-[#0D55CF]" />,
                 title: 'Fresh & Hygienic',
                 desc: 'Maintained with the highest standards.',
               },
               {
-                icon: <Heart className="h-7 w-7 text-red-500" />,
+                icon: <Heart className="h-7 w-7 text-[#0D55CF]" />,
                 title: 'Trusted & Reliable',
                 desc: 'Thousands of families trust us every day.',
               },
               {
-                icon: <Headset className="h-7 w-7 text-red-500" />,
+                icon: <Headset className="h-7 w-7 text-[#0D55CF]" />,
                 title: 'Customer First',
                 desc: "We're here for you, always.",
               },
             ].map((item, idx) => (
               <div key={idx} className="flex items-center gap-4">
-                <div className="flex shrink-0 text-red-100">
+                <div className="flex shrink-0 text-blue-100">
                   <div className="relative flex h-12 w-12 items-center justify-center">
                     {item.icon}
                   </div>
