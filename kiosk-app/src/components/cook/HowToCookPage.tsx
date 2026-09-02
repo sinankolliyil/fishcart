@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import {
@@ -26,16 +26,16 @@ import { HomeFooter } from '@/components/layout/HomeFooter';
 import { motion } from 'framer-motion';
 
 // --- Types ---
-type Category = 'Fish' | 'Meat' | 'Chicken' | 'Egg';
-type Difficulty = 'Easy' | 'Medium' | 'Hard';
+export type Category = 'Fish' | 'Meat' | 'Chicken' | 'Egg';
+export type Difficulty = 'Easy' | 'Medium' | 'Hard';
 
-interface Ingredient {
+export interface Ingredient {
   name: string;
   qty: string;
   icon: string;
 }
 
-interface Video {
+export interface Video {
   id: number;
   title: string;
   description: string;
@@ -49,7 +49,7 @@ interface Video {
 }
 
 // --- Mock Data ---
-const MOCK_VIDEOS: Video[] = [
+export const MOCK_VIDEOS: Video[] = [
   {
     id: 1,
     title: 'Grilled Sea Bass with Lemon Butter Sauce',
@@ -164,7 +164,7 @@ const MOCK_VIDEOS: Video[] = [
     time: '20 mins',
     serves: 2,
     ingredients: [
-      { name: 'Eggs', qty: '4', icon: '🥚' },
+      { name: 'Chicken Eggs', qty: '4', icon: '🥚' },
       { name: 'Onions', qty: '2', icon: '🧅' },
       { name: 'Tomatoes', qty: '2', icon: '🍅' },
     ],
@@ -633,7 +633,7 @@ const MOCK_VIDEOS: Video[] = [
     time: '5 mins',
     serves: 1,
     ingredients: [
-      { name: 'Eggs', qty: '3', icon: '🥚' },
+      { name: 'Chicken Eggs', qty: '3', icon: '🥚' },
       { name: 'Milk', qty: '2 tbsp', icon: '🥛' },
     ],
   },
@@ -648,7 +648,7 @@ const MOCK_VIDEOS: Video[] = [
     time: '10 mins',
     serves: 2,
     ingredients: [
-      { name: 'Eggs', qty: '4', icon: '🥚' },
+      { name: 'Quail Eggs', qty: '6', icon: '🥚' },
       { name: 'Water', qty: '2 cups', icon: '💧' },
     ],
   },
@@ -663,7 +663,7 @@ const MOCK_VIDEOS: Video[] = [
     time: '10 mins',
     serves: 1,
     ingredients: [
-      { name: 'Eggs', qty: '3', icon: '🥚' },
+      { name: 'Quail Eggs', qty: '5', icon: '🥚' },
       { name: 'Cheese', qty: '1/4 cup', icon: '🧀' },
     ],
   },
@@ -730,7 +730,7 @@ const MOCK_VIDEOS: Video[] = [
 ];
 
 // Helper to get Category Icon
-function getCategoryIcon(cat: Category) {
+export function getCategoryIcon(cat: Category) {
   switch (cat) {
     case 'Fish':
       return <Fish className="h-4 w-4 text-blue-500" />;
@@ -748,6 +748,18 @@ function getCategoryIcon(cat: Category) {
 export function HowToCookPage() {
   const [activeCategory, setActiveCategory] = useState<Category>('Fish');
   const [activeVideo, setActiveVideo] = useState<Video>(MOCK_VIDEOS[0]);
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const videoId = params.get('videoId');
+    if (videoId) {
+      const vid = MOCK_VIDEOS.find((v) => v.id === parseInt(videoId));
+      if (vid) {
+        setActiveVideo(vid);
+        setActiveCategory(vid.category);
+      }
+    }
+  }, []);
 
   const filteredVideos = MOCK_VIDEOS.filter(
     (v) => v.category === activeCategory
@@ -800,7 +812,11 @@ export function HowToCookPage() {
               return (
                 <button
                   key={cat}
-                  onClick={() => setActiveCategory(cat)}
+                  onClick={() => {
+                    setActiveCategory(cat);
+                    const firstVideo = MOCK_VIDEOS.find((v) => v.category === cat);
+                    if (firstVideo) setActiveVideo(firstVideo);
+                  }}
                   className="group relative flex h-full flex-1 items-center justify-center gap-2 rounded-md px-5 outline-none"
                 >
                   {isActive && (
