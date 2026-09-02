@@ -36,7 +36,7 @@ export default function ContactPage() {
         <div className="absolute top-[5%] -right-[2%] h-[250px] w-[250px] rounded-full bg-white/10 blur-xl"></div>
 
         <div className="relative z-10 mt-2 flex flex-col items-center text-center">
-          <h1 className="text-[clamp(32px,3.5vw,48px)] font-bold tracking-tight text-white drop-shadow-sm">
+          <h1 className="text-[clamp(32px,min(3vw,4svh),44px)] leading-tight font-bold tracking-tight text-white drop-shadow-sm">
             Contact Us
           </h1>
           <p className="mt-1 max-w-[500px] text-[clamp(12px,1vw,14px)] leading-relaxed font-medium text-white/90">

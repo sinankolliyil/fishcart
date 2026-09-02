@@ -178,7 +178,7 @@ export function BenefitsPage() {
         <div className="relative z-10 flex flex-col justify-center text-slate-900">
 
           
-          <h2 className="text-[42px] font-bold tracking-tight leading-none drop-shadow-sm">
+          <h2 className="text-[clamp(32px,min(3vw,4svh),44px)] leading-tight font-bold tracking-tight text-[#102B7B]">
             Nutritional Value
           </h2>
           <p className="mt-2 text-[18px] font-medium text-slate-600">

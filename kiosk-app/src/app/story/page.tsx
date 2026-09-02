@@ -18,10 +18,10 @@ export default function StoryPage() {
       {/* ROW 1 — Story Introduction (28%) */}
       <div className="grid min-h-0 grid-cols-[40fr_20fr_40fr] gap-2 overflow-hidden lg:gap-3 xl:grid-cols-[38fr_28fr_34fr] xl:gap-[var(--main-gap)]">
         {/* Left Side: Intro */}
-        <div className="flex min-h-0 flex-col justify-start pt-[clamp(8px,1vw,16px)] pl-[clamp(8px,1vw,16px)]">
+        <div className="flex min-h-0 flex-col justify-start px-[clamp(8px,1.2vw,18px)] pt-[clamp(6px,0.8vw,12px)]">
 
 
-          <h1 className="mb-[clamp(4px,0.6vw,12px)] shrink-0 text-[clamp(24px,3vw,48px)] leading-none font-bold text-slate-900">
+          <h1 className="mb-[clamp(4px,0.6vw,12px)] shrink-0 text-[clamp(32px,min(3vw,4svh),44px)] leading-tight font-bold tracking-tight text-[#102B7B]">
             Our Story
           </h1>
 

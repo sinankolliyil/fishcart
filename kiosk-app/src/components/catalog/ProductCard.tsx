@@ -69,12 +69,12 @@ export function ProductCard({ product, category }: ProductCardProps) {
       </div>
 
       {/* Product Content Details - shrink-0 to retain vertical space */}
-      <div className="flex min-h-0 shrink-0 flex-col p-[clamp(4px,0.6vw,10px)] pt-[clamp(2px,0.4vw,6px)] select-none">
-        <div className="mb-1.5 flex flex-col">
+      <div className="flex min-h-0 shrink-0 flex-col p-2.5 pt-3.5 select-none">
+        <div className="mb-1 flex flex-col">
           {/* Title */}
           <h3
             className={cn(
-              'mb-[clamp(1px,0.2vw,2px)] truncate text-[clamp(11px,min(1vw,1.4svh),14px)] leading-tight font-bold transition-colors text-slate-800',
+              'mb-0.5 truncate text-[15px] leading-tight font-bold transition-colors text-slate-800',
               category === 'fish'
                 ? 'group-hover:text-[#0D55CF]'
                 : category === 'meat'
@@ -88,8 +88,8 @@ export function ProductCard({ product, category }: ProductCardProps) {
           </h3>
 
           {/* Details (Origin • Format) ,badge */}
-          <div className="mt-[clamp(2px,0.4vw,4px)] flex flex-col items-start gap-[clamp(2px,0.4vw,6px)]">
-            <span className="text-slate-500 text-[clamp(10px,min(0.9vw,1.2svh),12.5px)] leading-none font-medium">
+          <div className="mt-1 flex flex-col items-start gap-1">
+            <span className="text-slate-500 text-[13px] leading-none font-medium">
               {product.origin} • {product.format}
             </span>
 
@@ -97,7 +97,7 @@ export function ProductCard({ product, category }: ProductCardProps) {
               <Badge
                 variant="soft"
                 className={cn(
-                  'rounded border px-[clamp(3px,0.4vw,6px)] py-[clamp(1px,0.2vw,2px)] text-[clamp(8px,min(0.7vw,1svh),10px)] leading-none font-bold',
+                  'mt-0.5 rounded border px-2 py-0.5 text-[11px] leading-none font-bold',
                   currentBadgeBg
                 )}
               >
@@ -108,16 +108,16 @@ export function ProductCard({ product, category }: ProductCardProps) {
         </div>
 
         {/* Price and Details link */}
-        <div className="mt-auto flex items-center justify-between border-t border-gray-50 pt-[clamp(4px,0.6vw,8px)]">
+        <div className="mt-auto flex items-center justify-between border-t border-gray-50 pt-2">
           <PriceDisplay
             price={product.price}
             unit={product.unit}
-            className="text-slate-900 text-[clamp(9.5px,min(0.8vw,1.1svh),11.5px)] leading-none font-bold [&>span]:text-[clamp(7px,min(0.55vw,0.7svh),8.5px)]"
+            className="text-slate-900 text-[15px] leading-none font-bold [&>span]:text-[11px]"
           />
 
           <div
             className={cn(
-              'inline-flex shrink-0 items-center gap-[clamp(2px,0.3vw,4px)] text-[clamp(9px,min(0.8vw,1.1svh),11px)] font-bold transition-all duration-150',
+              'inline-flex shrink-0 items-center gap-1 text-[13px] font-bold transition-all duration-150',
               currentColorClass
             )}
           >

@@ -44,7 +44,7 @@ export function AboutPage() {
                 </span>
                 <div className="h-[2px] w-12 bg-blue-200" />
               </div>
-              <h1 className="text-[clamp(28px,2.5vw,48px)] leading-[1.1] font-bold tracking-tight text-slate-900">
+              <h1 className="text-[clamp(32px,min(3vw,4svh),44px)] leading-tight font-bold tracking-tight text-slate-900">
                 Fresh. Hygienic. <br />
                 Trusted. <span className="text-[#0D55CF]">Delivered.</span>
               </h1>

@@ -791,8 +791,8 @@ export function HowToCookPage() {
   return (
     <div className="grid h-full min-h-[750px] w-full grid-rows-[auto_minmax(0,42fr)_minmax(0,20fr)] gap-[clamp(12px,2svh,24px)] overflow-hidden bg-white select-none">
       {/* 1. Header (Title + Categories) */}
-      <div className="flex min-h-0 shrink-0 flex-col justify-start px-[clamp(8px,1vw,16px)]">
-        <h1 className="text-[clamp(24px,2vw,32px)] font-bold tracking-tight text-[#0B1F5B]">
+      <div className="flex shrink-0 flex-col px-[clamp(8px,1.2vw,18px)] pt-[clamp(6px,0.8vw,12px)]">
+        <h1 className="text-[clamp(32px,min(3vw,4svh),44px)] leading-tight font-bold tracking-tight text-[#102B7B]">
           How to Cook
         </h1>
         <p className="mt-1 text-sm font-medium text-slate-500">
