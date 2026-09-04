@@ -1,10 +1,11 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import {
   Play,
+  Pause,
   Volume2,
   Settings,
   Maximize,
@@ -747,6 +748,25 @@ export function getCategoryIcon(cat: Category) {
 export function HowToCookPage() {
   const [activeCategory, setActiveCategory] = useState<Category>('Fish');
   const [activeVideo, setActiveVideo] = useState<Video>(MOCK_VIDEOS[0]);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [currentTime, setCurrentTime] = useState(0);
+  const [duration, setDuration] = useState(0);
+
+  const formatTime = (timeInSeconds: number) => {
+    if (isNaN(timeInSeconds)) return '00:00';
+    const minutes = Math.floor(timeInSeconds / 60);
+    const seconds = Math.floor(timeInSeconds % 60);
+    return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+  };
+
+  useEffect(() => {
+    setIsPlaying(false);
+    if (videoRef.current) {
+      videoRef.current.pause();
+      videoRef.current.currentTime = 0;
+    }
+  }, [activeVideo.id]);
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -849,52 +869,56 @@ export function HowToCookPage() {
           </div>
 
           <div className="group relative min-h-0 w-full flex-1 overflow-hidden rounded-lg bg-black">
-            <Image
-              src={activeVideo.thumbnail}
-              alt={activeVideo.title}
-              fill
-              className="object-cover opacity-80"
-            />
+            {activeVideo.id === 1 ? (
+              <video
+                ref={videoRef}
+                src="/assets/rabit.mp4"
+                poster={activeVideo.thumbnail}
+                className="h-full w-full object-cover opacity-80"
+                muted
+                loop
+                playsInline
+                onTimeUpdate={(e) =>
+                  setCurrentTime(e.currentTarget.currentTime)
+                }
+                onLoadedMetadata={(e) => setDuration(e.currentTarget.duration)}
+                onPlay={() => setIsPlaying(true)}
+                onPause={() => setIsPlaying(false)}
+              />
+            ) : (
+              <Image
+                src={activeVideo.thumbnail}
+                alt={activeVideo.title}
+                fill
+                className="object-cover opacity-80"
+              />
+            )}
 
-            {/* Giant Play Button */}
-            <div className="absolute inset-0 flex items-center justify-center">
-              <button className="flex h-16 w-16 items-center justify-center rounded-full bg-white shadow-lg transition-transform hover:scale-110 active:scale-95">
-                <Play className="ml-1 h-8 w-8 fill-black text-black" />
+            {/* Giant Center Button */}
+            <div
+              className={cn(
+                'pointer-events-none absolute inset-0 flex items-center justify-center transition-opacity duration-300',
+                isPlaying ? 'opacity-0 group-hover:opacity-100' : 'opacity-100'
+              )}
+            >
+              <button
+                onClick={() => {
+                  if (activeVideo.id === 1) {
+                    if (isPlaying) {
+                      videoRef.current?.pause();
+                    } else {
+                      videoRef.current?.play().catch(() => {});
+                    }
+                  }
+                }}
+                className="pointer-events-auto flex h-16 w-16 items-center justify-center rounded-full bg-white/90 shadow-lg backdrop-blur transition-transform hover:scale-110 active:scale-95"
+              >
+                {activeVideo.id === 1 && isPlaying ? (
+                  <Pause className="h-8 w-8 fill-black text-black" />
+                ) : (
+                  <Play className="ml-1 h-8 w-8 fill-black text-black" />
+                )}
               </button>
-            </div>
-
-            {/* Mock Video Controls Bar */}
-            <div className="absolute right-0 bottom-0 left-0 flex h-14 flex-col justify-end bg-gradient-to-t from-black/80 to-transparent px-4 pb-2 opacity-0 transition-opacity group-hover:opacity-100">
-              {/* Progress bar */}
-              <div className="mb-2 h-1 w-full overflow-hidden rounded-full bg-white/30">
-                <div className="h-full w-1/3 bg-[#0D55CF]"></div>
-              </div>
-              {/* Controls */}
-              <div className="flex items-center justify-between text-white">
-                <div className="flex items-center gap-4">
-                  <button>
-                    <Play className="h-4 w-4 fill-white" />
-                  </button>
-                  <button>
-                    <SkipBack className="h-4 w-4 fill-white" />
-                  </button>
-                  <button>
-                    <SkipForward className="h-4 w-4 fill-white" />
-                  </button>
-                  <button>
-                    <Volume2 className="h-4 w-4" />
-                  </button>
-                </div>
-                <div className="flex items-center gap-4 text-xs font-medium">
-                  <span>02:15 / {activeVideo.duration}</span>
-                  <button>
-                    <Settings className="h-4 w-4" />
-                  </button>
-                  <button>
-                    <Maximize className="h-4 w-4" />
-                  </button>
-                </div>
-              </div>
             </div>
           </div>
 
