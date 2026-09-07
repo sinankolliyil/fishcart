@@ -71,37 +71,13 @@ export function ProductDetailsLayout({ data }: { data: ProductDetails }) {
         {/* Hero & Pricing Split */}
         <div className="grid min-h-0 w-full flex-1 grid-cols-12 gap-[var(--main-gap)] overflow-hidden">
           {/* Left Column - Product Info & Image (8 cols) */}
-          <div className="col-span-8 flex min-h-0 min-w-0 gap-3 overflow-hidden rounded-[8px] bg-white p-3  xl:p-[clamp(8px,1vw,16px)]">
+          <div className="col-span-8 flex min-h-0 min-w-0 gap-3 overflow-hidden rounded-[8px] bg-white p-3 xl:p-[clamp(8px,1vw,16px)]">
             {/* Info text column */}
-            <div className="flex w-1/3 min-w-0 flex-col justify-between overflow-hidden">
+            <div className="flex w-1/3 min-w-0 flex-col justify-start gap-[clamp(8px,1.5vh,20px)] overflow-hidden pt-[clamp(4px,1.5vh,16px)]">
               <div className="flex min-h-0 flex-col overflow-hidden">
-                <div className="mb-[clamp(4px,0.6vw,8px)] flex items-center gap-1.5 text-[12px] font-bold text-slate-500 lg:text-[13px] xl:text-[clamp(10px,0.8vw,12px)]">
-                  <Link
-                    href="/"
-                    className={cn(
-                      'transition-colors hover:underline',
-                      themeText
-                    )}
-                  >
-                    Home
-                  </Link>
-                  <ChevronRight className="h-[clamp(8px,0.7vw,12px)] w-[clamp(8px,0.7vw,12px)]" />
-                  <Link
-                    href={`/${data.category}`}
-                    className={cn(
-                      'transition-colors hover:underline',
-                      themeText
-                    )}
-                  >
-                    {data.category.charAt(0).toUpperCase() +
-                      data.category.slice(1)}
-                  </Link>
-                  <ChevronRight className="h-[clamp(8px,0.7vw,12px)] w-[clamp(8px,0.7vw,12px)]" />
-                  <span className="truncate text-slate-800">{data.title}</span>
-                </div>
                 <Badge
                   className={cn(
-                    'mb-[clamp(2px,0.4vw,6px)] w-fit rounded-full bg-blue-50 px-[clamp(4px,0.6vw,8px)] py-[clamp(1px,0.2vw,3px)] text-[11px] font-bold lg:text-[12px] xl:text-[clamp(8px,0.6vw,10px)]',
+                    'mb-[clamp(8px,1.5vh,16px)] w-fit rounded-full bg-blue-50 px-[clamp(4px,0.6vw,8px)] py-[clamp(1px,0.2vw,3px)] text-[11px] font-bold lg:text-[12px] xl:text-[clamp(8px,0.6vw,10px)]',
                     themeText
                   )}
                 >
@@ -137,7 +113,7 @@ export function ProductDetailsLayout({ data }: { data: ProductDetails }) {
               </div>
 
               {/* Badges */}
-              <div className="flex shrink-0 justify-between gap-1 border-t border-slate-100 pt-[clamp(4px,0.5vw,8px)]">
+              <div className="flex shrink-0 justify-between gap-1 pt-[clamp(4px,0.5vw,8px)] mt-auto">
                 <div className="flex flex-1 flex-col items-center text-center">
                   <div
                     className={cn(
@@ -230,7 +206,7 @@ export function ProductDetailsLayout({ data }: { data: ProductDetails }) {
                     const prev = idx <= 0 ? data.gallery.length - 1 : idx - 1;
                     setSelectedImage(data.gallery[prev]);
                   }}
-                  className="flex h-[clamp(16px,1.5vw,22px)] w-[clamp(16px,1.5vw,22px)] shrink-0 items-center justify-center rounded-full bg-white text-slate-500  transition-colors hover:border-blue-300 hover:text-blue-600"
+                  className="flex h-[clamp(16px,1.5vw,22px)] w-[clamp(16px,1.5vw,22px)] shrink-0 items-center justify-center rounded-full bg-white text-slate-500 transition-colors hover:border-blue-300 hover:text-blue-600"
                 >
                   <ChevronLeft className="h-[clamp(8px,0.7vw,12px)] w-[clamp(8px,0.7vw,12px)]" />
                 </button>
@@ -266,7 +242,7 @@ export function ProductDetailsLayout({ data }: { data: ProductDetails }) {
                         : idx + 1;
                     setSelectedImage(data.gallery[next]);
                   }}
-                  className="flex h-[clamp(16px,1.5vw,22px)] w-[clamp(16px,1.5vw,22px)] shrink-0 items-center justify-center rounded-full bg-white text-slate-500  transition-colors hover:border-blue-300 hover:text-blue-600"
+                  className="flex h-[clamp(16px,1.5vw,22px)] w-[clamp(16px,1.5vw,22px)] shrink-0 items-center justify-center rounded-full bg-white text-slate-500 transition-colors hover:border-blue-300 hover:text-blue-600"
                 >
                   <ChevronRight className="h-[clamp(8px,0.7vw,12px)] w-[clamp(8px,0.7vw,12px)]" />
                 </button>
@@ -275,7 +251,7 @@ export function ProductDetailsLayout({ data }: { data: ProductDetails }) {
           </div>
 
           {/* Right Column - Selection & Pricing (4 cols) */}
-          <div className="jjustify-start col-span-4 flex min-h-0 min-w-0 flex-col gap-1 overflow-hidden rounded-[8px] bg-white px-3 pt-2 pb-3  xl:gap-[clamp(4px,0.6vw,8px)] xl:p-[clamp(8px,1vw,16px)]">
+          <div className="jjustify-start col-span-4 flex min-h-0 min-w-0 flex-col gap-1 overflow-hidden rounded-[8px] bg-white px-3 pt-2 pb-3 xl:gap-[clamp(4px,0.6vw,8px)] xl:p-[clamp(8px,1vw,16px)]">
             <div className="space-y-1">
               {/* Price & Back */}
               <div className="-mt-2 flex shrink-0 items-start justify-between">
@@ -296,7 +272,7 @@ export function ProductDetailsLayout({ data }: { data: ProductDetails }) {
                 <Link
                   href={`/${data.category}`}
                   className={cn(
-                    'flex items-center gap-1 rounded-full bg-white px-[clamp(6px,0.8vw,10px)] py-[clamp(2px,0.3vw,4px)] text-[11px] font-bold  transition-colors hover:bg-slate-50 lg:text-[12px] xl:text-[clamp(9px,0.7vw,11px)]',
+                    'flex items-center gap-1 rounded-full bg-white px-[clamp(6px,0.8vw,10px)] py-[clamp(2px,0.3vw,4px)] text-[11px] font-bold transition-colors hover:bg-slate-50 lg:text-[12px] xl:text-[clamp(9px,0.7vw,11px)]',
                     themeText
                   )}
                 >
@@ -362,14 +338,14 @@ export function ProductDetailsLayout({ data }: { data: ProductDetails }) {
             <div className="flex shrink-0 gap-1.5 xl:gap-[clamp(4px,0.6vw,8px)]">
               <button
                 className={cn(
-                  'flex flex-1 items-center justify-center gap-1 rounded-[8px] py-[clamp(4px,0.6vw,8px)] text-[11px] font-bold text-white  transition-opacity hover:opacity-90 lg:text-[12px] xl:text-[clamp(9px,0.7vw,11px)]',
+                  'flex flex-1 items-center justify-center gap-1 rounded-[8px] py-[clamp(4px,0.6vw,8px)] text-[11px] font-bold text-white transition-opacity hover:opacity-90 lg:text-[12px] xl:text-[clamp(9px,0.7vw,11px)]',
                   themeBg
                 )}
               >
                 <Mail className="h-[clamp(10px,0.8vw,14px)] w-[clamp(10px,0.8vw,14px)]" />{' '}
                 Share
               </button>
-              <button className="flex flex-1 items-center justify-center gap-1 rounded-[8px] bg-white py-[clamp(4px,0.6vw,8px)] text-[11px] font-bold text-slate-700  transition-colors hover:bg-slate-50 lg:text-[12px] xl:text-[clamp(9px,0.7vw,11px)]">
+              <button className="flex flex-1 items-center justify-center gap-1 rounded-[8px] bg-white py-[clamp(4px,0.6vw,8px)] text-[11px] font-bold text-slate-700 transition-colors hover:bg-slate-50 lg:text-[12px] xl:text-[clamp(9px,0.7vw,11px)]">
                 <Heart className="h-[clamp(10px,0.8vw,14px)] w-[clamp(10px,0.8vw,14px)]" />{' '}
                 Save
               </button>
@@ -378,7 +354,7 @@ export function ProductDetailsLayout({ data }: { data: ProductDetails }) {
             {/* Got Questions */}
             <div
               className={cn(
-                'flex shrink-0 items-center justify-between overflow-hidden rounded-[8px] p-[clamp(6px,0.8vw,10px)] ',
+                'flex shrink-0 items-center justify-between overflow-hidden rounded-[8px] p-[clamp(6px,0.8vw,10px)]',
                 themeBg
               )}
             >
@@ -392,7 +368,7 @@ export function ProductDetailsLayout({ data }: { data: ProductDetails }) {
               </div>
               <Link
                 href="/contact"
-                className="flex shrink-0 items-center gap-1 rounded-[6px] bg-white px-[clamp(6px,0.8vw,10px)] py-[clamp(3px,0.4vw,6px)] text-[11px] font-bold text-blue-700  hover:bg-slate-50 lg:text-[12px] xl:text-[clamp(8px,0.6vw,10px)]"
+                className="flex shrink-0 items-center gap-1 rounded-[6px] bg-white px-[clamp(6px,0.8vw,10px)] py-[clamp(3px,0.4vw,6px)] text-[11px] font-bold text-blue-700 hover:bg-slate-50 lg:text-[12px] xl:text-[clamp(8px,0.6vw,10px)]"
               >
                 Contact{' '}
                 <ArrowRight className="h-[clamp(8px,0.7vw,10px)] w-[clamp(8px,0.7vw,10px)]" />
@@ -406,7 +382,7 @@ export function ProductDetailsLayout({ data }: { data: ProductDetails }) {
           ROW 2 — Overview Section (60% of content)
           Includes Tabs and Info Cards
           ═══════════════════════════════════════════════════ */}
-      <div className="flex min-h-0 w-full flex-col overflow-hidden rounded-[8px] bg-white p-3  xl:p-[clamp(8px,1vw,16px)]">
+      <div className="flex min-h-0 w-full flex-col overflow-hidden rounded-[8px] bg-white p-3 xl:p-[clamp(8px,1vw,16px)]">
         {/* Tabs */}
         <div className="flex w-full shrink-0 items-center justify-between border-b border-slate-100 px-[clamp(4px,0.5vw,8px)] pb-[clamp(4px,0.6vw,8px)]">
           {[
@@ -449,7 +425,7 @@ export function ProductDetailsLayout({ data }: { data: ProductDetails }) {
           {activeTab === 'overview' && (
             <div className="grid min-h-0 flex-1 grid-cols-4 grid-rows-2 gap-2.5 pt-1">
               {/* Catch From */}
-              <div className="flex min-h-0 min-w-0 flex-col overflow-hidden rounded-[12px] bg-slate-50/50 p-2.5 xl:p-[clamp(6px,0.8vw,12px)]">
+              <div className="flex min-h-0 min-w-0 flex-col overflow-hidden rounded-[12px] bg-slate-100 p-2.5 pt-[clamp(14px,2.5vh,24px)] xl:p-[clamp(6px,0.8vw,12px)] xl:pt-[clamp(14px,2.5vh,24px)]">
                 <div className="mb-[clamp(3px,0.4vw,6px)] flex shrink-0 items-center gap-1.5">
                   <Anchor
                     className={cn(
@@ -481,7 +457,7 @@ export function ProductDetailsLayout({ data }: { data: ProductDetails }) {
               </div>
 
               {/* Best For */}
-              <div className="flex min-h-0 min-w-0 flex-col overflow-hidden rounded-[12px] bg-slate-50/50 p-2.5 xl:p-[clamp(6px,0.8vw,12px)]">
+              <div className="flex min-h-0 min-w-0 flex-col overflow-hidden rounded-[12px] bg-slate-100 p-2.5 pt-[clamp(14px,2.5vh,24px)] xl:p-[clamp(6px,0.8vw,12px)] xl:pt-[clamp(14px,2.5vh,24px)]">
                 <div className="mb-[clamp(3px,0.4vw,6px)] flex shrink-0 items-center gap-1.5">
                   <Droplet
                     className={cn(
@@ -504,7 +480,7 @@ export function ProductDetailsLayout({ data }: { data: ProductDetails }) {
                           {item.description}
                         </p>
                       </div>
-                      <div className="relative h-[clamp(20px,1.5vw,28px)] w-[clamp(20px,1.5vw,28px)] shrink-0 overflow-hidden rounded-full ">
+                      <div className="relative h-[clamp(20px,1.5vw,28px)] w-[clamp(20px,1.5vw,28px)] shrink-0 overflow-hidden rounded-full">
                         <Image
                           src={item.imageSrc}
                           alt=""
@@ -519,7 +495,7 @@ export function ProductDetailsLayout({ data }: { data: ProductDetails }) {
               </div>
 
               {/* Specialty */}
-              <div className="flex min-h-0 min-w-0 flex-col overflow-hidden rounded-[12px] bg-slate-50/50 p-2.5 xl:p-[clamp(6px,0.8vw,12px)]">
+              <div className="flex min-h-0 min-w-0 flex-col overflow-hidden rounded-[12px] bg-slate-100 p-2.5 pt-[clamp(14px,2.5vh,24px)] xl:p-[clamp(6px,0.8vw,12px)] xl:pt-[clamp(14px,2.5vh,24px)]">
                 <div className="mb-[clamp(3px,0.4vw,6px)] flex shrink-0 items-center gap-1.5">
                   <Star
                     className={cn(
@@ -543,7 +519,7 @@ export function ProductDetailsLayout({ data }: { data: ProductDetails }) {
               </div>
 
               {/* Famous On */}
-              <div className="flex min-h-0 min-w-0 flex-col overflow-hidden rounded-[12px] bg-slate-50/50 p-2.5 xl:p-[clamp(6px,0.8vw,12px)]">
+              <div className="flex min-h-0 min-w-0 flex-col overflow-hidden rounded-[12px] bg-slate-100 p-2.5 pt-[clamp(14px,2.5vh,24px)] xl:p-[clamp(6px,0.8vw,12px)] xl:pt-[clamp(14px,2.5vh,24px)]">
                 <div className="mb-[clamp(3px,0.4vw,6px)] flex shrink-0 items-center gap-1.5">
                   <ShieldCheck
                     className={cn(
@@ -567,7 +543,7 @@ export function ProductDetailsLayout({ data }: { data: ProductDetails }) {
               </div>
 
               {/* Nutrition */}
-              <div className="flex min-h-0 min-w-0 flex-col overflow-hidden rounded-[12px] bg-slate-50/50 p-2.5 xl:p-[clamp(6px,0.8vw,12px)]">
+              <div className="flex min-h-0 min-w-0 flex-col overflow-hidden rounded-[12px] bg-slate-100 p-2.5 pt-[clamp(14px,2.5vh,24px)] xl:p-[clamp(6px,0.8vw,12px)] xl:pt-[clamp(14px,2.5vh,24px)]">
                 <div className="mb-[clamp(3px,0.4vw,6px)] flex shrink-0 items-center gap-1.5">
                   <Activity
                     className={cn(
@@ -584,7 +560,7 @@ export function ProductDetailsLayout({ data }: { data: ProductDetails }) {
                 </div>
                 <div className="custom-scrollbar min-h-0 overflow-y-auto pr-1">
                   <div className="mb-[clamp(3px,0.4vw,6px)] grid grid-cols-4 gap-1">
-                    <div className="flex flex-col items-center rounded bg-white p-0.5 text-center ">
+                    <div className="flex flex-col items-center rounded bg-white p-0.5 text-center">
                       <span className="text-[10px] font-bold text-slate-500 lg:text-[11px] xl:text-[clamp(10px,0.4vw,8px)]">
                         Protein
                       </span>
@@ -592,7 +568,7 @@ export function ProductDetailsLayout({ data }: { data: ProductDetails }) {
                         {data.nutritionInfo?.protein}
                       </span>
                     </div>
-                    <div className="flex flex-col items-center rounded bg-white p-0.5 text-center ">
+                    <div className="flex flex-col items-center rounded bg-white p-0.5 text-center">
                       <span className="text-[10px] font-bold text-slate-500 lg:text-[11px] xl:text-[clamp(10px,0.4vw,8px)]">
                         Calories
                       </span>
@@ -600,7 +576,7 @@ export function ProductDetailsLayout({ data }: { data: ProductDetails }) {
                         {data.nutritionInfo?.calories}
                       </span>
                     </div>
-                    <div className="flex flex-col items-center rounded bg-white p-0.5 text-center ">
+                    <div className="flex flex-col items-center rounded bg-white p-0.5 text-center">
                       <span className="text-[10px] font-bold text-slate-500 lg:text-[11px] xl:text-[clamp(10px,0.4vw,8px)]">
                         Omega-3
                       </span>
@@ -608,7 +584,7 @@ export function ProductDetailsLayout({ data }: { data: ProductDetails }) {
                         {data.nutritionInfo?.omega3}
                       </span>
                     </div>
-                    <div className="flex flex-col items-center rounded bg-white p-0.5 text-center ">
+                    <div className="flex flex-col items-center rounded bg-white p-0.5 text-center">
                       <span className="text-[10px] font-bold text-slate-500 lg:text-[11px] xl:text-[clamp(10px,0.4vw,8px)]">
                         Fat
                       </span>
@@ -621,7 +597,7 @@ export function ProductDetailsLayout({ data }: { data: ProductDetails }) {
               </div>
 
               {/* Good For */}
-              <div className="flex min-h-0 min-w-0 flex-col overflow-hidden rounded-[12px] bg-slate-50/50 p-2.5 xl:p-[clamp(6px,0.8vw,12px)]">
+              <div className="flex min-h-0 min-w-0 flex-col overflow-hidden rounded-[12px] bg-slate-100 p-2.5 pt-[clamp(14px,2.5vh,24px)] xl:p-[clamp(6px,0.8vw,12px)] xl:pt-[clamp(14px,2.5vh,24px)]">
                 <div className="mb-[clamp(3px,0.4vw,6px)] flex shrink-0 items-center gap-1.5">
                   <Heart
                     className={cn(
@@ -653,7 +629,7 @@ export function ProductDetailsLayout({ data }: { data: ProductDetails }) {
               </div>
 
               {/* Allergy Info */}
-              <div className="flex min-h-0 min-w-0 flex-col overflow-hidden rounded-[12px] bg-slate-50/50 p-2.5 xl:p-[clamp(6px,0.8vw,12px)]">
+              <div className="flex min-h-0 min-w-0 flex-col overflow-hidden rounded-[12px] bg-slate-100 p-2.5 pt-[clamp(14px,2.5vh,24px)] xl:p-[clamp(6px,0.8vw,12px)] xl:pt-[clamp(14px,2.5vh,24px)]">
                 <div className="mb-[clamp(3px,0.4vw,6px)] flex shrink-0 items-center gap-1.5">
                   <AlertTriangle className="h-[clamp(10px,0.8vw,14px)] w-[clamp(10px,0.8vw,14px)] text-red-500" />
                   <h4 className="truncate text-[12px] font-bold text-slate-800 lg:text-[13px] xl:text-[clamp(14px,0.8vw,12px)]">
@@ -674,7 +650,7 @@ export function ProductDetailsLayout({ data }: { data: ProductDetails }) {
               </div>
 
               {/* How to Cook */}
-              <div className="flex min-h-0 min-w-0 flex-col overflow-hidden rounded-[12px] bg-slate-50/50 p-2.5 xl:p-[clamp(6px,0.8vw,12px)]">
+              <div className="flex min-h-0 min-w-0 flex-col overflow-hidden rounded-[12px] bg-slate-100 p-2.5 pt-[clamp(14px,2.5vh,24px)] xl:p-[clamp(6px,0.8vw,12px)] xl:pt-[clamp(14px,2.5vh,24px)]">
                 <div className="mb-[clamp(3px,0.4vw,6px)] flex shrink-0 items-center justify-between">
                   <h4 className="truncate text-[12px] font-bold text-slate-800 lg:text-[13px] xl:text-[clamp(14px,0.8vw,12px)]">
                     How to Cook
@@ -703,7 +679,7 @@ export function ProductDetailsLayout({ data }: { data: ProductDetails }) {
                         sizes="10vw"
                       />
                       <div className="absolute inset-0 flex flex-col justify-between p-1.5 text-white">
-                        <PlayCircle className="my-auto h-[clamp(12px,1vw,18px)] w-[clamp(12px,1vw,18px)] self-center " />
+                        <PlayCircle className="my-auto h-[clamp(12px,1vw,18px)] w-[clamp(12px,1vw,18px)] self-center" />
                         <div>
                           <p className="line-clamp-1 text-[10px] leading-tight font-bold lg:text-[11px] xl:text-[clamp(12px,0.5vw,8px)]">
                             {recipe.title}
@@ -729,7 +705,7 @@ export function ProductDetailsLayout({ data }: { data: ProductDetails }) {
           {activeTab === 'nutrition' && (
             <div className="grid min-h-0 flex-1 grid-cols-2 gap-2.5 xl:p-[clamp(6px,0.8vw,12px)]">
               {/* Nutrition Details */}
-              <div className="flex min-h-0 min-w-0 flex-col overflow-hidden rounded-[12px] bg-slate-50/50 p-3 xl:p-[clamp(8px,1vw,16px)]">
+              <div className="flex min-h-0 min-w-0 flex-col overflow-hidden rounded-[12px] bg-slate-100 p-3 xl:p-[clamp(8px,1vw,16px)]">
                 <div className="mb-[clamp(4px,0.6vw,8px)] flex shrink-0 items-center gap-2">
                   <Activity
                     className={cn(
@@ -746,7 +722,7 @@ export function ProductDetailsLayout({ data }: { data: ProductDetails }) {
                 </div>
                 <div className="custom-scrollbar flex min-h-0 flex-col gap-2 overflow-y-auto pr-1">
                   <div className="grid grid-cols-2 gap-2">
-                    <div className="flex flex-col items-center justify-center rounded-[8px] bg-white p-[clamp(6px,0.8vw,10px)] ">
+                    <div className="flex flex-col items-center justify-center rounded-[8px] bg-white p-[clamp(6px,0.8vw,10px)]">
                       <span className="text-[11px] font-bold text-slate-500 lg:text-[12px] xl:text-[clamp(14px,0.7vw,11px)]">
                         Protein
                       </span>
@@ -754,7 +730,7 @@ export function ProductDetailsLayout({ data }: { data: ProductDetails }) {
                         {data.nutritionInfo?.protein}
                       </span>
                     </div>
-                    <div className="flex flex-col items-center justify-center rounded-[8px] bg-white p-[clamp(6px,0.8vw,10px)] ">
+                    <div className="flex flex-col items-center justify-center rounded-[8px] bg-white p-[clamp(6px,0.8vw,10px)]">
                       <span className="text-[11px] font-bold text-slate-500 lg:text-[12px] xl:text-[clamp(14px,0.7vw,11px)]">
                         Calories
                       </span>
@@ -762,7 +738,7 @@ export function ProductDetailsLayout({ data }: { data: ProductDetails }) {
                         {data.nutritionInfo?.calories}
                       </span>
                     </div>
-                    <div className="flex flex-col items-center justify-center rounded-[8px] bg-white p-[clamp(6px,0.8vw,10px)] ">
+                    <div className="flex flex-col items-center justify-center rounded-[8px] bg-white p-[clamp(6px,0.8vw,10px)]">
                       <span className="text-[11px] font-bold text-slate-500 lg:text-[12px] xl:text-[clamp(14px,0.7vw,11px)]">
                         Omega-3
                       </span>
@@ -770,7 +746,7 @@ export function ProductDetailsLayout({ data }: { data: ProductDetails }) {
                         {data.nutritionInfo?.omega3}
                       </span>
                     </div>
-                    <div className="flex flex-col items-center justify-center rounded-[8px] bg-white p-[clamp(6px,0.8vw,10px)] ">
+                    <div className="flex flex-col items-center justify-center rounded-[8px] bg-white p-[clamp(6px,0.8vw,10px)]">
                       <span className="text-[11px] font-bold text-slate-500 lg:text-[12px] xl:text-[clamp(14px,0.7vw,11px)]">
                         Total Fat
                       </span>
@@ -783,7 +759,7 @@ export function ProductDetailsLayout({ data }: { data: ProductDetails }) {
               </div>
 
               {/* Health Benefits */}
-              <div className="flex min-h-0 min-w-0 flex-col overflow-hidden rounded-[12px] bg-slate-50/50 p-3 xl:p-[clamp(8px,1vw,16px)]">
+              <div className="flex min-h-0 min-w-0 flex-col overflow-hidden rounded-[12px] bg-slate-100 p-3 xl:p-[clamp(8px,1vw,16px)]">
                 <div className="mb-[clamp(4px,0.6vw,8px)] flex shrink-0 items-center gap-2">
                   <Heart
                     className={cn(
@@ -820,7 +796,7 @@ export function ProductDetailsLayout({ data }: { data: ProductDetails }) {
 
           {/* TAB: COOKING */}
           {activeTab === 'cooking' && (
-            <div className="flex min-h-0 flex-1 flex-col overflow-hidden rounded-[12px] bg-slate-50/50 p-3 xl:p-[clamp(8px,1vw,16px)]">
+            <div className="flex min-h-0 flex-1 flex-col overflow-hidden rounded-[12px] bg-slate-100 p-3 xl:p-[clamp(8px,1vw,16px)]">
               <div className="mb-[clamp(4px,0.6vw,8px)] flex shrink-0 items-center justify-between">
                 <div className="flex items-center gap-2">
                   <PlayCircle
@@ -857,9 +833,9 @@ export function ProductDetailsLayout({ data }: { data: ProductDetails }) {
                       sizes="20vw"
                     />
                     <div className="absolute inset-0 flex flex-col justify-between p-3 text-white">
-                      <PlayCircle className="my-auto h-[clamp(24px,2vw,32px)] w-[clamp(24px,2vw,32px)] self-center  transition-transform group-hover:scale-110" />
+                      <PlayCircle className="my-auto h-[clamp(24px,2vw,32px)] w-[clamp(24px,2vw,32px)] self-center transition-transform group-hover:scale-110" />
                       <div>
-                        <p className="line-clamp-2 text-[13px] leading-tight font-bold  lg:text-[14px] xl:text-[clamp(16px,0.8vw,14px)]">
+                        <p className="line-clamp-2 text-[13px] leading-tight font-bold lg:text-[14px] xl:text-[clamp(16px,0.8vw,14px)]">
                           {recipe.title}
                         </p>
                         <div className="mt-1 flex items-center justify-between text-[11px] font-medium text-white/90 lg:text-[12px] xl:text-[clamp(16px,0.6vw,10px)]">
@@ -881,7 +857,7 @@ export function ProductDetailsLayout({ data }: { data: ProductDetails }) {
           {/* TAB: DETAILS */}
           {activeTab === 'details' && (
             <div className="grid min-h-0 flex-1 grid-cols-2 gap-2.5 xl:p-[clamp(6px,0.8vw,12px)]">
-              <div className="flex min-h-0 min-w-0 flex-col overflow-hidden rounded-[12px] bg-slate-50/50 p-3 xl:p-[clamp(8px,1vw,16px)]">
+              <div className="flex min-h-0 min-w-0 flex-col overflow-hidden rounded-[12px] bg-slate-100 p-3 xl:p-[clamp(8px,1vw,16px)]">
                 <div className="mb-[clamp(4px,0.6vw,8px)] flex shrink-0 items-center gap-2">
                   <Info
                     className={cn(
@@ -912,7 +888,7 @@ export function ProductDetailsLayout({ data }: { data: ProductDetails }) {
                   </ul>
                 </div>
               </div>
-              <div className="flex min-h-0 min-w-0 flex-col overflow-hidden rounded-[12px] bg-slate-50/50 p-3 xl:p-[clamp(8px,1vw,16px)]">
+              <div className="flex min-h-0 min-w-0 flex-col overflow-hidden rounded-[12px] bg-slate-100 p-3 xl:p-[clamp(8px,1vw,16px)]">
                 <div className="mb-[clamp(4px,0.6vw,8px)] flex shrink-0 items-center gap-2">
                   <Star
                     className={cn(
@@ -941,7 +917,7 @@ export function ProductDetailsLayout({ data }: { data: ProductDetails }) {
           {/* TAB: SIZES & CUTS */}
           {activeTab === 'sizes' && (
             <div className="grid min-h-0 flex-1 grid-cols-2 gap-2.5 xl:p-[clamp(6px,0.8vw,12px)]">
-              <div className="flex min-h-0 min-w-0 flex-col overflow-hidden rounded-[12px] bg-slate-50/50 p-3 xl:p-[clamp(8px,1vw,16px)]">
+              <div className="flex min-h-0 min-w-0 flex-col overflow-hidden rounded-[12px] bg-slate-100 p-3 xl:p-[clamp(8px,1vw,16px)]">
                 <div className="mb-[clamp(4px,0.6vw,8px)] flex shrink-0 items-center gap-2">
                   <Activity
                     className={cn(
@@ -958,7 +934,7 @@ export function ProductDetailsLayout({ data }: { data: ProductDetails }) {
                     {data.sizes?.map((size, i) => (
                       <div
                         key={i}
-                        className="flex items-center justify-between rounded-[8px] bg-white p-2 "
+                        className="flex items-center justify-between rounded-[8px] bg-white p-2"
                       >
                         <span className="text-[12px] font-bold text-slate-800 lg:text-[13px] xl:text-[clamp(14px,0.8vw,12px)]">
                           {size.label}
@@ -971,7 +947,7 @@ export function ProductDetailsLayout({ data }: { data: ProductDetails }) {
                   </div>
                 </div>
               </div>
-              <div className="flex min-h-0 min-w-0 flex-col overflow-hidden rounded-[12px] bg-slate-50/50 p-3 xl:p-[clamp(8px,1vw,16px)]">
+              <div className="flex min-h-0 min-w-0 flex-col overflow-hidden rounded-[12px] bg-slate-100 p-3 xl:p-[clamp(8px,1vw,16px)]">
                 <div className="mb-[clamp(4px,0.6vw,8px)] flex shrink-0 items-center gap-2">
                   <Droplet
                     className={cn(
@@ -988,7 +964,7 @@ export function ProductDetailsLayout({ data }: { data: ProductDetails }) {
                     {data.cutOptions?.map((cut, i) => (
                       <div
                         key={i}
-                        className="flex items-center gap-3 rounded-[8px] bg-white p-2 "
+                        className="flex items-center gap-3 rounded-[8px] bg-white p-2"
                       >
                         <div
                           className={cn('h-1.5 w-1.5 rounded-full', themeBg)}
@@ -1016,7 +992,7 @@ export function ProductDetailsLayout({ data }: { data: ProductDetails }) {
               <p className="mb-3 max-w-[80%] text-center text-[12px] leading-relaxed font-medium text-slate-600 lg:text-[13px] xl:text-[clamp(14px,0.8vw,12px)]">
                 {data.allergyInfo?.desc}
               </p>
-              <div className="rounded-[8px] border border-red-200 bg-white px-[clamp(12px,1.5vw,24px)] py-[clamp(8px,1vw,12px)] text-center ">
+              <div className="rounded-[8px] border border-red-200 bg-white px-[clamp(12px,1.5vw,24px)] py-[clamp(8px,1vw,12px)] text-center">
                 <p className="text-[12px] font-bold text-red-600 lg:text-[13px] xl:text-[clamp(12px,0.8vw,12px)]">
                   ⚠️ {data.allergyInfo?.warning}
                 </p>
@@ -1036,5 +1012,3 @@ export function ProductDetailsLayout({ data }: { data: ProductDetails }) {
     </div>
   );
 }
-
-
