@@ -346,12 +346,12 @@ export function HeroBannerCarousel() {
 
             <div className="pointer-events-none absolute inset-0 z-20">
               <div className="flex h-full items-start pt-[calc(var(--hero-ribbon-h)+clamp(16px,2vw,32px))]">
-                <div className="ml-[8%] max-w-[520px] text-white">
-                  <h2 className="text-[clamp(30px,3.5vw,44px)] leading-[1.08] font-bold tracking-tight !text-white">
+                <div className="ml-[8%] max-w-[85%] sm:max-w-[520px] text-white">
+                  <h2 className="text-[clamp(36px,9vw,48px)] leading-[1.1] font-bold tracking-tight !text-white drop-shadow-md">
                     {slide.title}
                   </h2>
 
-                  <p className="mt-3 text-[18px] leading-[1.4] font-medium text-slate-200">
+                  <p className="mt-4 text-[clamp(16px,5vw,20px)] leading-[1.4] font-medium text-slate-100 drop-shadow-sm">
                     {slide.description}
                   </p>
                 </div>

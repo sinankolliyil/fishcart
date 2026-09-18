@@ -402,7 +402,7 @@ export default function HomePage() {
               <Link
                 key={idx}
                 href={cat.href}
-                className="relative h-[220px] min-w-[76px] flex-1 overflow-hidden transition-transform active:scale-[0.97]"
+                className="relative h-[240px] min-w-[76px] flex-1 overflow-hidden transition-transform active:scale-[0.97]"
                 style={{
                   backgroundColor: cat.bg,
                   borderRadius: '50% 50% 20px 20px',
@@ -431,23 +431,23 @@ export default function HomePage() {
                 <div className="absolute right-[8px] bottom-[10px] left-[10px]">
                   <div className="flex items-end justify-between">
                     <div className="min-w-0">
-                      <h4 className="text-[12px] leading-[15px] font-bold text-[#0B1F5B]">
+                      <h4 className="text-[22px] leading-[1.2] font-bold text-[#0B1F5B]">
                         {cat.title}
                       </h4>
 
-                      <p className="text-[10px] leading-[13px] font-medium whitespace-nowrap text-slate-500">
+                      <p className="mt-0.5 text-[18px] leading-[1.2] font-medium whitespace-nowrap text-slate-500">
                         {cat.items}
                       </p>
                     </div>
 
                     {/* Arrow */}
                     <div
-                      className="flex h-[20px] w-[20px] shrink-0 items-center justify-center rounded-full"
+                      className="flex h-[32px] w-[32px] shrink-0 items-center justify-center rounded-full"
                       style={{
                         backgroundColor: cat.arrow,
                       }}
                     >
-                      <ArrowRight className="h-[11px] w-[11px] stroke-[3] text-white" />
+                      <ArrowRight className="h-[19px] w-[19px] stroke-[3] text-white" />
                     </div>
                   </div>
                 </div>
@@ -457,83 +457,88 @@ export default function HomePage() {
         </div>
 
         {/* Mobile Benefits & Nutrition */}
-        <div className="relative mx-4 mb-2 flex shrink-0 flex-col overflow-hidden rounded-[24px] border border-blue-50/50 bg-gradient-to-br from-[#F0F6FF] to-[#DCEBFC] p-5 pb-6 shadow-sm">
-          <h3 className="z-10 mb-2.5 text-[clamp(20px,5.5vw,24px)] font-bold tracking-tight text-[#0D55CF]">
-            Benefits & Nutrition
-          </h3>
-          <p className="z-10 mb-3 max-w-[62%] text-[clamp(11px,3.2vw,13px)] leading-[1.4] font-medium text-[#475569]">
-            Fish, meat, eggs and chicken are rich in protein, vitamins and
-            minerals for a stronger, healthier you.
-          </p>
-          <Link
-            href="/benefits"
-            className="z-10 mb-8 flex w-fit items-center gap-1.5 text-[clamp(11px,3vw,13px)] font-bold text-[#0D55CF] hover:underline"
-          >
-            Learn More <ArrowRight className="h-3.5 w-3.5 stroke-[2.5]" />
-          </Link>
+        <div className="relative mx-4 mb-2 flex h-[300px] shrink-0 overflow-hidden rounded-[24px] border border-white/50 bg-[#F2F8FF] p-5 shadow-sm">
+          {/* Background circle behind the salmon plate */}
+          <div className="pointer-events-none absolute top-[-10%] right-[-5%] aspect-square h-[120%] rounded-full bg-[#E4F0FF]" />
 
-          <div className="z-10 mt-auto flex items-center justify-start gap-[clamp(14px,3.5vw,20px)]">
-            <div className="flex flex-col items-center justify-center gap-2">
-              <Dumbbell className="h-[22px] w-[22px] stroke-[2.5] text-[#0D55CF]" />
-              <span className="text-center text-[clamp(9px,2.5vw,10px)] leading-[1.2] font-bold text-[#0B1F5B]">
-                High in
-                <br />
-                Protein
-              </span>
-            </div>
-            <div className="h-9 w-[1px] bg-blue-200"></div>
-            <div className="flex flex-col items-center justify-center gap-2">
-              <Sparkles className="h-[22px] w-[22px] stroke-[2.5] text-[#0D55CF]" />
-              <span className="text-center text-[clamp(9px,2.5vw,10px)] leading-[1.2] font-bold text-[#0B1F5B]">
-                Rich in
-                <br />
-                Vitamins
-              </span>
-            </div>
-            <div className="h-9 w-[1px] bg-blue-200"></div>
-            <div className="flex flex-col items-center justify-center gap-2">
-              <HeartPulse className="h-[22px] w-[22px] stroke-[2.5] text-[#0D55CF]" />
-              <span className="text-center text-[clamp(9px,2.5vw,10px)] leading-[1.2] font-bold text-[#0B1F5B]">
-                Good for
-                <br />
-                Heart
-              </span>
+          {/* Left Content */}
+          <div className="relative z-10 flex h-full w-[55%] flex-col">
+            <h3 className="mb-2 text-[30px] leading-[1.15] font-bold tracking-tight text-[#0D6EFD]">
+              Benefits & Nutrition
+            </h3>
+            <p className="mb-4 pr-4 text-[19px] leading-[1.4] font-medium text-[#475569]">
+              Fish, meat, eggs and chicken are rich in protein, vitamins and
+              minerals for a stronger, healthier you.
+            </p>
+            <Link
+              href="/benefits"
+              className="mb-auto flex w-fit items-center gap-1.5 text-[17px] font-bold text-[#0D6EFD] hover:underline"
+            >
+              Learn More <ArrowRight className="h-4 w-4 stroke-[2.5]" />
+            </Link>
+
+            {/* Icons */}
+            <div className="flex items-end justify-start gap-8 pt-4">
+              <div className="flex flex-col items-center gap-2">
+                <Dumbbell className="h-[30px] w-[30px] stroke-[2] text-[#0D6EFD]" />
+                <span className="text-center text-[16px] leading-tight font-bold text-[#1E293B]">
+                  High in
+                  <br />
+                  Protein
+                </span>
+              </div>
+              <div className="mb-1.5 h-10 w-[1px] bg-blue-200/70" />
+              <div className="flex flex-col items-center gap-2">
+                <Sparkles className="h-[30px] w-[30px] stroke-[2] text-[#0D6EFD]" />
+                <span className="text-center text-[16px] leading-tight font-bold text-[#1E293B]">
+                  Rich in
+                  <br />
+                  Vitamins
+                </span>
+              </div>
+              <div className="mb-1.5 h-10 w-[1px] bg-blue-200/70" />
+              <div className="flex flex-col items-center gap-2">
+                <HeartPulse className="h-[30px] w-[30px] stroke-[2] text-[#0D6EFD]" />
+                <span className="text-center text-[16px] leading-tight font-bold text-[#1E293B]">
+                  Good for
+                  <br />
+                  Heart
+                </span>
+              </div>
             </div>
           </div>
 
-          <div className="pointer-events-none absolute right-[-18%] bottom-[-5%] z-0 aspect-square w-[70%]">
+          {/* Right Image */}
+          <div className="pointer-events-none absolute top-[-10%] right-[0%] bottom-[-10%] z-0 w-[70%]">
             <Image
               src="/assets/nametoadd.png"
-              alt="Salmon"
+              alt="Salmon plate"
               fill
-              className="object-contain"
+              className="object-contain object-right"
             />
           </div>
         </div>
 
         {/* Mobile Recipe Section */}
         <div className="mx-4 flex shrink-0 flex-col rounded-[20px] bg-[#E1EDFA] p-4">
-          <div className="mb-3 flex items-start justify-between">
+          <div className="mb-4 flex items-start justify-between">
             <div>
-              <span className="mb-1 block text-[9px] font-bold tracking-widest text-[#0D55CF] uppercase">
-                Cook • Learn • Enjoy
-              </span>
-              <h3 className="mb-0.5 text-[17px] leading-tight font-bold text-[#0B1F5B]">
+              <h3 className="mb-1 text-[24px] leading-tight font-bold text-[#0B1F5B]">
                 How to Make Delicious
               </h3>
-              <p className="text-[10px] font-medium text-slate-600">
+              <p className="text-[18px] font-medium text-slate-600">
                 Step by step cooking videos for every taste
               </p>
             </div>
             <Link
               href="/cook"
-              className="flex shrink-0 items-center gap-1 rounded-full bg-white px-3 py-1.5 text-[10px] font-bold whitespace-nowrap text-[#0D55CF] shadow-[0_2px_8px_rgba(0,0,0,0.04)] transition-transform active:scale-95"
+              className="mt-1 flex shrink-0 items-center gap-1.5 rounded-full bg-white px-3.5 py-2 text-[14px] font-bold whitespace-nowrap text-[#0D55CF] shadow-[0_2px_8px_rgba(0,0,0,0.04)] transition-transform active:scale-95"
             >
               View All Recipes{' '}
-              <ArrowRight className="h-2.5 w-2.5 stroke-[2.5]" />
+              <ArrowRight className="h-3.5 w-3.5 stroke-[2.5]" />
             </Link>
           </div>
-          <div className="flex h-[140px] w-full flex-col overflow-hidden rounded-xl">
+          <div className="flex h-[250px] w-full flex-col overflow-hidden rounded-xl">
             <RecipeCarousel />
           </div>
         </div>
@@ -585,17 +590,17 @@ export default function HomePage() {
               </div>
               <div className="absolute right-2 bottom-2 left-2 z-10 flex items-center justify-between rounded-lg bg-white px-2.5 py-1.5 shadow-sm">
                 <div className="flex flex-col">
-                  <h4 className="text-[10px] leading-tight font-bold text-[#0B1F5B]">
+                  <h4 className="text-[22px] leading-tight font-bold text-[#0B1F5B]">
                     {item.title}
                   </h4>
-                  <p className={`mt-0.5 text-[8px] font-bold ${item.color}`}>
+                  <p className={`mt-0.5 text-[16px] font-bold ${item.color}`}>
                     Explore Now
                   </p>
                 </div>
                 <div
-                  className={`flex h-4 w-4 items-center justify-center rounded-full ${item.bg} shrink-0 text-white`}
+                  className={`flex h-6 w-6 items-center justify-center rounded-full ${item.bg} shrink-0 text-white`}
                 >
-                  <ArrowRight className="h-2.5 w-2.5 stroke-[3]" />
+                  <ArrowRight className="h-3.5 w-3.5 stroke-[3]" />
                 </div>
               </div>
             </Link>
@@ -613,10 +618,10 @@ export default function HomePage() {
               <CheckCircle2 className="h-4 w-4 stroke-[2.5]" />
             </div>
             <div className="z-10 ml-3 flex flex-col">
-              <h4 className="text-[12px] font-bold text-[#0B1F5B]">
+              <h4 className="text-[20px] font-bold text-[#0B1F5B]">
                 Daily Selection
               </h4>
-              <p className="mt-0.5 max-w-[85%] text-[9px] leading-tight font-medium text-slate-600">
+              <p className="mt-0.5 max-w-[90%] text-[16px] leading-tight font-medium text-slate-600">
                 Handpicked daily from trusted suppliers for the best quality.
               </p>
             </div>
@@ -631,10 +636,10 @@ export default function HomePage() {
               <Droplet className="h-4 w-4 stroke-[2.5]" />
             </div>
             <div className="z-10 ml-3 flex flex-col">
-              <h4 className="text-[12px] font-bold text-[#0B1F5B]">
+              <h4 className="text-[20px] font-bold text-[#0B1F5B]">
                 Hygienic & Safe
               </h4>
-              <p className="mt-0.5 max-w-[85%] text-[9px] leading-tight font-medium text-teal-900">
+              <p className="mt-0.5 max-w-[90%] text-[16px] leading-tight font-medium text-teal-900">
                 Cleaned, packed and delivered with highest hygiene standards.
               </p>
             </div>
@@ -649,10 +654,10 @@ export default function HomePage() {
               <Leaf className="h-4 w-4 stroke-[2.5]" />
             </div>
             <div className="z-10 ml-3 flex flex-col">
-              <h4 className="text-[12px] font-bold text-[#0B1F5B]">
+              <h4 className="text-[20px] font-bold text-[#0B1F5B]">
                 Sourced Responsibly
               </h4>
-              <p className="mt-0.5 max-w-[85%] text-[9px] leading-tight font-medium text-green-900">
+              <p className="mt-0.5 max-w-[90%] text-[16px] leading-tight font-medium text-green-900">
                 We care for the ocean and the environment for a better future.
               </p>
             </div>
@@ -667,10 +672,10 @@ export default function HomePage() {
               <ShieldCheck className="h-4 w-4 stroke-[2.5]" />
             </div>
             <div className="z-10 ml-3 flex flex-col">
-              <h4 className="text-[12px] font-bold text-white">
+              <h4 className="text-[20px] font-bold text-white">
                 Freshness You Can Trust
               </h4>
-              <p className="mt-0.5 max-w-[85%] text-[9px] leading-tight font-medium text-white/90">
+              <p className="mt-0.5 max-w-[90%] text-[16px] leading-tight font-medium text-white/90">
                 We ensure premium quality and freshness in every product we
                 deliver.
               </p>
@@ -681,12 +686,12 @@ export default function HomePage() {
         {/* Mobile About / Stories / Contact */}
         <div className="scrollbar-hide flex shrink-0 snap-x gap-3 overflow-x-auto px-4 pb-1">
           {/* About Us */}
-          <div className="relative flex aspect-square w-[140px] shrink-0 snap-start flex-col overflow-hidden rounded-[12px] border border-gray-50 bg-white p-3 shadow-[0_2px_12px_rgba(0,0,0,0.06)]">
+          <div className="relative flex aspect-square w-[180px] shrink-0 snap-start flex-col overflow-hidden rounded-[12px] border border-gray-50 bg-white p-4 shadow-[0_2px_12px_rgba(0,0,0,0.06)]">
             <div className="relative z-10 flex flex-col">
-              <h4 className="mb-0.5 text-[12px] font-bold text-[#0D55CF]">
+              <h4 className="mb-1 text-[24px] font-bold text-[#0D55CF]">
                 About Us
               </h4>
-              <p className="text-[9px] leading-tight text-slate-500">
+              <p className="text-[16px] leading-[1.3] font-medium text-slate-500">
                 Delivering fresh & healthy food to your family.
               </p>
             </div>
@@ -701,12 +706,12 @@ export default function HomePage() {
           </div>
 
           {/* Our Stories */}
-          <div className="relative flex aspect-square w-[140px] shrink-0 snap-start flex-col overflow-hidden rounded-[12px] border border-gray-50 bg-white p-3 shadow-[0_2px_12px_rgba(0,0,0,0.06)]">
+          <div className="relative flex aspect-square w-[180px] shrink-0 snap-start flex-col overflow-hidden rounded-[12px] border border-gray-50 bg-white p-4 shadow-[0_2px_12px_rgba(0,0,0,0.06)]">
             <div className="relative z-10 flex flex-col">
-              <h4 className="mb-0.5 text-[12px] font-bold text-[#0D55CF]">
+              <h4 className="mb-1 text-[24px] font-bold text-[#0D55CF]">
                 Our Stories
               </h4>
-              <p className="max-w-[85%] text-[9px] leading-tight text-slate-500">
+              <p className="max-w-[90%] text-[16px] leading-[1.3] font-medium text-slate-500">
                 From ocean to your kitchen, journey of freshness.
               </p>
             </div>
@@ -721,12 +726,12 @@ export default function HomePage() {
           </div>
 
           {/* Contact Us */}
-          <div className="relative flex aspect-square w-[140px] shrink-0 snap-start flex-col overflow-hidden rounded-[12px] border border-gray-50 bg-white p-3 shadow-[0_2px_12px_rgba(0,0,0,0.06)]">
+          <div className="relative flex aspect-square w-[180px] shrink-0 snap-start flex-col overflow-hidden rounded-[12px] border border-gray-50 bg-white p-4 shadow-[0_2px_12px_rgba(0,0,0,0.06)]">
             <div className="relative z-10 flex flex-col">
-              <h4 className="mb-0.5 text-[12px] font-bold text-[#0D55CF]">
+              <h4 className="mb-1 text-[24px] font-bold text-[#0D55CF]">
                 Contact Us
               </h4>
-              <p className="max-w-[90%] text-[9px] leading-tight text-slate-500">
+              <p className="max-w-[95%] text-[16px] leading-[1.3] font-medium text-slate-500">
                 We are here to help you. Reach out anytime.
               </p>
             </div>
@@ -744,21 +749,21 @@ export default function HomePage() {
         {/* Mobile Footer */}
         <div className="relative mx-4 flex shrink-0 flex-col justify-center gap-2 overflow-hidden rounded-[12px] border border-gray-50 bg-white p-4 shadow-[0_2px_12px_rgba(0,0,0,0.06)]">
           <div className="relative z-10 flex max-w-[75%] flex-col gap-2">
-            <div className="flex items-center gap-2.5">
-              <MapPin className="h-3.5 w-3.5 shrink-0 text-[#0D55CF]" />
-              <span className="truncate text-[10px] leading-tight text-slate-500">
+            <div className="flex items-center gap-3">
+              <MapPin className="h-5 w-5 shrink-0 text-[#0D55CF]" />
+              <span className="truncate text-[16px] leading-tight font-medium text-slate-600">
                 Unit 5 Hythe Quay, England, CO2 8JB
               </span>
             </div>
-            <div className="flex items-center gap-2.5">
-              <PhoneCall className="h-3.5 w-3.5 shrink-0 text-[#0D55CF]" />
-              <span className="text-[10px] font-bold text-[#0B1F5B]">
+            <div className="flex items-center gap-3">
+              <PhoneCall className="h-5 w-5 shrink-0 text-[#0D55CF]" />
+              <span className="text-[16px] font-bold text-[#0B1F5B]">
                 +44 1206 123456
               </span>
             </div>
-            <div className="flex items-center gap-2.5">
-              <Mail className="h-3.5 w-3.5 shrink-0 text-[#0D55CF]" />
-              <span className="text-[10px] font-bold text-[#0D55CF]">
+            <div className="flex items-center gap-3">
+              <Mail className="h-5 w-5 shrink-0 text-[#0D55CF]" />
+              <span className="text-[16px] font-bold text-[#0D55CF]">
                 hello@fishcart.co.uk
               </span>
             </div>
