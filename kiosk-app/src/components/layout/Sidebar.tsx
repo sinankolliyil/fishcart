@@ -57,7 +57,7 @@ export function Sidebar() {
   return (
     <aside className="z-50 flex h-full w-[var(--container-sidebar)] flex-shrink-0 flex-col overflow-hidden border-r border-gray-100 bg-[#F4F7FB] portrait:h-auto portrait:w-full portrait:border-b portrait:border-r-0 portrait:shadow-sm portrait:relative portrait:overflow-visible">
       {/* ── Logo ─────────────────────────────────────────────────────── */}
-      <div className="relative p-[var(--sidebar-logo-padding)] pb-1 portrait:pb-[var(--sidebar-logo-padding)] portrait:flex portrait:items-center portrait:justify-center">
+      <div className="relative p-[var(--sidebar-logo-padding)] pb-1 portrait:py-[clamp(16px,2.5vh,24px)] portrait:flex portrait:items-center portrait:justify-center">
         {/* Hamburger (Portrait only) */}
         <button
           className="hidden portrait:block absolute left-[var(--sidebar-logo-padding)] top-1/2 -translate-y-1/2"
@@ -104,6 +104,171 @@ export function Sidebar() {
             </p>
           </div>
         </Link>
+      </div>
+
+      {/* ── Promotional Ribbon (Portrait Only) ───────────────────────── */}
+      <div className="hidden portrait:flex h-[36px] items-center overflow-hidden bg-[#0B1F5B] select-none shrink-0 border-b-2 border-white/10">
+        <style
+          dangerouslySetInnerHTML={{
+            __html: `
+          @keyframes marquee {
+            0% { transform: translate3d(0, 0, 0); }
+            100% { transform: translate3d(-50%, 0, 0); }
+          }
+          .animate-marquee-custom {
+            display: flex;
+            width: max-content;
+            animation: marquee 25s linear infinite;
+          }
+        `,
+          }}
+        />
+        <div className="animate-marquee-custom flex items-center whitespace-nowrap">
+          {/* List of Offers */}
+          <div className="flex items-center space-x-6 px-4">
+            <span className="flex items-center gap-1.5 text-[10px] font-bold tracking-wider text-white uppercase">
+              <svg
+                className="h-3.5 w-3.5 text-cyan-400"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                strokeWidth="2.5"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M9.568 3H5.25A2.25 2.25 0 003 5.25v4.318c0 .597.237 1.17.659 1.591l9.581 9.581a1.125 1.125 0 001.591 0l7.22-7.22a1.125 1.125 0 000-1.591L11.16 3.659A2.25 2.25 0 009.568 3z"
+                />
+              </svg>
+              ON FRESH FISH
+            </span>
+            <span className="flex items-center gap-1.5 text-[10px] font-bold tracking-wider text-white uppercase">
+              <svg
+                className="h-3.5 w-3.5 text-yellow-400"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                strokeWidth="2.5"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M21 7.5H3M21 12H3m18 4.5H3M12 3v18M7.5 7.5a3 3 0 100-6 3 3 0 000 6zM16.5 7.5a3 3 0 100-6 3 3 0 000 6z"
+                />
+              </svg>
+              Buy 2 Get 1 Free
+            </span>
+            <span className="flex items-center gap-1.5 text-[10px] font-bold tracking-wider text-white uppercase">
+              <svg
+                className="h-3.5 w-3.5 text-orange-400"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                strokeWidth="2.5"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M15.362 5.214A8.252 8.252 0 0112 21 8.25 8.25 0 016.038 7.048 8.287 8.287 0 009 9.6a8.983 8.983 0 013.361-6.867 8.21 8.21 0 003 2.48z"
+                />
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M12 18a3.75 3.75 0 00.495-7.467 5.99 5.99 0 00-1.925 3.546 5.974 5.974 0 01-2.133-1A3.75 3.75 0 0012 18z"
+                />
+              </svg>
+              Weekend Chicken Deals
+            </span>
+            <span className="flex items-center gap-1.5 text-[10px] font-bold tracking-wider text-white uppercase">
+              <svg
+                className="h-3.5 w-3.5 text-cyan-400"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                strokeWidth="2.5"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 01-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h1.125a1.125 1.125 0 001.125-1.125V9.75M8.25 18.75V14.25m0 0H12m.75 1.5h2.25M9 8.25h3m-3 3h3m7.5-3h1.125V12h-3.75z"
+                />
+              </svg>
+              Free Delivery Above ₹999
+            </span>
+          </div>
+          {/* Duplicate list for seamless looping */}
+          <div className="flex items-center space-x-6 px-4">
+            <span className="flex items-center gap-1.5 text-[10px] font-bold tracking-wider text-white uppercase">
+              <svg
+                className="h-3.5 w-3.5 text-cyan-400"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                strokeWidth="2.5"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M9.568 3H5.25A2.25 2.25 0 003 5.25v4.318c0 .597.237 1.17.659 1.591l9.581 9.581a1.125 1.125 0 001.591 0l7.22-7.22a1.125 1.125 0 000-1.591L11.16 3.659A2.25 2.25 0 009.568 3z"
+                />
+              </svg>
+              ON FRESH FISH
+            </span>
+            <span className="flex items-center gap-1.5 text-[10px] font-bold tracking-wider text-white uppercase">
+              <svg
+                className="h-3.5 w-3.5 text-yellow-400"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                strokeWidth="2.5"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M21 7.5H3M21 12H3m18 4.5H3M12 3v18M7.5 7.5a3 3 0 100-6 3 3 0 000 6zM16.5 7.5a3 3 0 100-6 3 3 0 000 6z"
+                />
+              </svg>
+              Buy 2 Get 1 Free
+            </span>
+            <span className="flex items-center gap-1.5 text-[10px] font-bold tracking-wider text-white uppercase">
+              <svg
+                className="h-3.5 w-3.5 text-orange-400"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                strokeWidth="2.5"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M15.362 5.214A8.252 8.252 0 0112 21 8.25 8.25 0 016.038 7.048 8.287 8.287 0 009 9.6a8.983 8.983 0 013.361-6.867 8.21 8.21 0 003 2.48z"
+                />
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M12 18a3.75 3.75 0 00.495-7.467 5.99 5.99 0 00-1.925 3.546 5.974 5.974 0 01-2.133-1A3.75 3.75 0 0012 18z"
+                />
+              </svg>
+              Weekend Chicken Deals
+            </span>
+            <span className="flex items-center gap-1.5 text-[10px] font-bold tracking-wider text-white uppercase">
+              <svg
+                className="h-3.5 w-3.5 text-cyan-400"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                strokeWidth="2.5"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 01-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h1.125a1.125 1.125 0 001.125-1.125V9.75M8.25 18.75V14.25m0 0H12m.75 1.5h2.25M9 8.25h3m-3 3h3m7.5-3h1.125V12h-3.75z"
+                />
+              </svg>
+              Free Delivery Above ₹999
+            </span>
+          </div>
+        </div>
       </div>
 
       {/* ── Navigation ───────────────────────────────────────────────── */}

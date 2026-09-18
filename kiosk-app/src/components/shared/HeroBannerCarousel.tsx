@@ -155,7 +155,7 @@ export function HeroBannerCarousel() {
       />
 
       {/* ── Premium Offer Ribbon ── */}
-      <div className="absolute top-0 right-0 left-0 z-30 flex h-[var(--hero-ribbon-h)] items-center overflow-hidden border-b border-white/10 bg-black/40 backdrop-blur-md select-none">
+      <div className="portrait:hidden absolute top-0 right-0 left-0 z-30 flex h-[var(--hero-ribbon-h)] items-center overflow-hidden border-b border-white/10 bg-black/40 backdrop-blur-md select-none">
         <div className="animate-marquee-custom flex items-center py-1 whitespace-nowrap">
           {/* List of Offers */}
           <div className="flex items-center space-x-12 px-6">

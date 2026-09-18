@@ -185,7 +185,7 @@ export function ProductDetailsLayout({ data }: { data: ProductDetails }) {
             </div>
 
             {/* Image column */}
-            <div className="flex min-w-0 flex-1 flex-col justify-between overflow-hidden portrait:h-[300px]">
+            <div className="flex min-w-0 flex-1 flex-col justify-between overflow-hidden portrait:h-[350px]">
               <div className="relative min-h-0 w-full flex-1 overflow-hidden rounded-[8px] bg-slate-50">
                 <Image
                   src={selectedImage}
