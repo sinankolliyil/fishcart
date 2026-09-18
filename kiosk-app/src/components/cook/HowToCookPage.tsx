@@ -809,7 +809,7 @@ export function HowToCookPage() {
   }
 
   return (
-    <div className="grid h-full min-h-[750px] w-full grid-rows-[auto_minmax(0,42fr)_minmax(0,20fr)] gap-[clamp(12px,2svh,24px)] overflow-hidden bg-white select-none">
+    <div className="grid h-full min-h-[750px] w-full grid-rows-[auto_minmax(0,42fr)_minmax(0,20fr)] gap-[clamp(12px,2svh,24px)] overflow-hidden bg-white select-none portrait:flex portrait:flex-col portrait:h-auto portrait:overflow-visible">
       {/* 1. Header (Title + Categories) */}
       <div className="flex shrink-0 flex-col px-[clamp(8px,1.2vw,18px)] pt-[clamp(6px,0.8vw,12px)]">
         <h1 className="text-[clamp(32px,min(3vw,4svh),44px)] leading-tight font-bold tracking-tight text-[#102B7B]">
@@ -821,11 +821,11 @@ export function HowToCookPage() {
       </div>
 
       {/* 2. 3-Column Main Grid */}
-      <div className="grid min-h-0 grid-cols-12 gap-6 px-[clamp(8px,1vw,16px)]">
+      <div className="grid min-h-0 grid-cols-12 gap-6 px-[clamp(8px,1vw,16px)] portrait:flex portrait:flex-col portrait:h-auto">
         {/* A. Main Video Player (Left, spanning 6 cols) */}
-        <div className="col-span-6 flex min-h-0 flex-col">
+        <div className="col-span-6 flex min-h-0 flex-col portrait:w-full portrait:h-auto portrait:flex-none">
           {/* Categories */}
-          <div className="mb-3 flex h-10 w-fit shrink-0 items-center rounded-lg border border-slate-200 bg-white p-1 shadow-sm">
+          <div className="mb-3 flex h-10 w-fit shrink-0 items-center rounded-lg border border-slate-200 bg-white p-1 shadow-sm portrait:w-full portrait:overflow-x-auto portrait:justify-start">
             {(['Fish', 'Meat', 'Chicken', 'Egg'] as Category[]).map((cat) => {
               const isActive = cat === activeCategory;
               return (
@@ -868,7 +868,7 @@ export function HowToCookPage() {
             })}
           </div>
 
-          <div className="group relative min-h-0 w-full flex-1 overflow-hidden rounded-lg bg-black">
+          <div className="group relative min-h-0 w-full flex-1 overflow-hidden rounded-lg bg-black portrait:h-[250px] portrait:flex-none">
             {activeVideo.id === 1 ? (
               <video
                 ref={videoRef}
@@ -968,7 +968,7 @@ export function HowToCookPage() {
         </div>
 
         {/* B. Ingredients Overview (Middle, spanning 3 cols) */}
-        <div className="col-span-3 flex min-h-0 flex-col rounded-xl border border-gray-100 bg-white p-5 shadow-sm">
+        <div className="col-span-3 flex min-h-0 flex-col rounded-xl border border-gray-100 bg-white p-5 shadow-sm portrait:w-full portrait:h-auto portrait:min-h-[300px]">
           <div className="mb-4 flex shrink-0 items-center justify-between border-b border-gray-100 pb-4">
             <h3 className="text-lg font-bold text-[#0B1F5B]">
               Ingredients Overview
@@ -1060,7 +1060,7 @@ export function HowToCookPage() {
         </div>
 
         {/* C. Follow Other Videos (Right, spanning 3 cols) */}
-        <div className="col-span-3 flex min-h-0 flex-col rounded-xl border border-gray-100 bg-white p-5 shadow-sm">
+        <div className="col-span-3 flex min-h-0 flex-col rounded-xl border border-gray-100 bg-white p-5 shadow-sm portrait:w-full portrait:h-auto portrait:min-h-[300px]">
           <h3 className="mb-4 shrink-0 text-lg font-bold text-[#0B1F5B]">
             Follow Other Videos
           </h3>
@@ -1100,7 +1100,7 @@ export function HowToCookPage() {
       </div>
 
       {/* 3. All Videos Section */}
-      <div className="flex min-h-0 shrink-0 flex-col gap-4 px-[clamp(8px,1vw,16px)] pb-2">
+      <div className="flex min-h-0 shrink-0 flex-col gap-4 px-[clamp(8px,1vw,16px)] pb-2 portrait:h-auto">
         <div className="flex shrink-0 items-center justify-between">
           <h3 className="text-xl font-bold text-[#0B1F5B]">All Videos</h3>
           <Link
@@ -1112,11 +1112,11 @@ export function HowToCookPage() {
         </div>
 
         {/* Grid of 5 videos max */}
-        <div className="grid min-h-0 flex-1 grid-cols-5 gap-6">
+        <div className="grid min-h-0 flex-1 grid-cols-5 gap-6 portrait:flex portrait:overflow-x-auto portrait:snap-x portrait:snap-mandatory portrait:pb-4 portrait:gap-4 portrait:[&::-webkit-scrollbar]:hidden">
           {uniqueCategoryVideos.slice(0, 5).map((v) => (
             <div
               key={v.id}
-              className="group flex h-full min-h-0 cursor-pointer flex-col"
+              className="group flex h-full min-h-0 cursor-pointer flex-col portrait:shrink-0 portrait:w-[80vw] portrait:snap-center portrait:h-[220px]"
               onClick={() => setActiveVideo(v)}
             >
               <div className="relative mb-3 min-h-0 w-full flex-1 overflow-hidden rounded-lg bg-black">

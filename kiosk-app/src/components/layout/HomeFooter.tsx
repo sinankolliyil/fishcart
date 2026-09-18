@@ -4,7 +4,7 @@ import { MapPin, PhoneCall, Mail } from 'lucide-react';
 
 export function HomeFooter() {
   return (
-    <footer className="grid h-full w-full grid-cols-4 items-stretch overflow-hidden rounded-[8px] border border-slate-200 bg-white">
+    <footer className="grid h-full w-full grid-cols-4 items-stretch overflow-hidden rounded-[8px] border border-slate-200 bg-white portrait:grid-cols-1 portrait:divide-y portrait:divide-slate-200 portrait:h-auto">
       {/* Card 1: About Us */}
       <div className="relative flex flex-col justify-center overflow-hidden p-[clamp(16px,1.8vw,28px)]">
         <div className="relative z-10 flex max-w-[65%] flex-col">
@@ -26,7 +26,7 @@ export function HomeFooter() {
       </div>
 
       {/* Card 2: Our Stories */}
-      <div className="relative flex flex-col justify-center overflow-hidden p-[clamp(16px,1.8vw,28px)] before:absolute before:left-0 before:top-6 before:bottom-6 before:w-[1px] before:bg-slate-200">
+      <div className="relative flex flex-col justify-center overflow-hidden p-[clamp(16px,1.8vw,28px)] before:absolute before:left-0 before:top-6 before:bottom-6 before:w-[1px] before:bg-slate-200 portrait:before:hidden">
         <div className="relative z-10 flex max-w-[55%] flex-col">
           <h4 className="mb-0.5 text-[clamp(14px,min(1vw,1.6svh),18px)] font-bold text-[#0D55CF]">
             Our Stories
@@ -46,7 +46,7 @@ export function HomeFooter() {
       </div>
 
       {/* Card 3: Contact Us */}
-      <div className="relative flex flex-col justify-center overflow-hidden p-[clamp(16px,1.8vw,28px)] before:absolute before:left-0 before:top-6 before:bottom-6 before:w-[1px] before:bg-slate-200">
+      <div className="relative flex flex-col justify-center overflow-hidden p-[clamp(16px,1.8vw,28px)] before:absolute before:left-0 before:top-6 before:bottom-6 before:w-[1px] before:bg-slate-200 portrait:before:hidden">
         <div className="relative z-10 flex max-w-[60%] flex-col">
           <h4 className="mb-0.5 text-[clamp(14px,min(1vw,1.6svh),18px)] font-bold text-[#0D55CF]">
             Contact Us
@@ -66,7 +66,7 @@ export function HomeFooter() {
       </div>
 
       {/* Card 4: Address */}
-      <div className="relative flex flex-col justify-center gap-2 overflow-hidden p-[clamp(16px,1.8vw,28px)] before:absolute before:left-0 before:top-6 before:bottom-6 before:w-[1px] before:bg-slate-200">
+      <div className="relative flex flex-col justify-center gap-2 overflow-hidden p-[clamp(16px,1.8vw,28px)] before:absolute before:left-0 before:top-6 before:bottom-6 before:w-[1px] before:bg-slate-200 portrait:before:hidden">
         <div className="relative z-10 flex max-w-[75%] flex-col gap-2">
           <div className="flex items-center gap-2">
             <MapPin className="h-4 w-4 shrink-0 text-[#0D55CF]" />

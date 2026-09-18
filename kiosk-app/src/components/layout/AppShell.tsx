@@ -7,11 +7,11 @@ export function AppShell({ children }: { children: React.ReactNode }) {
      * no dependency on html/body height, no competing utility class cascade.
      * flex-row → Sidebar (fixed width) + content column (flex-1)
      */
-    <div className="text-text-body flex h-full w-full overflow-hidden bg-[#F4F7FB] font-sans">
+    <div className="text-text-body flex h-full w-full overflow-hidden bg-[#F4F7FB] font-sans portrait:flex-col">
       <Sidebar />
 
       {/* Content column */}
-      <div className="flex min-w-0 flex-1 flex-col overflow-hidden">
+      <div className="flex min-w-0 flex-1 flex-col overflow-hidden portrait:w-full">
         {/*
          * main fills the full height of the content column.
          * Padding creates the inner whitespace that matches the reference design.

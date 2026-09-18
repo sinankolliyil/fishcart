@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
+@custom-variant portrait (@media (orientation: portrait));
+
 @theme inline {
   /* Colors */
   --color-primary: #0D55CF;

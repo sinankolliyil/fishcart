@@ -9,7 +9,7 @@ const RECIPES = [
   { img: '/assets/fish2.jpg', title: 'Fish Curry', sub: 'Spicy & Tangy' },
   { img: '/assets/prod_1_salmon.jpg', title: 'Grilled Fish', sub: 'Healthy & Tasty' },
   { img: '/assets/prod_7_prawns.jpg', title: 'Prawns', sub: 'Crispy & Juicy' },
-  { img: '/assets/chicken_showcase.png', title: 'Chicken Roast', sub: 'Oven Baked' },
+  { img: '/assets/chicken.png', title: 'Chicken Roast', sub: 'Oven Baked' },
 ];
 
 export function RecipeCarousel() {

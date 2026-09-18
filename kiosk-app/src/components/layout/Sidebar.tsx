@@ -21,6 +21,7 @@ import {
   ShieldCheck,
   X,
   QrCode,
+  Menu,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
@@ -51,11 +52,19 @@ const NAV_ITEMS = [
 export function Sidebar() {
   const pathname = usePathname();
   const [isQRModalOpen, setIsQRModalOpen] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   return (
-    <aside className="z-50 flex h-full w-[var(--container-sidebar)] flex-shrink-0 flex-col overflow-hidden border-r border-gray-100 bg-[#F4F7FB]">
+    <aside className="z-50 flex h-full w-[var(--container-sidebar)] flex-shrink-0 flex-col overflow-hidden border-r border-gray-100 bg-[#F4F7FB] portrait:h-auto portrait:w-full portrait:border-b portrait:border-r-0 portrait:shadow-sm portrait:relative portrait:overflow-visible">
       {/* ── Logo ─────────────────────────────────────────────────────── */}
-      <div className="p-[var(--sidebar-logo-padding)] pb-1">
+      <div className="relative p-[var(--sidebar-logo-padding)] pb-1 portrait:pb-[var(--sidebar-logo-padding)] portrait:flex portrait:items-center portrait:justify-center">
+        {/* Hamburger (Portrait only) */}
+        <button
+          className="hidden portrait:block absolute left-[var(--sidebar-logo-padding)] top-1/2 -translate-y-1/2"
+          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+        >
+          {isMobileMenuOpen ? <X className="h-6 w-6 text-[#0D55CF]" /> : <Menu className="h-6 w-6 text-[#0D55CF]" />}
+        </button>
         <Link
           href="/"
           className="flex items-center gap-[clamp(6px,min(0.63vw,0.9svh),10px)]"
@@ -98,7 +107,11 @@ export function Sidebar() {
       </div>
 
       {/* ── Navigation ───────────────────────────────────────────────── */}
-      <nav className="flex flex-1 flex-col gap-[var(--sidebar-nav-gap)] overflow-hidden px-[var(--sidebar-nav-padding-x)] py-[var(--sidebar-nav-padding-y)]">
+      <nav className={cn(
+        "flex flex-1 flex-col gap-[var(--sidebar-nav-gap)] overflow-hidden px-[var(--sidebar-nav-padding-x)] py-[var(--sidebar-nav-padding-y)]",
+        "portrait:absolute portrait:top-full portrait:left-0 portrait:w-full portrait:bg-[#F4F7FB] portrait:shadow-lg portrait:z-50 portrait:py-4 portrait:h-[calc(100dvh-70px)] portrait:overflow-y-auto portrait:border-t portrait:border-gray-100",
+        isMobileMenuOpen ? "portrait:flex" : "portrait:hidden"
+      )}>
         {NAV_ITEMS.map((item) => {
           // Exact match for home, startsWith for others to keep active state on sub-pages
           const isActive =
@@ -148,7 +161,7 @@ export function Sidebar() {
       </nav>
 
       {/* ── Scan Now Card ───────────────────────────────────────── */}
-      <div className="px-[var(--sidebar-nav-padding-x)] pb-[var(--sidebar-nav-padding-x)]">
+      <div className="px-[var(--sidebar-nav-padding-x)] pb-[var(--sidebar-nav-padding-x)] portrait:hidden">
         <div 
           onClick={() => setIsQRModalOpen(true)}
           className="cursor-pointer rounded-[clamp(10px,min(1vw,1.5svh),16px)] bg-[#0D55CF] p-[var(--sidebar-community-padding)] py-[clamp(12px,min(1.5vw,2svh),20px)]  transition-transform hover:-translate-y-0.5 hover: flex flex-col items-center justify-center"

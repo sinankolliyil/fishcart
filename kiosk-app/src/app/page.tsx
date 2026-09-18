@@ -29,19 +29,19 @@ export default function HomePage() {
      * This is mathematically identical to the reference design (1920×1200) and
      * scales proportionally to every shorter landscape viewport without overflow.
      */
-    <div className="grid h-full min-h-[950px] w-full grid-rows-[minmax(0,38fr)_minmax(0,32fr)_minmax(0,16fr)_minmax(0,11fr)_minmax(0,10fr)] gap-[clamp(5px,1vw,15px)]">
+    <div className="grid h-full min-h-[950px] w-full grid-rows-[minmax(0,38fr)_minmax(0,32fr)_minmax(0,16fr)_minmax(0,11fr)_minmax(0,10fr)] gap-[clamp(5px,1vw,15px)] portrait:flex portrait:flex-col portrait:h-auto portrait:min-h-0">
       {/* ═══════════════════════════════════════════════════
           ROW 1 — Hero (7 cols) + Categories (5 cols)  33%
           ═══════════════════════════════════════════════════ */}
-      <div className="grid grid-cols-12 gap-[var(--main-gap)] overflow-hidden">
+      <div className="grid grid-cols-12 gap-[var(--main-gap)] overflow-hidden portrait:flex portrait:flex-col">
         {/* ── Hero Card ── */}
-        <div className="relative col-span-7 h-full w-full overflow-hidden rounded-[8px] bg-slate-950">
+        <div className="relative col-span-7 h-full w-full overflow-hidden rounded-[8px] bg-slate-950 portrait:h-[40vh] portrait:min-h-[300px]">
           <HeroBannerCarousel />
         </div>
 
         {/* ── Categories Grid ── */}
-        <div className="col-span-5 grid grid-rows-[55fr_45fr] gap-[var(--cat-gap)] overflow-hidden">
-          <div className="grid grid-cols-3 gap-[var(--cat-gap)] overflow-hidden">
+        <div className="col-span-5 grid grid-rows-[55fr_45fr] gap-[var(--cat-gap)] overflow-hidden portrait:flex portrait:flex-col portrait:h-auto">
+          <div className="grid grid-cols-3 gap-[var(--cat-gap)] overflow-hidden portrait:grid-cols-3 portrait:h-[180px]">
             <CategoryCard
               title="Fish"
               subtitle="100+ Items"
@@ -67,23 +67,25 @@ export default function HomePage() {
               className="h-full"
             />
           </div>
-          <CategoryCard
-            title="Eggs"
-            subtitle="Farm Fresh"
-            imageSrc="/assets/egg.png"
-            variant="eggs"
-            href="/eggs"
-            className="h-full"
-          />
+          <div className="portrait:h-[120px]">
+            <CategoryCard
+              title="Eggs"
+              subtitle="Farm Fresh"
+              imageSrc="/assets/egg.png"
+              variant="eggs"
+              href="/eggs"
+              className="h-full"
+            />
+          </div>
         </div>
       </div>
 
       {/* ═══════════════════════════════════════════════════════════
           ROW 2 — Recipe | Nutrition | Testimonial              25%
           ═══════════════════════════════════════════════════════════ */}
-      <div className="grid grid-cols-3 gap-[var(--row2-gap)] overflow-hidden xl:grid-cols-[1.15fr_1.16fr_0.7fr]">
+      <div className="grid grid-cols-3 gap-[var(--row2-gap)] overflow-hidden xl:grid-cols-[1.15fr_1.16fr_0.7fr] portrait:flex portrait:flex-col">
         {/* ── Recipe ── */}
-        <div className="col-span-1 flex min-h-0 flex-col justify-between overflow-hidden rounded-[8px] bg-[#A9D3FB] p-[var(--recipe-padding)]">
+        <div className="col-span-1 flex min-h-0 flex-col justify-between overflow-hidden rounded-[8px] bg-[#A9D3FB] p-[var(--recipe-padding)] portrait:min-h-[300px]">
           <div>
             <h3 className="mb-[clamp(4px,min(0.5vw,0.75svh),8px)] text-[clamp(17px,min(1.25vw,2svh),22px)] font-bold text-[#0D55CF]">
               How to Make Delicious
@@ -107,7 +109,7 @@ export default function HomePage() {
         </div>
 
         {/* ── Nutrition ── */}
-        <div className="relative col-span-1 flex flex-row overflow-hidden rounded-[8px] bg-[#E1EDFA] p-[var(--nutrition-padding)]">
+        <div className="relative col-span-1 flex flex-row overflow-hidden rounded-[8px] bg-[#E1EDFA] p-[var(--nutrition-padding)] portrait:min-h-[300px]">
           {/* Left Column (58%) */}
           <div className="relative z-10 flex w-[58%] flex-col pr-2">
             <h3 className="mb-[clamp(4px,min(0.5vw,0.75svh),8px)] text-[clamp(17px,min(1.25vw,2svh),22px)] font-bold text-[#0D55CF]">
@@ -175,7 +177,7 @@ export default function HomePage() {
         </div>
 
         {/* ── Testimonial ── */}
-        <div className="col-span-1 flex min-h-0 flex-col justify-between overflow-hidden rounded-[8px] bg-[#E1EDFA] p-[var(--testimonial-padding)]">
+        <div className="col-span-1 flex min-h-0 flex-col justify-between overflow-hidden rounded-[8px] bg-[#E1EDFA] p-[var(--testimonial-padding)] portrait:min-h-[250px]">
           <div>
             <h3 className="mb-[clamp(4px,min(0.5vw,0.75svh),8px)] text-[clamp(17px,min(1.25vw,2svh),22px)] font-bold text-[#0D55CF]">
               What Our Customers Say
@@ -212,7 +214,7 @@ export default function HomePage() {
       {/* ══════════════════════════════════════════════
           ROW 3 — Promotional Product Banners       16%
           ══════════════════════════════════════════════ */}
-      <div className="grid grid-cols-4 gap-[var(--showcase-gap)] overflow-hidden">
+      <div className="grid grid-cols-4 gap-[var(--showcase-gap)] overflow-hidden portrait:grid-cols-2">
         {[
           {
             title: 'All Fish Items',
@@ -242,7 +244,7 @@ export default function HomePage() {
           <Link
             key={idx}
             href={item.href}
-            className="group relative col-span-1 cursor-pointer overflow-hidden rounded-[8px] bg-[#DFE8F2]"
+            className="group relative col-span-1 cursor-pointer overflow-hidden rounded-[8px] bg-[#DFE8F2] portrait:aspect-[4/3]"
           >
             <Image
               src={item.image}
@@ -269,7 +271,7 @@ export default function HomePage() {
       {/* ════════════════════════════════════════
           ROW 4 — Information Cards           10%
           ════════════════════════════════════════ */}
-      <div className="grid grid-cols-4 gap-[var(--info-gap)] overflow-hidden">
+      <div className="grid grid-cols-4 gap-[var(--info-gap)] overflow-hidden portrait:grid-cols-1">
         {/* Card 1 */}
         <div className="col-span-1 flex items-center justify-between overflow-hidden rounded-[8px] bg-[#EAF4FE] p-[clamp(12px,1.5vw,20px)]">
           <div className="mr-2 flex flex-1 flex-col text-left">

@@ -36,8 +36,8 @@ export function AboutPage() {
           </div>
 
           {/* 1. Hero Section */}
-          <div className="relative z-10 flex min-h-[400px] w-full items-center justify-start">
-            <div className="-mt-35 flex w-1/2 flex-col pr-10">
+          <div className="relative z-10 flex min-h-[400px] w-full items-center justify-start portrait:min-h-[300px]">
+            <div className="-mt-35 flex w-1/2 flex-col pr-10 portrait:w-full portrait:pr-0">
               <div className="mb-2 flex items-center gap-2">
                 <span className="text-sm font-bold text-[#0D55CF] italic">
                   About Us
@@ -79,7 +79,7 @@ export function AboutPage() {
             </p>
           </div>
 
-          <div className="grid flex-1 grid-cols-4 gap-4">
+          <div className="grid flex-1 grid-cols-4 gap-4 portrait:grid-cols-2 portrait:gap-2">
             {/* Define the SVG clip path for the custom organic glass card */}
             <svg width="0" height="0" className="pointer-events-none absolute">
               <defs>
@@ -176,7 +176,7 @@ export function AboutPage() {
           <h3 className="mb-4 text-center text-lg font-bold text-slate-800">
             Why Choose FishCart?
           </h3>
-          <div className="grid grid-cols-4 gap-4">
+          <div className="grid grid-cols-4 gap-4 portrait:grid-cols-2 portrait:gap-y-6">
             {[
               {
                 icon: <Medal className="h-7 w-7 text-[#0D55CF]" />,

@@ -150,12 +150,12 @@ export function BenefitsPage() {
   const benefits = benefitsData[activeCategory];
 
   return (
-    <div className="grid h-full w-full grid-rows-[minmax(0,90fr)_minmax(0,10fr)] gap-[clamp(5px,1vw,15px)] bg-transparent select-none overflow-hidden">
-      <div className="grid h-full w-full grid-rows-[minmax(0,19fr)_minmax(0,8fr)_minmax(0,50fr)_minmax(0,13fr)] gap-[clamp(5px,1vw,15px)] bg-white rounded-[12px] p-[clamp(10px,1.5vw,20px)]">
+    <div className="grid h-full w-full grid-rows-[minmax(0,90fr)_minmax(0,10fr)] gap-[clamp(5px,1vw,15px)] bg-transparent select-none overflow-hidden portrait:flex portrait:flex-col portrait:h-auto portrait:overflow-visible">
+      <div className="grid h-full w-full grid-rows-[minmax(0,19fr)_minmax(0,8fr)_minmax(0,50fr)_minmax(0,13fr)] gap-[clamp(5px,1vw,15px)] bg-white rounded-[12px] p-[clamp(10px,1.5vw,20px)] portrait:flex portrait:flex-col portrait:h-auto">
       {/* ─── 1. Animated Hero Banner ─── */}
       <motion.div
         layout
-        className="relative flex h-full w-full items-center overflow-hidden rounded-[12px] bg-slate-50 px-10 shadow-inner border border-slate-100"
+        className="relative flex h-full w-full items-center overflow-hidden rounded-[12px] bg-slate-50 px-10 shadow-inner border border-slate-100 portrait:min-h-[160px] portrait:px-4"
       >
         {/* Floating Background Orbs */}
         <motion.div
@@ -197,8 +197,8 @@ export function BenefitsPage() {
       </motion.div>
 
       {/* ─── 2. Fluid Category Selector ─── */}
-      <div className="flex h-full w-full items-center justify-center">
-        <div className="flex h-full w-full max-w-[800px] items-center rounded-full bg-white p-2 shadow-[0_2px_10px_rgba(0,0,0,0.03)] border border-slate-100">
+      <div className="flex h-full w-full items-center justify-center portrait:h-auto portrait:py-2">
+        <div className="flex h-full w-full max-w-[800px] items-center rounded-full bg-white p-2 shadow-[0_2px_10px_rgba(0,0,0,0.03)] border border-slate-100 portrait:flex-wrap portrait:rounded-[12px] portrait:gap-2">
           {categoryConfig.map((cat) => {
             const isActive = cat.id === activeCategory;
             const IconComp = cat.icon;
@@ -239,7 +239,7 @@ export function BenefitsPage() {
       </div>
 
       {/* ─── 3. Staggered Glassmorphic Cards ─── */}
-      <div className="relative h-full w-full">
+      <div className="relative h-full w-full portrait:h-auto">
         <AnimatePresence mode="wait">
           <motion.div
             key={activeCategory}
@@ -247,7 +247,7 @@ export function BenefitsPage() {
             initial="hidden"
             animate="show"
             exit="exit"
-            className="absolute inset-0 grid grid-cols-3 grid-rows-2 gap-6 py-4"
+            className="absolute inset-0 grid grid-cols-3 grid-rows-2 gap-6 py-4 portrait:relative portrait:inset-auto portrait:grid-cols-1 portrait:grid-rows-6 portrait:gap-4"
           >
             {benefits.map((benefit, idx) => {
               const IconComp = benefit.icon;
@@ -290,7 +290,7 @@ export function BenefitsPage() {
       <motion.div
         whileHover={{ scale: 1.01 }}
         className={cn(
-          'flex h-full w-full items-center rounded-[12px] px-8 shadow-sm transition-colors border',
+          'flex h-full w-full items-center rounded-[12px] px-8 shadow-sm transition-colors border portrait:h-auto portrait:flex-col portrait:py-6 portrait:text-center portrait:px-4',
           activeCfg.lightBg,
           'border-white/50'
         )}

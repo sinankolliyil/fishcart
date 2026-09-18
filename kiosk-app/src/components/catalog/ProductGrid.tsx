@@ -219,7 +219,7 @@ export function ProductGrid({
                 className="h-full min-w-full shrink-0 snap-center"
               >
                 {viewMode === 'grid' ? (
-                  <div className="grid h-full min-h-0 w-full grid-cols-4 grid-rows-2 gap-[var(--main-gap)] overflow-hidden">
+                  <div className="grid h-full min-h-0 w-full grid-cols-4 grid-rows-2 gap-[var(--main-gap)] overflow-hidden portrait:grid-cols-2 portrait:grid-rows-4 portrait:auto-rows-[minmax(180px,1fr)] portrait:h-auto">
                     {pageProducts.map((product) => (
                       <ProductCard
                         key={product.id}
@@ -229,7 +229,7 @@ export function ProductGrid({
                     ))}
                   </div>
                 ) : (
-                  <div className="grid h-full min-h-0 w-full grid-cols-2 grid-rows-4 gap-[var(--main-gap)] overflow-hidden">
+                  <div className="grid h-full min-h-0 w-full grid-cols-2 grid-rows-4 gap-[var(--main-gap)] overflow-hidden portrait:grid-cols-1 portrait:grid-rows-8 portrait:auto-rows-[minmax(120px,1fr)] portrait:h-auto">
                     {pageProducts.map((product) => (
                       <Link
                         href={`/product/${product.id}`}

@@ -272,7 +272,7 @@ export function CatalogPage({ data }: CatalogPageProps) {
   };
 
   return (
-    <div className="grid h-full min-h-[950px] w-full grid-rows-[minmax(0,14fr)_minmax(0,7fr)_minmax(0,70fr)_minmax(0,11fr)_minmax(0,10fr)] gap-[var(--main-gap)] select-none">
+    <div className="grid h-full min-h-[950px] w-full grid-rows-[minmax(0,14fr)_minmax(0,7fr)_minmax(0,70fr)_minmax(0,11fr)_minmax(0,10fr)] gap-[var(--main-gap)] select-none portrait:flex portrait:flex-col portrait:h-auto portrait:min-h-0">
       {/* 1. Hero Section */}
       <div className="h-full w-full overflow-hidden">
         <CatalogHero
@@ -297,9 +297,9 @@ export function CatalogPage({ data }: CatalogPageProps) {
       </div>
 
       {/* 3. Main Catalog Section (Filters + Product Grid) */}
-      <div className="grid h-full min-h-0 w-full grid-cols-5 items-stretch gap-[var(--main-gap)] overflow-hidden">
+      <div className="grid h-full min-h-0 w-full grid-cols-5 items-stretch gap-[var(--main-gap)] overflow-hidden portrait:flex portrait:flex-col portrait:h-auto">
         {/* Left Column: Filter Sidebar — 1/5 width to match first category tab */}
-        <div className="col-span-1 h-full overflow-hidden">
+        <div className="col-span-1 h-full overflow-hidden portrait:h-auto portrait:w-full portrait:flex-none">
           <FilterSidebar
             filterSections={dynamicFilterSections}
             selectedOptions={tempFilters}
@@ -312,7 +312,7 @@ export function CatalogPage({ data }: CatalogPageProps) {
         </div>
 
         {/* Right Column: Product List — 4/5 width */}
-        <div className="col-span-4 flex h-full flex-col overflow-hidden rounded-[8px] border border-slate-100 bg-white p-2 shadow-sm">
+        <div className="col-span-4 flex h-full flex-col overflow-hidden rounded-[8px] border border-slate-100 bg-white p-2 shadow-sm portrait:h-auto portrait:w-full portrait:flex-none">
           <ProductGrid
             products={processedProducts}
             category={data.category}

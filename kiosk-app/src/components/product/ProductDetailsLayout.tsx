@@ -62,18 +62,18 @@ export function ProductDetailsLayout({ data }: { data: ProductDetails }) {
      * Overview Section = 60% of 84 = ~50fr.
      * Footer = 10fr.
      */
-    <div className="grid h-full min-h-0 w-full grid-rows-[minmax(0,33fr)_minmax(0,39fr)_minmax(0,10fr)] gap-[clamp(4px,0.8vw,10px)]">
+    <div className="grid h-full min-h-0 w-full grid-rows-[minmax(0,33fr)_minmax(0,39fr)_minmax(0,10fr)] gap-[clamp(4px,0.8vw,10px)] portrait:flex portrait:flex-col portrait:h-auto">
       {/* ═══════════════════════════════════════════════════
           ROW 1 — Hero Section (40% of content)
           Includes Hero Info, Pricing, etc.
           ═══════════════════════════════════════════════════ */}
       <div className="flex min-h-0 w-full flex-col gap-1.5 overflow-hidden xl:gap-[clamp(4px,0.5vw,8px)]">
         {/* Hero & Pricing Split */}
-        <div className="grid min-h-0 w-full flex-1 grid-cols-12 gap-[var(--main-gap)] overflow-hidden">
+        <div className="grid min-h-0 w-full flex-1 grid-cols-12 gap-[var(--main-gap)] overflow-hidden portrait:flex portrait:flex-col portrait:h-auto">
           {/* Left Column - Product Info & Image (8 cols) */}
-          <div className="col-span-8 flex min-h-0 min-w-0 gap-3 overflow-hidden rounded-[8px] bg-white p-3 xl:p-[clamp(8px,1vw,16px)]">
+          <div className="col-span-8 flex min-h-0 min-w-0 gap-3 overflow-hidden rounded-[8px] bg-white p-3 xl:p-[clamp(8px,1vw,16px)] portrait:flex-col portrait:h-auto portrait:w-full">
             {/* Info text column */}
-            <div className="flex w-1/3 min-w-0 flex-col justify-start gap-[clamp(8px,1.5vh,20px)] overflow-hidden pt-[clamp(4px,1.5vh,16px)]">
+            <div className="flex w-1/3 min-w-0 flex-col justify-start gap-[clamp(8px,1.5vh,20px)] overflow-hidden pt-[clamp(4px,1.5vh,16px)] portrait:w-full portrait:h-auto">
               <div className="flex min-h-0 flex-col overflow-hidden">
                 <Badge
                   className={cn(
@@ -185,7 +185,7 @@ export function ProductDetailsLayout({ data }: { data: ProductDetails }) {
             </div>
 
             {/* Image column */}
-            <div className="flex min-w-0 flex-1 flex-col justify-between overflow-hidden">
+            <div className="flex min-w-0 flex-1 flex-col justify-between overflow-hidden portrait:h-[300px]">
               <div className="relative min-h-0 w-full flex-1 overflow-hidden rounded-[8px] bg-slate-50">
                 <Image
                   src={selectedImage}
@@ -251,7 +251,7 @@ export function ProductDetailsLayout({ data }: { data: ProductDetails }) {
           </div>
 
           {/* Right Column - Selection & Pricing (4 cols) */}
-          <div className="jjustify-start col-span-4 flex min-h-0 min-w-0 flex-col gap-1 overflow-hidden rounded-[8px] bg-white px-3 pt-2 pb-3 xl:gap-[clamp(4px,0.6vw,8px)] xl:p-[clamp(8px,1vw,16px)]">
+          <div className="col-span-4 flex min-h-0 min-w-0 flex-col gap-1 justify-start overflow-hidden rounded-[8px] bg-white px-3 pt-2 pb-3 xl:gap-[clamp(4px,0.6vw,8px)] xl:p-[clamp(8px,1vw,16px)] portrait:w-full portrait:h-auto">
             <div className="space-y-1">
               {/* Price & Back */}
               <div className="-mt-2 flex shrink-0 items-start justify-between">
@@ -382,9 +382,9 @@ export function ProductDetailsLayout({ data }: { data: ProductDetails }) {
           ROW 2 — Overview Section (60% of content)
           Includes Tabs and Info Cards
           ═══════════════════════════════════════════════════ */}
-      <div className="flex min-h-0 w-full flex-col overflow-hidden rounded-[8px] bg-white p-3 xl:p-[clamp(8px,1vw,16px)]">
+      <div className="flex min-h-0 w-full flex-col overflow-hidden rounded-[8px] bg-white p-3 xl:p-[clamp(8px,1vw,16px)] portrait:min-h-[400px]">
         {/* Tabs */}
-        <div className="flex w-full shrink-0 items-center justify-between border-b border-slate-100 px-[clamp(4px,0.5vw,8px)] pb-[clamp(4px,0.6vw,8px)]">
+        <div className="flex w-full shrink-0 items-center justify-between border-b border-slate-100 px-[clamp(4px,0.5vw,8px)] pb-[clamp(4px,0.6vw,8px)] portrait:justify-start portrait:gap-4 portrait:overflow-x-auto portrait:[&::-webkit-scrollbar]:hidden">
           {[
             { id: 'overview', label: 'Overview', icon: Info },
             { id: 'nutrition', label: 'Nutrition', icon: Activity },
@@ -400,7 +400,7 @@ export function ProductDetailsLayout({ data }: { data: ProductDetails }) {
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
                 className={cn(
-                  'relative flex flex-1 items-center justify-center gap-1 text-[12px] font-bold transition-colors lg:text-[13px] xl:text-[clamp(14px,0.7vw,12px)]',
+                  'relative flex flex-1 items-center justify-center gap-1 text-[12px] font-bold transition-colors lg:text-[13px] xl:text-[clamp(14px,0.7vw,12px)] portrait:flex-none portrait:whitespace-nowrap portrait:px-2 portrait:py-1',
                   isActive ? themeText : 'text-slate-500 hover:text-slate-800'
                 )}
               >
@@ -423,7 +423,7 @@ export function ProductDetailsLayout({ data }: { data: ProductDetails }) {
         <div className="flex min-h-0 flex-1 flex-col pt-2">
           {/* TAB: OVERVIEW */}
           {activeTab === 'overview' && (
-            <div className="grid min-h-0 flex-1 grid-cols-4 grid-rows-2 gap-2.5 pt-1">
+            <div className="grid min-h-0 flex-1 grid-cols-4 grid-rows-2 gap-2.5 pt-1 portrait:grid-cols-2 portrait:grid-rows-4 portrait:h-auto portrait:auto-rows-[minmax(100px,auto)]">
               {/* Catch From */}
               <div className="flex min-h-0 min-w-0 flex-col overflow-hidden rounded-[12px] bg-slate-100 p-2.5 pt-[clamp(14px,2.5vh,24px)] xl:p-[clamp(6px,0.8vw,12px)] xl:pt-[clamp(14px,2.5vh,24px)]">
                 <div className="mb-[clamp(3px,0.4vw,6px)] flex shrink-0 items-center gap-1.5">
@@ -703,7 +703,7 @@ export function ProductDetailsLayout({ data }: { data: ProductDetails }) {
 
           {/* TAB: NUTRITION */}
           {activeTab === 'nutrition' && (
-            <div className="grid min-h-0 flex-1 grid-cols-2 gap-2.5 xl:p-[clamp(6px,0.8vw,12px)]">
+            <div className="grid min-h-0 flex-1 grid-cols-2 gap-2.5 xl:p-[clamp(6px,0.8vw,12px)] portrait:grid-cols-1 portrait:h-auto">
               {/* Nutrition Details */}
               <div className="flex min-h-0 min-w-0 flex-col overflow-hidden rounded-[12px] bg-slate-100 p-3 xl:p-[clamp(8px,1vw,16px)]">
                 <div className="mb-[clamp(4px,0.6vw,8px)] flex shrink-0 items-center gap-2">
