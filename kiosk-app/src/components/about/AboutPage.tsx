@@ -25,7 +25,7 @@ export function AboutPage() {
         {/* ─── Hero & Features Wrapper ─── */}
         <div className="relative w-full">
           {/* Full Hero Image containing all elements */}
-          <div className="pointer-events-none absolute inset-0 z-0 -mx-[clamp(20px,4vw,60px)] -mt-10 overflow-visible">
+          <div className="pointer-events-none absolute inset-0 z-0 -mx-[clamp(20px,4vw,60px)] -mt-10 overflow-visible portrait:hidden">
             <Image
               src="/assets/new_aboutus.png"
               alt="Fresh Meat and Fish Hero"
@@ -36,24 +36,24 @@ export function AboutPage() {
           </div>
 
           {/* 1. Hero Section */}
-          <div className="relative z-10 flex min-h-[400px] w-full items-center justify-start portrait:min-h-[300px]">
-            <div className="-mt-35 flex w-1/2 flex-col pr-10 portrait:w-full portrait:pr-0">
+          <div className="relative z-10 flex min-h-[400px] w-full items-center justify-start portrait:min-h-0 portrait:py-2">
+            <div className="-mt-35 flex w-1/2 flex-col pr-10 portrait:mt-0 portrait:w-full portrait:pr-0">
               <div className="mb-2 flex items-center gap-2">
                 <span className="text-sm font-bold text-[#0D55CF] italic">
                   About Us
                 </span>
                 <div className="h-[2px] w-12 bg-blue-200" />
               </div>
-              <h1 className="text-[clamp(32px,min(3vw,4svh),44px)] leading-tight font-bold tracking-tight text-slate-900">
+              <h1 className="text-[clamp(32px,min(3vw,4svh),44px)] leading-tight font-bold tracking-tight text-slate-900 portrait:text-[26px]">
                 Fresh. Hygienic. <br />
                 Trusted. <span className="text-[#0D55CF]">Delivered.</span>
               </h1>
-              <p className="mt-4 max-w-[85%] text-[clamp(13px,1vw,16px)] leading-relaxed font-medium text-slate-500">
+              <p className="mt-4 max-w-[85%] text-[clamp(13px,1vw,16px)] leading-relaxed font-medium text-slate-500 portrait:max-w-full portrait:text-[13px] portrait:mt-2">
                 We are passionate about delivering the freshest non-veg products
                 to your doorstep. Quality, hygiene and trust are at the heart of
                 everything we do.
               </p>
-              <div className="font-handwriting mt-6 text-2xl font-medium text-[#0D55CF] italic opacity-80">
+              <div className="font-handwriting mt-6 text-2xl font-medium text-[#0D55CF] italic opacity-80 portrait:mt-2 portrait:text-lg">
                 Team FishCart
               </div>
             </div>
@@ -61,7 +61,7 @@ export function AboutPage() {
         </div>
 
         {/* 4. Explore Our Fresh Selection */}
-        <div className="relative z-20 -mt-[160px] flex w-full flex-col">
+        <div className="relative z-20 -mt-[160px] flex w-full flex-col portrait:mt-6">
           <div className="mb-4 flex flex-col items-center justify-center text-center">
             <div className="mb-2 flex items-center gap-2">
               <div className="h-[1px] w-8 bg-blue-200" />
