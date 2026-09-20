@@ -15,11 +15,11 @@ import {
 
 export default function ContactPage() {
   return (
-    <div className="flex h-full min-h-0 w-full flex-col overflow-hidden rounded-[10px] bg-white shadow-sm select-none relative">
+    <div className="flex h-full min-h-0 w-full flex-col overflow-x-hidden overflow-y-auto rounded-[10px] bg-white shadow-sm select-none relative">
       {/* =========================================
             TOP SECTION: CURVED HEADER
         ========================================= */}
-      <div className="relative flex h-[240px] w-full shrink-0 flex-col items-center justify-start overflow-visible bg-[#0D55CF] pt-[30px] text-white">
+      <div className="relative flex h-[240px] w-full shrink-0 flex-col items-center justify-start overflow-hidden bg-[#0D55CF] pt-[30px] text-white portrait:h-auto portrait:py-8">
         {/* Dotted background pattern */}
         <div
           className="absolute inset-0 opacity-[0.15]"
@@ -30,25 +30,53 @@ export default function ContactPage() {
           }}
         />
 
-        {/* Large Faded Background Circles (like screenshot) */}
+        {/* Large Faded Background Circles */}
         <div className="absolute top-[10%] -left-[5%] h-[200px] w-[200px] rounded-full bg-white/10 blur-xl"></div>
         <div className="absolute top-[50%] left-[45%] h-[150px] w-[150px] rounded-full bg-white/10 blur-xl"></div>
         <div className="absolute top-[5%] -right-[2%] h-[250px] w-[250px] rounded-full bg-white/10 blur-xl"></div>
 
-        <div className="relative z-10 mt-2 flex flex-col items-center text-center">
-          <h1 className="text-[clamp(32px,min(3vw,4svh),44px)] leading-tight font-bold tracking-tight text-white drop-shadow-sm">
+        <div className="relative z-10 mt-2 flex flex-col items-center text-center px-4">
+          <h1 className="text-[clamp(32px,min(3vw,4svh),44px)] leading-tight font-bold tracking-tight text-white drop-shadow-sm portrait:text-[28px]">
             Contact Us
           </h1>
-          <p className="mt-1 max-w-[500px] text-[clamp(12px,1vw,14px)] leading-relaxed font-medium text-white/90">
+          <p className="mt-1 max-w-[500px] text-[clamp(12px,1vw,14px)] leading-relaxed font-medium text-white/90 portrait:text-[13px]">
             We&apos;re here to help! Get in touch with us for any queries,
             orders or support.
           </p>
           <ChevronDown className="mt-2 h-5 w-5 opacity-80" strokeWidth={1.5} />
         </div>
 
-        {/* Floating Elements - perfectly matched to screenshot positions & scaled to fit */}
+        {/* Keyframe animation for smooth floating wave effect in landscape & portrait */}
+        <style
+          dangerouslySetInnerHTML={{
+            __html: `
+              @keyframes floatWave {
+                0%, 100% { transform: translateY(0px); }
+                50% { transform: translateY(-7px); }
+              }
+              @keyframes floatWaveAlt {
+                0%, 100% { transform: translateY(0px); }
+                50% { transform: translateY(6px); }
+              }
+              .animate-float-wave-1 {
+                animation: floatWave 3.5s ease-in-out infinite;
+              }
+              .animate-float-wave-2 {
+                animation: floatWaveAlt 4s ease-in-out infinite 0.4s;
+              }
+              .animate-float-wave-3 {
+                animation: floatWave 3.8s ease-in-out infinite 0.8s;
+              }
+              .animate-float-wave-4 {
+                animation: floatWaveAlt 4.2s ease-in-out infinite 1.2s;
+              }
+            `,
+          }}
+        />
+
+        {/* Floating Elements - with smooth wave floating effect in landscape & portrait */}
         {/* Left meat */}
-        <div className="absolute top-[15%] left-[8%] z-20 h-[80px] w-[80px] overflow-hidden rounded-full border border-white/30 bg-white shadow-xl">
+        <div className="animate-float-wave-1 absolute top-[15%] left-[8%] z-20 h-[80px] w-[80px] overflow-hidden rounded-full border border-white/30 bg-white shadow-xl portrait:top-[10%] portrait:left-[3%] portrait:h-[46px] portrait:w-[46px]">
           <Image
             src="/assets/5_image.png"
             alt="Meat"
@@ -57,25 +85,25 @@ export default function ContactPage() {
           />
         </div>
        
-        {/* Left chicken (nestled in curve) */}
-        <div className="absolute bottom-[20px] left-[26%] z-20 h-[90px] w-[90px] overflow-hidden rounded-full border border-white shadow-2xl">
+        {/* Left chicken */}
+        <div className="animate-float-wave-2 absolute bottom-[20px] left-[26%] z-20 h-[90px] w-[90px] overflow-hidden rounded-full border border-white shadow-2xl portrait:bottom-[12px] portrait:left-[14%] portrait:h-[50px] portrait:w-[50px]">
           <Image src="/assets/boneless_chicken.jpg" alt="Chicken" fill className="object-cover" />
         </div>
         
         {/* Right fish */}
-        <div className="absolute top-[15%] right-[10%] z-20 h-[80px] w-[80px] overflow-hidden rounded-full border border-white/30 bg-white shadow-xl">
+        <div className="animate-float-wave-3 absolute top-[15%] right-[10%] z-20 h-[80px] w-[80px] overflow-hidden rounded-full border border-white/30 bg-white shadow-xl portrait:top-[10%] portrait:right-[3%] portrait:h-[46px] portrait:w-[46px]">
           <Image src="/assets/1_image.png" alt="Fish" fill className="object-cover" />
         </div>
 
-        {/* Right mince (nestled in curve) */}
-        <div className="absolute bottom-[25px] right-[28%] z-20 h-[80px] w-[80px] overflow-hidden rounded-full border border-white shadow-2xl">
+        {/* Right mince */}
+        <div className="animate-float-wave-4 absolute bottom-[25px] right-[28%] z-20 h-[80px] w-[80px] overflow-hidden rounded-full border border-white shadow-2xl portrait:bottom-[12px] portrait:right-[14%] portrait:h-[46px] portrait:w-[46px]">
           <Image src="/assets/boar_meat_bonless.jpg" alt="Mince" fill className="object-cover" />
         </div>
 
         {/* SVG Wave Separator */}
         <div className="absolute bottom-[-2px] left-0 w-full overflow-hidden leading-[0]">
           <svg
-            className="relative block h-[115px] w-full"
+            className="relative block h-[115px] w-full portrait:h-[60px]"
             viewBox="0 0 1664 190"
             preserveAspectRatio="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -101,11 +129,10 @@ export default function ContactPage() {
       {/* =========================================
             MIDDLE SECTION: CONTACT INFO & FORM
         ========================================= */}
-      {/* min-h-0 prevents flex children from pushing bounds out */}
-      <div className="relative z-30 flex min-h-0 w-full flex-1 flex-col items-center bg-white px-[40px]">
-        <div className="flex h-full w-full max-w-[1000px] gap-8 md:items-center lg:gap-16">
+      <div className="relative z-30 flex min-h-0 w-full flex-1 flex-col items-center bg-white px-[40px] py-6 portrait:px-4 portrait:py-4">
+        <div className="flex h-full w-full max-w-[1000px] flex-col gap-8 md:flex-row md:items-center lg:gap-16 portrait:flex-col portrait:gap-6">
           {/* Left: Contact Info */}
-          <div className="flex w-[40%] flex-col">
+          <div className="flex w-full flex-col md:w-[40%] portrait:w-full">
             <h2 className="mb-4 text-[22px] font-bold text-slate-800">
               Get in <span className="text-[#0D55CF]">touch</span>
               <div className="mt-1 h-0.5 w-10 bg-[#0D55CF]"></div>
@@ -115,16 +142,14 @@ export default function ContactPage() {
               {/* Item */}
               <div className="flex items-start gap-3">
                 <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-blue-50 text-[#0D55CF]">
-                  <Phone className="h-3 w-3" />
+                  <Phone className="h-3.5 w-3.5" />
                 </div>
                 <div className="flex flex-col">
                   <h3 className="text-[13px] font-bold text-slate-800">
                     Phone
                   </h3>
                   <p className="mt-0.5 text-[11px] leading-tight font-medium text-slate-500">
-                    Have a question or need assistance?
-                    <br />
-                    Call us anytime.
+                    Have a question or need assistance? Call us anytime.
                   </p>
                   <p className="mt-0.5 text-[12px] font-bold text-[#0D55CF]">
                     +44 1206 123456
@@ -134,16 +159,14 @@ export default function ContactPage() {
               {/* Item */}
               <div className="flex items-start gap-3">
                 <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-blue-50 text-[#0D55CF]">
-                  <Mail className="h-3 w-3" />
+                  <Mail className="h-3.5 w-3.5" />
                 </div>
                 <div className="flex flex-col">
                   <h3 className="text-[13px] font-bold text-slate-800">
                     Email
                   </h3>
                   <p className="mt-0.5 text-[11px] leading-tight font-medium text-slate-500">
-                    Drop us an email and
-                    <br />
-                    we&apos;ll get back to you.
+                    Drop us an email and we&apos;ll get back to you.
                   </p>
                   <p className="mt-0.5 text-[12px] font-bold text-[#0D55CF]">
                     hello@fishcart.co.uk
@@ -153,7 +176,7 @@ export default function ContactPage() {
               {/* Item */}
               <div className="flex items-start gap-3">
                 <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-blue-50 text-[#0D55CF]">
-                  <MapPin className="h-3 w-3" />
+                  <MapPin className="h-3.5 w-3.5" />
                 </div>
                 <div className="flex flex-col">
                   <h3 className="text-[13px] font-bold text-slate-800">
@@ -169,16 +192,14 @@ export default function ContactPage() {
               {/* Item */}
               <div className="flex items-start gap-3">
                 <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-blue-50 text-[#0D55CF]">
-                  <Clock className="h-3 w-3" />
+                  <Clock className="h-3.5 w-3.5" />
                 </div>
                 <div className="flex flex-col">
                   <h3 className="text-[13px] font-bold text-slate-800">
                     Working Hours
                   </h3>
                   <p className="mt-0.5 text-[11px] leading-tight font-medium text-slate-500">
-                    Monday - Sunday
-                    <br />
-                    8:00 AM - 10:00 PM
+                    Monday - Sunday: 8:00 AM - 10:00 PM
                   </p>
                 </div>
               </div>
@@ -186,9 +207,8 @@ export default function ContactPage() {
           </div>
 
           {/* Right: Contact Form */}
-          {/* Highly compacted to fit safely within screen */}
-          <div className="flex flex-1 flex-col rounded-[16px] border border-slate-100 bg-white p-6 shadow-[0_8px_30px_rgba(0,0,0,0.06)]">
-            <div className="grid grid-cols-2 gap-3">
+          <div className="flex w-full flex-col rounded-[16px] border border-slate-100 bg-white p-6 shadow-[0_8px_30px_rgba(0,0,0,0.06)] md:flex-1 portrait:w-full portrait:p-4">
+            <div className="grid grid-cols-2 gap-3 portrait:grid-cols-1 portrait:gap-3">
               {/* First Name */}
               <div className="col-span-1 flex flex-col">
                 <label className="mb-1 text-[11px] font-bold text-slate-600">
@@ -198,7 +218,6 @@ export default function ContactPage() {
                   <div className="absolute left-3 text-[#0D55CF]">
                     <User className="h-3 w-3 opacity-80" />
                   </div>
-                  {/* Explicit border set to border-slate-200 to ensure visibility */}
                   <input
                     type="text"
                     placeholder="Type your first name"
@@ -223,7 +242,7 @@ export default function ContactPage() {
                 </div>
               </div>
               {/* Email */}
-              <div className="col-span-2 flex flex-col">
+              <div className="col-span-2 portrait:col-span-1 flex flex-col">
                 <label className="mb-1 text-[11px] font-bold text-slate-600">
                   Email
                 </label>
@@ -239,7 +258,7 @@ export default function ContactPage() {
                 </div>
               </div>
               {/* Phone */}
-              <div className="col-span-2 flex flex-col">
+              <div className="col-span-2 portrait:col-span-1 flex flex-col">
                 <label className="mb-1 text-[11px] font-bold text-slate-600">
                   Phone Number
                 </label>
@@ -256,7 +275,7 @@ export default function ContactPage() {
               </div>
 
               {/* Message */}
-              <div className="col-span-2 flex flex-col">
+              <div className="col-span-2 portrait:col-span-1 flex flex-col">
                 <label className="mb-1 text-[11px] font-bold text-slate-600">
                   Message
                 </label>
@@ -265,15 +284,15 @@ export default function ContactPage() {
                     <MessageSquare className="h-3 w-3" />
                   </div>
                   <textarea
-                    rows={2}
+                    rows={3}
                     placeholder="Type your message"
                     className="w-full resize-none rounded-md border border-slate-200 bg-transparent px-3 pt-2 pb-2 pl-8 text-[12px] font-medium text-slate-700 transition-colors outline-none focus:border-[#0D55CF]"
                   ></textarea>
                 </div>
               </div>
               {/* Submit Button */}
-              <div className="col-span-2 mt-2 flex justify-start">
-                <button className="flex items-center justify-center rounded-md bg-[#0D55CF] px-8 py-2 text-[13px] font-bold text-white transition-transform hover:-translate-y-0.5 hover:shadow-lg hover:shadow-[#0D55CF]/30">
+              <div className="col-span-2 portrait:col-span-1 mt-2 flex justify-start portrait:w-full">
+                <button className="flex items-center justify-center rounded-md bg-[#0D55CF] px-8 py-2.5 text-[13px] font-bold text-white transition-transform hover:-translate-y-0.5 hover:shadow-lg hover:shadow-[#0D55CF]/30 portrait:w-full">
                   Send Message
                 </button>
               </div>
