@@ -1,11 +1,14 @@
 'use client';
 
 import React, { useState, useMemo } from 'react';
+import Image from 'next/image';
+import { X, MapPin, PhoneCall, Mail } from 'lucide-react';
 import { CatalogPageData } from '@/types/catalog';
 import { CatalogHero } from './CatalogHero';
 import { CategoryTabs } from './CategoryTabs';
 import { FilterSidebar } from './FilterSidebar';
 import { ProductGrid } from './ProductGrid';
+import { MobileProductGrid } from './MobileProductGrid';
 import { BottomInfoSection } from './BottomInfoSection';
 import { HomeFooter } from '@/components/layout/HomeFooter';
 
@@ -20,7 +23,10 @@ export function CatalogPage({ data }: CatalogPageProps) {
   // 2. Sorting State (e.g. "newest", "price-low", "price-high", "popularity")
   const [activeSort, setActiveSort] = useState('newest');
 
-  // 3. Checkbox Filters State (sectionId -> list of optionIds)
+  // 3. Mobile Filter State
+  const [isMobileFilterOpen, setIsMobileFilterOpen] = useState(false);
+
+  // 4. Checkbox Filters State (sectionId -> list of optionIds)
   const [tempFilters, setTempFilters] = useState<Record<string, string[]>>({
     country: [],
     type: [],
@@ -272,69 +278,210 @@ export function CatalogPage({ data }: CatalogPageProps) {
   };
 
   return (
-    <div className="grid h-full min-h-[950px] w-full grid-rows-[minmax(0,14fr)_minmax(0,7fr)_minmax(0,70fr)_minmax(0,11fr)_minmax(0,10fr)] gap-[var(--main-gap)] select-none portrait:flex portrait:flex-col portrait:h-auto portrait:min-h-0">
-      {/* 1. Hero Section */}
-      <div className="h-full w-full overflow-hidden">
-        <CatalogHero
-          breadcrumb={data.breadcrumb}
-          title={data.hero.title}
-          description={data.hero.description}
-          imageSrc={data.hero.imageSrc}
-          imageAlt={data.hero.imageAlt}
-          gradientClass={data.hero.gradientClass}
-          category={data.category}
-        />
-      </div>
-
-      {/* 2. Category Tabs */}
-      <div className="h-full w-full overflow-hidden">
-        <CategoryTabs
-          tabs={dynamicTabs}
-          activeTabId={activeTabId}
-          onTabChange={handleTabChange}
-          category={data.category}
-        />
-      </div>
-
-      {/* 3. Main Catalog Section (Filters + Product Grid) */}
-      <div className="grid h-full min-h-0 w-full grid-cols-5 items-stretch gap-[var(--main-gap)] overflow-hidden portrait:flex portrait:flex-col portrait:h-auto">
-        {/* Left Column: Filter Sidebar — 1/5 width to match first category tab */}
-        <div className="col-span-1 h-full overflow-hidden portrait:h-auto portrait:w-full portrait:flex-none">
-          <FilterSidebar
-            filterSections={dynamicFilterSections}
-            selectedOptions={tempFilters}
-            onFilterToggle={handleFilterToggle}
-            activeSort={activeSort}
-            onSortChange={setActiveSort}
-            onApply={handleApplyFilters}
+    <>
+      {/* ── LANDSCAPE VIEW ── */}
+      <div className="portrait:hidden grid h-full min-h-[950px] w-full grid-rows-[minmax(0,14fr)_minmax(0,7fr)_minmax(0,70fr)_minmax(0,11fr)_minmax(0,10fr)] gap-[var(--main-gap)] select-none">
+        {/* 1. Hero Section */}
+        <div className="h-full w-full overflow-hidden">
+          <CatalogHero
+            breadcrumb={data.breadcrumb}
+            title={data.hero.title}
+            description={data.hero.description}
+            imageSrc={data.hero.imageSrc}
+            imageAlt={data.hero.imageAlt}
+            gradientClass={data.hero.gradientClass}
             category={data.category}
           />
         </div>
 
-        {/* Right Column: Product List — 4/5 width */}
-        <div className="col-span-4 flex h-full flex-col overflow-hidden rounded-[8px] border border-slate-100 bg-white p-2 shadow-sm portrait:h-auto portrait:w-full portrait:flex-none">
-          <ProductGrid
+        {/* 2. Category Tabs */}
+        <div className="h-full w-full overflow-hidden">
+          <CategoryTabs
+            tabs={dynamicTabs}
+            activeTabId={activeTabId}
+            onTabChange={handleTabChange}
+            category={data.category}
+          />
+        </div>
+
+        {/* 3. Main Catalog Section (Filters + Product Grid) */}
+        <div className="grid h-full min-h-0 w-full grid-cols-5 items-stretch gap-[var(--main-gap)] overflow-hidden">
+          {/* Left Column: Filter Sidebar — 1/5 width to match first category tab */}
+          <div className="col-span-1 h-full overflow-hidden">
+            <FilterSidebar
+              filterSections={dynamicFilterSections}
+              selectedOptions={tempFilters}
+              onFilterToggle={handleFilterToggle}
+              activeSort={activeSort}
+              onSortChange={setActiveSort}
+              onApply={handleApplyFilters}
+              category={data.category}
+            />
+          </div>
+
+          {/* Right Column: Product List — 4/5 width */}
+          <div className="col-span-4 flex h-full flex-col overflow-hidden rounded-[8px] border border-slate-100 bg-white p-2 shadow-sm">
+            <ProductGrid
+              products={processedProducts}
+              category={data.category}
+              totalItems={data.products.length}
+              activeSort={activeSort}
+              onSortChange={setActiveSort}
+            />
+          </div>
+        </div>
+
+        {/* 4. Bottom Information Cards */}
+        <div className="h-full w-full overflow-hidden">
+          <BottomInfoSection
+            bottomInfo={data.bottomInfo}
+            category={data.category}
+          />
+        </div>
+
+        {/* 5. Reusable Footer */}
+        <div className="h-full w-full shrink-0 overflow-hidden">
+          <HomeFooter />
+        </div>
+      </div>
+
+      {/* ── PORTRAIT VIEW (Mobile / Tablet Vertical) ── */}
+      <div className="hidden portrait:flex portrait:flex-col portrait:w-full portrait:bg-white">
+        {/* Mobile Hero */}
+        <div className="relative mx-2 mt-2 h-[140px] shrink-0 overflow-hidden rounded-[12px]">
+          <CatalogHero
+            breadcrumb={data.breadcrumb}
+            title={data.hero.title}
+            description={data.hero.description}
+            imageSrc={data.hero.imageSrc}
+            imageAlt={data.hero.imageAlt}
+            gradientClass={data.hero.gradientClass}
+            category={data.category}
+          />
+        </div>
+
+        {/* Mobile Tabs Removed */}
+
+        {/* Mobile Product Grid */}
+        <div className="w-full shrink-0">
+          <MobileProductGrid
             products={processedProducts}
             category={data.category}
             totalItems={data.products.length}
-            activeSort={activeSort}
-            onSortChange={setActiveSort}
+            onOpenFilter={() => setIsMobileFilterOpen(true)}
           />
         </div>
-      </div>
 
-      {/* 4. Bottom Information Cards */}
-      <div className="h-full w-full overflow-hidden">
-        <BottomInfoSection
-          bottomInfo={data.bottomInfo}
-          category={data.category}
-        />
-      </div>
+        {/* Mobile About / Stories */}
+        <div className="flex shrink-0 gap-3 px-2 pb-1 w-full">
+          {/* About Us */}
+          <div className="relative flex aspect-square flex-1 flex-col overflow-hidden rounded-[12px] border border-gray-50 bg-white p-4 shadow-[0_2px_12px_rgba(0,0,0,0.06)]">
+            <div className="relative z-10 flex flex-col">
+              <h4 className="mb-1 text-[18px] font-bold text-[#0D55CF]">
+                About Us
+              </h4>
+              <p className="text-[13px] leading-[1.3] font-medium text-slate-500">
+                Delivering fresh & healthy food to your family.
+              </p>
+            </div>
+            <div className="absolute right-1 bottom-1 h-14 w-14 opacity-90 mix-blend-multiply">
+              <Image
+                src="/assets/about_us_fish_exact.png"
+                alt="About Us"
+                fill
+                className="object-contain object-right-bottom"
+              />
+            </div>
+          </div>
 
-      {/* 5. Reusable Footer */}
-      <div className="h-full w-full shrink-0 overflow-hidden">
-        <HomeFooter />
+          {/* Our Stories */}
+          <div className="relative flex aspect-square flex-1 flex-col overflow-hidden rounded-[12px] border border-gray-50 bg-white p-4 shadow-[0_2px_12px_rgba(0,0,0,0.06)]">
+            <div className="relative z-10 flex flex-col">
+              <h4 className="mb-1 text-[18px] font-bold text-[#0D55CF]">
+                Our Stories
+              </h4>
+              <p className="max-w-[90%] text-[13px] leading-[1.3] font-medium text-slate-500">
+                From ocean to your kitchen, journey of freshness.
+              </p>
+            </div>
+            <div className="absolute right-1 bottom-1 h-12 w-16 opacity-90 mix-blend-multiply">
+              <Image
+                src="/assets/boat_exact.png"
+                alt="Our Stories"
+                fill
+                className="object-contain object-right-bottom"
+              />
+            </div>
+          </div>
+        </div>
+
+        {/* Mobile Footer */}
+        <div className="relative mx-2 flex shrink-0 flex-col justify-center gap-2 overflow-hidden rounded-[12px] border border-gray-50 bg-white p-4 shadow-[0_2px_12px_rgba(0,0,0,0.06)] mb-2">
+          <div className="relative z-10 flex w-full flex-col items-center gap-2 text-center">
+            <h4 className="mb-1 text-[18px] font-bold text-[#0D55CF]">
+              Contact Us
+            </h4>
+            <div className="flex items-center justify-center gap-2">
+              <MapPin className="h-4 w-4 shrink-0 text-[#0D55CF]" />
+              <span className="text-[14px] leading-tight font-medium text-slate-600">
+                Unit 5 Hythe Quay, England, CO2 8JB
+              </span>
+            </div>
+            <div className="flex items-center justify-center gap-2">
+              <PhoneCall className="h-4 w-4 shrink-0 text-[#0D55CF]" />
+              <span className="text-[14px] font-bold text-[#0B1F5B]">
+                +44 1206 123456
+              </span>
+            </div>
+            <div className="flex items-center justify-center gap-2">
+              <Mail className="h-4 w-4 shrink-0 text-[#0D55CF]" />
+              <span className="text-[14px] font-bold text-[#0D55CF]">
+                hello@fishcart.co.uk
+              </span>
+            </div>
+          </div>
+
+          <div className="absolute top-1/2 right-2 h-14 w-16 -translate-y-1/2 opacity-20 mix-blend-multiply">
+            <Image
+              src="/assets/fishdd.png"
+              alt="Address"
+              fill
+              className="object-contain object-right"
+            />
+          </div>
+        </div>
+
+        {/* Mobile Filter Modal */}
+        {isMobileFilterOpen && (
+          <div className="fixed inset-0 z-50 flex flex-col bg-white">
+            {/* Header */}
+            <div className="flex shrink-0 items-center justify-between border-b border-gray-100 p-4">
+              <h2 className="text-[18px] font-bold text-slate-800">Filters</h2>
+              <button
+                onClick={() => setIsMobileFilterOpen(false)}
+                className="flex h-8 w-8 items-center justify-center rounded-full bg-slate-100 text-slate-500 hover:bg-slate-200"
+              >
+                <X className="h-5 w-5 stroke-[2.5]" />
+              </button>
+            </div>
+            {/* Body */}
+            <div className="flex-1 overflow-y-auto px-4 py-2 pb-24">
+              <FilterSidebar
+                filterSections={dynamicFilterSections}
+                selectedOptions={tempFilters}
+                onFilterToggle={handleFilterToggle}
+                activeSort={activeSort}
+                onSortChange={setActiveSort}
+                onApply={() => {
+                  handleApplyFilters();
+                  setIsMobileFilterOpen(false);
+                }}
+                category={data.category}
+              />
+            </div>
+          </div>
+        )}
       </div>
-    </div>
+    </>
   );
 }

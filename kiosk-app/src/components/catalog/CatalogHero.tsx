@@ -62,18 +62,18 @@ export function CatalogHero({
       )}
 
       {/* Left Content Area */}
-      <div className="relative z-10 flex min-h-0 max-w-[65%] flex-1 flex-col justify-center">
+      <div className="relative z-10 flex min-h-0 max-w-[65%] portrait:max-w-full flex-1 flex-col justify-center">
 
 
         {/* Title */}
-        <h2 className={cn("text-[clamp(32px,min(3vw,4svh),44px)] leading-tight font-bold tracking-tight", currentDarkTextColor)}>
+        <h2 className={cn("text-[clamp(32px,min(3vw,4svh),44px)] portrait:text-[22px] leading-tight font-bold tracking-tight", currentDarkTextColor)}>
           {title}
         </h2>
 
         {/* Squeegly Wave SVG Line */}
         <svg
           viewBox="0 0 80 12"
-          className={`my-[clamp(2px,0.25vw,6px)] h-[clamp(8px,1vw,12px)] w-[clamp(50px,6vw,70px)] shrink-0 ${waveColor}`}
+          className={`my-[clamp(2px,0.25vw,6px)] portrait:my-1.5 h-[clamp(8px,1vw,12px)] portrait:h-[6px] w-[clamp(50px,6vw,70px)] portrait:w-[45px] shrink-0 ${waveColor}`}
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
         >
@@ -86,7 +86,7 @@ export function CatalogHero({
         </svg>
 
         {/* Description Subtitle */}
-        <p className={cn("max-w-[95%] truncate text-[clamp(17px,min(1.2vw,1.6svh),22px)] leading-normal font-normal", currentDarkTextColor, "opacity-80")}>
+        <p className={cn("max-w-[95%] portrait:max-w-full text-[clamp(17px,min(1.2vw,1.6svh),22px)] portrait:text-[13px] leading-normal portrait:leading-snug font-normal truncate portrait:whitespace-normal portrait:line-clamp-2", currentDarkTextColor, "opacity-80")}>
           {description}
         </p>
       </div>

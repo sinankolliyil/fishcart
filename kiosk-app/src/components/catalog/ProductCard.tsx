@@ -39,7 +39,7 @@ export function ProductCard({ product, category }: ProductCardProps) {
       className="group flex h-full min-h-0 w-full flex-col justify-between overflow-hidden rounded-[8px] border border-slate-200 bg-[#F8FAFC] transition-all duration-200 select-none hover:cursor-pointer"
     >
       {/* Product Image Container - flex-grow & min-h-0 to stretch/shrink dynamically */}
-      <div className="relative flex min-h-0 w-full flex-1 items-center justify-center overflow-hidden bg-[#F8FAFC] p-1">
+      <div className="relative flex min-h-0 w-full flex-1 items-center justify-center overflow-hidden bg-[#F8FAFC] p-1 portrait:aspect-square portrait:min-h-[160px]">
         <Image
           src={product.imageSrc}
           alt={product.title}
