@@ -928,8 +928,8 @@ export function HowToCookPage() {
               {activeVideo.title}
             </h2>
 
-            <div className="mt-1.5 flex items-center justify-between">
-              <div className="flex items-center gap-6">
+            <div className="mt-1.5 flex items-center justify-between portrait:flex-col portrait:items-start portrait:gap-3">
+              <div className="flex items-center gap-6 portrait:gap-4 portrait:flex-wrap">
                 {/* Meta Items */}
                 <div className="flex items-center gap-1.5">
                   {getCategoryIcon(activeVideo.category)}
@@ -952,11 +952,11 @@ export function HowToCookPage() {
               </div>
 
               {/* Action Buttons */}
-              <div className="flex items-center gap-2">
-                <button className="flex items-center gap-2 rounded-lg bg-[#0D55CF] px-4 py-2 text-sm font-bold text-white transition-colors hover:bg-blue-700">
+              <div className="flex items-center gap-2 portrait:w-full">
+                <button className="flex items-center gap-2 rounded-lg bg-[#0D55CF] px-4 py-2 text-sm font-bold text-white transition-colors hover:bg-blue-700 portrait:flex-1 portrait:justify-center">
                   Save Recipe <Heart className="h-4 w-4" />
                 </button>
-                <button className="flex items-center gap-2 rounded-lg border border-gray-200 bg-white px-4 py-2 text-sm font-bold text-slate-700 transition-colors hover:bg-gray-50">
+                <button className="flex items-center gap-2 rounded-lg border border-gray-200 bg-white px-4 py-2 text-sm font-bold text-slate-700 transition-colors hover:bg-gray-50 portrait:flex-1 portrait:justify-center">
                   <Share2 className="h-4 w-4" /> Share
                 </button>
               </div>
