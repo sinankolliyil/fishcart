@@ -271,12 +271,41 @@ export function Sidebar() {
         </div>
       </div>
 
+      {/* ── Mobile Backdrop Overlay ───────────────────────────────────── */}
+      {isMobileMenuOpen && (
+        <div
+          className="hidden portrait:block fixed inset-0 z-[90] bg-black/50 backdrop-blur-xs transition-opacity"
+          onClick={() => setIsMobileMenuOpen(false)}
+        />
+      )}
+
       {/* ── Navigation ───────────────────────────────────────────────── */}
       <nav className={cn(
-        "flex flex-1 flex-col gap-[var(--sidebar-nav-gap)] overflow-hidden px-[var(--sidebar-nav-padding-x)] py-[var(--sidebar-nav-padding-y)]",
-        "portrait:absolute portrait:top-full portrait:left-0 portrait:w-[280px] portrait:bg-[#F4F7FB] portrait:shadow-[4px_4px_16px_rgba(0,0,0,0.1)] portrait:z-50 portrait:py-4 portrait:h-[calc(100dvh-70px)] portrait:overflow-y-auto portrait:border-t portrait:border-r portrait:border-gray-200",
+        "flex flex-1 flex-col gap-[var(--sidebar-nav-gap)] overflow-y-auto px-[var(--sidebar-nav-padding-x)] py-[var(--sidebar-nav-padding-y)]",
+        "portrait:fixed portrait:top-0 portrait:left-0 portrait:bottom-0 portrait:w-[300px] portrait:max-w-[85vw] portrait:bg-[#F4F7FB] portrait:shadow-2xl portrait:z-[100] portrait:p-4 portrait:gap-2.5 portrait:overflow-y-auto portrait:border-r portrait:border-gray-200",
         isMobileMenuOpen ? "portrait:flex" : "portrait:hidden"
       )}>
+        {/* Drawer Header (Portrait Only) */}
+        <div className="hidden portrait:flex items-center justify-between pb-3 mb-1 border-b border-gray-200/80 shrink-0">
+          <div className="flex items-center gap-2">
+            <svg width="32" height="32" viewBox="0 0 42 42" fill="none">
+              <path d="M18 8L8 21L18 34" stroke="#0D55CF" strokeWidth="5.5" strokeLinecap="round" strokeLinejoin="round"/>
+              <circle cx="18.5" cy="21" r="2.8" fill="#0D55CF"/>
+              <path d="M33 13L26 21L33 28" stroke="#0D55CF" strokeWidth="5.5" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+            <div>
+              <h2 className="text-[18px] font-bold leading-none text-[#0D55CF]">FISHCART</h2>
+              <p className="text-[10px] font-semibold text-[#0D55CF]/70 mt-0.5">Daily Fresh Partner</p>
+            </div>
+          </div>
+          <button
+            onClick={() => setIsMobileMenuOpen(false)}
+            className="p-1.5 rounded-full bg-white border border-gray-200 text-gray-600 hover:text-black"
+          >
+            <X className="h-5 w-5" />
+          </button>
+        </div>
+
         {NAV_ITEMS.map((item) => {
           // Exact match for home, startsWith for others to keep active state on sub-pages
           const isActive =
@@ -290,33 +319,21 @@ export function Sidebar() {
               href={item.href}
               onClick={() => setIsMobileMenuOpen(false)}
               className={cn(
-                /*
-                 * Each nav item is a self-contained button-like element.
-                 *
-                 * Key decisions:
-                 * - `min-h-[var(--sidebar-item-min-h)]` guarantees every button
-                 *   has a comfortable touch/click area across all viewport sizes.
-                 * - `items-center` keeps icon + label perfectly vertically centred.
-                 * - `py-[var(--sidebar-item-py)]` adds extra breathing room above
-                 *   and below the content inside the button.
-                 * - `flex-1` on the nav means all 10 buttons share equal height
-                 *   distribution in the available space.
-                 */
-                'flex flex-1 items-center gap-[var(--sidebar-item-gap)]',
-                'min-h-[var(--sidebar-item-min-h)]',
+                'flex flex-1 portrait:flex-none portrait:shrink-0 items-center gap-[var(--sidebar-item-gap)]',
+                'min-h-[var(--sidebar-item-min-h)] portrait:min-h-[44px]',
                 'rounded-[clamp(10px,min(1vw,1.5svh),16px)] border',
-                'px-[var(--sidebar-item-px)] py-[var(--sidebar-item-py)]',
+                'px-[var(--sidebar-item-px)] py-[var(--sidebar-item-py)] portrait:py-2.5 portrait:px-3.5',
                 'font-bold transition-all',
-                'text-[clamp(18px,min(0.82vw,1.2svh),14px)]',
+                'text-[clamp(18px,min(0.82vw,1.2svh),14px)] portrait:text-[15px]',
                 isActive
                   ? 'border-[#0D55CF] bg-[#0D55CF] text-white shadow-[0_4px_12px_rgba(13,85,207,0.2)]'
-                  : 'border-gray-100 bg-white text-[#1E293B] shadow-[0_2px_8px_rgba(0,0,0,0.02)] hover:-translate-y-0.5 hover:'
+                  : 'border-gray-100 bg-white text-[#1E293B] shadow-[0_2px_8px_rgba(0,0,0,0.02)] hover:-translate-y-0.5'
               )}
             >
               <item.icon
                 strokeWidth={isActive ? 2.5 : 2}
                 className={cn(
-                  'h-[var(--sidebar-item-icon-size)] w-[var(--sidebar-item-icon-size)] shrink-0',
+                  'h-[var(--sidebar-item-icon-size)] w-[var(--sidebar-item-icon-size)] portrait:h-5 portrait:w-5 shrink-0',
                   isActive ? 'text-white' : item.color
                 )}
               />
@@ -324,6 +341,21 @@ export function Sidebar() {
             </Link>
           );
         })}
+
+        {/* Scan & Join card inside mobile drawer */}
+        <div className="hidden portrait:block pt-1 shrink-0">
+          <div 
+            onClick={() => {
+              setIsMobileMenuOpen(false);
+              setIsQRModalOpen(true);
+            }}
+            className="cursor-pointer rounded-[14px] bg-[#0D55CF] p-3 text-center text-white transition-transform active:scale-95 shadow-md flex flex-col items-center justify-center gap-1"
+          >
+            <QrCode className="h-7 w-7 text-white" />
+            <h3 className="text-[14px] font-bold">Tap Here to Scan & Join</h3>
+            <p className="text-[11px] text-white/90">Join Our Community</p>
+          </div>
+        </div>
       </nav>
 
       {/* ── Scan Now Card ───────────────────────────────────────── */}
