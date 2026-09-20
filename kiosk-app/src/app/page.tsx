@@ -352,7 +352,7 @@ export default function HomePage() {
       <div className="hidden portrait:flex portrait:h-auto portrait:w-full portrait:flex-col portrait:gap-6 portrait:bg-white portrait:pb-20">
         {/* Mobile Hero */}
         <div
-          className="relative mx-4 mt-2 h-[460px] w-full shrink-0 overflow-hidden rounded-[12px] bg-slate-900"
+          className="relative mx-4 mt-2 h-[500px] w-full shrink-0 overflow-hidden rounded-[12px] bg-slate-900"
           style={{ width: 'calc(100% - 32px)' }}
         >
           <HeroBannerCarousel />
@@ -392,7 +392,7 @@ export default function HomePage() {
               {
                 title: 'Eggs',
                 items: 'Farm Fresh',
-                img: '/assets/egg.png',
+                img: '/assets/egg_pas.png',
                 href: '/eggs',
                 bg: '#EBF7EE',
                 circle: '#DDF2E2',
@@ -402,7 +402,7 @@ export default function HomePage() {
               <Link
                 key={idx}
                 href={cat.href}
-                className="relative h-[250px] min-w-[76px] flex-1 overflow-hidden transition-transform active:scale-[0.97]"
+                className="relative h-[270px] min-w-[76px] flex-1 overflow-hidden transition-transform active:scale-[0.97]"
                 style={{
                   backgroundColor: cat.bg,
                   borderRadius: '50% 50% 20px 20px',
@@ -410,14 +410,14 @@ export default function HomePage() {
               >
                 {/* Circular image background */}
                 <div
-                  className="absolute top-[20px] left-1/2 h-[150px] w-[150px] -translate-x-1/2 rounded-full"
+                  className="absolute top-[45px] left-1/2 h-[150px] w-[150px] -translate-x-1/2 rounded-full"
                   style={{
                     backgroundColor: cat.circle,
                   }}
                 />
 
                 {/* Product image */}
-                <div className="absolute top-[25px] left-1/2 h-[100px] w-[112px] -translate-x-1/2">
+                <div className="absolute top-[55px] left-1/2 h-[100px] w-[112px] -translate-x-1/2">
                   <Image
                     src={cat.img}
                     alt={cat.title}
@@ -428,7 +428,7 @@ export default function HomePage() {
                 </div>
 
                 {/* Bottom content */}
-                <div className="absolute right-[8px] bottom-[10px] left-[10px]">
+                <div className="absolute right-[15px] bottom-[23px] left-[15px]">
                   <div className="flex items-end justify-between">
                     <div className="min-w-0">
                       <h4 className="text-[24px] leading-[1.2] font-bold text-[#0B1F5B]">
@@ -580,7 +580,7 @@ export default function HomePage() {
               href={item.href}
               className="group relative flex aspect-[4/3] flex-col overflow-hidden rounded-[12px] border border-gray-100 bg-[#F4F7FB] shadow-sm transition-transform active:scale-95"
             >
-              <div className="absolute inset-0 z-0 opacity-90 mix-blend-multiply">
+              <div className="absolute inset-0 z-0">
                 <Image
                   src={item.image}
                   alt={item.title}
@@ -588,19 +588,19 @@ export default function HomePage() {
                   className="object-cover"
                 />
               </div>
-              <div className="absolute right-2 bottom-2 left-2 z-10 flex items-center justify-between rounded-lg bg-white px-2.5 py-1.5 shadow-sm">
+              <div className="absolute bottom-1.5 left-1.5 z-10 inline-flex w-max items-center gap-2 rounded-[24px] bg-white/95 py-1.5 pl-3 pr-1.5 shadow-md backdrop-blur-sm">
                 <div className="flex flex-col">
-                  <h4 className="text-[22px] leading-tight font-bold text-[#0B1F5B]">
+                  <h4 className="text-[13px] leading-[1.1] font-bold text-[#0B1F5B]">
                     {item.title}
                   </h4>
-                  <p className={`mt-0.5 text-[16px] font-bold ${item.color}`}>
+                  <p className={`mt-0.5 text-[11px] font-bold ${item.color}`}>
                     Explore Now
                   </p>
                 </div>
                 <div
-                  className={`flex h-6 w-6 items-center justify-center rounded-full ${item.bg} shrink-0 text-white`}
+                  className={`flex h-[24px] w-[24px] shrink-0 items-center justify-center rounded-full ${item.bg} text-white`}
                 >
-                  <ArrowRight className="h-3.5 w-3.5 stroke-[3]" />
+                  <ArrowRight className="h-3.5 w-3.5 stroke-[2.5]" />
                 </div>
               </div>
             </Link>

@@ -14,73 +14,54 @@ export function MobileBottomNav() {
       label: 'Home',
       icon: Home,
       href: '/',
-      activeColor: 'text-[#0D55CF]',
-      inactiveColor: 'text-slate-500',
     },
     {
       label: 'Fish',
       icon: Fish,
       href: '/fish',
-      activeColor: 'text-[#0D55CF]',
-      inactiveColor: 'text-slate-500',
     },
     {
       label: 'Meat',
       icon: Beef,
       href: '/meat',
-      activeColor: 'text-[#FF4A5C]',
-      inactiveColor: 'text-[#FF4A5C]', // Red for Meat even inactive based on reference image? Wait, reference image shows inactive Meat as red outline, Chicken as orange outline. Home is blue. Fish and Eggs are gray.
     },
     {
       label: 'Chicken',
       icon: Drumstick,
       href: '/chicken',
-      activeColor: 'text-[#F59000]',
-      inactiveColor: 'text-[#F59000]',
     },
     {
       label: 'Eggs',
       icon: Egg,
       href: '/eggs',
-      activeColor: 'text-[#0D55CF]',
-      inactiveColor: 'text-slate-500',
     },
   ];
 
   return (
-    <div className="hidden portrait:flex fixed bottom-0 left-0 right-0 h-[70px] bg-white shadow-[0_-4px_12px_rgba(0,0,0,0.05)] border-t border-slate-100 z-50 rounded-t-[20px] justify-between items-center px-6 pb-2 pt-3">
+    <div className="hidden portrait:flex fixed bottom-6 left-1/2 w-[calc(100%-16px)] max-w-[480px] -translate-x-1/2 shrink-0 h-[64px] bg-white shadow-[0_8px_30px_rgba(0,0,0,0.08)] border border-slate-100 z-50 rounded-full justify-between items-center px-3">
       {navItems.map((item) => {
-        const isActive = pathname === item.href;
+        const isActive = pathname === item.href || (item.href !== '/' && pathname.startsWith(item.href));
         const Icon = item.icon;
         
-        // Match reference image colors exactly
-        let colorClass = '';
-        if (isActive) {
-           colorClass = item.activeColor;
-        } else {
-           if (item.label === 'Meat') colorClass = 'text-[#FF4A5C]';
-           else if (item.label === 'Chicken') colorClass = 'text-[#F59000]';
-           else colorClass = 'text-slate-400'; // Fish and Eggs are gray
-        }
-
         return (
           <Link
             key={item.label}
             href={item.href}
             className={cn(
-              "flex flex-col items-center justify-center gap-1 min-w-[50px]",
-              isActive ? item.activeColor : colorClass
+              "flex flex-row items-center justify-center gap-1.5 px-3 py-2 rounded-full transition-colors",
+              isActive ? "bg-[#F0F6FF]" : "bg-transparent"
             )}
           >
             <Icon 
                className={cn(
-                 "h-6 w-6 stroke-[2]",
-                 isActive && "stroke-[2.5]" // Slightly bolder if active
+                 "h-5 w-5",
+                 isActive ? "stroke-[2.5] text-[#0D55CF]" : "stroke-[2] text-slate-400"
                )} 
             />
+            {/* Show text only for active item or if there's enough space, but let's show for all as per image if it fits, or hide text for inactive? In the image all have text. */}
             <span className={cn(
-              "text-[10px] font-bold",
-              isActive ? item.activeColor : colorClass
+              "text-[12px] font-bold",
+              isActive ? "text-[#0D55CF]" : "text-slate-400"
             )}>
               {item.label}
             </span>
