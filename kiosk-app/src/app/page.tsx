@@ -352,7 +352,7 @@ export default function HomePage() {
       <div className="hidden portrait:flex portrait:h-auto portrait:w-full portrait:flex-col portrait:gap-6 portrait:bg-white portrait:pb-20">
         {/* Mobile Hero */}
         <div
-          className="relative mx-4 mt-2 h-[500px] w-full shrink-0 overflow-hidden rounded-[12px] bg-slate-900"
+          className="relative mx-4 mt-2 h-[30dvh] min-h-[460px] w-full shrink-0 overflow-hidden rounded-[12px] bg-slate-900"
           style={{ width: 'calc(100% - 32px)' }}
         >
           <HeroBannerCarousel />
@@ -402,7 +402,7 @@ export default function HomePage() {
               <Link
                 key={idx}
                 href={cat.href}
-                className="relative h-[270px] min-w-[76px] flex-1 overflow-hidden transition-transform active:scale-[0.97]"
+                className="relative h-[22dvh] min-h-[270px] min-w-[76px] flex-1 overflow-hidden transition-transform active:scale-[0.97]"
                 style={{
                   backgroundColor: cat.bg,
                   borderRadius: '50% 50% 20px 20px',
@@ -457,7 +457,7 @@ export default function HomePage() {
         </div>
 
         {/* Mobile Benefits & Nutrition */}
-        <div className="relative mx-4 mb-2 flex h-[300px] shrink-0 overflow-hidden rounded-[24px] border border-white/50 bg-[#F2F8FF] p-5 shadow-sm">
+        <div className="relative mx-4 mb-2 flex h-[22dvh] min-h-[300px] shrink-0 overflow-hidden rounded-[24px] border border-white/50 bg-[#F2F8FF] p-5 shadow-sm">
           {/* Background circle behind the salmon plate */}
           <div className="pointer-events-none absolute top-[-10%] right-[-5%] aspect-square h-[120%] rounded-full bg-[#E4F0FF]" />
 
@@ -538,7 +538,7 @@ export default function HomePage() {
               <ArrowRight className="h-3.5 w-3.5 stroke-[2.5]" />
             </Link>
           </div>
-          <div className="flex h-[250px] w-full flex-col overflow-hidden rounded-xl">
+          <div className="flex h-[20dvh] min-h-[250px] w-full flex-col overflow-hidden rounded-xl">
             <RecipeCarousel />
           </div>
         </div>
@@ -578,7 +578,7 @@ export default function HomePage() {
             <Link
               key={idx}
               href={item.href}
-              className="group relative flex aspect-[4/3] flex-col overflow-hidden rounded-[12px] border border-gray-100 bg-[#F4F7FB] shadow-sm transition-transform active:scale-95"
+              className="group relative flex aspect-[2/1] flex-col overflow-hidden rounded-[12px] border border-gray-100 bg-[#F4F7FB] shadow-sm transition-transform active:scale-95"
             >
               <div className="absolute inset-0 z-0">
                 <Image
