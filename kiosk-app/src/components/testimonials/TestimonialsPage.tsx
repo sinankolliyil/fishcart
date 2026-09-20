@@ -13,6 +13,9 @@ import {
   Phone,
   Send,
   MessageSquareHeart,
+  MapPin,
+  PhoneCall,
+  Mail,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { HomeFooter } from '@/components/layout/HomeFooter';
@@ -794,11 +797,11 @@ export function TestimonialsPage() {
   };
 
   return (
-    <div className="grid h-full min-h-0 w-full grid-rows-[minmax(0,89fr)_minmax(0,10fr)] gap-[var(--main-gap)] overflow-hidden">
+    <div className="grid h-full min-h-0 w-full grid-rows-[minmax(0,89fr)_minmax(0,10fr)] gap-[var(--main-gap)] overflow-hidden portrait:flex portrait:flex-col portrait:h-auto portrait:overflow-visible portrait:pb-4">
       {/* ── Main Content ── */}
       <div className="flex min-h-0 flex-col gap-[12px] overflow-hidden">
         {/* ── ROW A: Hero + Platform tabs ── */}
-        <div className="grid shrink-0 grid-cols-[1fr_auto] gap-[18px]">
+        <div className="grid shrink-0 grid-cols-[1fr_auto] gap-[18px] portrait:flex portrait:flex-col portrait:gap-[12px]">
           {/* Left: heading + tabs */}
           <div className="flex min-w-0 flex-col gap-[12px]">
             <div className="relative flex flex-col justify-center overflow-hidden rounded-[8px] border border-white/20 bg-gradient-to-r from-[#F4F9FF] via-[#EAF3FF] to-[#D4E6FC] px-[clamp(8px,1.2vw,18px)] py-[clamp(6px,0.8vw,12px)]">
@@ -827,7 +830,7 @@ export function TestimonialsPage() {
             </div>
 
             {/* Platform tabs */}
-            <div className="grid grid-cols-5 gap-[10px]">
+            <div className="grid grid-cols-5 gap-[10px] portrait:flex portrait:flex-wrap portrait:gap-[8px]">
               {PLATFORMS.map((p) => (
                 <button
                   key={p.id}
@@ -862,7 +865,7 @@ export function TestimonialsPage() {
         {/* ── ROW B: Reviews section + Right panel ── */}
         <div
           className={cn(
-            'grid min-h-0 flex-1 gap-[14px] overflow-hidden',
+            'grid min-h-0 flex-1 gap-[14px] overflow-hidden portrait:flex portrait:flex-col portrait:h-auto portrait:overflow-visible',
             activePlatform === 'all' || activePlatform === 'feedback'
               ? 'grid-cols-1'
               : 'grid-cols-[1fr_minmax(0,280px)]'
@@ -892,7 +895,7 @@ export function TestimonialsPage() {
               {/* Form Fields */}
               <div className="flex flex-col gap-[20px] p-[24px]">
                 {/* Row 1: Name and Title */}
-                <div className="grid grid-cols-2 gap-[20px]">
+                <div className="grid grid-cols-2 gap-[20px] portrait:flex portrait:flex-col">
                   <div className="flex flex-col gap-[8px]">
                     <label className="text-[13px] font-bold text-slate-800">
                       Your Name <span className="text-red-500">*</span>
@@ -940,7 +943,7 @@ export function TestimonialsPage() {
                 </div>
 
                 {/* Row 3: Phone Number and Submit */}
-                <div className="grid grid-cols-2 items-end gap-[20px]">
+                <div className="grid grid-cols-2 items-end gap-[20px] portrait:flex portrait:flex-col portrait:items-stretch">
                   <div className="flex flex-col gap-[8px]">
                     <label className="text-[13px] font-bold text-slate-800">
                       Phone Number{' '}
@@ -967,8 +970,8 @@ export function TestimonialsPage() {
                     </div>
                   </div>
 
-                  <div className="flex justify-end">
-                    <button className="flex items-center justify-center gap-2 rounded-[8px] border border-transparent bg-[#0D55CF] px-[40px] py-[10px] text-[14px] font-bold text-white transition-colors hover:bg-[#0A40A0]">
+                  <div className="flex justify-end portrait:w-full">
+                    <button className="flex items-center justify-center gap-2 rounded-[8px] border border-transparent bg-[#0D55CF] px-[40px] py-[10px] text-[14px] font-bold text-white transition-colors hover:bg-[#0A40A0] portrait:w-full">
                       <Send className="h-[16px] w-[16px]" />
                       Submit Opinion
                     </button>
@@ -979,9 +982,9 @@ export function TestimonialsPage() {
           ) : (
             <div className="flex min-h-0 flex-col gap-[10px] overflow-hidden">
               {/* Rating summary + cards row */}
-              <div className="grid min-h-0 flex-1 grid-cols-[minmax(0,160px)_1fr] gap-[14px] overflow-hidden">
+              <div className="grid min-h-0 flex-1 grid-cols-[minmax(0,180px)_1fr] gap-[14px] overflow-hidden portrait:flex portrait:flex-col portrait:h-auto portrait:overflow-visible">
                 {/* Rating summary */}
-                <div className="flex min-h-0 flex-col justify-start gap-[6px] pt-2">
+                <div className="flex min-h-0 flex-col justify-start gap-[6px] pt-2 portrait:px-6 portrait:pb-2">
                   <div
                     className={cn(
                       'leading-none font-bold text-[#0D55CF]',
@@ -1007,16 +1010,16 @@ export function TestimonialsPage() {
                 </div>
 
                 {/* Right column: Review cards + View More + Happy Customers */}
-                <div className="flex min-h-0 flex-col gap-[10px] overflow-hidden">
+                <div className="flex min-h-0 flex-col gap-[10px] overflow-hidden portrait:h-auto portrait:overflow-visible">
                   {/* Review cards */}
                   {activePlatform === 'all' ? (
-                    <div className="grid min-h-0 grid-cols-4 grid-rows-2 gap-[8px] overflow-hidden">
+                    <div className="grid min-h-0 grid-cols-4 grid-rows-2 gap-[8px] overflow-hidden portrait:grid-cols-1 portrait:grid-rows-none portrait:h-auto portrait:overflow-visible">
                       {displayedReviews.map((r) => (
                         <ReviewCard key={r.id} review={r} compact />
                       ))}
                     </div>
                   ) : (
-                    <div className="grid min-h-0 grid-cols-3 gap-[8px] overflow-hidden">
+                    <div className="grid min-h-0 grid-cols-3 gap-[8px] overflow-hidden portrait:grid-cols-1 portrait:h-auto portrait:overflow-visible">
                       {displayedReviews.map((r) => (
                         <ReviewCard key={r.id} review={r} />
                       ))}
@@ -1044,7 +1047,7 @@ export function TestimonialsPage() {
                   <h3 className="mb-[8px] text-center text-[18px] font-bold text-[#0D55CF]">
                     Happy Customers
                   </h3>
-                  <div className="grid w-full grid-cols-5 gap-[8px]">
+                  <div className="grid w-full grid-cols-5 gap-[8px] portrait:grid-cols-3 portrait:overflow-hidden">
                     {CUSTOMER_PHOTOS.map((c, i) => (
                       <div
                         key={i}
@@ -1190,8 +1193,52 @@ export function TestimonialsPage() {
       </div>
 
       {/* ── Footer row — same 10fr fraction as homepage row 5 ── */}
-      <div className="overflow-hidden">
+      <div className="overflow-hidden portrait:hidden">
         <HomeFooter />
+      </div>
+
+      {/* Portrait-only Mobile Footer */}
+      <div className="hidden portrait:flex portrait:flex-col portrait:gap-3 portrait:px-2 portrait:pb-4">
+        <div className="flex shrink-0 gap-3 w-full">
+          <div className="relative flex aspect-[4/3] flex-1 flex-col overflow-hidden rounded-[12px] border border-gray-50 bg-white p-4 shadow-[0_2px_12px_rgba(0,0,0,0.06)]">
+            <div className="relative z-10 flex flex-col">
+              <h4 className="mb-1 text-[18px] font-bold text-[#0D55CF]">About Us</h4>
+              <p className="text-[13px] leading-[1.3] font-medium text-slate-500">Delivering fresh & healthy food to your family.</p>
+            </div>
+            <div className="absolute right-1 bottom-1 h-14 w-14 opacity-90 mix-blend-multiply">
+              <Image src="/assets/about_us_fish_exact.png" alt="About Us" fill className="object-contain object-right-bottom" />
+            </div>
+          </div>
+          <div className="relative flex aspect-[4/3] flex-1 flex-col overflow-hidden rounded-[12px] border border-gray-50 bg-white p-4 shadow-[0_2px_12px_rgba(0,0,0,0.06)]">
+            <div className="relative z-10 flex flex-col">
+              <h4 className="mb-1 text-[18px] font-bold text-[#0D55CF]">Our Stories</h4>
+              <p className="max-w-[90%] text-[13px] leading-[1.3] font-medium text-slate-500">From ocean to your kitchen, journey of freshness.</p>
+            </div>
+            <div className="absolute right-1 bottom-1 h-12 w-16 opacity-90 mix-blend-multiply">
+              <Image src="/assets/boat_exact.png" alt="Our Stories" fill className="object-contain object-right-bottom" />
+            </div>
+          </div>
+        </div>
+        <div className="relative flex shrink-0 flex-col justify-center gap-2 overflow-hidden rounded-[12px] border border-gray-50 bg-white p-4 shadow-[0_2px_12px_rgba(0,0,0,0.06)]">
+          <div className="relative z-10 flex w-full flex-col items-center gap-2 text-center">
+            <h4 className="mb-1 text-[18px] font-bold text-[#0D55CF]">Contact Us</h4>
+            <div className="flex items-center justify-center gap-2">
+              <MapPin className="h-4 w-4 shrink-0 text-[#0D55CF]" />
+              <span className="text-[14px] leading-tight font-medium text-slate-600">Unit 5 Hythe Quay, England, CO2 8JB</span>
+            </div>
+            <div className="flex items-center justify-center gap-2">
+              <PhoneCall className="h-4 w-4 shrink-0 text-[#0D55CF]" />
+              <span className="text-[14px] font-bold text-[#0B1F5B]">+44 1206 123456</span>
+            </div>
+            <div className="flex items-center justify-center gap-2">
+              <Mail className="h-4 w-4 shrink-0 text-[#0D55CF]" />
+              <span className="text-[14px] font-bold text-[#0D55CF]">hello@fishcart.co.uk</span>
+            </div>
+          </div>
+          <div className="absolute top-1/2 right-2 h-14 w-16 -translate-y-1/2 opacity-20 mix-blend-multiply">
+            <Image src="/assets/fishdd.png" alt="Address" fill className="object-contain object-right" />
+          </div>
+        </div>
       </div>
     </div>
   );
