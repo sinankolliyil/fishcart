@@ -57,7 +57,7 @@ export function Sidebar() {
   return (
     <aside className="z-50 flex h-full w-[var(--container-sidebar)] flex-shrink-0 flex-col overflow-hidden border-r border-gray-100 bg-[#F4F7FB] portrait:h-auto portrait:w-full portrait:border-b portrait:border-r-0 portrait:shadow-sm portrait:relative portrait:overflow-visible">
       {/* ── Logo ─────────────────────────────────────────────────────── */}
-      <div className="relative p-[var(--sidebar-logo-padding)] pb-1 portrait:py-[clamp(16px,2.5vh,24px)] portrait:flex portrait:items-center portrait:justify-center">
+      <div className="relative p-[var(--sidebar-logo-padding)] portrait:px-4 portrait:py-2 portrait:flex portrait:items-center portrait:justify-center">
         {/* Hamburger (Portrait only) */}
         <button
           className="hidden portrait:block absolute left-[calc(var(--sidebar-logo-padding)+16px)] top-1/2 -translate-y-1/2"

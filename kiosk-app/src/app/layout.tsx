@@ -44,9 +44,14 @@ export default function RootLayout({
                 try {
                   var vw = window.innerWidth;
                   var vh = window.innerHeight;
-                  var scale = Math.min(vw / 1366, vh / 768);
-                  var clamped = Math.max(0.4, Math.min(3, scale));
-                  document.documentElement.style.zoom = clamped;
+                  var isPortrait = vw < vh;
+                  if (!isPortrait) {
+                    var scale = Math.min(vw / 1366, vh / 768);
+                    var clamped = Math.max(0.4, Math.min(3, scale));
+                    document.documentElement.style.zoom = clamped;
+                  } else {
+                    document.documentElement.style.zoom = 1;
+                  }
                 } catch(e) {}
               })();
             `,

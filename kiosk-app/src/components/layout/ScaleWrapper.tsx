@@ -23,10 +23,15 @@ export function ViewportScaler() {
     function applyZoom() {
       const vw = window.innerWidth;
       const vh = window.innerHeight;
-      const scale = Math.min(vw / DESIGN_W, vh / DESIGN_H);
-      // Clamp to reasonable range: 0.4x minimum, 3x maximum
-      const clamped = Math.max(0.4, Math.min(3, scale));
-      document.documentElement.style.zoom = String(clamped);
+      const isPortrait = vw < vh;
+      
+      if (!isPortrait) {
+        const scale = Math.min(vw / DESIGN_W, vh / DESIGN_H);
+        const clamped = Math.max(0.4, Math.min(3, scale));
+        document.documentElement.style.zoom = String(clamped);
+      } else {
+        document.documentElement.style.zoom = '1';
+      }
     }
 
     applyZoom();

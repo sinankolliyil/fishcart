@@ -6,6 +6,7 @@ import {
   Droplet,
   Leaf,
   Dumbbell,
+  Dna,
   Sparkles,
   HeartPulse,
   ShieldCheck,
@@ -352,14 +353,13 @@ export default function HomePage() {
       <div className="hidden portrait:flex portrait:h-auto portrait:w-full portrait:flex-col portrait:gap-6 portrait:bg-white portrait:pb-20">
         {/* Mobile Hero */}
         <div
-          className="relative mx-4 mt-2 h-[30dvh] min-h-[460px] w-full shrink-0 overflow-hidden rounded-[12px] bg-slate-900"
-          style={{ width: 'calc(100% - 32px)' }}
+          className="relative mx-2 mt-0 h-[28vh] min-h-[220px] max-h-[320px] w-[calc(100%-16px)] shrink-0 overflow-hidden rounded-[12px] bg-slate-900"
         >
           <HeroBannerCarousel />
         </div>
 
         {/* Mobile Categories Row - Exact Reference Style */}
-        <div className="scrollbar-hide mt-3 mb-5 w-full overflow-x-auto px-4">
+        <div className="scrollbar-hide mt-3 mb-5 w-full overflow-x-auto px-2">
           <div className="flex w-full justify-between gap-2 sm:gap-3">
             {[
               {
@@ -402,53 +402,40 @@ export default function HomePage() {
               <Link
                 key={idx}
                 href={cat.href}
-                className="relative h-[22dvh] min-h-[270px] min-w-[76px] flex-1 overflow-hidden transition-transform active:scale-[0.97]"
+                className="relative h-[20vh] min-h-[140px] max-h-[180px] min-w-[70px] flex-1 overflow-hidden transition-transform active:scale-[0.97]"
                 style={{
                   backgroundColor: cat.bg,
-                  borderRadius: '50% 50% 20px 20px',
+                  borderRadius: '50% 50% 16px 16px',
                 }}
               >
                 {/* Circular image background */}
                 <div
-                  className="absolute top-[45px] left-1/2 h-[150px] w-[150px] -translate-x-1/2 rounded-full"
+                  className="absolute top-[15%] left-1/2 aspect-square w-[75%] max-w-[100px] -translate-x-1/2 rounded-full"
                   style={{
                     backgroundColor: cat.circle,
                   }}
                 />
 
                 {/* Product image */}
-                <div className="absolute top-[55px] left-1/2 h-[100px] w-[112px] -translate-x-1/2">
+                <div className="absolute top-[20%] left-1/2 aspect-square w-[85%] max-w-[110px] -translate-x-1/2">
                   <Image
                     src={cat.img}
                     alt={cat.title}
                     fill
-                    sizes="112px"
-                    className="translate-y-[12px] scale-[1.75] object-contain"
+                    className="object-contain drop-shadow-[0_4px_12px_rgba(0,0,0,0.1)]"
                   />
                 </div>
 
-                {/* Bottom content */}
-                <div className="absolute right-[15px] bottom-[23px] left-[15px]">
-                  <div className="flex items-end justify-between">
-                    <div className="min-w-0">
-                      <h4 className="text-[24px] leading-[1.2] font-bold text-[#0B1F5B]">
-                        {cat.title}
-                      </h4>
-
-                      <p className="mt-0.5 text-[20px] leading-[1.2] font-medium whitespace-nowrap text-slate-500">
-                        {cat.items}
-                      </p>
-                    </div>
-
-                    {/* Arrow */}
-                    <div
-                      className="flex h-[32px] w-[32px] shrink-0 items-center justify-center rounded-full"
-                      style={{
-                        backgroundColor: cat.arrow,
-                      }}
-                    >
-                      <ArrowRight className="h-[19px] w-[19px] stroke-[3] text-white" />
-                    </div>
+                {/* Bottom title & arrow */}
+                <div className="absolute bottom-[8%] left-0 flex w-full flex-col items-center gap-0.5">
+                  <span className="text-[11px] sm:text-[13px] font-bold text-[#1E293B]">
+                    {cat.title}
+                  </span>
+                  <div
+                    className="flex h-4 w-4 sm:h-5 sm:w-5 items-center justify-center rounded-full"
+                    style={{ backgroundColor: cat.arrow }}
+                  >
+                    <ArrowRight className="h-2.5 w-2.5 sm:h-3 sm:w-3 stroke-[3] text-white" />
                   </div>
                 </div>
               </Link>
@@ -457,52 +444,29 @@ export default function HomePage() {
         </div>
 
         {/* Mobile Benefits & Nutrition */}
-        <div className="relative mx-4 mb-2 flex h-[22dvh] min-h-[300px] shrink-0 overflow-hidden rounded-[24px] border border-white/50 bg-[#F2F8FF] p-5 shadow-sm">
+        <div className="relative mx-2 mb-2 flex h-[20vh] min-h-[160px] max-h-[220px] shrink-0 overflow-hidden rounded-[16px] sm:rounded-[24px] border border-white/50 bg-[#F2F8FF] p-3 sm:p-5 shadow-sm">
           {/* Background circle behind the salmon plate */}
           <div className="pointer-events-none absolute top-[-10%] right-[-5%] aspect-square h-[120%] rounded-full bg-[#E4F0FF]" />
 
-          {/* Left Content */}
-          <div className="relative z-10 flex h-full w-[55%] flex-col">
-            <h3 className="mb-2 text-[30px] leading-[1.15] font-bold tracking-tight text-[#0D6EFD]">
-              Benefits & Nutrition
+          {/* Left Text/Icons */}
+          <div className="relative z-10 flex h-full w-[45%] flex-col justify-center gap-2 sm:gap-4">
+            <h3 className="text-[14px] sm:text-[18px] leading-tight font-extrabold text-[#0B1F5B]">
+              Premium Quality
+              <br />
+              <span className="text-[#0D6EFD]">Nutrition</span>
             </h3>
-            <p className="mb-4 pr-4 text-[19px] leading-[1.4] font-medium text-[#475569]">
-              Fish, meat, eggs and chicken are rich in protein, vitamins and
-              minerals for a stronger, healthier you.
-            </p>
-            <Link
-              href="/benefits"
-              className="mb-auto flex w-fit items-center gap-1.5 text-[17px] font-bold text-[#0D6EFD] hover:underline"
-            >
-              Learn More <ArrowRight className="h-4 w-4 stroke-[2.5]" />
-            </Link>
-
-            {/* Icons */}
-            <div className="flex items-end justify-start gap-8 pt-4">
-              <div className="flex flex-col items-center gap-2">
-                <Dumbbell className="h-[30px] w-[30px] stroke-[2] text-[#0D6EFD]" />
-                <span className="text-center text-[16px] leading-tight font-bold text-[#1E293B]">
-                  High in
-                  <br />
-                  Protein
+            <div className="flex h-[40px] sm:h-[60px] items-center gap-2 sm:gap-3 rounded-xl bg-white/60 px-2 sm:px-3 backdrop-blur-md">
+              <div className="flex flex-col items-center">
+                <Dna className="h-4 w-4 sm:h-5 sm:w-5 stroke-[2] text-[#0D6EFD]" />
+                <span className="text-center text-[9px] sm:text-[11px] leading-tight font-bold text-[#1E293B]">
+                  High Protein
                 </span>
               </div>
-              <div className="mb-1.5 h-10 w-[1px] bg-blue-200/70" />
-              <div className="flex flex-col items-center gap-2">
-                <Sparkles className="h-[30px] w-[30px] stroke-[2] text-[#0D6EFD]" />
-                <span className="text-center text-[16px] leading-tight font-bold text-[#1E293B]">
-                  Rich in
-                  <br />
-                  Vitamins
-                </span>
-              </div>
-              <div className="mb-1.5 h-10 w-[1px] bg-blue-200/70" />
-              <div className="flex flex-col items-center gap-2">
-                <HeartPulse className="h-[30px] w-[30px] stroke-[2] text-[#0D6EFD]" />
-                <span className="text-center text-[16px] leading-tight font-bold text-[#1E293B]">
-                  Good for
-                  <br />
-                  Heart
+              <div className="h-6 sm:h-10 w-[1px] bg-blue-200/70" />
+              <div className="flex flex-col items-center">
+                <Sparkles className="h-4 w-4 sm:h-5 sm:w-5 stroke-[2] text-[#0D6EFD]" />
+                <span className="text-center text-[9px] sm:text-[11px] leading-tight font-bold text-[#1E293B]">
+                  Rich Vitamins
                 </span>
               </div>
             </div>
@@ -520,7 +484,7 @@ export default function HomePage() {
         </div>
 
         {/* Mobile Recipe Section */}
-        <div className="mx-4 flex shrink-0 flex-col rounded-[20px] bg-[#E1EDFA] p-4">
+        <div className="mx-2 flex shrink-0 flex-col rounded-[20px] bg-[#E1EDFA] p-4">
           <div className="mb-4 flex items-start justify-between">
             <div>
               <h3 className="mb-1 text-[24px] leading-tight font-bold text-[#0B1F5B]">
@@ -544,7 +508,7 @@ export default function HomePage() {
         </div>
 
         {/* Mobile Promotional Banners (2x2 Grid) */}
-        <div className="grid shrink-0 grid-cols-2 gap-3 px-4">
+        <div className="grid shrink-0 grid-cols-2 gap-3 px-2">
           {[
             {
               title: 'All Fish Items',
@@ -608,7 +572,7 @@ export default function HomePage() {
         </div>
 
         {/* Mobile Info Cards */}
-        <div className="flex shrink-0 flex-col gap-2.5 px-4">
+        <div className="flex shrink-0 flex-col gap-2.5 px-2">
           {/* Card 1 */}
           <div className="relative flex items-center overflow-hidden rounded-[12px] bg-[#EAF4FE] p-3 shadow-sm">
             <div className="absolute top-1/2 right-[-10%] -translate-y-1/2 opacity-[0.08]">
@@ -684,7 +648,7 @@ export default function HomePage() {
         </div>
 
         {/* Mobile About / Stories / Contact */}
-        <div className="scrollbar-hide flex shrink-0 snap-x gap-3 overflow-x-auto px-4 pb-1">
+        <div className="scrollbar-hide flex shrink-0 snap-x gap-3 overflow-x-auto px-2 pb-1">
           {/* About Us */}
           <div className="relative flex aspect-square w-[180px] shrink-0 snap-start flex-col overflow-hidden rounded-[12px] border border-gray-50 bg-white p-4 shadow-[0_2px_12px_rgba(0,0,0,0.06)]">
             <div className="relative z-10 flex flex-col">
@@ -747,7 +711,7 @@ export default function HomePage() {
         </div>
 
         {/* Mobile Footer */}
-        <div className="relative mx-4 flex shrink-0 flex-col justify-center gap-2 overflow-hidden rounded-[12px] border border-gray-50 bg-white p-4 shadow-[0_2px_12px_rgba(0,0,0,0.06)]">
+        <div className="relative mx-2 flex shrink-0 flex-col justify-center gap-2 overflow-hidden rounded-[12px] border border-gray-50 bg-white p-4 shadow-[0_2px_12px_rgba(0,0,0,0.06)]">
           <div className="relative z-10 flex max-w-[75%] flex-col gap-2">
             <div className="flex items-center gap-3">
               <MapPin className="h-5 w-5 shrink-0 text-[#0D55CF]" />
