@@ -155,13 +155,13 @@ export function HeroBannerCarousel() {
       />
 
       {/* ── Premium Offer Ribbon ── */}
-      <div className="portrait:hidden absolute top-0 right-0 left-0 z-30 flex h-[var(--hero-ribbon-h)] items-center overflow-hidden border-b border-white/10 bg-black/40 backdrop-blur-md select-none">
+      <div className="absolute top-0 right-0 left-0 z-30 flex h-[var(--hero-ribbon-h)] items-center overflow-hidden border-b border-white/10 bg-black/40 backdrop-blur-md select-none">
         <div className="animate-marquee-custom flex items-center py-1 whitespace-nowrap">
           {/* List of Offers */}
           <div className="flex items-center space-x-12 px-6">
-            <span className="flex items-center gap-2 text-[10px] font-bold tracking-wider text-white uppercase">
+            <span className="flex items-center gap-2 text-[10px] portrait:text-[15px] font-bold tracking-wider portrait:tracking-normal text-white uppercase">
               <svg
-                className="h-3.5 w-3.5 text-blue-400"
+                className="h-3.5 w-3.5 portrait:h-5 portrait:w-5 text-blue-400"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -180,9 +180,9 @@ export function HeroBannerCarousel() {
               </svg>
               20% OFF on Fresh Fish
             </span>
-            <span className="flex items-center gap-2 text-[10px] font-bold tracking-wider text-white uppercase">
+            <span className="flex items-center gap-2 text-[10px] portrait:text-[15px] font-bold tracking-wider portrait:tracking-normal text-white uppercase">
               <svg
-                className="h-3.5 w-3.5 text-emerald-400"
+                className="h-3.5 w-3.5 portrait:h-5 portrait:w-5 text-emerald-400"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -196,9 +196,9 @@ export function HeroBannerCarousel() {
               </svg>
               Buy 2 Get 1 Free
             </span>
-            <span className="flex items-center gap-2 text-[10px] font-bold tracking-wider text-white uppercase">
+            <span className="flex items-center gap-2 text-[10px] portrait:text-[15px] font-bold tracking-wider portrait:tracking-normal text-white uppercase">
               <svg
-                className="h-3.5 w-3.5 text-orange-400"
+                className="h-3.5 w-3.5 portrait:h-5 portrait:w-5 text-orange-400"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -217,9 +217,9 @@ export function HeroBannerCarousel() {
               </svg>
               Weekend Chicken Deals
             </span>
-            <span className="flex items-center gap-2 text-[10px] font-bold tracking-wider text-white uppercase">
+            <span className="flex items-center gap-2 text-[10px] portrait:text-[15px] font-bold tracking-wider portrait:tracking-normal text-white uppercase">
               <svg
-                className="h-3.5 w-3.5 text-cyan-400"
+                className="h-3.5 w-3.5 portrait:h-5 portrait:w-5 text-cyan-400"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -236,9 +236,9 @@ export function HeroBannerCarousel() {
           </div>
           {/* Duplicate list for seamless looping */}
           <div className="flex items-center space-x-12 px-6">
-            <span className="flex items-center gap-2 text-[10px] font-bold tracking-wider text-white uppercase">
+            <span className="flex items-center gap-2 text-[10px] portrait:text-[15px] font-bold tracking-wider portrait:tracking-normal text-white uppercase">
               <svg
-                className="h-3.5 w-3.5 text-blue-400"
+                className="h-3.5 w-3.5 portrait:h-5 portrait:w-5 text-blue-400"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -257,9 +257,9 @@ export function HeroBannerCarousel() {
               </svg>
               20% OFF on Fresh Fish
             </span>
-            <span className="flex items-center gap-2 text-[10px] font-bold tracking-wider text-white uppercase">
+            <span className="flex items-center gap-2 text-[10px] portrait:text-[15px] font-bold tracking-wider portrait:tracking-normal text-white uppercase">
               <svg
-                className="h-3.5 w-3.5 text-emerald-400"
+                className="h-3.5 w-3.5 portrait:h-5 portrait:w-5 text-emerald-400"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -273,9 +273,9 @@ export function HeroBannerCarousel() {
               </svg>
               Buy 2 Get 1 Free
             </span>
-            <span className="flex items-center gap-2 text-[10px] font-bold tracking-wider text-white uppercase">
+            <span className="flex items-center gap-2 text-[10px] portrait:text-[15px] font-bold tracking-wider portrait:tracking-normal text-white uppercase">
               <svg
-                className="h-3.5 w-3.5 text-orange-400"
+                className="h-3.5 w-3.5 portrait:h-5 portrait:w-5 text-orange-400"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -294,9 +294,9 @@ export function HeroBannerCarousel() {
               </svg>
               Weekend Chicken Deals
             </span>
-            <span className="flex items-center gap-2 text-[10px] font-bold tracking-wider text-white uppercase">
+            <span className="flex items-center gap-2 text-[10px] portrait:text-[15px] font-bold tracking-wider portrait:tracking-normal text-white uppercase">
               <svg
-                className="h-3.5 w-3.5 text-cyan-400"
+                className="h-3.5 w-3.5 portrait:h-5 portrait:w-5 text-cyan-400"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -345,13 +345,13 @@ export function HeroBannerCarousel() {
             {/* Text Overlay */}
 
             <div className="pointer-events-none absolute inset-0 z-20">
-              <div className="flex h-full items-start pt-[calc(var(--hero-ribbon-h)+clamp(16px,2vw,32px))]">
+              <div className="flex h-full items-start pt-[calc(var(--hero-ribbon-h)+clamp(16px,2vw,32px))] portrait:pt-[calc(var(--hero-ribbon-h)+80px)]">
                 <div className="ml-[8%] max-w-[85%] sm:max-w-[520px] text-white">
-                  <h2 className="text-[clamp(36px,9vw,48px)] leading-[1.1] font-bold tracking-tight !text-white drop-shadow-md">
+                  <h2 className="text-[clamp(36px,9vw,48px)] portrait:text-[52px] leading-[1.05] font-bold tracking-tight !text-white drop-shadow-md">
                     {slide.title}
                   </h2>
 
-                  <p className="mt-4 text-[clamp(16px,5vw,20px)] leading-[1.4] font-medium text-slate-100 drop-shadow-sm">
+                  <p className="mt-4 text-[clamp(16px,5vw,20px)] portrait:text-[24px] leading-[1.4] font-medium text-slate-100 drop-shadow-sm">
                     {slide.description}
                   </p>
                 </div>
@@ -419,3 +419,5 @@ export function HeroBannerCarousel() {
     </div>
   );
 }
+
+

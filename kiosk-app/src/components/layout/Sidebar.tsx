@@ -60,10 +60,10 @@ export function Sidebar() {
       <div className="relative p-[var(--sidebar-logo-padding)] pb-1 portrait:py-[clamp(16px,2.5vh,24px)] portrait:flex portrait:items-center portrait:justify-center">
         {/* Hamburger (Portrait only) */}
         <button
-          className="hidden portrait:block absolute left-[var(--sidebar-logo-padding)] top-1/2 -translate-y-1/2"
+          className="hidden portrait:block absolute left-[calc(var(--sidebar-logo-padding)+16px)] top-1/2 -translate-y-1/2"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
         >
-          {isMobileMenuOpen ? <X className="h-6 w-6 text-[#0D55CF]" /> : <Menu className="h-6 w-6 text-[#0D55CF]" />}
+          {isMobileMenuOpen ? <X className="h-[30px] w-[30px] text-[#0D55CF]" /> : <Menu className="h-[30px] w-[30px] text-[#0D55CF]" />}
         </button>
         <Link
           href="/"
@@ -73,7 +73,7 @@ export function Sidebar() {
             <svg
               width="40"
               height="40"
-              className="h-[clamp(28px,min(2.5vw,3.8svh),46px)] w-[clamp(28px,min(2.5vw,3.8svh),46px)]"
+              className="h-[clamp(28px,min(2.5vw,3.8svh),46px)] w-[clamp(28px,min(2.5vw,3.8svh),46px)] portrait:h-[44px] portrait:w-[44px]"
               viewBox="0 0 42 42"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
@@ -96,10 +96,10 @@ export function Sidebar() {
             </svg>
           </div>
           <div className="mt-0.5">
-            <h1 className="text-primary text-[clamp(14px,min(1.2vw,1.75svh),22px)] leading-none font-bold tracking-wide">
+            <h1 className="text-primary text-[clamp(14px,min(1.2vw,1.75svh),22px)] portrait:text-[28px] leading-none font-bold tracking-wide">
               FISHCART
             </h1>
-            <p className="text-primary/70 mt-0.5 text-[clamp(9px,min(0.65vw,0.95svh),12px)] font-semibold tracking-wide">
+            <p className="text-primary/70 mt-0.5 text-[clamp(9px,min(0.65vw,0.95svh),12px)] portrait:text-[14px] font-semibold tracking-wide">
               Daily Fresh Partner
             </p>
           </div>
@@ -107,7 +107,7 @@ export function Sidebar() {
       </div>
 
       {/* ── Promotional Ribbon (Portrait Only) ───────────────────────── */}
-      <div className="hidden portrait:flex h-[36px] items-center overflow-hidden bg-[#0B1F5B] select-none shrink-0 border-b-2 border-white/10">
+      <div className="hidden h-[36px] items-center overflow-hidden bg-[#0B1F5B] select-none shrink-0 border-b-2 border-white/10">
         <style
           dangerouslySetInnerHTML={{
             __html: `
@@ -274,7 +274,7 @@ export function Sidebar() {
       {/* ── Navigation ───────────────────────────────────────────────── */}
       <nav className={cn(
         "flex flex-1 flex-col gap-[var(--sidebar-nav-gap)] overflow-hidden px-[var(--sidebar-nav-padding-x)] py-[var(--sidebar-nav-padding-y)]",
-        "portrait:absolute portrait:top-full portrait:left-0 portrait:w-full portrait:bg-[#F4F7FB] portrait:shadow-lg portrait:z-50 portrait:py-4 portrait:h-[calc(100dvh-70px)] portrait:overflow-y-auto portrait:border-t portrait:border-gray-100",
+        "portrait:absolute portrait:top-full portrait:left-0 portrait:w-[280px] portrait:bg-[#F4F7FB] portrait:shadow-[4px_4px_16px_rgba(0,0,0,0.1)] portrait:z-50 portrait:py-4 portrait:h-[calc(100dvh-70px)] portrait:overflow-y-auto portrait:border-t portrait:border-r portrait:border-gray-200",
         isMobileMenuOpen ? "portrait:flex" : "portrait:hidden"
       )}>
         {NAV_ITEMS.map((item) => {
@@ -288,6 +288,7 @@ export function Sidebar() {
             <Link
               key={item.label}
               href={item.href}
+              onClick={() => setIsMobileMenuOpen(false)}
               className={cn(
                 /*
                  * Each nav item is a self-contained button-like element.

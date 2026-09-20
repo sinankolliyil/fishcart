@@ -352,7 +352,7 @@ export default function HomePage() {
       <div className="hidden portrait:flex portrait:h-auto portrait:w-full portrait:flex-col portrait:gap-6 portrait:bg-white portrait:pb-20">
         {/* Mobile Hero */}
         <div
-          className="relative mx-4 mt-2 h-[420px] w-full shrink-0 overflow-hidden rounded-[12px] bg-slate-900"
+          className="relative mx-4 mt-2 h-[460px] w-full shrink-0 overflow-hidden rounded-[12px] bg-slate-900"
           style={{ width: 'calc(100% - 32px)' }}
         >
           <HeroBannerCarousel />
@@ -402,7 +402,7 @@ export default function HomePage() {
               <Link
                 key={idx}
                 href={cat.href}
-                className="relative h-[240px] min-w-[76px] flex-1 overflow-hidden transition-transform active:scale-[0.97]"
+                className="relative h-[250px] min-w-[76px] flex-1 overflow-hidden transition-transform active:scale-[0.97]"
                 style={{
                   backgroundColor: cat.bg,
                   borderRadius: '50% 50% 20px 20px',
@@ -431,11 +431,11 @@ export default function HomePage() {
                 <div className="absolute right-[8px] bottom-[10px] left-[10px]">
                   <div className="flex items-end justify-between">
                     <div className="min-w-0">
-                      <h4 className="text-[22px] leading-[1.2] font-bold text-[#0B1F5B]">
+                      <h4 className="text-[24px] leading-[1.2] font-bold text-[#0B1F5B]">
                         {cat.title}
                       </h4>
 
-                      <p className="mt-0.5 text-[18px] leading-[1.2] font-medium whitespace-nowrap text-slate-500">
+                      <p className="mt-0.5 text-[20px] leading-[1.2] font-medium whitespace-nowrap text-slate-500">
                         {cat.items}
                       </p>
                     </div>
