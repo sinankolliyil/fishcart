@@ -17,6 +17,8 @@ import {
   AlertTriangle,
   PlayCircle,
   Anchor,
+  MapPin,
+  PhoneCall,
 } from 'lucide-react';
 import { ProductDetails } from '@/types/catalog';
 import { cn } from '@/lib/utils';
@@ -112,8 +114,8 @@ export function ProductDetailsLayout({ data }: { data: ProductDetails }) {
                 </div>
               </div>
 
-              {/* Badges */}
-              <div className="flex shrink-0 justify-between gap-1 pt-[clamp(4px,0.5vw,8px)] mt-auto">
+              {/* Badges (landscape only) */}
+              <div className="flex shrink-0 justify-between gap-1 pt-[clamp(4px,0.5vw,8px)] mt-auto portrait:hidden">
                 <div className="flex flex-1 flex-col items-center text-center">
                   <div
                     className={cn(
@@ -186,7 +188,7 @@ export function ProductDetailsLayout({ data }: { data: ProductDetails }) {
 
             {/* Image column */}
             <div className="flex min-w-0 flex-1 flex-col justify-between overflow-hidden portrait:h-[350px]">
-              <div className="relative min-h-0 w-full flex-1 overflow-hidden rounded-[8px] bg-slate-50">
+              <div className="relative min-h-0 w-full flex-1 overflow-hidden rounded-[8px] bg-slate-50 portrait:min-h-[280px]">
                 <Image
                   src={selectedImage}
                   alt={data.title}
@@ -246,6 +248,47 @@ export function ProductDetailsLayout({ data }: { data: ProductDetails }) {
                 >
                   <ChevronRight className="h-[clamp(8px,0.7vw,12px)] w-[clamp(8px,0.7vw,12px)]" />
                 </button>
+              </div>
+            </div>
+
+            {/* Badges (portrait only — below the image) */}
+            <div className="hidden portrait:flex shrink-0 justify-between gap-1 pt-3">
+              <div className="flex flex-1 flex-col items-center text-center">
+                <div
+                  className={cn(
+                    'mb-0.5 flex h-[clamp(20px,1.5vw,30px)] w-[clamp(20px,1.5vw,30px)] items-center justify-center rounded-full bg-blue-50',
+                    themeText
+                  )}
+                >
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="h-[clamp(10px,0.8vw,14px)] w-[clamp(10px,0.8vw,14px)]">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M14.5 10c-.83 0-1.5-.67-1.5-1.5v-5c0-.83.67-1.5 1.5-1.5s1.5.67 1.5 1.5v5c0 .83-.67 1.5-1.5 1.5z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M20.5 10c-.83 0-1.5-.67-1.5-1.5v-5c0-.83.67-1.5 1.5-1.5s1.5.67 1.5 1.5v5c0 .83-.67 1.5-1.5 1.5z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M9.5 10c-.83 0-1.5-.67-1.5-1.5v-5c0-.83.67-1.5 1.5-1.5s1.5.67 1.5 1.5v5c0 .83-.67 1.5-1.5 1.5z" />
+                  </svg>
+                </div>
+                <span className="text-[11px] leading-tight font-bold text-slate-600">100% Fresh<br />Never Frozen</span>
+              </div>
+              <div className="flex flex-1 flex-col items-center text-center">
+                <div
+                  className={cn(
+                    'mb-0.5 flex h-[clamp(20px,1.5vw,30px)] w-[clamp(20px,1.5vw,30px)] items-center justify-center rounded-full bg-blue-50',
+                    themeText
+                  )}
+                >
+                  <ShieldCheck className="h-[clamp(10px,0.8vw,14px)] w-[clamp(10px,0.8vw,14px)]" />
+                </div>
+                <span className="text-[11px] leading-tight font-bold text-slate-600">Hygienically<br />Handled</span>
+              </div>
+              <div className="flex flex-1 flex-col items-center text-center">
+                <div
+                  className={cn(
+                    'mb-0.5 flex h-[clamp(20px,1.5vw,30px)] w-[clamp(20px,1.5vw,30px)] items-center justify-center rounded-full bg-blue-50',
+                    themeText
+                  )}
+                >
+                  <Anchor className="h-[clamp(10px,0.8vw,14px)] w-[clamp(10px,0.8vw,14px)]" />
+                </div>
+                <span className="text-[11px] leading-tight font-bold text-slate-600">Sourced<br />Responsibly</span>
               </div>
             </div>
           </div>
@@ -1006,8 +1049,93 @@ export function ProductDetailsLayout({ data }: { data: ProductDetails }) {
           ROW 3 — Footer (10%)
           Gets exactly the remaining space like the Home page.
           ═══════════════════════════════════════════════════ */}
-      <div className="overflow-hidden">
-        <HomeFooter />
+      <div className="overflow-hidden portrait:overflow-visible">
+        {/* Landscape: original footer */}
+        <div className="portrait:hidden">
+          <HomeFooter />
+        </div>
+
+        {/* Portrait: Mobile footer */}
+        <div className="hidden portrait:flex portrait:flex-col portrait:gap-3 portrait:px-2 portrait:pb-4">
+          {/* Mobile About / Stories */}
+          <div className="flex shrink-0 gap-3 w-full">
+            {/* About Us */}
+            <div className="relative flex aspect-square flex-1 flex-col overflow-hidden rounded-[12px] border border-gray-50 bg-white p-4 shadow-[0_2px_12px_rgba(0,0,0,0.06)]">
+              <div className="relative z-10 flex flex-col">
+                <h4 className="mb-1 text-[18px] font-bold text-[#0D55CF]">
+                  About Us
+                </h4>
+                <p className="text-[13px] leading-[1.3] font-medium text-slate-500">
+                  Delivering fresh & healthy food to your family.
+                </p>
+              </div>
+              <div className="absolute right-1 bottom-1 h-14 w-14 opacity-90 mix-blend-multiply">
+                <Image
+                  src="/assets/about_us_fish_exact.png"
+                  alt="About Us"
+                  fill
+                  className="object-contain object-right-bottom"
+                />
+              </div>
+            </div>
+
+            {/* Our Stories */}
+            <div className="relative flex aspect-square flex-1 flex-col overflow-hidden rounded-[12px] border border-gray-50 bg-white p-4 shadow-[0_2px_12px_rgba(0,0,0,0.06)]">
+              <div className="relative z-10 flex flex-col">
+                <h4 className="mb-1 text-[18px] font-bold text-[#0D55CF]">
+                  Our Stories
+                </h4>
+                <p className="max-w-[90%] text-[13px] leading-[1.3] font-medium text-slate-500">
+                  From ocean to your kitchen, journey of freshness.
+                </p>
+              </div>
+              <div className="absolute right-1 bottom-1 h-12 w-16 opacity-90 mix-blend-multiply">
+                <Image
+                  src="/assets/boat_exact.png"
+                  alt="Our Stories"
+                  fill
+                  className="object-contain object-right-bottom"
+                />
+              </div>
+            </div>
+          </div>
+
+          {/* Mobile Footer */}
+          <div className="relative flex shrink-0 flex-col justify-center gap-2 overflow-hidden rounded-[12px] border border-gray-50 bg-white p-4 shadow-[0_2px_12px_rgba(0,0,0,0.06)]">
+            <div className="relative z-10 flex w-full flex-col items-center gap-2 text-center">
+              <h4 className="mb-1 text-[18px] font-bold text-[#0D55CF]">
+                Contact Us
+              </h4>
+              <div className="flex items-center justify-center gap-2">
+                <MapPin className="h-4 w-4 shrink-0 text-[#0D55CF]" />
+                <span className="text-[14px] leading-tight font-medium text-slate-600">
+                  Unit 5 Hythe Quay, England, CO2 8JB
+                </span>
+              </div>
+              <div className="flex items-center justify-center gap-2">
+                <PhoneCall className="h-4 w-4 shrink-0 text-[#0D55CF]" />
+                <span className="text-[14px] font-bold text-[#0B1F5B]">
+                  +44 1206 123456
+                </span>
+              </div>
+              <div className="flex items-center justify-center gap-2">
+                <Mail className="h-4 w-4 shrink-0 text-[#0D55CF]" />
+                <span className="text-[14px] font-bold text-[#0D55CF]">
+                  hello@fishcart.co.uk
+                </span>
+              </div>
+            </div>
+
+            <div className="absolute top-1/2 right-2 h-14 w-16 -translate-y-1/2 opacity-20 mix-blend-multiply">
+              <Image
+                src="/assets/fishdd.png"
+                alt="Address"
+                fill
+                className="object-contain object-right"
+              />
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
