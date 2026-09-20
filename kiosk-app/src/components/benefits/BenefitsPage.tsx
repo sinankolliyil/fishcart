@@ -332,7 +332,7 @@ export function BenefitsPage() {
           {/* Mobile About / Stories */}
           <div className="flex shrink-0 gap-3 w-full">
             {/* About Us */}
-            <div className="relative flex aspect-square flex-1 flex-col overflow-hidden rounded-[12px] border border-gray-50 bg-white p-4 shadow-[0_2px_12px_rgba(0,0,0,0.06)]">
+            <div className="relative flex aspect-[4/3] flex-1 flex-col overflow-hidden rounded-[12px] border border-gray-50 bg-white p-4 shadow-[0_2px_12px_rgba(0,0,0,0.06)]">
               <div className="relative z-10 flex flex-col">
                 <h4 className="mb-1 text-[18px] font-bold text-[#0D55CF]">
                   About Us
@@ -352,7 +352,7 @@ export function BenefitsPage() {
             </div>
 
             {/* Our Stories */}
-            <div className="relative flex aspect-square flex-1 flex-col overflow-hidden rounded-[12px] border border-gray-50 bg-white p-4 shadow-[0_2px_12px_rgba(0,0,0,0.06)]">
+            <div className="relative flex aspect-[4/3] flex-1 flex-col overflow-hidden rounded-[12px] border border-gray-50 bg-white p-4 shadow-[0_2px_12px_rgba(0,0,0,0.06)]">
               <div className="relative z-10 flex flex-col">
                 <h4 className="mb-1 text-[18px] font-bold text-[#0D55CF]">
                   Our Stories

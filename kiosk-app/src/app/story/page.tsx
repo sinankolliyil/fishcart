@@ -10,13 +10,16 @@ import {
   Heart,
   Award,
   ArrowRight,
+  MapPin,
+  PhoneCall,
+  Mail,
 } from 'lucide-react';
 
 export default function StoryPage() {
   return (
-    <div className="grid h-full min-h-0 w-full grid-rows-[minmax(0,35fr)_minmax(0,27fr)_minmax(0,17fr)_minmax(0,24fr)_minmax(0,12fr)] gap-2 lg:gap-3 xl:gap-[var(--main-gap)]">
+    <div className="grid h-full min-h-0 w-full grid-rows-[minmax(0,35fr)_minmax(0,27fr)_minmax(0,17fr)_minmax(0,24fr)_minmax(0,12fr)] gap-2 lg:gap-3 xl:gap-[var(--main-gap)] portrait:flex portrait:flex-col portrait:h-auto portrait:gap-4 portrait:overflow-visible portrait:pb-4">
       {/* ROW 1 — Story Introduction (28%) */}
-      <div className="grid min-h-0 grid-cols-[40fr_20fr_40fr] gap-2 overflow-hidden lg:gap-3 xl:grid-cols-[38fr_28fr_34fr] xl:gap-[var(--main-gap)]">
+      <div className="grid min-h-0 grid-cols-[40fr_20fr_40fr] gap-2 overflow-hidden lg:gap-3 xl:grid-cols-[38fr_28fr_34fr] xl:gap-[var(--main-gap)] portrait:flex portrait:flex-col portrait:gap-4 portrait:overflow-visible">
         {/* Left Side: Intro */}
         <div className="flex min-h-0 flex-col justify-start px-[clamp(8px,1.2vw,18px)] pt-[clamp(6px,0.8vw,12px)]">
 
@@ -33,7 +36,7 @@ export default function StoryPage() {
         </div>
 
         {/* Center: Hero Image */}
-        <div className="relative min-h-0 overflow-hidden rounded-[8px] bg-slate-100 ">
+        <div className="relative min-h-0 overflow-hidden rounded-[8px] bg-slate-100 portrait:min-h-[200px]">
           <Image
             src="/assets/story_hero.png"
             alt="FishCart Family"
@@ -119,7 +122,7 @@ export default function StoryPage() {
       </div>
 
       {/* ROW 2 — Journey (25%) */}
-      <div className="grid min-h-0 grid-cols-2 gap-[var(--main-gap)] overflow-hidden">
+      <div className="grid min-h-0 grid-cols-2 gap-[var(--main-gap)] overflow-hidden portrait:grid-cols-1 portrait:gap-4 portrait:overflow-visible">
         {/* Left Card */}
         <div className="flex h-full min-h-0 items-center justify-between overflow-hidden rounded-[8px] bg-white p-3  lg:p-4 xl:p-[clamp(12px,1.5vw,24px)]">
           <div className="flex min-h-0 flex-1 flex-col justify-center pr-3 lg:pr-4 xl:pr-[clamp(12px,1.5vw,24px)]">
@@ -199,20 +202,20 @@ export default function StoryPage() {
       </div>
 
       {/* ROW 3 — Promise Strip (12%) */}
-      <div className="flex min-h-0 items-center overflow-hidden rounded-[8px] bg-white ">
-        <div className="flex flex-1 items-center justify-between px-3 py-2 lg:px-4 lg:py-3 xl:px-[clamp(12px,1.5vw,24px)] xl:py-[clamp(6px,1vw,16px)]">
-          <div className="w-[15%] shrink-0">
-            <h2 className="text-[clamp(15px,1.2vw,20px)] leading-tight font-bold text-[#0D55CF]">
+      <div className="flex min-h-0 items-center overflow-hidden rounded-[8px] bg-white portrait:flex-col portrait:items-start portrait:overflow-visible portrait:p-0 portrait:gap-0">
+        <div className="flex flex-1 items-center justify-between px-3 py-2 lg:px-4 lg:py-3 xl:px-[clamp(12px,1.5vw,24px)] xl:py-[clamp(6px,1vw,16px)] portrait:flex-col portrait:items-start portrait:w-full portrait:p-4 portrait:gap-3">
+          <div className="w-[15%] shrink-0 portrait:w-full">
+            <h2 className="text-[clamp(15px,1.2vw,20px)] leading-tight font-bold text-[#0D55CF] portrait:text-[20px]">
               Our Promise
               <br />
               To You
             </h2>
-            <p className="mt-1 line-clamp-2 text-[11px] text-slate-500 lg:text-[12px] xl:text-[clamp(11px,0.6vw,9px)]">
+            <p className="mt-1 line-clamp-2 text-[11px] text-slate-500 lg:text-[12px] xl:text-[clamp(11px,0.6vw,9px)] portrait:text-[13px]">
               We promise to deliver the freshest.
             </p>
           </div>
 
-          <div className="flex min-h-0 flex-1 justify-around gap-1 px-1 lg:gap-2 xl:gap-1">
+          <div className="flex min-h-0 flex-1 justify-around gap-1 px-1 lg:gap-2 xl:gap-1 portrait:grid portrait:grid-cols-2 portrait:gap-3 portrait:w-full">
             {[
               { icon: ShieldCheck, text: 'Never compromise on quality' },
               { icon: ShieldCheck, text: 'Hygienically cleaned & packed' },
@@ -230,13 +233,13 @@ export default function StoryPage() {
                   </span>
                 </div>
                 {i < arr.length - 1 && (
-                  <div className="h-6 lg:h-8 w-[1px] shrink-0 bg-slate-300" />
+                  <div className="h-6 lg:h-8 w-[1px] shrink-0 bg-slate-300 portrait:hidden" />
                 )}
               </React.Fragment>
             ))}
           </div>
         </div>
-        <div className="relative h-full w-[10%] shrink-0 lg:w-[13%] xl:w-[17%]">
+        <div className="relative h-full w-[10%] shrink-0 lg:w-[13%] xl:w-[17%] portrait:w-full portrait:h-[120px] portrait:relative">
           <Image
             src="/assets/story_seafood.png"
             alt="Premium Seafood"
@@ -252,7 +255,7 @@ export default function StoryPage() {
           From Ocean To Our Shop – Here&apos;s How It Happens
         </h2>
 
-        <div className="flex min-h-0 flex-1 justify-between gap-[clamp(2px,0.4vw,6px)]">
+        <div className="flex min-h-0 flex-1 justify-between gap-[clamp(2px,0.4vw,6px)] portrait:grid portrait:grid-cols-2 portrait:gap-3">
           {[
             {
               img: 'prod_1_salmon.jpg',
@@ -305,7 +308,7 @@ export default function StoryPage() {
                 </h4>
               </div>
               {i < arr.length - 1 && (
-                <div className="flex shrink-0 flex-col justify-start pt-[clamp(6px,1vw,16px)]">
+                <div className="flex shrink-0 flex-col justify-start pt-[clamp(6px,1vw,16px)] portrait:hidden">
                   <ArrowRight className="h-[clamp(10px,1vw,14px)] w-[clamp(10px,1vw,14px)] text-blue-500" />
                 </div>
               )}
@@ -315,7 +318,7 @@ export default function StoryPage() {
       </div>
 
       {/* ROW 5 — Thank You Footer (10%) */}
-      <div className="grid min-h-0 grid-cols-2 gap-[var(--main-gap)] overflow-hidden">
+      <div className="grid min-h-0 grid-cols-2 gap-[var(--main-gap)] overflow-hidden portrait:hidden">
         {/* Left Footer Card */}
         <div className="flex h-full min-h-0 items-center justify-between overflow-hidden rounded-[8px] bg-white p-2  lg:p-3 xl:p-[clamp(8px,1vw,16px)]">
           <div className="flex min-h-0 flex-1 items-center gap-[clamp(8px,1vw,16px)] pr-2">
@@ -359,6 +362,50 @@ export default function StoryPage() {
               fill
               className="object-contain object-center scale-[1.9]"
             />
+          </div>
+        </div>
+      </div>
+
+      {/* Portrait-only Mobile Footer */}
+      <div className="hidden portrait:flex portrait:flex-col portrait:gap-3 portrait:px-2 portrait:pb-4">
+        <div className="flex shrink-0 gap-3 w-full">
+          <div className="relative flex aspect-[4/3] flex-1 flex-col overflow-hidden rounded-[12px] border border-gray-50 bg-white p-4 shadow-[0_2px_12px_rgba(0,0,0,0.06)]">
+            <div className="relative z-10 flex flex-col">
+              <h4 className="mb-1 text-[18px] font-bold text-[#0D55CF]">About Us</h4>
+              <p className="text-[13px] leading-[1.3] font-medium text-slate-500">Delivering fresh & healthy food to your family.</p>
+            </div>
+            <div className="absolute right-1 bottom-1 h-14 w-14 opacity-90 mix-blend-multiply">
+              <Image src="/assets/about_us_fish_exact.png" alt="About Us" fill className="object-contain object-right-bottom" />
+            </div>
+          </div>
+          <div className="relative flex aspect-[4/3] flex-1 flex-col overflow-hidden rounded-[12px] border border-gray-50 bg-white p-4 shadow-[0_2px_12px_rgba(0,0,0,0.06)]">
+            <div className="relative z-10 flex flex-col">
+              <h4 className="mb-1 text-[18px] font-bold text-[#0D55CF]">Our Stories</h4>
+              <p className="max-w-[90%] text-[13px] leading-[1.3] font-medium text-slate-500">From ocean to your kitchen, journey of freshness.</p>
+            </div>
+            <div className="absolute right-1 bottom-1 h-12 w-16 opacity-90 mix-blend-multiply">
+              <Image src="/assets/boat_exact.png" alt="Our Stories" fill className="object-contain object-right-bottom" />
+            </div>
+          </div>
+        </div>
+        <div className="relative flex shrink-0 flex-col justify-center gap-2 overflow-hidden rounded-[12px] border border-gray-50 bg-white p-4 shadow-[0_2px_12px_rgba(0,0,0,0.06)]">
+          <div className="relative z-10 flex w-full flex-col items-center gap-2 text-center">
+            <h4 className="mb-1 text-[18px] font-bold text-[#0D55CF]">Contact Us</h4>
+            <div className="flex items-center justify-center gap-2">
+              <MapPin className="h-4 w-4 shrink-0 text-[#0D55CF]" />
+              <span className="text-[14px] leading-tight font-medium text-slate-600">Unit 5 Hythe Quay, England, CO2 8JB</span>
+            </div>
+            <div className="flex items-center justify-center gap-2">
+              <PhoneCall className="h-4 w-4 shrink-0 text-[#0D55CF]" />
+              <span className="text-[14px] font-bold text-[#0B1F5B]">+44 1206 123456</span>
+            </div>
+            <div className="flex items-center justify-center gap-2">
+              <Mail className="h-4 w-4 shrink-0 text-[#0D55CF]" />
+              <span className="text-[14px] font-bold text-[#0D55CF]">hello@fishcart.co.uk</span>
+            </div>
+          </div>
+          <div className="absolute top-1/2 right-2 h-14 w-16 -translate-y-1/2 opacity-20 mix-blend-multiply">
+            <Image src="/assets/fishdd.png" alt="Address" fill className="object-contain object-right" />
           </div>
         </div>
       </div>
