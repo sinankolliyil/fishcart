@@ -57,13 +57,13 @@ export function Sidebar() {
   return (
     <aside className="z-50 flex h-full w-[var(--container-sidebar)] flex-shrink-0 flex-col overflow-hidden border-r border-gray-100 bg-[#F4F7FB] portrait:h-auto portrait:w-full portrait:border-b portrait:border-r-0 portrait:shadow-sm portrait:relative portrait:overflow-visible">
       {/* ── Logo ─────────────────────────────────────────────────────── */}
-      <div className="relative p-[var(--sidebar-logo-padding)] portrait:px-4 portrait:py-2 portrait:flex portrait:items-center portrait:justify-center">
+      <div className="relative p-[var(--sidebar-logo-padding)] portrait:px-4 portrait:py-1.5 portrait:flex portrait:items-center portrait:justify-center">
         {/* Hamburger (Portrait only) */}
         <button
-          className="hidden portrait:block absolute left-[calc(var(--sidebar-logo-padding)+16px)] top-1/2 -translate-y-1/2"
+          className="hidden portrait:block absolute left-[var(--sidebar-logo-padding)] portrait:left-3 top-1/2 -translate-y-1/2"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
         >
-          {isMobileMenuOpen ? <X className="h-[30px] w-[30px] text-[#0D55CF]" /> : <Menu className="h-[30px] w-[30px] text-[#0D55CF]" />}
+          {isMobileMenuOpen ? <X className="h-[24px] w-[24px] text-[#0D55CF]" /> : <Menu className="h-[24px] w-[24px] text-[#0D55CF]" />}
         </button>
         <Link
           href="/"
@@ -73,7 +73,7 @@ export function Sidebar() {
             <svg
               width="40"
               height="40"
-              className="h-[clamp(28px,min(2.5vw,3.8svh),46px)] w-[clamp(28px,min(2.5vw,3.8svh),46px)] portrait:h-[44px] portrait:w-[44px]"
+              className="h-[clamp(28px,min(2.5vw,3.8svh),46px)] w-[clamp(28px,min(2.5vw,3.8svh),46px)] portrait:h-[32px] portrait:w-[32px]"
               viewBox="0 0 42 42"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
@@ -96,10 +96,10 @@ export function Sidebar() {
             </svg>
           </div>
           <div className="mt-0.5">
-            <h1 className="text-primary text-[clamp(14px,min(1.2vw,1.75svh),22px)] portrait:text-[28px] leading-none font-bold tracking-wide">
+            <h1 className="text-primary text-[clamp(14px,min(1.2vw,1.75svh),22px)] portrait:text-[22px] leading-none font-bold tracking-wide">
               FISHCART
             </h1>
-            <p className="text-primary/70 mt-0.5 text-[clamp(9px,min(0.65vw,0.95svh),12px)] portrait:text-[14px] font-semibold tracking-wide">
+            <p className="text-primary/70 mt-0.5 text-[clamp(9px,min(0.65vw,0.95svh),12px)] portrait:text-[11px] font-semibold tracking-wide">
               Daily Fresh Partner
             </p>
           </div>

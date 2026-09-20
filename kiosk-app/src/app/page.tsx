@@ -350,16 +350,14 @@ export default function HomePage() {
       </div>
 
       {/* ── PORTRAIT VIEW ── */}
-      <div className="hidden portrait:flex portrait:h-auto portrait:w-full portrait:flex-col portrait:gap-6 portrait:bg-white portrait:pb-20">
+      <div className="hidden portrait:flex portrait:h-auto portrait:w-full portrait:flex-col portrait:gap-2 portrait:bg-white">
         {/* Mobile Hero */}
-        <div
-          className="relative mx-2 mt-0 h-[28vh] min-h-[220px] max-h-[320px] w-[calc(100%-16px)] shrink-0 overflow-hidden rounded-[12px] bg-slate-900"
-        >
+        <div className="relative mx-2 mt-0 h-[28vh] max-h-[320px] min-h-[220px] w-[calc(100%-16px)] shrink-0 overflow-hidden rounded-[12px] bg-slate-900">
           <HeroBannerCarousel />
         </div>
 
         {/* Mobile Categories Row - Exact Reference Style */}
-        <div className="scrollbar-hide mt-3 mb-5 w-full overflow-x-auto px-2">
+        <div className="scrollbar-hide w-full overflow-x-auto px-2">
           <div className="flex w-full justify-between gap-2 sm:gap-3">
             {[
               {
@@ -402,7 +400,7 @@ export default function HomePage() {
               <Link
                 key={idx}
                 href={cat.href}
-                className="relative h-[20vh] min-h-[140px] max-h-[180px] min-w-[70px] flex-1 overflow-hidden transition-transform active:scale-[0.97]"
+                className="relative h-[16vh] max-h-[140px] min-h-[110px] min-w-[70px] flex-1 overflow-hidden transition-transform active:scale-[0.97]"
                 style={{
                   backgroundColor: cat.bg,
                   borderRadius: '50% 50% 16px 16px',
@@ -428,14 +426,14 @@ export default function HomePage() {
 
                 {/* Bottom title & arrow */}
                 <div className="absolute bottom-[8%] left-0 flex w-full flex-col items-center gap-0.5">
-                  <span className="text-[11px] sm:text-[13px] font-bold text-[#1E293B]">
+                  <span className="text-[11px] font-bold text-[#1E293B] sm:text-[13px]">
                     {cat.title}
                   </span>
                   <div
-                    className="flex h-4 w-4 sm:h-5 sm:w-5 items-center justify-center rounded-full"
+                    className="flex h-4 w-4 items-center justify-center rounded-full sm:h-5 sm:w-5"
                     style={{ backgroundColor: cat.arrow }}
                   >
-                    <ArrowRight className="h-2.5 w-2.5 sm:h-3 sm:w-3 stroke-[3] text-white" />
+                    <ArrowRight className="h-2.5 w-2.5 stroke-[3] text-white sm:h-3 sm:w-3" />
                   </div>
                 </div>
               </Link>
@@ -444,36 +442,53 @@ export default function HomePage() {
         </div>
 
         {/* Mobile Benefits & Nutrition */}
-        <div className="relative mx-2 mb-2 flex h-[20vh] min-h-[160px] max-h-[220px] shrink-0 overflow-hidden rounded-[16px] sm:rounded-[24px] border border-white/50 bg-[#F2F8FF] p-3 sm:p-5 shadow-sm">
+        <div className="relative mx-2 flex h-[20vh] max-h-[220px] min-h-[160px] shrink-0 overflow-hidden rounded-[16px] border border-white/50 bg-[#F2F8FF] p-3 shadow-sm sm:rounded-[24px] sm:p-5">
           {/* Background circle behind the salmon plate */}
           <div className="pointer-events-none absolute top-[-10%] right-[-5%] aspect-square h-[120%] rounded-full bg-[#E4F0FF]" />
 
           {/* Left Text/Icons */}
-          <div className="relative z-10 flex h-full w-[45%] flex-col justify-center gap-2 sm:gap-4">
-            <h3 className="text-[14px] sm:text-[18px] leading-tight font-extrabold text-[#0B1F5B]">
-              Premium Quality
-              <br />
-              <span className="text-[#0D6EFD]">Nutrition</span>
-            </h3>
-            <div className="flex h-[40px] sm:h-[60px] items-center gap-2 sm:gap-3 rounded-xl bg-white/60 px-2 sm:px-3 backdrop-blur-md">
+          <div className="relative z-10 flex h-full w-[55%] flex-col justify-center gap-4 pb-3 sm:gap-4">
+            <div className="flex flex-col">
+              <h3 className="text-[clamp(15px,min(1.25vw,2svh),22px)] font-bold tracking-tight whitespace-nowrap text-[#0D55CF]">
+                Benefits & Nutrition
+              </h3>
+              <p className="mt-0.5 pr-2 text-[10px] leading-[1.25] font-medium text-slate-600 sm:text-[12px]">
+                Rich in protein and vitamins for a healthier you.
+              </p>
+            </div>
+
+            <div className="flex h-[40px] w-fit items-center gap-2 rounded-xl bg-white/60 px-2 backdrop-blur-md sm:h-[60px] sm:gap-3 sm:px-3">
               <div className="flex flex-col items-center">
-                <Dna className="h-4 w-4 sm:h-5 sm:w-5 stroke-[2] text-[#0D6EFD]" />
-                <span className="text-center text-[9px] sm:text-[11px] leading-tight font-bold text-[#1E293B]">
-                  High Protein
+                <Dumbbell className="h-4 w-4 stroke-[2] text-[#0D6EFD] sm:h-5 sm:w-5" />
+                <span className="text-center text-[9px] leading-tight font-bold text-[#1E293B] sm:text-[11px]">
+                  High in
+                  <br />
+                  Protein
                 </span>
               </div>
-              <div className="h-6 sm:h-10 w-[1px] bg-blue-200/70" />
+              <div className="h-6 w-[1px] bg-blue-200/70 sm:h-10" />
               <div className="flex flex-col items-center">
-                <Sparkles className="h-4 w-4 sm:h-5 sm:w-5 stroke-[2] text-[#0D6EFD]" />
-                <span className="text-center text-[9px] sm:text-[11px] leading-tight font-bold text-[#1E293B]">
-                  Rich Vitamins
+                <Sparkles className="h-4 w-4 stroke-[2] text-[#0D6EFD] sm:h-5 sm:w-5" />
+                <span className="text-center text-[9px] leading-tight font-bold text-[#1E293B] sm:text-[11px]">
+                  Rich in
+                  <br />
+                  Vitamins
+                </span>
+              </div>
+              <div className="h-6 w-[1px] bg-blue-200/70 sm:h-10" />
+              <div className="flex flex-col items-center">
+                <HeartPulse className="h-4 w-4 stroke-[2] text-[#0D6EFD] sm:h-5 sm:w-5" />
+                <span className="text-center text-[9px] leading-tight font-bold text-[#1E293B] sm:text-[11px]">
+                  Good for
+                  <br />
+                  Heart
                 </span>
               </div>
             </div>
           </div>
 
           {/* Right Image */}
-          <div className="pointer-events-none absolute top-[-10%] right-[0%] bottom-[-10%] z-0 w-[70%]">
+          <div className="pointer-events-none absolute top-[5%] right-[2%] bottom-[5%] z-0 w-[55%]">
             <Image
               src="/assets/nametoadd.png"
               alt="Salmon plate"
@@ -485,25 +500,27 @@ export default function HomePage() {
 
         {/* Mobile Recipe Section */}
         <div className="mx-2 flex shrink-0 flex-col rounded-[20px] bg-[#E1EDFA] p-4">
-          <div className="mb-4 flex items-start justify-between">
-            <div>
-              <h3 className="mb-1 text-[24px] leading-tight font-bold text-[#0B1F5B]">
-                How to Make Delicious
-              </h3>
-              <p className="text-[18px] font-medium text-slate-600">
-                Step by step cooking videos for every taste
-              </p>
-            </div>
+          <div className="mb-3 flex flex-col">
+            <h3 className="mb-0.5 text-[18px] leading-tight font-bold text-[#0B1F5B]">
+              How to Make Delicious
+            </h3>
+            <p className="text-[14px] font-medium text-slate-600">
+              Step by step cooking videos for every taste
+            </p>
+          </div>
+
+          <div className="flex h-[18vh] max-h-[200px] min-h-[160px] w-full flex-col overflow-hidden rounded-xl">
+            <RecipeCarousel />
+          </div>
+
+          <div className="mt-3 flex w-full justify-center">
             <Link
               href="/cook"
-              className="mt-1 flex shrink-0 items-center gap-1.5 rounded-full bg-white px-3.5 py-2 text-[14px] font-bold whitespace-nowrap text-[#0D55CF] shadow-[0_2px_8px_rgba(0,0,0,0.04)] transition-transform active:scale-95"
+              className="flex items-center gap-1.5 rounded-full bg-white px-4 py-2 text-[13px] font-bold whitespace-nowrap text-[#0D55CF] shadow-sm transition-transform active:scale-95"
             >
-              View All Recipes{' '}
+              View All Recipes
               <ArrowRight className="h-3.5 w-3.5 stroke-[2.5]" />
             </Link>
-          </div>
-          <div className="flex h-[20dvh] min-h-[250px] w-full flex-col overflow-hidden rounded-xl">
-            <RecipeCarousel />
           </div>
         </div>
 
@@ -542,7 +559,7 @@ export default function HomePage() {
             <Link
               key={idx}
               href={item.href}
-              className="group relative flex aspect-[2/1] flex-col overflow-hidden rounded-[12px] border border-gray-100 bg-[#F4F7FB] shadow-sm transition-transform active:scale-95"
+              className="group relative flex aspect-square flex-col overflow-hidden rounded-[12px] border border-gray-100 bg-[#F4F7FB] shadow-sm transition-transform active:scale-95"
             >
               <div className="absolute inset-0 z-0">
                 <Image
@@ -552,7 +569,7 @@ export default function HomePage() {
                   className="object-cover"
                 />
               </div>
-              <div className="absolute bottom-1.5 left-1.5 z-10 inline-flex w-max items-center gap-2 rounded-[24px] bg-white/95 py-1.5 pl-3 pr-1.5 shadow-md backdrop-blur-sm">
+              <div className="absolute bottom-2 left-10 z-10 inline-flex w-max items-center gap-2 rounded-[24px] bg-white/95 py-1.5 pr-1.5 pl-3 shadow-md backdrop-blur-sm">
                 <div className="flex flex-col">
                   <h4 className="text-[13px] leading-[1.1] font-bold text-[#0B1F5B]">
                     {item.title}
@@ -582,10 +599,10 @@ export default function HomePage() {
               <CheckCircle2 className="h-4 w-4 stroke-[2.5]" />
             </div>
             <div className="z-10 ml-3 flex flex-col">
-              <h4 className="text-[20px] font-bold text-[#0B1F5B]">
+              <h4 className="text-[16px] font-bold text-[#0B1F5B]">
                 Daily Selection
               </h4>
-              <p className="mt-0.5 max-w-[90%] text-[16px] leading-tight font-medium text-slate-600">
+              <p className="mt-0.5 max-w-[90%] text-[13px] leading-tight font-medium text-slate-600">
                 Handpicked daily from trusted suppliers for the best quality.
               </p>
             </div>
@@ -600,10 +617,10 @@ export default function HomePage() {
               <Droplet className="h-4 w-4 stroke-[2.5]" />
             </div>
             <div className="z-10 ml-3 flex flex-col">
-              <h4 className="text-[20px] font-bold text-[#0B1F5B]">
+              <h4 className="text-[16px] font-bold text-[#0B1F5B]">
                 Hygienic & Safe
               </h4>
-              <p className="mt-0.5 max-w-[90%] text-[16px] leading-tight font-medium text-teal-900">
+              <p className="mt-0.5 max-w-[90%] text-[13px] leading-tight font-medium text-teal-900">
                 Cleaned, packed and delivered with highest hygiene standards.
               </p>
             </div>
@@ -618,10 +635,10 @@ export default function HomePage() {
               <Leaf className="h-4 w-4 stroke-[2.5]" />
             </div>
             <div className="z-10 ml-3 flex flex-col">
-              <h4 className="text-[20px] font-bold text-[#0B1F5B]">
+              <h4 className="text-[16px] font-bold text-[#0B1F5B]">
                 Sourced Responsibly
               </h4>
-              <p className="mt-0.5 max-w-[90%] text-[16px] leading-tight font-medium text-green-900">
+              <p className="mt-0.5 max-w-[90%] text-[13px] leading-tight font-medium text-green-900">
                 We care for the ocean and the environment for a better future.
               </p>
             </div>
@@ -636,10 +653,10 @@ export default function HomePage() {
               <ShieldCheck className="h-4 w-4 stroke-[2.5]" />
             </div>
             <div className="z-10 ml-3 flex flex-col">
-              <h4 className="text-[20px] font-bold text-white">
+              <h4 className="text-[16px] font-bold text-white">
                 Freshness You Can Trust
               </h4>
-              <p className="mt-0.5 max-w-[90%] text-[16px] leading-tight font-medium text-white/90">
+              <p className="mt-0.5 max-w-[90%] text-[13px] leading-tight font-medium text-white/90">
                 We ensure premium quality and freshness in every product we
                 deliver.
               </p>
@@ -647,15 +664,15 @@ export default function HomePage() {
           </div>
         </div>
 
-        {/* Mobile About / Stories / Contact */}
-        <div className="scrollbar-hide flex shrink-0 snap-x gap-3 overflow-x-auto px-2 pb-1">
+        {/* Mobile About / Stories */}
+        <div className="flex shrink-0 gap-3 px-2 pb-1 w-full">
           {/* About Us */}
-          <div className="relative flex aspect-square w-[180px] shrink-0 snap-start flex-col overflow-hidden rounded-[12px] border border-gray-50 bg-white p-4 shadow-[0_2px_12px_rgba(0,0,0,0.06)]">
+          <div className="relative flex aspect-square flex-1 flex-col overflow-hidden rounded-[12px] border border-gray-50 bg-white p-4 shadow-[0_2px_12px_rgba(0,0,0,0.06)]">
             <div className="relative z-10 flex flex-col">
-              <h4 className="mb-1 text-[24px] font-bold text-[#0D55CF]">
+              <h4 className="mb-1 text-[18px] font-bold text-[#0D55CF]">
                 About Us
               </h4>
-              <p className="text-[16px] leading-[1.3] font-medium text-slate-500">
+              <p className="text-[13px] leading-[1.3] font-medium text-slate-500">
                 Delivering fresh & healthy food to your family.
               </p>
             </div>
@@ -670,12 +687,12 @@ export default function HomePage() {
           </div>
 
           {/* Our Stories */}
-          <div className="relative flex aspect-square w-[180px] shrink-0 snap-start flex-col overflow-hidden rounded-[12px] border border-gray-50 bg-white p-4 shadow-[0_2px_12px_rgba(0,0,0,0.06)]">
+          <div className="relative flex aspect-square flex-1 flex-col overflow-hidden rounded-[12px] border border-gray-50 bg-white p-4 shadow-[0_2px_12px_rgba(0,0,0,0.06)]">
             <div className="relative z-10 flex flex-col">
-              <h4 className="mb-1 text-[24px] font-bold text-[#0D55CF]">
+              <h4 className="mb-1 text-[18px] font-bold text-[#0D55CF]">
                 Our Stories
               </h4>
-              <p className="max-w-[90%] text-[16px] leading-[1.3] font-medium text-slate-500">
+              <p className="max-w-[90%] text-[13px] leading-[1.3] font-medium text-slate-500">
                 From ocean to your kitchen, journey of freshness.
               </p>
             </div>
@@ -688,52 +705,35 @@ export default function HomePage() {
               />
             </div>
           </div>
-
-          {/* Contact Us */}
-          <div className="relative flex aspect-square w-[180px] shrink-0 snap-start flex-col overflow-hidden rounded-[12px] border border-gray-50 bg-white p-4 shadow-[0_2px_12px_rgba(0,0,0,0.06)]">
-            <div className="relative z-10 flex flex-col">
-              <h4 className="mb-1 text-[24px] font-bold text-[#0D55CF]">
-                Contact Us
-              </h4>
-              <p className="max-w-[95%] text-[16px] leading-[1.3] font-medium text-slate-500">
-                We are here to help you. Reach out anytime.
-              </p>
-            </div>
-            <div className="absolute right-0 bottom-0 h-16 w-14 opacity-90 mix-blend-multiply">
-              <Image
-                src="/assets/boy.png"
-                alt="Contact Us"
-                fill
-                className="object-contain object-right-bottom"
-              />
-            </div>
-          </div>
         </div>
 
         {/* Mobile Footer */}
         <div className="relative mx-2 flex shrink-0 flex-col justify-center gap-2 overflow-hidden rounded-[12px] border border-gray-50 bg-white p-4 shadow-[0_2px_12px_rgba(0,0,0,0.06)]">
-          <div className="relative z-10 flex max-w-[75%] flex-col gap-2">
-            <div className="flex items-center gap-3">
-              <MapPin className="h-5 w-5 shrink-0 text-[#0D55CF]" />
-              <span className="truncate text-[16px] leading-tight font-medium text-slate-600">
+          <div className="relative z-10 flex w-full flex-col items-center gap-2 text-center">
+            <h4 className="mb-1 text-[18px] font-bold text-[#0D55CF]">
+              Contact Us
+            </h4>
+            <div className="flex items-center justify-center gap-2">
+              <MapPin className="h-4 w-4 shrink-0 text-[#0D55CF]" />
+              <span className="text-[14px] leading-tight font-medium text-slate-600">
                 Unit 5 Hythe Quay, England, CO2 8JB
               </span>
             </div>
-            <div className="flex items-center gap-3">
-              <PhoneCall className="h-5 w-5 shrink-0 text-[#0D55CF]" />
-              <span className="text-[16px] font-bold text-[#0B1F5B]">
+            <div className="flex items-center justify-center gap-2">
+              <PhoneCall className="h-4 w-4 shrink-0 text-[#0D55CF]" />
+              <span className="text-[14px] font-bold text-[#0B1F5B]">
                 +44 1206 123456
               </span>
             </div>
-            <div className="flex items-center gap-3">
-              <Mail className="h-5 w-5 shrink-0 text-[#0D55CF]" />
-              <span className="text-[16px] font-bold text-[#0D55CF]">
+            <div className="flex items-center justify-center gap-2">
+              <Mail className="h-4 w-4 shrink-0 text-[#0D55CF]" />
+              <span className="text-[14px] font-bold text-[#0D55CF]">
                 hello@fishcart.co.uk
               </span>
             </div>
           </div>
 
-          <div className="absolute top-1/2 right-2 h-14 w-16 -translate-y-1/2 opacity-90 mix-blend-multiply">
+          <div className="absolute top-1/2 right-2 h-14 w-16 -translate-y-1/2 opacity-20 mix-blend-multiply">
             <Image
               src="/assets/fishdd.png"
               alt="Address"

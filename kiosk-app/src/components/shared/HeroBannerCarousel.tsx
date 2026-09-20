@@ -159,9 +159,9 @@ export function HeroBannerCarousel() {
         <div className="animate-marquee-custom flex items-center py-1 whitespace-nowrap">
           {/* List of Offers */}
           <div className="flex items-center space-x-12 px-6">
-            <span className="flex items-center gap-2 text-[10px] portrait:text-[15px] font-bold tracking-wider portrait:tracking-normal text-white uppercase">
+            <span className="flex items-center gap-1.5 text-[10px] portrait:text-[12px] font-bold tracking-wider portrait:tracking-normal text-white uppercase">
               <svg
-                className="h-3.5 w-3.5 portrait:h-5 portrait:w-5 text-blue-400"
+                className="h-3.5 w-3.5 portrait:h-4 portrait:w-4 text-blue-400"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -180,9 +180,9 @@ export function HeroBannerCarousel() {
               </svg>
               20% OFF on Fresh Fish
             </span>
-            <span className="flex items-center gap-2 text-[10px] portrait:text-[15px] font-bold tracking-wider portrait:tracking-normal text-white uppercase">
+            <span className="flex items-center gap-1.5 text-[10px] portrait:text-[12px] font-bold tracking-wider portrait:tracking-normal text-white uppercase">
               <svg
-                className="h-3.5 w-3.5 portrait:h-5 portrait:w-5 text-emerald-400"
+                className="h-3.5 w-3.5 portrait:h-4 portrait:w-4 text-emerald-400"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -196,9 +196,9 @@ export function HeroBannerCarousel() {
               </svg>
               Buy 2 Get 1 Free
             </span>
-            <span className="flex items-center gap-2 text-[10px] portrait:text-[15px] font-bold tracking-wider portrait:tracking-normal text-white uppercase">
+            <span className="flex items-center gap-1.5 text-[10px] portrait:text-[12px] font-bold tracking-wider portrait:tracking-normal text-white uppercase">
               <svg
-                className="h-3.5 w-3.5 portrait:h-5 portrait:w-5 text-orange-400"
+                className="h-3.5 w-3.5 portrait:h-4 portrait:w-4 text-orange-400"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -217,9 +217,9 @@ export function HeroBannerCarousel() {
               </svg>
               Weekend Chicken Deals
             </span>
-            <span className="flex items-center gap-2 text-[10px] portrait:text-[15px] font-bold tracking-wider portrait:tracking-normal text-white uppercase">
+            <span className="flex items-center gap-1.5 text-[10px] portrait:text-[12px] font-bold tracking-wider portrait:tracking-normal text-white uppercase">
               <svg
-                className="h-3.5 w-3.5 portrait:h-5 portrait:w-5 text-cyan-400"
+                className="h-3.5 w-3.5 portrait:h-4 portrait:w-4 text-cyan-400"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -236,9 +236,9 @@ export function HeroBannerCarousel() {
           </div>
           {/* Duplicate list for seamless looping */}
           <div className="flex items-center space-x-12 px-6">
-            <span className="flex items-center gap-2 text-[10px] portrait:text-[15px] font-bold tracking-wider portrait:tracking-normal text-white uppercase">
+            <span className="flex items-center gap-1.5 text-[10px] portrait:text-[12px] font-bold tracking-wider portrait:tracking-normal text-white uppercase">
               <svg
-                className="h-3.5 w-3.5 portrait:h-5 portrait:w-5 text-blue-400"
+                className="h-3.5 w-3.5 portrait:h-4 portrait:w-4 text-blue-400"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -257,9 +257,9 @@ export function HeroBannerCarousel() {
               </svg>
               20% OFF on Fresh Fish
             </span>
-            <span className="flex items-center gap-2 text-[10px] portrait:text-[15px] font-bold tracking-wider portrait:tracking-normal text-white uppercase">
+            <span className="flex items-center gap-1.5 text-[10px] portrait:text-[12px] font-bold tracking-wider portrait:tracking-normal text-white uppercase">
               <svg
-                className="h-3.5 w-3.5 portrait:h-5 portrait:w-5 text-emerald-400"
+                className="h-3.5 w-3.5 portrait:h-4 portrait:w-4 text-emerald-400"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -273,9 +273,9 @@ export function HeroBannerCarousel() {
               </svg>
               Buy 2 Get 1 Free
             </span>
-            <span className="flex items-center gap-2 text-[10px] portrait:text-[15px] font-bold tracking-wider portrait:tracking-normal text-white uppercase">
+            <span className="flex items-center gap-1.5 text-[10px] portrait:text-[12px] font-bold tracking-wider portrait:tracking-normal text-white uppercase">
               <svg
-                className="h-3.5 w-3.5 portrait:h-5 portrait:w-5 text-orange-400"
+                className="h-3.5 w-3.5 portrait:h-4 portrait:w-4 text-orange-400"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -294,9 +294,9 @@ export function HeroBannerCarousel() {
               </svg>
               Weekend Chicken Deals
             </span>
-            <span className="flex items-center gap-2 text-[10px] portrait:text-[15px] font-bold tracking-wider portrait:tracking-normal text-white uppercase">
+            <span className="flex items-center gap-1.5 text-[10px] portrait:text-[12px] font-bold tracking-wider portrait:tracking-normal text-white uppercase">
               <svg
-                className="h-3.5 w-3.5 portrait:h-5 portrait:w-5 text-cyan-400"
+                className="h-3.5 w-3.5 portrait:h-4 portrait:w-4 text-cyan-400"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -336,22 +336,21 @@ export function HeroBannerCarousel() {
                 src={slide.image}
                 alt={slide.title}
                 fill
-                className="pointer-events-none object-cover object-center opacity-85 select-none"
+                className="pointer-events-none object-cover object-center opacity-65 select-none"
                 priority={idx === 1}
               />
             </div>
-            {/* Dark left-side gradient overlay for maximum text readability */}
-            {/* <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-2/3 bg-gradient-to-r from-black/90 via-black/50 to-transparent" />*/}
+            {/* Localized text shade applied directly to text container below */}
             {/* Text Overlay */}
 
             <div className="pointer-events-none absolute inset-0 z-20">
-              <div className="flex h-full items-start pt-[calc(var(--hero-ribbon-h)+clamp(16px,2vw,32px))] portrait:pt-[calc(var(--hero-ribbon-h)+80px)]">
+              <div className="flex h-full items-start pt-[calc(var(--hero-ribbon-h)+clamp(16px,2vw,32px))] portrait:pt-[calc(var(--hero-ribbon-h)+40px)]">
                 <div className="ml-[8%] max-w-[85%] sm:max-w-[520px] text-white">
-                  <h2 className="text-[clamp(36px,9vw,48px)] portrait:text-[52px] leading-[1.05] font-bold tracking-tight !text-white drop-shadow-md">
+                  <h2 className="text-[clamp(36px,9vw,48px)] portrait:text-[28px] leading-[1.05] font-bold tracking-tight !text-white drop-shadow-md">
                     {slide.title}
                   </h2>
 
-                  <p className="mt-4 text-[clamp(16px,5vw,20px)] portrait:text-[24px] leading-[1.4] font-medium text-slate-100 drop-shadow-sm">
+                  <p className="mt-2 text-[clamp(16px,5vw,20px)] portrait:text-[13px] leading-[1.4] font-medium text-slate-100 drop-shadow-sm">
                     {slide.description}
                   </p>
                 </div>
@@ -364,7 +363,7 @@ export function HeroBannerCarousel() {
       {/* ── Navigation Arrows ── */}
       <button
         onClick={handlePrev}
-        className="absolute top-1/2 left-4 z-30 flex h-[clamp(28px,min(2.5vw,4svh),44px)] w-[clamp(28px,min(2.5vw,4svh),44px)] -translate-y-1/2 cursor-pointer items-center justify-center rounded-full border border-white/10 bg-black/35 text-white opacity-75 backdrop-blur-sm transition-all duration-200 hover:bg-black/55 hover:opacity-100 focus:outline-none active:scale-95"
+        className="absolute top-1/2 left-4 z-30 portrait:hidden flex h-[clamp(28px,min(2.5vw,4svh),44px)] w-[clamp(28px,min(2.5vw,4svh),44px)] -translate-y-1/2 cursor-pointer items-center justify-center rounded-full border border-white/10 bg-black/35 text-white opacity-75 backdrop-blur-sm transition-all duration-200 hover:bg-black/55 hover:opacity-100 focus:outline-none active:scale-95"
         aria-label="Previous slide"
       >
         <svg
@@ -383,7 +382,7 @@ export function HeroBannerCarousel() {
       </button>
       <button
         onClick={handleNext}
-        className="absolute top-1/2 right-4 z-30 flex h-[clamp(28px,min(2.5vw,4svh),44px)] w-[clamp(28px,min(2.5vw,4svh),44px)] -translate-y-1/2 cursor-pointer items-center justify-center rounded-full border border-white/10 bg-black/35 text-white opacity-75 backdrop-blur-sm transition-all duration-200 hover:bg-black/55 hover:opacity-100 focus:outline-none active:scale-95"
+        className="absolute top-1/2 right-4 z-30 portrait:hidden flex h-[clamp(28px,min(2.5vw,4svh),44px)] w-[clamp(28px,min(2.5vw,4svh),44px)] -translate-y-1/2 cursor-pointer items-center justify-center rounded-full border border-white/10 bg-black/35 text-white opacity-75 backdrop-blur-sm transition-all duration-200 hover:bg-black/55 hover:opacity-100 focus:outline-none active:scale-95"
         aria-label="Next slide"
       >
         <svg
