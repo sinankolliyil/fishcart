@@ -1,7 +1,12 @@
+'use client';
+
+import { useState } from 'react';
 import { Sidebar } from './Sidebar';
 import { MobileBottomNav } from './MobileBottomNav';
 
 export function AppShell({ children }: { children: React.ReactNode }) {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
   return (
     /*
      * This div IS the viewport. It owns h-dvh and overflow-hidden directly —
@@ -9,7 +14,10 @@ export function AppShell({ children }: { children: React.ReactNode }) {
      * flex-row → Sidebar (fixed width) + content column (flex-1)
      */
     <div className="text-text-body flex h-full w-full overflow-hidden bg-[#F4F7FB] font-sans portrait:flex-col">
-      <Sidebar />
+      <Sidebar
+        isMobileMenuOpen={isMobileMenuOpen}
+        setIsMobileMenuOpen={setIsMobileMenuOpen}
+      />
 
       {/* Content column */}
       <div className="flex min-w-0 flex-1 flex-col overflow-hidden portrait:w-full">
@@ -24,8 +32,8 @@ export function AppShell({ children }: { children: React.ReactNode }) {
         </main>
       </div>
 
-      {/* Mobile Bottom Navigation */}
-      <MobileBottomNav />
+      {/* Mobile Bottom Navigation — hidden when hamburger menu is open */}
+      {!isMobileMenuOpen && <MobileBottomNav />}
     </div>
   );
 }

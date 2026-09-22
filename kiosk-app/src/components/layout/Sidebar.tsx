@@ -49,10 +49,21 @@ const NAV_ITEMS = [
   { href: '/contact', label: 'Contact Us', icon: Phone, color: 'text-[#0D55CF]' },
 ];
 
-export function Sidebar() {
+interface SidebarProps {
+  isMobileMenuOpen?: boolean;
+  setIsMobileMenuOpen?: (open: boolean) => void;
+}
+
+export function Sidebar({
+  isMobileMenuOpen: externalIsMobileMenuOpen,
+  setIsMobileMenuOpen: externalSetIsMobileMenuOpen,
+}: SidebarProps = {}) {
   const pathname = usePathname();
   const [isQRModalOpen, setIsQRModalOpen] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [internalIsMobileMenuOpen, setInternalIsMobileMenuOpen] = useState(false);
+
+  const isMobileMenuOpen = externalIsMobileMenuOpen ?? internalIsMobileMenuOpen;
+  const setIsMobileMenuOpen = externalSetIsMobileMenuOpen ?? setInternalIsMobileMenuOpen;
 
   return (
     <aside className="z-50 flex h-full w-[var(--container-sidebar)] flex-shrink-0 flex-col overflow-hidden border-r border-gray-100 bg-[#F4F7FB] portrait:h-auto portrait:w-full portrait:border-b portrait:border-r-0 portrait:shadow-sm portrait:relative portrait:overflow-visible">
@@ -274,15 +285,15 @@ export function Sidebar() {
       {/* ── Mobile Backdrop Overlay ───────────────────────────────────── */}
       {isMobileMenuOpen && (
         <div
-          className="hidden portrait:block fixed inset-0 z-[90] bg-black/50 backdrop-blur-xs transition-opacity"
+          className="hidden portrait:block fixed inset-0 z-[998] bg-black/50 backdrop-blur-xs transition-opacity"
           onClick={() => setIsMobileMenuOpen(false)}
         />
       )}
 
       {/* ── Navigation ───────────────────────────────────────────────── */}
       <nav className={cn(
-        "flex flex-1 flex-col gap-[var(--sidebar-nav-gap)] overflow-y-auto px-[var(--sidebar-nav-padding-x)] py-[var(--sidebar-nav-padding-y)]",
-        "portrait:fixed portrait:top-0 portrait:left-0 portrait:bottom-0 portrait:w-[300px] portrait:max-w-[85vw] portrait:bg-[#F4F7FB] portrait:shadow-2xl portrait:z-[100] portrait:p-4 portrait:gap-2.5 portrait:overflow-y-auto portrait:border-r portrait:border-gray-200",
+        "flex flex-1 flex-col gap-[var(--sidebar-nav-gap)] overflow-hidden px-[var(--sidebar-nav-padding-x)] py-[var(--sidebar-nav-padding-y)]",
+        "portrait:fixed portrait:top-0 portrait:left-0 portrait:w-[300px] portrait:max-w-[85vw] portrait:h-auto portrait:max-h-[calc(100dvh-16px)] portrait:bg-[#F4F7FB] portrait:shadow-2xl portrait:z-[999] portrait:p-4 portrait:gap-3 portrait:overflow-hidden portrait:rounded-br-[24px] portrait:border-b portrait:border-r portrait:border-gray-200",
         isMobileMenuOpen ? "portrait:flex" : "portrait:hidden"
       )}>
         {/* Drawer Header (Portrait Only) */}
@@ -306,54 +317,57 @@ export function Sidebar() {
           </button>
         </div>
 
-        {NAV_ITEMS.map((item) => {
-          // Exact match for home, startsWith for others to keep active state on sub-pages
-          const isActive =
-            item.href === '/'
-              ? pathname === '/'
-              : pathname.startsWith(item.href) && item.href !== '#';
+        {/* Dedicated Scroll Container for Nav Items */}
+        <div className="flex flex-1 portrait:flex-initial flex-col gap-[var(--sidebar-nav-gap)] portrait:gap-2.5 overflow-y-auto overscroll-contain pr-1">
+          {NAV_ITEMS.map((item) => {
+            // Exact match for home, startsWith for others to keep active state on sub-pages
+            const isActive =
+              item.href === '/'
+                ? pathname === '/'
+                : pathname.startsWith(item.href) && item.href !== '#';
 
-          return (
-            <Link
-              key={item.label}
-              href={item.href}
-              onClick={() => setIsMobileMenuOpen(false)}
-              className={cn(
-                'flex flex-1 portrait:flex-none portrait:shrink-0 items-center gap-[var(--sidebar-item-gap)]',
-                'min-h-[var(--sidebar-item-min-h)] portrait:min-h-[44px]',
-                'rounded-[clamp(10px,min(1vw,1.5svh),16px)] border',
-                'px-[var(--sidebar-item-px)] py-[var(--sidebar-item-py)] portrait:py-2.5 portrait:px-3.5',
-                'font-bold transition-all',
-                'text-[clamp(18px,min(0.82vw,1.2svh),14px)] portrait:text-[15px]',
-                isActive
-                  ? 'border-[#0D55CF] bg-[#0D55CF] text-white shadow-[0_4px_12px_rgba(13,85,207,0.2)]'
-                  : 'border-gray-100 bg-white text-[#1E293B] shadow-[0_2px_8px_rgba(0,0,0,0.02)] hover:-translate-y-0.5'
-              )}
-            >
-              <item.icon
-                strokeWidth={isActive ? 2.5 : 2}
+            return (
+              <Link
+                key={item.label}
+                href={item.href}
+                onClick={() => setIsMobileMenuOpen(false)}
                 className={cn(
-                  'h-[var(--sidebar-item-icon-size)] w-[var(--sidebar-item-icon-size)] portrait:h-5 portrait:w-5 shrink-0',
-                  isActive ? 'text-white' : item.color
+                  'flex flex-1 portrait:flex-none portrait:shrink-0 items-center gap-[var(--sidebar-item-gap)]',
+                  'min-h-[var(--sidebar-item-min-h)] portrait:min-h-[44px]',
+                  'rounded-[clamp(10px,min(1vw,1.5svh),16px)] border',
+                  'px-[var(--sidebar-item-px)] py-[var(--sidebar-item-py)] portrait:py-2.5 portrait:px-3.5',
+                  'font-bold transition-all',
+                  'text-[clamp(18px,min(0.82vw,1.2svh),14px)] portrait:text-[15px]',
+                  isActive
+                    ? 'border-[#0D55CF] bg-[#0D55CF] text-white shadow-[0_4px_12px_rgba(13,85,207,0.2)]'
+                    : 'border-gray-100 bg-white text-[#1E293B] shadow-[0_2px_8px_rgba(0,0,0,0.02)] hover:-translate-y-0.5'
                 )}
-              />
-              <span className="truncate tracking-tight">{item.label}</span>
-            </Link>
-          );
-        })}
+              >
+                <item.icon
+                  strokeWidth={isActive ? 2.5 : 2}
+                  className={cn(
+                    'h-[var(--sidebar-item-icon-size)] w-[var(--sidebar-item-icon-size)] portrait:h-5 portrait:w-5 shrink-0',
+                    isActive ? 'text-white' : item.color
+                  )}
+                />
+                <span className="truncate tracking-tight">{item.label}</span>
+              </Link>
+            );
+          })}
 
-        {/* Scan & Join card inside mobile drawer */}
-        <div className="hidden portrait:block pt-1 shrink-0">
-          <div 
-            onClick={() => {
-              setIsMobileMenuOpen(false);
-              setIsQRModalOpen(true);
-            }}
-            className="cursor-pointer rounded-[14px] bg-[#0D55CF] p-3 text-center text-white transition-transform active:scale-95 shadow-md flex flex-col items-center justify-center gap-1"
-          >
-            <QrCode className="h-7 w-7 text-white" />
-            <h3 className="text-[14px] font-bold">Tap Here to Scan & Join</h3>
-            <p className="text-[11px] text-white/90">Join Our Community</p>
+          {/* Scan & Join card inside mobile drawer */}
+          <div className="hidden portrait:block pt-2 shrink-0 pb-2">
+            <div 
+              onClick={() => {
+                setIsMobileMenuOpen(false);
+                setIsQRModalOpen(true);
+              }}
+              className="cursor-pointer rounded-[14px] bg-[#0D55CF] p-3 text-center text-white transition-transform active:scale-95 shadow-md flex flex-col items-center justify-center gap-1"
+            >
+              <QrCode className="h-7 w-7 text-white" />
+              <h3 className="text-[14px] font-bold">Tap Here to Scan & Join</h3>
+              <p className="text-[11px] text-white/90">Join Our Community</p>
+            </div>
           </div>
         </div>
       </nav>
