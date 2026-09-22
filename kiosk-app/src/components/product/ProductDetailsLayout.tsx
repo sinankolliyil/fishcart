@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import {
@@ -31,6 +31,13 @@ export function ProductDetailsLayout({ data }: { data: ProductDetails }) {
     data.sizes?.[1] || data.sizes?.[0] || null
   );
   const [selectedImage, setSelectedImage] = useState(data.imageSrc);
+
+  // Keep max 5 images total: current hero image + 4 related images
+  const displayGallery = useMemo(() => {
+    const rawList = [data.imageSrc, ...(data.gallery || [])];
+    const uniqueList = Array.from(new Set(rawList.filter(Boolean)));
+    return uniqueList.slice(0, 5);
+  }, [data.imageSrc, data.gallery]);
 
   const themeColors = {
     fish: 'text-[#0D55CF] bg-[#0D55CF]',
@@ -64,18 +71,18 @@ export function ProductDetailsLayout({ data }: { data: ProductDetails }) {
      * Overview Section = 60% of 84 = ~50fr.
      * Footer = 10fr.
      */
-    <div className="grid h-full min-h-0 w-full grid-rows-[minmax(0,33fr)_minmax(0,39fr)_minmax(0,10fr)] gap-[clamp(4px,0.8vw,10px)] portrait:flex portrait:flex-col portrait:h-auto">
+    <div className="grid h-full min-h-0 w-full grid-rows-[minmax(0,32fr)_minmax(0,40fr)_minmax(0,10fr)] gap-[clamp(4px,0.8vw,10px)] portrait:flex portrait:h-auto portrait:flex-col">
       {/* ═══════════════════════════════════════════════════
           ROW 1 — Hero Section (40% of content)
           Includes Hero Info, Pricing, etc.
           ═══════════════════════════════════════════════════ */}
       <div className="flex min-h-0 w-full flex-col gap-1.5 overflow-hidden xl:gap-[clamp(4px,0.5vw,8px)]">
         {/* Hero & Pricing Split */}
-        <div className="grid min-h-0 w-full flex-1 grid-cols-12 gap-[var(--main-gap)] overflow-hidden portrait:flex portrait:flex-col portrait:h-auto">
+        <div className="grid min-h-0 w-full flex-1 grid-cols-12 gap-[var(--main-gap)] overflow-hidden portrait:flex portrait:h-auto portrait:flex-col">
           {/* Left Column - Product Info & Image (8 cols) */}
-          <div className="col-span-8 flex min-h-0 min-w-0 gap-3 overflow-hidden rounded-[8px] bg-white p-3 xl:p-[clamp(8px,1vw,16px)] portrait:flex-col portrait:h-auto portrait:w-full">
+          <div className="col-span-8 flex min-h-0 min-w-0 gap-3 overflow-hidden rounded-[8px] bg-white p-3 xl:p-[clamp(8px,1vw,16px)] portrait:h-auto portrait:w-full portrait:flex-col">
             {/* Info text column */}
-            <div className="flex w-1/3 min-w-0 flex-col justify-start gap-[clamp(8px,1.5vh,20px)] overflow-hidden pt-[clamp(4px,1.5vh,16px)] portrait:w-full portrait:h-auto">
+            <div className="flex w-1/3 min-w-0 flex-col justify-start gap-[clamp(8px,1.5vh,20px)] overflow-hidden pt-[clamp(4px,1.5vh,16px)] portrait:h-auto portrait:w-full">
               <div className="flex min-h-0 flex-col overflow-hidden">
                 <Badge
                   className={cn(
@@ -115,7 +122,7 @@ export function ProductDetailsLayout({ data }: { data: ProductDetails }) {
               </div>
 
               {/* Badges (landscape only) */}
-              <div className="flex shrink-0 justify-between gap-1 pt-[clamp(4px,0.5vw,8px)] mt-auto portrait:hidden">
+              <div className="mt-auto flex shrink-0 justify-between gap-1 pt-[clamp(4px,0.5vw,8px)] portrait:hidden">
                 <div className="flex flex-1 flex-col items-center text-center">
                   <div
                     className={cn(
@@ -187,8 +194,8 @@ export function ProductDetailsLayout({ data }: { data: ProductDetails }) {
             </div>
 
             {/* Image column */}
-            <div className="flex min-w-0 flex-1 flex-col justify-between overflow-hidden portrait:h-[350px]">
-              <div className="relative min-h-0 w-full flex-1 overflow-hidden rounded-[8px] bg-slate-50 portrait:min-h-[280px]">
+            <div className="flex min-w-0 flex-1 flex-col justify-between overflow-hidden portrait:h-[300px]">
+              <div className="relative min-h-0 w-full flex-1 overflow-hidden rounded-[8px] bg-slate-50 portrait:min-h-[240px]">
                 <Image
                   src={selectedImage}
                   alt={data.title}
@@ -200,104 +207,134 @@ export function ProductDetailsLayout({ data }: { data: ProductDetails }) {
               </div>
 
               {/* Thumbnails */}
-              <div className="mt-[clamp(4px,0.6vw,10px)] flex h-[clamp(30px,3vw,44px)] shrink-0 items-center justify-between gap-1 overflow-hidden xl:gap-[clamp(3px,0.4vw,6px)]">
+              <div className="mt-[clamp(4px,0.6vw,10px)] flex h-[clamp(38px,3.8vw,56px)] shrink-0 items-center justify-between gap-1 overflow-hidden xl:gap-[clamp(3px,0.4vw,6px)] portrait:h-[48px] portrait:gap-1.5">
                 <button
                   onClick={() => {
-                    if (!data.gallery?.length) return;
-                    const idx = data.gallery.indexOf(selectedImage);
-                    const prev = idx <= 0 ? data.gallery.length - 1 : idx - 1;
-                    setSelectedImage(data.gallery[prev]);
+                    if (!displayGallery.length) return;
+                    const idx = displayGallery.indexOf(selectedImage);
+                    const prev = idx <= 0 ? displayGallery.length - 1 : idx - 1;
+                    setSelectedImage(displayGallery[prev]);
                   }}
-                  className="flex h-[clamp(16px,1.5vw,22px)] w-[clamp(16px,1.5vw,22px)] shrink-0 items-center justify-center rounded-full bg-white text-slate-500 transition-colors hover:border-blue-300 hover:text-blue-600"
+                  className="flex h-[clamp(16px,1.5vw,22px)] w-[clamp(16px,1.5vw,22px)] shrink-0 items-center justify-center rounded-full bg-white text-slate-500 shadow-sm transition-colors hover:border-blue-300 hover:text-blue-600 portrait:h-6 portrait:w-6"
                 >
-                  <ChevronLeft className="h-[clamp(8px,0.7vw,12px)] w-[clamp(8px,0.7vw,12px)]" />
+                  <ChevronLeft className="h-[clamp(8px,0.7vw,12px)] w-[clamp(8px,0.7vw,12px)] portrait:h-3.5 portrait:w-3.5" />
                 </button>
-                <div className="flex h-full flex-1 justify-center gap-[clamp(3px,0.4vw,8px)] overflow-hidden px-1">
-                  {data.gallery?.map((src, i) => (
+                <div className="flex h-full flex-1 justify-center gap-1 overflow-hidden px-0.5 portrait:gap-1.5">
+                  {displayGallery.map((src, i) => (
                     <div
                       key={i}
                       onClick={() => setSelectedImage(src)}
                       className={cn(
                         'relative aspect-square h-full shrink-0 cursor-pointer overflow-hidden rounded-[6px] border-[1.5px] transition-all',
                         selectedImage === src
-                          ? 'border-blue-600'
-                          : 'border-transparent'
+                          ? 'border-blue-600 ring-1 ring-blue-600'
+                          : 'border-transparent opacity-80 hover:opacity-100'
                       )}
                     >
                       <Image
                         src={src}
                         alt=""
                         fill
-                        className="object-contain"
-                        sizes="5vw"
+                        className="object-contain p-0.5"
+                        sizes="10vw"
                       />
                     </div>
                   ))}
                 </div>
                 <button
                   onClick={() => {
-                    if (!data.gallery?.length) return;
-                    const idx = data.gallery.indexOf(selectedImage);
+                    if (!displayGallery.length) return;
+                    const idx = displayGallery.indexOf(selectedImage);
                     const next =
-                      idx === -1 || idx === data.gallery.length - 1
+                      idx === -1 || idx === displayGallery.length - 1
                         ? 0
                         : idx + 1;
-                    setSelectedImage(data.gallery[next]);
+                    setSelectedImage(displayGallery[next]);
                   }}
-                  className="flex h-[clamp(16px,1.5vw,22px)] w-[clamp(16px,1.5vw,22px)] shrink-0 items-center justify-center rounded-full bg-white text-slate-500 transition-colors hover:border-blue-300 hover:text-blue-600"
+                  className="flex h-[clamp(16px,1.5vw,22px)] w-[clamp(16px,1.5vw,22px)] shrink-0 items-center justify-center rounded-full bg-white text-slate-500 shadow-sm transition-colors hover:border-blue-300 hover:text-blue-600 portrait:h-6 portrait:w-6"
                 >
-                  <ChevronRight className="h-[clamp(8px,0.7vw,12px)] w-[clamp(8px,0.7vw,12px)]" />
+                  <ChevronRight className="h-[clamp(8px,0.7vw,12px)] w-[clamp(8px,0.7vw,12px)] portrait:h-3.5 portrait:w-3.5" />
                 </button>
               </div>
             </div>
 
             {/* Badges (portrait only — below the image) */}
-            <div className="hidden portrait:flex shrink-0 justify-between gap-1 pt-3">
+            <div className="hidden shrink-0 justify-between gap-1 pt-3 portrait:flex">
               <div className="flex flex-1 flex-col items-center text-center">
                 <div
                   className={cn(
-                    'mb-0.5 flex h-[clamp(20px,1.5vw,30px)] w-[clamp(20px,1.5vw,30px)] items-center justify-center rounded-full bg-blue-50',
+                    'mb-1 flex h-[clamp(20px,1.5vw,30px)] w-[clamp(20px,1.5vw,30px)] items-center justify-center rounded-full bg-blue-50 portrait:h-10 portrait:w-10',
                     themeText
                   )}
                 >
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="h-[clamp(10px,0.8vw,14px)] w-[clamp(10px,0.8vw,14px)]">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M14.5 10c-.83 0-1.5-.67-1.5-1.5v-5c0-.83.67-1.5 1.5-1.5s1.5.67 1.5 1.5v5c0 .83-.67 1.5-1.5 1.5z" />
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M20.5 10c-.83 0-1.5-.67-1.5-1.5v-5c0-.83.67-1.5 1.5-1.5s1.5.67 1.5 1.5v5c0 .83-.67 1.5-1.5 1.5z" />
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M9.5 10c-.83 0-1.5-.67-1.5-1.5v-5c0-.83.67-1.5 1.5-1.5s1.5.67 1.5 1.5v5c0 .83-.67 1.5-1.5 1.5z" />
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    className="h-[clamp(10px,0.8vw,14px)] w-[clamp(10px,0.8vw,14px)] portrait:h-5 portrait:w-5"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M14.5 10c-.83 0-1.5-.67-1.5-1.5v-5c0-.83.67-1.5 1.5-1.5s1.5.67 1.5 1.5v5c0 .83-.67 1.5-1.5 1.5z"
+                    />
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M20.5 10c-.83 0-1.5-.67-1.5-1.5v-5c0-.83.67-1.5 1.5-1.5s1.5.67 1.5 1.5v5c0 .83-.67 1.5-1.5 1.5z"
+                    />
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M9.5 10c-.83 0-1.5-.67-1.5-1.5v-5c0-.83.67-1.5 1.5-1.5s1.5.67 1.5 1.5v5c0 .83-.67 1.5-1.5 1.5z"
+                    />
                   </svg>
                 </div>
-                <span className="text-[11px] leading-tight font-bold text-slate-600">100% Fresh<br />Never Frozen</span>
+                <span className="text-[11px] leading-tight font-bold text-slate-600">
+                  100% Fresh
+                  <br />
+                  Never Frozen
+                </span>
               </div>
               <div className="flex flex-1 flex-col items-center text-center">
                 <div
                   className={cn(
-                    'mb-0.5 flex h-[clamp(20px,1.5vw,30px)] w-[clamp(20px,1.5vw,30px)] items-center justify-center rounded-full bg-blue-50',
+                    'mb-1 flex h-[clamp(20px,1.5vw,30px)] w-[clamp(20px,1.5vw,30px)] items-center justify-center rounded-full bg-blue-50 portrait:h-10 portrait:w-10',
                     themeText
                   )}
                 >
-                  <ShieldCheck className="h-[clamp(10px,0.8vw,14px)] w-[clamp(10px,0.8vw,14px)]" />
+                  <ShieldCheck className="h-[clamp(10px,0.8vw,14px)] w-[clamp(10px,0.8vw,14px)] portrait:h-5 portrait:w-5" />
                 </div>
-                <span className="text-[11px] leading-tight font-bold text-slate-600">Hygienically<br />Handled</span>
+                <span className="text-[11px] leading-tight font-bold text-slate-600">
+                  Hygienically
+                  <br />
+                  Handled
+                </span>
               </div>
               <div className="flex flex-1 flex-col items-center text-center">
                 <div
                   className={cn(
-                    'mb-0.5 flex h-[clamp(20px,1.5vw,30px)] w-[clamp(20px,1.5vw,30px)] items-center justify-center rounded-full bg-blue-50',
+                    'mb-1 flex h-[clamp(20px,1.5vw,30px)] w-[clamp(20px,1.5vw,30px)] items-center justify-center rounded-full bg-blue-50 portrait:h-10 portrait:w-10',
                     themeText
                   )}
                 >
-                  <Anchor className="h-[clamp(10px,0.8vw,14px)] w-[clamp(10px,0.8vw,14px)]" />
+                  <Anchor className="h-[clamp(10px,0.8vw,14px)] w-[clamp(10px,0.8vw,14px)] portrait:h-5 portrait:w-5" />
                 </div>
-                <span className="text-[11px] leading-tight font-bold text-slate-600">Sourced<br />Responsibly</span>
+                <span className="text-[11px] leading-tight font-bold text-slate-600">
+                  Sourced
+                  <br />
+                  Responsibly
+                </span>
               </div>
             </div>
           </div>
 
           {/* Right Column - Selection & Pricing (4 cols) */}
-          <div className="col-span-4 flex min-h-0 min-w-0 flex-col gap-1 justify-start overflow-hidden rounded-[8px] bg-white px-3 pt-2 pb-3 xl:gap-[clamp(4px,0.6vw,8px)] xl:p-[clamp(8px,1vw,16px)] portrait:w-full portrait:h-auto">
-            <div className="space-y-1">
+          <div className="col-span-4 flex min-h-0 min-w-0 flex-col justify-start gap-1 overflow-hidden rounded-[8px] bg-white px-3 pt-2 pb-3 xl:gap-[clamp(4px,0.6vw,8px)] xl:p-[clamp(8px,1vw,16px)] portrait:h-auto portrait:w-full portrait:gap-3.5 portrait:p-4">
+            <div className="space-y-1 portrait:space-y-2.5">
               {/* Price & Back */}
-              <div className="-mt-2 flex shrink-0 items-start justify-between">
+              <div className="-mt-2 flex shrink-0 items-start justify-between portrait:mt-0">
                 <div className="flex items-baseline gap-1">
                   <span
                     className={cn(
@@ -315,21 +352,21 @@ export function ProductDetailsLayout({ data }: { data: ProductDetails }) {
                 <Link
                   href={`/${data.category}`}
                   className={cn(
-                    'flex items-center gap-1 rounded-full bg-white px-[clamp(6px,0.8vw,10px)] py-[clamp(2px,0.3vw,4px)] text-[11px] font-bold transition-colors hover:bg-slate-50 lg:text-[12px] xl:text-[clamp(9px,0.7vw,11px)]',
+                    'flex items-center gap-1 rounded-full bg-white px-[clamp(6px,0.8vw,10px)] py-[clamp(2px,0.3vw,4px)] text-[11px] font-bold transition-colors hover:bg-slate-50 lg:text-[12px] xl:text-[clamp(9px,0.7vw,11px)] portrait:bg-slate-100 portrait:px-3 portrait:py-1',
                     themeText
                   )}
                 >
-                  <ChevronLeft className="h-[clamp(8px,0.7vw,10px)] w-[clamp(8px,0.7vw,10px)]" />
+                  <ChevronLeft className="h-[clamp(8px,0.7vw,10px)] w-[clamp(8px,0.7vw,10px)] portrait:h-3.5 portrait:w-3.5" />
                   Back
                 </Link>
               </div>
 
               {/* Sizes */}
               <div className="shrink-0">
-                <h3 className="mb-0.5 text-[12px] font-bold text-slate-800 lg:text-[13px] xl:text-[clamp(14px,0.8vw,12px)]">
+                <h3 className="mb-0.5 text-[12px] font-bold text-slate-800 lg:text-[13px] xl:text-[clamp(14px,0.8vw,12px)] portrait:mb-1">
                   Select Size
                 </h3>
-                <div className="grid grid-cols-4 gap-1 xl:gap-[clamp(3px,0.4vw,6px)]">
+                <div className="grid grid-cols-4 gap-1 xl:gap-[clamp(3px,0.4vw,6px)] portrait:gap-2">
                   {data.sizes?.map((size, i) => {
                     const isActive = selectedSize?.id === size.id;
                     return (
@@ -337,7 +374,7 @@ export function ProductDetailsLayout({ data }: { data: ProductDetails }) {
                         key={size.id}
                         onClick={() => setSelectedSize(size)}
                         className={cn(
-                          'flex flex-col items-center justify-center rounded-[6px] border p-0.5 transition-colors',
+                          'flex flex-col items-center justify-center rounded-[6px] border p-0.5 transition-colors portrait:py-1.5',
                           isActive
                             ? 'border-blue-600 bg-blue-50 font-bold text-blue-700'
                             : 'border-slate-200 text-slate-600 hover:border-blue-300'
@@ -357,20 +394,20 @@ export function ProductDetailsLayout({ data }: { data: ProductDetails }) {
             </div>
 
             {/* Freshness Box */}
-            <div className="flex shrink-0 items-start gap-1.5 rounded-[8px] bg-blue-50/50 p-[clamp(4px,0.6vw,8px)]">
+            <div className="flex shrink-0 items-start gap-1.5 rounded-[8px] bg-blue-50/50 p-[clamp(4px,0.6vw,8px)] portrait:p-3">
               <div className={cn('mt-[1px] shrink-0', themeText)}>
-                <ShieldCheck className="h-[clamp(12px,1vw,16px)] w-[clamp(12px,1vw,16px)]" />
+                <ShieldCheck className="h-[clamp(12px,1vw,16px)] w-[clamp(12px,1vw,16px)] portrait:h-4 portrait:w-4" />
               </div>
               <div className="min-w-0">
                 <h4
                   className={cn(
-                    'truncate text-[11px] font-bold lg:text-[12px] xl:text-[clamp(9px,0.7vw,11px)]',
+                    'truncate text-[11px] font-bold lg:text-[12px] xl:text-[clamp(9px,0.7vw,11px)] portrait:text-[12px]',
                     themeText
                   )}
                 >
                   Freshness Guaranteed
                 </h4>
-                <p className="line-clamp-2 text-[11px] leading-[1.2] font-medium text-slate-600 lg:text-[12px] xl:text-[10px]">
+                <p className="line-clamp-2 text-[11px] leading-[1.2] font-medium text-slate-600 lg:text-[12px] xl:text-[10px] portrait:text-[11px]">
                   Delivered fresh and ready to cook for the best taste and
                   nutrition.
                 </p>
@@ -378,18 +415,18 @@ export function ProductDetailsLayout({ data }: { data: ProductDetails }) {
             </div>
 
             {/* Share / Save */}
-            <div className="flex shrink-0 gap-1.5 xl:gap-[clamp(4px,0.6vw,8px)]">
+            <div className="flex shrink-0 gap-1.5 xl:gap-[clamp(4px,0.6vw,8px)] portrait:gap-2">
               <button
                 className={cn(
-                  'flex flex-1 items-center justify-center gap-1 rounded-[8px] py-[clamp(4px,0.6vw,8px)] text-[11px] font-bold text-white transition-opacity hover:opacity-90 lg:text-[12px] xl:text-[clamp(9px,0.7vw,11px)]',
+                  'flex flex-1 items-center justify-center gap-1 rounded-[8px] py-[clamp(4px,0.6vw,8px)] text-[11px] font-bold text-white transition-opacity hover:opacity-90 lg:text-[12px] xl:text-[clamp(9px,0.7vw,11px)] portrait:py-2.5',
                   themeBg
                 )}
               >
-                <Mail className="h-[clamp(10px,0.8vw,14px)] w-[clamp(10px,0.8vw,14px)]" />{' '}
+                <Mail className="h-[clamp(10px,0.8vw,14px)] w-[clamp(10px,0.8vw,14px)] portrait:h-4 portrait:w-4" />{' '}
                 Share
               </button>
-              <button className="flex flex-1 items-center justify-center gap-1 rounded-[8px] bg-white py-[clamp(4px,0.6vw,8px)] text-[11px] font-bold text-slate-700 transition-colors hover:bg-slate-50 lg:text-[12px] xl:text-[clamp(9px,0.7vw,11px)]">
-                <Heart className="h-[clamp(10px,0.8vw,14px)] w-[clamp(10px,0.8vw,14px)]" />{' '}
+              <button className="flex flex-1 items-center justify-center gap-1 rounded-[8px] bg-white py-[clamp(4px,0.6vw,8px)] text-[11px] font-bold text-slate-700 transition-colors hover:bg-slate-50 lg:text-[12px] xl:text-[clamp(9px,0.7vw,11px)] portrait:border portrait:border-slate-200 portrait:py-2.5">
+                <Heart className="h-[clamp(10px,0.8vw,14px)] w-[clamp(10px,0.8vw,14px)] portrait:h-4 portrait:w-4" />{' '}
                 Save
               </button>
             </div>
@@ -397,7 +434,7 @@ export function ProductDetailsLayout({ data }: { data: ProductDetails }) {
             {/* Got Questions */}
             <div
               className={cn(
-                'flex shrink-0 items-center justify-between overflow-hidden rounded-[8px] p-[clamp(6px,0.8vw,10px)]',
+                'flex shrink-0 items-center justify-between overflow-hidden rounded-[8px] p-[clamp(6px,0.8vw,10px)] portrait:p-3.5',
                 themeBg
               )}
             >
@@ -443,7 +480,7 @@ export function ProductDetailsLayout({ data }: { data: ProductDetails }) {
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
                 className={cn(
-                  'relative flex flex-1 items-center justify-center gap-1 text-[12px] font-bold transition-colors lg:text-[13px] xl:text-[clamp(14px,0.7vw,12px)] portrait:flex-none portrait:whitespace-nowrap portrait:px-2 portrait:py-1',
+                  'relative flex flex-1 items-center justify-center gap-1 text-[12px] font-bold transition-colors lg:text-[13px] xl:text-[clamp(14px,0.7vw,12px)] portrait:flex-none portrait:px-2 portrait:py-1 portrait:whitespace-nowrap',
                   isActive ? themeText : 'text-slate-500 hover:text-slate-800'
                 )}
               >
@@ -466,24 +503,24 @@ export function ProductDetailsLayout({ data }: { data: ProductDetails }) {
         <div className="flex min-h-0 flex-1 flex-col pt-2">
           {/* TAB: OVERVIEW */}
           {activeTab === 'overview' && (
-            <div className="grid min-h-0 flex-1 grid-cols-4 grid-rows-2 gap-2.5 pt-1 portrait:grid-cols-2 portrait:grid-rows-4 portrait:h-auto portrait:auto-rows-[minmax(100px,auto)]">
-              {/* Catch From */}
-              <div className="flex min-h-0 min-w-0 flex-col overflow-hidden rounded-[12px] bg-slate-100 p-2.5 pt-[clamp(14px,2.5vh,24px)] xl:p-[clamp(6px,0.8vw,12px)] xl:pt-[clamp(14px,2.5vh,24px)]">
-                <div className="mb-[clamp(3px,0.4vw,6px)] flex shrink-0 items-center gap-1.5">
+            <div className="grid min-h-0 flex-1 grid-cols-4 grid-rows-2 gap-2.5 pt-1 portrait:h-auto portrait:grid-cols-2 portrait:gap-3.5 portrait:pt-2">
+              {/* Row 1, Left: Catch From */}
+              <div className="flex min-h-0 min-w-0 flex-col overflow-hidden rounded-[14px] bg-slate-100/90 p-3 pt-3 xl:p-[clamp(6px,0.8vw,12px)] xl:pt-[clamp(14px,2.5vh,24px)] portrait:p-3.5 portrait:pt-3.5">
+                <div className="mb-2 flex shrink-0 items-center gap-1.5 xl:mb-[clamp(3px,0.4vw,6px)]">
                   <Anchor
                     className={cn(
-                      'h-[clamp(10px,0.8vw,14px)] w-[clamp(10px,0.8vw,14px)]',
+                      'h-4 w-4 xl:h-[clamp(10px,0.8vw,14px)] xl:w-[clamp(10px,0.8vw,14px)]',
                       themeText
                     )}
                   />
-                  <h4 className="truncate text-[12px] font-bold text-slate-800 lg:text-[13px] xl:text-[clamp(14px,0.8vw,12px)]">
+                  <h4 className="truncate text-[13px] font-bold text-slate-800 lg:text-[13px] xl:text-[clamp(14px,0.8vw,12px)]">
                     Catch From
                   </h4>
                 </div>
                 <div className="custom-scrollbar min-h-0 overflow-y-auto pr-1">
                   <p
                     className={cn(
-                      'mb-0.5 text-[11px] leading-tight font-bold lg:text-[12px] xl:text-[clamp(12px,0.7vw,11px)]',
+                      'mb-1 text-[12px] leading-tight font-bold lg:text-[12px] xl:text-[clamp(12px,0.7vw,11px)]',
                       themeText
                     )}
                   >
@@ -499,54 +536,16 @@ export function ProductDetailsLayout({ data }: { data: ProductDetails }) {
                 </div>
               </div>
 
-              {/* Best For */}
-              <div className="flex min-h-0 min-w-0 flex-col overflow-hidden rounded-[12px] bg-slate-100 p-2.5 pt-[clamp(14px,2.5vh,24px)] xl:p-[clamp(6px,0.8vw,12px)] xl:pt-[clamp(14px,2.5vh,24px)]">
-                <div className="mb-[clamp(3px,0.4vw,6px)] flex shrink-0 items-center gap-1.5">
-                  <Droplet
-                    className={cn(
-                      'h-[clamp(10px,0.8vw,14px)] w-[clamp(10px,0.8vw,14px)]',
-                      themeText
-                    )}
-                  />
-                  <h4 className="truncate text-[12px] font-bold text-slate-800 lg:text-[13px] xl:text-[clamp(14px,0.8vw,12px)]">
-                    Best For
-                  </h4>
-                </div>
-                <div className="custom-scrollbar flex min-h-0 flex-col gap-1.5 overflow-y-auto pr-1">
-                  {data.bestFor?.map((item, i) => (
-                    <div key={i} className="flex items-center gap-1.5">
-                      <div className="min-w-0 flex-1">
-                        <h5 className="truncate text-[11px] font-bold text-slate-800 lg:text-[12px] xl:text-[clamp(12px,0.7vw,11px)]">
-                          {item.title}
-                        </h5>
-                        <p className="line-clamp-2 text-[10px] leading-tight text-slate-500 lg:text-[11px] xl:text-[clamp(10px,0.5vw,9px)]">
-                          {item.description}
-                        </p>
-                      </div>
-                      <div className="relative h-[clamp(20px,1.5vw,28px)] w-[clamp(20px,1.5vw,28px)] shrink-0 overflow-hidden rounded-full">
-                        <Image
-                          src={item.imageSrc}
-                          alt=""
-                          fill
-                          className="object-cover"
-                          sizes="5vw"
-                        />
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Specialty */}
-              <div className="flex min-h-0 min-w-0 flex-col overflow-hidden rounded-[12px] bg-slate-100 p-2.5 pt-[clamp(14px,2.5vh,24px)] xl:p-[clamp(6px,0.8vw,12px)] xl:pt-[clamp(14px,2.5vh,24px)]">
-                <div className="mb-[clamp(3px,0.4vw,6px)] flex shrink-0 items-center gap-1.5">
+              {/* Row 1, Right: Specialty */}
+              <div className="flex min-h-0 min-w-0 flex-col overflow-hidden rounded-[14px] bg-slate-100/90 p-3 pt-3 xl:p-[clamp(6px,0.8vw,12px)] xl:pt-[clamp(14px,2.5vh,24px)] portrait:p-3.5 portrait:pt-3.5">
+                <div className="mb-2 flex shrink-0 items-center gap-1.5 xl:mb-[clamp(3px,0.4vw,6px)]">
                   <Star
                     className={cn(
-                      'h-[clamp(10px,0.8vw,14px)] w-[clamp(10px,0.8vw,14px)]',
+                      'h-4 w-4 xl:h-[clamp(10px,0.8vw,14px)] xl:w-[clamp(10px,0.8vw,14px)]',
                       themeText
                     )}
                   />
-                  <h4 className="truncate text-[12px] font-bold text-slate-800 lg:text-[13px] xl:text-[clamp(14px,0.8vw,12px)]">
+                  <h4 className="truncate text-[13px] font-bold text-slate-800 lg:text-[13px] xl:text-[clamp(14px,0.8vw,12px)]">
                     Specialty
                   </h4>
                 </div>
@@ -561,16 +560,62 @@ export function ProductDetailsLayout({ data }: { data: ProductDetails }) {
                 </div>
               </div>
 
-              {/* Famous On */}
-              <div className="flex min-h-0 min-w-0 flex-col overflow-hidden rounded-[12px] bg-slate-100 p-2.5 pt-[clamp(14px,2.5vh,24px)] xl:p-[clamp(6px,0.8vw,12px)] xl:pt-[clamp(14px,2.5vh,24px)]">
-                <div className="mb-[clamp(3px,0.4vw,6px)] flex shrink-0 items-center gap-1.5">
-                  <ShieldCheck
+              {/* Row 2: Best For (Full Width in Portrait) */}
+              <div className="flex min-h-0 min-w-0 flex-col overflow-hidden rounded-[14px] bg-slate-100/90 p-3 pt-3 xl:p-[clamp(6px,0.8vw,12px)] xl:pt-[clamp(14px,2.5vh,24px)] portrait:col-span-2 portrait:p-4 portrait:pt-4">
+                <div className="mb-2 flex shrink-0 items-center gap-1.5 xl:mb-[clamp(3px,0.4vw,6px)]">
+                  <Droplet
                     className={cn(
-                      'h-[clamp(10px,0.8vw,14px)] w-[clamp(10px,0.8vw,14px)]',
+                      'h-4 w-4 xl:h-[clamp(10px,0.8vw,14px)] xl:w-[clamp(10px,0.8vw,14px)]',
                       themeText
                     )}
                   />
-                  <h4 className="truncate text-[12px] font-bold text-slate-800 lg:text-[13px] xl:text-[clamp(14px,0.8vw,12px)]">
+                  <h4 className="truncate text-[13px] font-bold text-slate-800 lg:text-[13px] xl:text-[clamp(14px,0.8vw,12px)]">
+                    Best For
+                  </h4>
+                </div>
+                <div className="custom-scrollbar flex min-h-0 flex-col gap-2.5 overflow-y-auto pr-1">
+                  {data.bestFor?.map((item, i) => (
+                    <div
+                      key={i}
+                      className={cn(
+                        'flex items-center justify-between gap-2',
+                        i < (data.bestFor?.length ?? 0) - 1
+                          ? 'border-b border-slate-200/60 pb-2'
+                          : ''
+                      )}
+                    >
+                      <div className="min-w-0 flex-1">
+                        <h5 className="truncate text-[12px] font-bold text-slate-800 lg:text-[12px] xl:text-[clamp(12px,0.7vw,11px)]">
+                          {item.title}
+                        </h5>
+                        <p className="line-clamp-2 text-[11px] leading-tight text-slate-500 lg:text-[11px] xl:text-[clamp(10px,0.5vw,9px)]">
+                          {item.description}
+                        </p>
+                      </div>
+                      <div className="relative h-11 w-11 shrink-0 overflow-hidden rounded-full shadow-xs xl:h-[clamp(20px,1.5vw,28px)] xl:w-[clamp(20px,1.5vw,28px)]">
+                        <Image
+                          src={item.imageSrc}
+                          alt=""
+                          fill
+                          className="object-cover"
+                          sizes="10vw"
+                        />
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Row 3, Left: Famous On */}
+              <div className="flex min-h-0 min-w-0 flex-col overflow-hidden rounded-[14px] bg-slate-100/90 p-3 pt-3 xl:p-[clamp(6px,0.8vw,12px)] xl:pt-[clamp(14px,2.5vh,24px)] portrait:p-3.5 portrait:pt-3.5">
+                <div className="mb-2 flex shrink-0 items-center gap-1.5 xl:mb-[clamp(3px,0.4vw,6px)]">
+                  <ShieldCheck
+                    className={cn(
+                      'h-4 w-4 xl:h-[clamp(10px,0.8vw,14px)] xl:w-[clamp(10px,0.8vw,14px)]',
+                      themeText
+                    )}
+                  />
+                  <h4 className="truncate text-[13px] font-bold text-slate-800 lg:text-[13px] xl:text-[clamp(14px,0.8vw,12px)]">
                     Famous On
                   </h4>
                 </div>
@@ -585,74 +630,20 @@ export function ProductDetailsLayout({ data }: { data: ProductDetails }) {
                 </div>
               </div>
 
-              {/* Nutrition */}
-              <div className="flex min-h-0 min-w-0 flex-col overflow-hidden rounded-[12px] bg-slate-100 p-2.5 pt-[clamp(14px,2.5vh,24px)] xl:p-[clamp(6px,0.8vw,12px)] xl:pt-[clamp(14px,2.5vh,24px)]">
-                <div className="mb-[clamp(3px,0.4vw,6px)] flex shrink-0 items-center gap-1.5">
-                  <Activity
-                    className={cn(
-                      'h-[clamp(10px,0.8vw,14px)] w-[clamp(10px,0.8vw,14px)]',
-                      themeText
-                    )}
-                  />
-                  <h4 className="truncate text-[12px] font-bold text-slate-800 lg:text-[13px] xl:text-[clamp(14px,0.8vw,12px)]">
-                    Nutrition{' '}
-                    <span className="font-medium text-slate-400">
-                      ({data.nutritionInfo?.amount})
-                    </span>
-                  </h4>
-                </div>
-                <div className="custom-scrollbar min-h-0 overflow-y-auto pr-1">
-                  <div className="mb-[clamp(3px,0.4vw,6px)] grid grid-cols-4 gap-1">
-                    <div className="flex flex-col items-center rounded bg-white p-0.5 text-center">
-                      <span className="text-[10px] font-bold text-slate-500 lg:text-[11px] xl:text-[clamp(10px,0.4vw,8px)]">
-                        Protein
-                      </span>
-                      <span className="text-[11px] font-bold text-slate-800 lg:text-[12px] xl:text-[clamp(12px,0.6vw,10px)]">
-                        {data.nutritionInfo?.protein}
-                      </span>
-                    </div>
-                    <div className="flex flex-col items-center rounded bg-white p-0.5 text-center">
-                      <span className="text-[10px] font-bold text-slate-500 lg:text-[11px] xl:text-[clamp(10px,0.4vw,8px)]">
-                        Calories
-                      </span>
-                      <span className="text-[11px] font-bold text-slate-800 lg:text-[12px] xl:text-[clamp(12px,0.6vw,10px)]">
-                        {data.nutritionInfo?.calories}
-                      </span>
-                    </div>
-                    <div className="flex flex-col items-center rounded bg-white p-0.5 text-center">
-                      <span className="text-[10px] font-bold text-slate-500 lg:text-[11px] xl:text-[clamp(10px,0.4vw,8px)]">
-                        Omega-3
-                      </span>
-                      <span className="text-[11px] font-bold text-slate-800 lg:text-[12px] xl:text-[clamp(12px,0.6vw,10px)]">
-                        {data.nutritionInfo?.omega3}
-                      </span>
-                    </div>
-                    <div className="flex flex-col items-center rounded bg-white p-0.5 text-center">
-                      <span className="text-[10px] font-bold text-slate-500 lg:text-[11px] xl:text-[clamp(10px,0.4vw,8px)]">
-                        Fat
-                      </span>
-                      <span className="text-[11px] font-bold text-slate-800 lg:text-[12px] xl:text-[clamp(12px,0.6vw,10px)]">
-                        {data.nutritionInfo?.fat}
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Good For */}
-              <div className="flex min-h-0 min-w-0 flex-col overflow-hidden rounded-[12px] bg-slate-100 p-2.5 pt-[clamp(14px,2.5vh,24px)] xl:p-[clamp(6px,0.8vw,12px)] xl:pt-[clamp(14px,2.5vh,24px)]">
-                <div className="mb-[clamp(3px,0.4vw,6px)] flex shrink-0 items-center gap-1.5">
+              {/* Row 3, Right: Good For */}
+              <div className="flex min-h-0 min-w-0 flex-col overflow-hidden rounded-[14px] bg-slate-100/90 p-3 pt-3 xl:p-[clamp(6px,0.8vw,12px)] xl:pt-[clamp(14px,2.5vh,24px)] portrait:p-3.5 portrait:pt-3.5">
+                <div className="mb-2 flex shrink-0 items-center gap-1.5 xl:mb-[clamp(3px,0.4vw,6px)]">
                   <Heart
                     className={cn(
-                      'h-[clamp(10px,0.8vw,14px)] w-[clamp(10px,0.8vw,14px)]',
+                      'h-4 w-4 xl:h-[clamp(10px,0.8vw,14px)] xl:w-[clamp(10px,0.8vw,14px)]',
                       themeText
                     )}
                   />
-                  <h4 className="truncate text-[12px] font-bold text-slate-800 lg:text-[13px] xl:text-[clamp(14px,0.8vw,12px)]">
+                  <h4 className="truncate text-[13px] font-bold text-slate-800 lg:text-[13px] xl:text-[clamp(14px,0.8vw,12px)]">
                     Good For
                   </h4>
                 </div>
-                <div className="custom-scrollbar flex min-h-0 flex-1 items-start justify-between overflow-y-auto pr-1">
+                <div className="custom-scrollbar min-h-0 overflow-y-auto pr-1">
                   <ul className="flex flex-col gap-0.5 text-[11px] font-medium text-slate-600 lg:text-[12px] xl:text-[clamp(12px,0.6vw,10px)]">
                     {data.goodFor?.map((s, i) => (
                       <li key={i} className="line-clamp-1">
@@ -660,44 +651,98 @@ export function ProductDetailsLayout({ data }: { data: ProductDetails }) {
                       </li>
                     ))}
                   </ul>
-                  <div
+                </div>
+              </div>
+
+              {/* Row 4: Nutrition (Full Width in Portrait) */}
+              <div className="flex min-h-0 min-w-0 flex-col overflow-hidden rounded-[14px] bg-slate-100/90 p-3 pt-3 xl:p-[clamp(6px,0.8vw,12px)] xl:pt-[clamp(14px,2.5vh,24px)] portrait:col-span-2 portrait:p-4 portrait:pt-4">
+                <div className="mb-2.5 flex shrink-0 items-center gap-1.5 xl:mb-[clamp(3px,0.4vw,6px)]">
+                  <Activity
                     className={cn(
-                      'flex h-[clamp(24px,2vw,36px)] w-[clamp(24px,2vw,36px)] shrink-0 items-center justify-center rounded-full bg-blue-50',
+                      'h-4 w-4 xl:h-[clamp(10px,0.8vw,14px)] xl:w-[clamp(10px,0.8vw,14px)]',
                       themeText
                     )}
-                  >
-                    <Activity className="h-[clamp(12px,1vw,18px)] w-[clamp(12px,1vw,18px)]" />
+                  />
+                  <h4 className="truncate text-[13px] font-bold text-slate-800 lg:text-[13px] xl:text-[clamp(14px,0.8vw,12px)]">
+                    Nutrition{' '}
+                    <span className="font-medium text-slate-400">
+                      ({data.nutritionInfo?.amount || 'Per 100g'})
+                    </span>
+                  </h4>
+                </div>
+                <div className="custom-scrollbar min-h-0 overflow-y-auto pr-1">
+                  <div className="grid grid-cols-4 gap-2 xl:gap-1">
+                    <div className="flex flex-col items-center rounded-[10px] bg-white p-2 text-center shadow-2xs xl:p-0.5">
+                      <span className="text-[10px] font-bold text-slate-500 xl:text-[clamp(10px,0.4vw,8px)]">
+                        Protein
+                      </span>
+                      <span className="text-[13px] font-extrabold text-slate-800 xl:text-[clamp(12px,0.6vw,10px)]">
+                        {data.nutritionInfo?.protein}
+                      </span>
+                    </div>
+                    <div className="flex flex-col items-center rounded-[10px] bg-white p-2 text-center shadow-2xs xl:p-0.5">
+                      <span className="text-[10px] font-bold text-slate-500 xl:text-[clamp(10px,0.4vw,8px)]">
+                        Calories
+                      </span>
+                      <span className="text-[13px] font-extrabold text-slate-800 xl:text-[clamp(12px,0.6vw,10px)]">
+                        {data.nutritionInfo?.calories}
+                      </span>
+                    </div>
+                    <div className="flex flex-col items-center rounded-[10px] bg-white p-2 text-center shadow-2xs xl:p-0.5">
+                      <span className="text-[10px] font-bold text-slate-500 xl:text-[clamp(10px,0.4vw,8px)]">
+                        Omega-3
+                      </span>
+                      <span className="text-[13px] font-extrabold text-slate-800 xl:text-[clamp(12px,0.6vw,10px)]">
+                        {data.nutritionInfo?.omega3}
+                      </span>
+                    </div>
+                    <div className="flex flex-col items-center rounded-[10px] bg-white p-2 text-center shadow-2xs xl:p-0.5">
+                      <span className="text-[10px] font-bold text-slate-500 xl:text-[clamp(10px,0.4vw,8px)]">
+                        Fat
+                      </span>
+                      <span className="text-[13px] font-extrabold text-slate-800 xl:text-[clamp(12px,0.6vw,10px)]">
+                        {data.nutritionInfo?.fat}
+                      </span>
+                    </div>
                   </div>
                 </div>
               </div>
 
-              {/* Allergy Info */}
-              <div className="flex min-h-0 min-w-0 flex-col overflow-hidden rounded-[12px] bg-slate-100 p-2.5 pt-[clamp(14px,2.5vh,24px)] xl:p-[clamp(6px,0.8vw,12px)] xl:pt-[clamp(14px,2.5vh,24px)]">
-                <div className="mb-[clamp(3px,0.4vw,6px)] flex shrink-0 items-center gap-1.5">
-                  <AlertTriangle className="h-[clamp(10px,0.8vw,14px)] w-[clamp(10px,0.8vw,14px)] text-red-500" />
-                  <h4 className="truncate text-[12px] font-bold text-slate-800 lg:text-[13px] xl:text-[clamp(14px,0.8vw,12px)]">
+              {/* Row 5, Left: Allergy Info */}
+              <div className="flex min-h-0 min-w-0 flex-col overflow-hidden rounded-[14px] bg-slate-100/90 p-3 pt-3 xl:p-[clamp(6px,0.8vw,12px)] xl:pt-[clamp(14px,2.5vh,24px)] portrait:p-3.5 portrait:pt-3.5">
+                <div className="mb-2 flex shrink-0 items-center gap-1.5 xl:mb-[clamp(3px,0.4vw,6px)]">
+                  <AlertTriangle className="h-4 w-4 text-red-500 xl:h-[clamp(10px,0.8vw,14px)] xl:w-[clamp(10px,0.8vw,14px)]" />
+                  <h4 className="truncate text-[13px] font-bold text-slate-800 lg:text-[13px] xl:text-[clamp(14px,0.8vw,12px)]">
                     Allergy Info
                   </h4>
                 </div>
                 <div className="custom-scrollbar min-h-0 overflow-y-auto pr-1">
-                  <h5 className="truncate text-[11px] font-bold text-slate-800 lg:text-[12px] xl:text-[clamp(12px,0.7vw,11px)]">
+                  <h5 className="truncate text-[12px] font-bold text-slate-800 lg:text-[12px] xl:text-[clamp(12px,0.7vw,11px)]">
                     {data.allergyInfo?.title}
                   </h5>
-                  <p className="mb-0.5 line-clamp-2 text-[10px] leading-tight text-slate-500 lg:text-[11px] xl:text-[clamp(11px,0.6vw,9px)]">
+                  <p className="mb-0.5 line-clamp-2 text-[11px] leading-tight text-slate-500 lg:text-[11px] xl:text-[clamp(11px,0.6vw,9px)]">
                     {data.allergyInfo?.desc}
                   </p>
-                  <p className="line-clamp-2 text-[10px] leading-tight text-slate-500 lg:text-[11px] xl:text-[clamp(11px,0.6vw,9px)]">
+                  <p className="line-clamp-2 text-[11px] leading-tight text-slate-500 lg:text-[11px] xl:text-[clamp(11px,0.6vw,9px)]">
                     {data.allergyInfo?.warning}
                   </p>
                 </div>
               </div>
 
-              {/* How to Cook */}
-              <div className="flex min-h-0 min-w-0 flex-col overflow-hidden rounded-[12px] bg-slate-100 p-2.5 pt-[clamp(14px,2.5vh,24px)] xl:p-[clamp(6px,0.8vw,12px)] xl:pt-[clamp(14px,2.5vh,24px)]">
-                <div className="mb-[clamp(3px,0.4vw,6px)] flex shrink-0 items-center justify-between">
-                  <h4 className="truncate text-[12px] font-bold text-slate-800 lg:text-[13px] xl:text-[clamp(14px,0.8vw,12px)]">
-                    How to Cook
-                  </h4>
+              {/* Row 5, Right: How to Cook */}
+              <div className="flex min-h-0 min-w-0 flex-col overflow-hidden rounded-[14px] bg-slate-100/90 p-3 pt-3 xl:p-[clamp(6px,0.8vw,12px)] xl:pt-[clamp(14px,2.5vh,24px)] portrait:p-3.5 portrait:pt-3.5">
+                <div className="mb-2 flex shrink-0 items-center justify-between xl:mb-[clamp(3px,0.4vw,6px)]">
+                  <div className="flex items-center gap-1.5">
+                    <PlayCircle
+                      className={cn(
+                        'h-4 w-4 xl:h-[clamp(10px,0.8vw,14px)] xl:w-[clamp(10px,0.8vw,14px)]',
+                        themeText
+                      )}
+                    />
+                    <h4 className="truncate text-[13px] font-bold text-slate-800 lg:text-[13px] xl:text-[clamp(14px,0.8vw,12px)]">
+                      How to Cook
+                    </h4>
+                  </div>
                   <Link
                     href="/cook"
                     className={cn(
@@ -712,22 +757,22 @@ export function ProductDetailsLayout({ data }: { data: ProductDetails }) {
                   {data.howToCook?.map((recipe, i) => (
                     <div
                       key={i}
-                      className="group relative flex min-h-0 flex-1 cursor-pointer overflow-hidden rounded-[6px] bg-black/80"
+                      className="group relative flex min-h-0 flex-1 cursor-pointer overflow-hidden rounded-[8px] bg-black/80"
                     >
                       <Image
                         src={recipe.imageSrc}
                         alt=""
                         fill
-                        className="object-cover opacity-60 transition-transform group-hover:scale-110"
-                        sizes="10vw"
+                        className="object-cover opacity-65 transition-transform group-hover:scale-110"
+                        sizes="15vw"
                       />
                       <div className="absolute inset-0 flex flex-col justify-between p-1.5 text-white">
-                        <PlayCircle className="my-auto h-[clamp(12px,1vw,18px)] w-[clamp(12px,1vw,18px)] self-center" />
+                        <PlayCircle className="my-auto h-4 w-4 self-center text-white/90 drop-shadow-sm xl:h-[clamp(12px,1vw,18px)] xl:w-[clamp(12px,1vw,18px)]" />
                         <div>
-                          <p className="line-clamp-1 text-[10px] leading-tight font-bold lg:text-[11px] xl:text-[clamp(12px,0.5vw,8px)]">
+                          <p className="line-clamp-1 text-[10px] leading-tight font-bold lg:text-[11px]">
                             {recipe.title}
                           </p>
-                          <div className="mt-[1px] flex items-center justify-between text-[10px] text-white/80 lg:text-[11px] xl:text-[clamp(9px,0.4vw,7px)]">
+                          <div className="mt-[1px] flex items-center justify-between text-[9px] text-white/80 lg:text-[10px]">
                             <span className="line-clamp-1 flex-1">
                               {recipe.subtitle}
                             </span>
@@ -746,7 +791,7 @@ export function ProductDetailsLayout({ data }: { data: ProductDetails }) {
 
           {/* TAB: NUTRITION */}
           {activeTab === 'nutrition' && (
-            <div className="grid min-h-0 flex-1 grid-cols-2 gap-2.5 xl:p-[clamp(6px,0.8vw,12px)] portrait:grid-cols-1 portrait:h-auto">
+            <div className="grid min-h-0 flex-1 grid-cols-2 gap-2.5 xl:p-[clamp(6px,0.8vw,12px)] portrait:h-auto portrait:grid-cols-1">
               {/* Nutrition Details */}
               <div className="flex min-h-0 min-w-0 flex-col overflow-hidden rounded-[12px] bg-slate-100 p-3 xl:p-[clamp(8px,1vw,16px)]">
                 <div className="mb-[clamp(4px,0.6vw,8px)] flex shrink-0 items-center gap-2">
@@ -1058,7 +1103,7 @@ export function ProductDetailsLayout({ data }: { data: ProductDetails }) {
         {/* Portrait: Mobile footer */}
         <div className="hidden portrait:flex portrait:flex-col portrait:gap-3 portrait:px-2 portrait:pb-4">
           {/* Mobile About / Stories */}
-          <div className="flex shrink-0 gap-3 w-full">
+          <div className="flex w-full shrink-0 gap-3">
             {/* About Us */}
             <div className="relative flex aspect-[4/3] flex-1 flex-col overflow-hidden rounded-[12px] border border-gray-50 bg-white p-4 shadow-[0_2px_12px_rgba(0,0,0,0.06)]">
               <div className="relative z-10 flex flex-col">

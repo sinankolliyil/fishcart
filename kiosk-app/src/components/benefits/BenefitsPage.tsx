@@ -194,7 +194,7 @@ export function BenefitsPage() {
         <motion.div
           animate={{ scale: [1, 1.1, 1], rotate: [0, 5, -5, 0] }}
           transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
-          className="absolute right-12 z-10 flex h-20 w-20 items-center justify-center rounded-full bg-white shadow-sm border border-slate-100"
+          className="absolute right-12 z-10 flex h-20 w-20 items-center justify-center rounded-full bg-white shadow-sm border border-slate-100 portrait:hidden"
         >
           <Sparkles className="h-10 w-10 text-slate-300" />
         </motion.div>
