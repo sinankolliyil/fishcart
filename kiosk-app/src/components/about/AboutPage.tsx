@@ -19,9 +19,9 @@ import { HomeFooter } from '@/components/layout/HomeFooter';
 
 export function AboutPage() {
   return (
-    <div className="flex h-full w-full scrollbar-thin scrollbar-thumb-slate-200 flex-col overflow-x-hidden overflow-y-auto bg-[#EFF2FA] select-none">
+    <div className="flex h-full w-full scrollbar-thin scrollbar-thumb-slate-200 flex-col overflow-x-hidden overflow-y-auto bg-[#EFF2FA] select-none portrait:h-auto portrait:overflow-visible">
       {/* ─── Main Content ─── */}
-      <div className="flex w-full flex-1 flex-col gap-4 px-[clamp(20px,4vw,60px)] py-4">
+      <div className="flex w-full flex-1 flex-col gap-4 px-[clamp(20px,4vw,60px)] py-4 portrait:px-3 portrait:pb-8">
         {/* ─── Hero & Features Wrapper ─── */}
         <div className="relative w-full">
           {/* Full Hero Image containing all elements */}
@@ -48,7 +48,7 @@ export function AboutPage() {
                 Fresh. Hygienic. <br />
                 Trusted. <span className="text-[#0D55CF]">Delivered.</span>
               </h1>
-              <p className="mt-4 max-w-[85%] text-[clamp(13px,1vw,16px)] leading-relaxed font-medium text-slate-500 portrait:max-w-full portrait:text-[13px] portrait:mt-2">
+              <p className="mt-4 max-w-[85%] text-[clamp(13px,1vw,16px)] leading-relaxed font-medium text-slate-500 portrait:mt-2 portrait:max-w-full portrait:text-[13px]">
                 We are passionate about delivering the freshest non-veg products
                 to your doorstep. Quality, hygiene and trust are at the heart of
                 everything we do.
@@ -70,7 +70,7 @@ export function AboutPage() {
               </span>
               <div className="h-[1px] w-8 bg-blue-200" />
             </div>
-            <h2 className="text-3xl font-bold text-slate-900">
+            <h2 className="text-3xl font-bold text-slate-900 portrait:text-2xl">
               Explore Our Fresh Selection
             </h2>
             <p className="mt-2 text-sm font-medium text-slate-500">
@@ -100,7 +100,7 @@ export function AboutPage() {
                 img: '/assets/about_chicken.png',
                 href: '/chicken',
               },
-              { title: 'Egg', img: '/assets/about_egg.png', href: '/egg' },
+              { title: 'Egg', img: '/assets/about_egg.png', href: '/eggs' },
             ].map((cat, idx) => (
               <Link
                 key={idx}
@@ -172,36 +172,36 @@ export function AboutPage() {
         </div>
 
         {/* 5. Why Choose FishCart */}
-        <div className="mt-2 flex w-full flex-col justify-center">
+        <div className="mt-2 flex w-full flex-col justify-center rounded-[12px] border border-slate-200/80 bg-white/60 p-4 shadow-2xs portrait:p-3">
           <h3 className="mb-4 text-center text-lg font-bold text-slate-800">
             Why Choose FishCart?
           </h3>
-          <div className="grid grid-cols-4 gap-4 portrait:grid-cols-2 portrait:gap-y-6">
+          <div className="grid grid-cols-4 gap-4 portrait:grid-cols-2 portrait:gap-y-4">
             {[
               {
-                icon: <Medal className="h-7 w-7 text-[#0D55CF]" />,
+                icon: <Medal className="h-6 w-6 text-[#0D55CF]" />,
                 title: 'Premium Quality',
                 desc: 'We never compromise on quality.',
               },
               {
-                icon: <Thermometer className="h-7 w-7 text-[#0D55CF]" />,
+                icon: <Thermometer className="h-6 w-6 text-[#0D55CF]" />,
                 title: 'Fresh & Hygienic',
                 desc: 'Maintained with the highest standards.',
               },
               {
-                icon: <Heart className="h-7 w-7 text-[#0D55CF]" />,
+                icon: <Heart className="h-6 w-6 text-[#0D55CF]" />,
                 title: 'Trusted & Reliable',
                 desc: 'Thousands of families trust us every day.',
               },
               {
-                icon: <Headset className="h-7 w-7 text-[#0D55CF]" />,
+                icon: <Headset className="h-6 w-6 text-[#0D55CF]" />,
                 title: 'Customer First',
                 desc: "We're here for you, always.",
               },
             ].map((item, idx) => (
-              <div key={idx} className="flex items-center gap-4">
-                <div className="flex shrink-0 text-blue-100">
-                  <div className="relative flex h-12 w-12 items-center justify-center">
+              <div key={idx} className="flex items-center gap-3">
+                <div className="flex shrink-0 text-[#0D55CF]">
+                  <div className="relative flex h-11 w-11 items-center justify-center rounded-full bg-blue-50">
                     {item.icon}
                   </div>
                 </div>
@@ -209,7 +209,7 @@ export function AboutPage() {
                   <h4 className="text-sm font-bold text-slate-800">
                     {item.title}
                   </h4>
-                  <p className="mt-1 text-xs leading-tight font-medium text-slate-500">
+                  <p className="mt-0.5 text-xs leading-tight font-medium text-slate-500">
                     {item.desc}
                   </p>
                 </div>

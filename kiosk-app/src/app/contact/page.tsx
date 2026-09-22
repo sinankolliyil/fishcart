@@ -15,7 +15,7 @@ import {
 
 export default function ContactPage() {
   return (
-    <div className="flex h-full min-h-0 w-full flex-col overflow-x-hidden overflow-y-auto rounded-[10px] bg-white shadow-sm select-none relative">
+    <div className="flex h-full min-h-0 w-full flex-col overflow-x-hidden overflow-y-auto rounded-[10px] bg-white shadow-sm select-none relative portrait:h-auto portrait:overflow-visible">
       {/* =========================================
             TOP SECTION: CURVED HEADER
         ========================================= */}
@@ -304,7 +304,7 @@ export default function ContactPage() {
       {/* =========================================
             BOTTOM SECTION: MAP AREA (approx 15-20%)
         ========================================= */}
-      <div className="relative mt-auto flex h-[160px] w-full shrink-0 items-center justify-center overflow-hidden bg-white">
+      <div className="relative mt-auto flex h-[160px] w-full shrink-0 items-center justify-center overflow-hidden bg-white portrait:h-auto portrait:py-10 portrait:pb-28">
         {/* Real Map iframe background */}
         <iframe
           src="https://www.openstreetmap.org/export/embed.html?bbox=80.19,13.04,80.25,13.08&amp;layer=mapnik"
