@@ -108,21 +108,21 @@ export function ProductCard({ product, category }: ProductCardProps) {
         </div>
 
         {/* Price and Details link */}
-        <div className="mt-auto flex items-center justify-between border-t border-gray-50 pt-2">
+        <div className="mt-auto flex items-center justify-between border-t border-gray-100 pt-2 min-w-0">
           <PriceDisplay
             price={product.price}
             unit={product.unit}
-            className="text-slate-900 text-[15px] leading-none font-bold [&>span]:text-[11px]"
+            className="text-slate-900 text-[14px] portrait:text-[13px] leading-none font-bold whitespace-nowrap shrink-0 [&>span]:text-[10px] portrait:[&>span]:text-[9.5px]"
           />
 
           <div
             className={cn(
-              'inline-flex shrink-0 items-center gap-1 text-[13px] font-bold transition-all duration-150',
+              'inline-flex shrink-0 items-center gap-0.5 text-[12px] portrait:text-[11px] font-bold transition-all duration-150 ml-1',
               currentColorClass
             )}
           >
             <span className="group-hover:underline">Details</span>
-            <ArrowRight className="h-[clamp(9px,0.8vw,12px)] w-[clamp(9px,0.8vw,12px)] stroke-[2.5]" />
+            <ArrowRight className="h-3 w-3 portrait:h-2.5 portrait:w-2.5 stroke-[2.5]" />
           </div>
         </div>
       </div>

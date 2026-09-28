@@ -400,7 +400,7 @@ export default function HomePage() {
               <Link
                 key={idx}
                 href={cat.href}
-                className="relative h-[16vh] max-h-[140px] min-h-[110px] min-w-[70px] flex-1 overflow-hidden transition-transform active:scale-[0.97]"
+                className="relative h-[19vh] max-h-[145px] min-h-[120px] min-w-[70px] flex-1 overflow-hidden transition-transform active:scale-[0.97]"
                 style={{
                   backgroundColor: cat.bg,
                   borderRadius: '50% 50% 16px 16px',
@@ -569,7 +569,7 @@ export default function HomePage() {
                   className="object-cover"
                 />
               </div>
-              <div className="absolute bottom-2 left-10 z-10 inline-flex w-max items-center gap-2 rounded-[24px] bg-white/95 py-1.5 pr-1.5 pl-3 shadow-md backdrop-blur-sm">
+              <div className="absolute bottom-2 left-5 z-10 inline-flex w-max items-center gap-2 rounded-[24px] bg-white/95 py-1.5 pr-1.5 pl-3 shadow-md backdrop-blur-sm">
                 <div className="flex flex-col">
                   <h4 className="text-[13px] leading-[1.1] font-bold text-[#0B1F5B]">
                     {item.title}
@@ -675,14 +675,6 @@ export default function HomePage() {
               <p className="text-[13px] leading-[1.3] font-medium text-slate-500">
                 Delivering fresh & healthy food to your family.
               </p>
-            </div>
-            <div className="absolute right-1 bottom-1 h-14 w-14 opacity-90 mix-blend-multiply">
-              <Image
-                src="/assets/about_us_fish_exact.png"
-                alt="About Us"
-                fill
-                className="object-contain object-right-bottom"
-              />
             </div>
           </div>
 

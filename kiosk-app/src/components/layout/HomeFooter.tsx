@@ -7,21 +7,13 @@ export function HomeFooter() {
     <footer className="grid h-full w-full grid-cols-4 items-stretch overflow-hidden rounded-[8px] border border-slate-200 bg-white portrait:grid-cols-1 portrait:divide-y portrait:divide-slate-200 portrait:h-auto">
       {/* Card 1: About Us */}
       <div className="relative flex flex-col justify-center overflow-hidden p-[clamp(16px,1.8vw,28px)]">
-        <div className="relative z-10 flex max-w-[65%] flex-col">
+        <div className="relative z-10 flex flex-col">
           <h4 className="mb-0.5 text-[clamp(14px,min(1vw,1.6svh),18px)] font-bold text-[#0D55CF]">
             About Us
           </h4>
           <p className="line-clamp-2 text-[clamp(11px,min(0.8vw,1.2svh),13px)] leading-[1.3] text-[#475569]">
             Delivering fresh & healthy food to your family.
           </p>
-        </div>
-        <div className="absolute right-0 bottom-0 h-full w-[40%] opacity-90 mix-blend-multiply">
-          <Image
-            src="/assets/about_us_fish_exact.png"
-            alt="About Us"
-            fill
-            className="object-contain object-right-bottom"
-          />
         </div>
       </div>
 

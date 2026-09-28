@@ -341,14 +341,6 @@ export function BenefitsPage() {
                   Delivering fresh & healthy food to your family.
                 </p>
               </div>
-              <div className="absolute right-1 bottom-1 h-14 w-14 opacity-90 mix-blend-multiply">
-                <Image
-                  src="/assets/about_us_fish_exact.png"
-                  alt="About Us"
-                  fill
-                  className="object-contain object-right-bottom"
-                />
-              </div>
             </div>
 
             {/* Our Stories */}
