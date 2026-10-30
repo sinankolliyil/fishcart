@@ -1,8 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
 import {
-  ChevronRight,
   CheckCircle2,
   ShieldCheck,
   Truck,
@@ -14,31 +12,295 @@ import {
   PhoneCall,
   Mail,
 } from 'lucide-react';
+import { sanityFetch } from '@/lib/sanity';
+import { OUR_STORY_QUERY } from '@/lib/sanityQueries';
 
-export default function StoryPage() {
+interface StatItem {
+  value?: string;
+  label?: string;
+  description?: string;
+}
+
+interface JourneyItem {
+  title?: string;
+  description?: string;
+  point1?: string;
+  point2?: string;
+  point3?: string;
+}
+
+interface StoryData {
+  heroHeading?: string;
+  heroDescription?: string;
+  stat1?: StatItem;
+  stat2?: StatItem;
+  stat3?: StatItem;
+  stat4?: StatItem;
+  journey1?: JourneyItem;
+  journey2?: JourneyItem;
+  promiseHeading?: string;
+  promiseSubtitle?: string;
+  promisesList?: {
+    promise1?: string;
+    promise2?: string;
+    promise3?: string;
+    promise4?: string;
+    promise5?: string;
+    promise6?: string;
+  };
+  processHeading?: string;
+  processStepsList?: {
+    step1?: string;
+    step2?: string;
+    step3?: string;
+    step4?: string;
+    step5?: string;
+    step6?: string;
+    step7?: string;
+    step8?: string;
+  };
+  thankYouHeading?: string;
+  thankYouText?: string;
+  closingQuote?: string;
+}
+
+const DEFAULT_STATS = [
+  {
+    icon: 'award',
+    value: '1+',
+    label: 'Years of Trust',
+    description: 'Serving you with freshness & care.',
+  },
+  {
+    icon: 'heart',
+    value: '10,000+',
+    label: 'Happy Customers',
+    description: 'Your support is our strength.',
+  },
+  {
+    icon: 'truck',
+    value: '15,000+',
+    label: 'Orders Delivered',
+    description: 'Pre-orders delivered with smile',
+  },
+  {
+    icon: 'shieldCheck',
+    value: '100%',
+    label: 'Quality Promise',
+    description: 'Freshness & hygiene guaranteed',
+  },
+];
+
+const DEFAULT_JOURNEY = [
+  {
+    title: 'How It All Started',
+    description:
+      'One year ago, we started our journey with a simple idea – to deliver fresh fish and meat to our community. We began with online pre-orders and doorstep delivery.',
+    bulletPoints: [
+      'Took pre-orders through WhatsApp & calls',
+      'Carefully sourced and packed every order',
+      'Delivered to your doorstep with on-time promise',
+    ],
+    image: '/assets/story_journey.png',
+  },
+  {
+    title: 'Growing With You',
+    description:
+      'Your trust and support motivated us to take the next big step – our own shop!',
+    bulletPoints: [
+      'Better variety, better quality',
+      'More control on freshness',
+      'Stronger supply network',
+    ],
+    image: '/assets/story_store.png',
+  },
+];
+
+const DEFAULT_PROMISES = [
+  { icon: 'shieldCheck', text: 'Never compromise on quality' },
+  { icon: 'shieldCheck', text: 'Hygienically cleaned & packed' },
+  { icon: 'truck', text: 'Sourced from trusted suppliers' },
+  { icon: 'package', text: 'Delivered with care & on time' },
+  { icon: 'heart', text: '100% satisfaction or we make it right' },
+  { icon: 'shieldCheck', text: 'Sustainable Sourcing' },
+];
+
+const DEFAULT_STEPS = [
+  { img: '/assets/prod_1_salmon.jpg', title: 'Daily Catch' },
+  { img: '/assets/prod_2_seabass.jpg', title: 'Sorting & Cleaning' },
+  { img: '/assets/crushed_ice_bg.png', title: 'Ice Packing' },
+  { img: '/assets/aa_fish.png', title: 'Air Freight' },
+  { img: '/assets/ice_cubes_bg.png', title: 'Import & Inspection' },
+  { img: '/assets/meat.png', title: 'Cold Storage & Transport' },
+  { img: '/assets/chicken.png', title: 'Final Check at Our Shop' },
+  { img: '/assets/contact_boy.png', title: 'Delivered to You' },
+];
+
+function getStatIcon(icon?: string) {
+  switch (icon?.toLowerCase()) {
+    case 'award':
+      return <Award className="h-[clamp(20px,1.6vw,28px)] w-[clamp(20px,1.6vw,28px)] shrink-0 text-blue-600" />;
+    case 'heart':
+      return <Heart className="h-[clamp(20px,1.6vw,28px)] w-[clamp(20px,1.6vw,28px)] shrink-0 text-blue-600" />;
+    case 'truck':
+      return <Truck className="h-[clamp(20px,1.6vw,28px)] w-[clamp(20px,1.6vw,28px)] shrink-0 text-blue-600" />;
+    default:
+      return <ShieldCheck className="h-[clamp(20px,1.6vw,28px)] w-[clamp(20px,1.6vw,28px)] shrink-0 text-blue-600" />;
+  }
+}
+
+function getPromiseIcon(icon?: string) {
+  switch (icon?.toLowerCase()) {
+    case 'truck':
+      return <Truck className="h-[clamp(14px,1.2vw,20px)] w-[clamp(14px,1.2vw,20px)] shrink-0 text-blue-600" />;
+    case 'package':
+      return <Package className="h-[clamp(14px,1.2vw,20px)] w-[clamp(14px,1.2vw,20px)] shrink-0 text-blue-600" />;
+    case 'heart':
+      return <Heart className="h-[clamp(14px,1.2vw,20px)] w-[clamp(14px,1.2vw,20px)] shrink-0 text-blue-600" />;
+    default:
+      return <ShieldCheck className="h-[clamp(14px,1.2vw,20px)] w-[clamp(14px,1.2vw,20px)] shrink-0 text-blue-600" />;
+  }
+}
+
+export default async function StoryPage() {
+  let story: StoryData | null = null;
+  try {
+    story = await sanityFetch<StoryData>(OUR_STORY_QUERY);
+  } catch (err) {
+    console.warn('Failed to fetch Our Story data from Sanity, using fallback:', err);
+  }
+
+  const heroHeading = story?.heroHeading || 'Our Story';
+  const heroDescription =
+    story?.heroDescription ||
+    'From a small online initiative to your trusted fresh partner. Our journey is built on hard work, honesty, and the love of our customers.';
+  const heroImage = '/assets/story_hero.png';
+
+  const stats = [
+    {
+      icon: 'award',
+      value: story?.stat1?.value || DEFAULT_STATS[0].value,
+      label: story?.stat1?.label || DEFAULT_STATS[0].label,
+      description: story?.stat1?.description || DEFAULT_STATS[0].description,
+    },
+    {
+      icon: 'heart',
+      value: story?.stat2?.value || DEFAULT_STATS[1].value,
+      label: story?.stat2?.label || DEFAULT_STATS[1].label,
+      description: story?.stat2?.description || DEFAULT_STATS[1].description,
+    },
+    {
+      icon: 'truck',
+      value: story?.stat3?.value || DEFAULT_STATS[2].value,
+      label: story?.stat3?.label || DEFAULT_STATS[2].label,
+      description: story?.stat3?.description || DEFAULT_STATS[2].description,
+    },
+    {
+      icon: 'shieldCheck',
+      value: story?.stat4?.value || DEFAULT_STATS[3].value,
+      label: story?.stat4?.label || DEFAULT_STATS[3].label,
+      description: story?.stat4?.description || DEFAULT_STATS[3].description,
+    },
+  ];
+
+  const journeyCards = [
+    {
+      title: story?.journey1?.title || DEFAULT_JOURNEY[0].title,
+      description:
+        story?.journey1?.description || DEFAULT_JOURNEY[0].description,
+      bulletPoints: [
+        story?.journey1?.point1 || DEFAULT_JOURNEY[0].bulletPoints[0],
+        story?.journey1?.point2 || DEFAULT_JOURNEY[0].bulletPoints[1],
+        story?.journey1?.point3 || DEFAULT_JOURNEY[0].bulletPoints[2],
+      ].filter((p): p is string => Boolean(p)),
+      image: '/assets/story_journey.png',
+    },
+    {
+      title: story?.journey2?.title || DEFAULT_JOURNEY[1].title,
+      description:
+        story?.journey2?.description || DEFAULT_JOURNEY[1].description,
+      bulletPoints: [
+        story?.journey2?.point1 || DEFAULT_JOURNEY[1].bulletPoints[0],
+        story?.journey2?.point2 || DEFAULT_JOURNEY[1].bulletPoints[1],
+        story?.journey2?.point3 || DEFAULT_JOURNEY[1].bulletPoints[2],
+      ].filter((p): p is string => Boolean(p)),
+      image: '/assets/story_store.png',
+    },
+  ];
+
+  const promiseHeading = story?.promiseHeading || 'Our Promise\nTo You';
+  const promiseSubtitle =
+    story?.promiseSubtitle || 'We promise to deliver the freshest.';
+  const promises = [
+    {
+      icon: 'shieldCheck',
+      text: story?.promisesList?.promise1 || DEFAULT_PROMISES[0].text,
+    },
+    {
+      icon: 'shieldCheck',
+      text: story?.promisesList?.promise2 || DEFAULT_PROMISES[1].text,
+    },
+    {
+      icon: 'truck',
+      text: story?.promisesList?.promise3 || DEFAULT_PROMISES[2].text,
+    },
+    {
+      icon: 'package',
+      text: story?.promisesList?.promise4 || DEFAULT_PROMISES[3].text,
+    },
+    {
+      icon: 'heart',
+      text: story?.promisesList?.promise5 || DEFAULT_PROMISES[4].text,
+    },
+    {
+      icon: 'shieldCheck',
+      text: story?.promisesList?.promise6 || DEFAULT_PROMISES[5].text,
+    },
+  ];
+  const promiseImage = '/assets/story_seafood.png';
+
+  const processHeading =
+    story?.processHeading ||
+    "From Ocean To Our Shop – Here's How It Happens";
+  const processSteps = DEFAULT_STEPS.map((step, idx) => {
+    const key = `step${idx + 1}` as keyof NonNullable<
+      typeof story
+    >['processStepsList'];
+    const customTitle = story?.processStepsList?.[key] || step.title;
+    return {
+      title: customTitle,
+      img: step.img,
+    };
+  });
+
+  const thankYouHeading = story?.thankYouHeading || 'Thank You!';
+  const thankYouText =
+    story?.thankYouText ||
+    'Every order, every feedback, and every smile pushes us to do better every day.';
+  const closingQuote =
+    story?.closingQuote ||
+    "We don't just sell fish & meat,\nwe deliver trust, health and happiness.";
+  const familyImage = '/assets/story_family_footer.png';
+
   return (
     <div className="grid h-full min-h-0 w-full grid-rows-[minmax(0,35fr)_minmax(0,27fr)_minmax(0,17fr)_minmax(0,24fr)_minmax(0,12fr)] gap-2 lg:gap-3 xl:gap-[var(--main-gap)] portrait:flex portrait:flex-col portrait:h-auto portrait:gap-4 portrait:overflow-visible portrait:pb-4">
-      {/* ROW 1 — Story Introduction (28%) */}
+      {/* ROW 1 — Story Introduction */}
       <div className="grid min-h-0 grid-cols-[40fr_20fr_40fr] gap-2 overflow-hidden lg:gap-3 xl:grid-cols-[38fr_28fr_34fr] xl:gap-[var(--main-gap)] portrait:flex portrait:flex-col portrait:gap-4 portrait:overflow-visible">
         {/* Left Side: Intro */}
         <div className="flex min-h-0 flex-col justify-start px-[clamp(8px,1.2vw,18px)] pt-[clamp(6px,0.8vw,12px)]">
-
-
           <h1 className="mb-[clamp(4px,0.6vw,12px)] shrink-0 text-[clamp(32px,min(3vw,4svh),44px)] leading-tight font-bold tracking-tight text-[#102B7B]">
-            Our Story
+            {heroHeading}
           </h1>
 
           <p className="line-clamp-3 text-[13px] leading-relaxed text-slate-600 lg:text-[14px] xl:text-[clamp(10px,0.9vw,14px)]">
-            From a small online initiative to your trusted fresh partner. Our
-            journey is built on hard work, honesty, and the love of our
-            customers.
+            {heroDescription}
           </p>
         </div>
 
         {/* Center: Hero Image */}
         <div className="relative min-h-0 overflow-hidden rounded-[8px] bg-slate-100 portrait:min-h-[200px]">
           <Image
-            src="/assets/story_hero.png"
+            src={heroImage}
             alt="FishCart Family"
             fill
             className="object-cover"
@@ -47,201 +309,101 @@ export default function StoryPage() {
 
         {/* Right: Stats 2x2 */}
         <div className="grid min-h-0 grid-cols-2 grid-rows-2 gap-2 lg:gap-3 xl:gap-[var(--main-gap)]">
-          <div className="flex h-full flex-col rounded-[12px] border border-blue-50 bg-white p-2.5  lg:p-3 xl:p-[clamp(10px,1vw,16px)]">
-            <div className="flex items-center gap-[clamp(8px,0.8vw,12px)]">
-              <Award className="h-[clamp(20px,1.6vw,28px)] w-[clamp(20px,1.6vw,28px)] shrink-0 text-blue-600" />
+          {stats.map((st, i) => (
+            <div
+              key={i}
+              className="flex h-full flex-col rounded-[12px] border border-blue-50 bg-white p-2.5 lg:p-3 xl:p-[clamp(10px,1vw,16px)]"
+            >
+              <div className="flex items-center gap-[clamp(8px,0.8vw,12px)]">
+                {getStatIcon(st.icon)}
+                <div className="text-[clamp(15px,1.5vw,24px)] leading-none font-bold text-slate-900">
+                  {st.value}
+                </div>
+              </div>
 
-              <div className="text-[clamp(15px,1.5vw,24px)] leading-none font-bold text-slate-900">
-                1+
+              <div className="mt-2 text-[13px] leading-tight font-bold text-slate-800 lg:text-[14px] xl:mt-[clamp(8px,0.8vw,10px)] xl:text-[clamp(10px,0.85vw,13px)]">
+                {st.label}
+              </div>
+
+              <div className="mt-1 text-[11px] leading-snug text-slate-500 lg:text-[12px] xl:mt-[clamp(3px,0.4vw,6px)] xl:text-[clamp(8px,0.7vw,10px)]">
+                {st.description}
               </div>
             </div>
-
-            <div className="mt-2 text-[13px] leading-tight font-bold text-slate-800 lg:text-[14px] xl:mt-[clamp(8px,0.8vw,10px)] xl:text-[clamp(10px,0.85vw,13px)]">
-              Years of Trust
-            </div>
-
-            <div className="mt-1 text-[11px] leading-snug text-slate-500 lg:text-[12px] xl:mt-[clamp(3px,0.4vw,6px)] xl:text-[clamp(8px,0.7vw,10px)]">
-              Serving you with freshness & care.
-            </div>
-          </div>
-
-          <div className="flex h-full flex-col rounded-[12px] border border-blue-50 bg-white p-2.5  lg:p-3 xl:p-[clamp(10px,1vw,16px)]">
-            <div className="flex items-center gap-[clamp(8px,0.8vw,12px)]">
-              <Heart className="h-[clamp(20px,1.6vw,28px)] w-[clamp(20px,1.6vw,28px)] shrink-0 text-blue-600" />
-
-              <div className="text-[clamp(15px,1.5vw,24px)] leading-none font-bold text-slate-900">
-                10,000+
-              </div>
-            </div>
-
-            <div className="mt-2 text-[13px] leading-tight font-bold text-slate-800 lg:text-[14px] xl:mt-[clamp(8px,0.8vw,10px)] xl:text-[clamp(10px,0.85vw,13px)]">
-              Happy Customers
-            </div>
-
-            <div className="mt-1 text-[11px] leading-snug text-slate-500 lg:text-[12px] xl:mt-[clamp(3px,0.4vw,6px)] xl:text-[clamp(8px,0.7vw,10px)]">
-              Your support is our strength.
-            </div>
-          </div>
-
-          <div className="flex h-full flex-col rounded-[12px] border border-blue-50 bg-white p-2.5  lg:p-3 xl:p-[clamp(10px,1vw,16px)]">
-            <div className="flex items-center gap-[clamp(8px,0.8vw,12px)]">
-              <Truck className="h-[clamp(20px,1.6vw,28px)] w-[clamp(20px,1.6vw,28px)] shrink-0 text-blue-600" />
-
-              <div className="text-[clamp(15px,1.5vw,24px)] leading-none font-bold text-slate-900">
-                15,000+
-              </div>
-            </div>
-
-            <div className="mt-2 text-[13px] leading-tight font-bold text-slate-800 lg:text-[14px] xl:mt-[clamp(8px,0.8vw,10px)] xl:text-[clamp(10px,0.85vw,13px)]">
-              Orders Delivered
-            </div>
-
-            <div className="mt-1 text-[11px] leading-snug text-slate-500 lg:text-[12px] xl:mt-[clamp(3px,0.4vw,6px)] xl:text-[clamp(8px,0.7vw,10px)]">
-              Pre-orders delivered with smile
-            </div>
-          </div>
-
-          <div className="flex h-full flex-col rounded-[12px] border border-blue-50 bg-white p-2.5  lg:p-3 xl:p-[clamp(10px,1vw,16px)]">
-            <div className="flex items-center gap-[clamp(8px,0.8vw,12px)]">
-              <ShieldCheck className="h-[clamp(20px,1.6vw,28px)] w-[clamp(20px,1.6vw,28px)] shrink-0 text-blue-600" />
-
-              <div className="text-[clamp(15px,1.5vw,24px)] leading-none font-bold text-slate-900">
-                100%
-              </div>
-            </div>
-
-            <div className="mt-2 text-[13px] leading-tight font-bold text-slate-800 lg:text-[14px] xl:mt-[clamp(8px,0.8vw,10px)] xl:text-[clamp(10px,0.85vw,13px)]">
-              Quality Promise
-            </div>
-
-            <div className="mt-1 text-[11px] leading-snug text-slate-500 lg:text-[12px] xl:mt-[clamp(3px,0.4vw,6px)] xl:text-[clamp(8px,0.7vw,10px)]">
-              Freshness & hygiene guaranteed
-            </div>
-          </div>
+          ))}
         </div>
       </div>
 
-      {/* ROW 2 — Journey (25%) */}
+      {/* ROW 2 — Journey */}
       <div className="grid min-h-0 grid-cols-2 gap-[var(--main-gap)] overflow-hidden portrait:grid-cols-1 portrait:gap-4 portrait:overflow-visible">
-        {/* Left Card */}
-        <div className="flex h-full min-h-0 items-center justify-between overflow-hidden rounded-[8px] bg-white p-3  lg:p-4 xl:p-[clamp(12px,1.5vw,24px)]">
-          <div className="flex min-h-0 flex-1 flex-col justify-center pr-3 lg:pr-4 xl:pr-[clamp(12px,1.5vw,24px)]">
-            <h2 className="mb-2 text-[clamp(14px,1.5vw,22px)] leading-tight font-bold text-[#0D55CF] xl:mb-[clamp(4px,0.8vw,12px)]">
-              How It All Started
-            </h2>
-            <p className="mb-2 line-clamp-1 text-[12px] text-slate-600 lg:text-[13px] xl:mb-[clamp(4px,0.8vw,12px)] xl:text-[clamp(9px,0.8vw,12px)]">
-              One year ago, we started our journey with a simple idea – to
-              deliver fresh fish and meat to our community. We began with online
-              pre-orders and doorstep delivery.
-            </p>
-            <div className="flex min-h-0 flex-col gap-1 xl:gap-[clamp(2px,0.4vw,6px)]">
-              {[
-                'Took pre-orders through WhatsApp & calls',
-                'Carefully sourced and packed every order',
-                'Delivered to your doorstep with on-time promise',
-              ].map((text, i) => (
-                <div
-                  key={i}
-                  className="flex items-center gap-[clamp(4px,0.6vw,8px)]"
-                >
-                  <CheckCircle2 className="h-[clamp(10px,1vw,14px)] w-[clamp(10px,1vw,14px)] shrink-0 text-blue-600" />
-                  <span className="truncate text-[12px] font-medium text-slate-700 lg:text-[13px] xl:text-[clamp(9px,0.7vw,11px)]">
-                    {text}
-                  </span>
-                </div>
-              ))}
+        {journeyCards.map((card, i) => (
+          <div
+            key={i}
+            className="flex h-full min-h-0 items-center justify-between overflow-hidden rounded-[8px] bg-white p-3 lg:p-4 xl:p-[clamp(12px,1.5vw,24px)]"
+          >
+            <div className="flex min-h-0 flex-1 flex-col justify-center pr-3 lg:pr-4 xl:pr-[clamp(12px,1.5vw,24px)]">
+              <h2 className="mb-2 text-[clamp(14px,1.5vw,22px)] leading-tight font-bold text-[#0D55CF] xl:mb-[clamp(4px,0.8vw,12px)]">
+                {card.title}
+              </h2>
+              <p className="mb-2 line-clamp-1 text-[12px] text-slate-600 lg:text-[13px] xl:mb-[clamp(4px,0.8vw,12px)] xl:text-[clamp(9px,0.8vw,12px)]">
+                {card.description}
+              </p>
+              <div className="flex min-h-0 flex-col gap-1 xl:gap-[clamp(2px,0.4vw,6px)]">
+                {card.bulletPoints?.map((text, j) => (
+                  <div
+                    key={j}
+                    className="flex items-center gap-[clamp(4px,0.6vw,8px)]"
+                  >
+                    <CheckCircle2 className="h-[clamp(10px,1vw,14px)] w-[clamp(10px,1vw,14px)] shrink-0 text-blue-600" />
+                    <span className="truncate text-[12px] font-medium text-slate-700 lg:text-[13px] xl:text-[clamp(9px,0.7vw,11px)]">
+                      {text}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div className="relative h-[90%] min-h-0 w-[25%] shrink-0 lg:w-[28%] xl:w-[35%]">
+              <Image
+                src={card.image || '/assets/story_journey.png'}
+                alt={card.title}
+                fill
+                className="object-contain"
+              />
             </div>
           </div>
-          <div className="relative h-[90%] min-h-0 w-[25%] shrink-0 lg:w-[28%] xl:w-[35%]">
-            <Image
-              src="/assets/story_journey.png"
-              alt="Journey"
-              fill
-              className="object-contain"
-            />
-          </div>
-        </div>
-
-        {/* Right Card */}
-        <div className="flex h-full min-h-0 items-center justify-between overflow-hidden rounded-[8px] bg-white p-3  lg:p-4 xl:p-[clamp(12px,1.5vw,24px)]">
-          <div className="flex min-h-0 flex-1 flex-col justify-center pr-3 lg:pr-4 xl:pr-[clamp(12px,1.5vw,24px)]">
-            <h2 className="mb-2 text-[clamp(14px,1.5vw,22px)] leading-tight font-bold text-[#0D55CF] xl:mb-[clamp(4px,0.8vw,12px)]">
-              Growing With You
-            </h2>
-            <p className="mb-2 line-clamp-1 text-[12px] text-slate-600 lg:text-[13px] xl:mb-[clamp(4px,0.8vw,12px)] xl:text-[clamp(9px,0.8vw,12px)]">
-              Your trust and support motivated us to take the next big step –
-              our own shop!
-            </p>
-            <div className="flex min-h-0 flex-col gap-1 xl:gap-[clamp(2px,0.4vw,6px)]">
-              {[
-                'Better variety, better quality',
-                'More control on freshness',
-                'Stronger supply network',
-              ].map((text, i) => (
-                <div
-                  key={i}
-                  className="flex items-center gap-[clamp(4px,0.6vw,8px)]"
-                >
-                  <CheckCircle2 className="h-[clamp(10px,1vw,14px)] w-[clamp(10px,1vw,14px)] shrink-0 text-blue-600" />
-                  <span className="truncate text-[12px] font-medium text-slate-700 lg:text-[13px] xl:text-[clamp(9px,0.7vw,11px)]">
-                    {text}
-                  </span>
-                </div>
-              ))}
-            </div>
-          </div>
-          <div className="relative h-[100%] min-h-0 w-[30%] shrink-0 py-2 lg:w-[34%] xl:w-[40%]">
-            <Image
-              src="/assets/story_store.png"
-              alt="Storefront"
-              fill
-              className="rounded-[8px] object-cover"
-            />
-          </div>
-        </div>
+        ))}
       </div>
 
-      {/* ROW 3 — Promise Strip (12%) */}
+      {/* ROW 3 — Promise Strip */}
       <div className="flex min-h-0 items-center overflow-hidden rounded-[8px] bg-white portrait:flex-col portrait:items-start portrait:overflow-visible portrait:p-0 portrait:gap-0">
         <div className="flex flex-1 items-center justify-between px-3 py-2 lg:px-4 lg:py-3 xl:px-[clamp(12px,1.5vw,24px)] xl:py-[clamp(6px,1vw,16px)] portrait:flex-col portrait:items-start portrait:w-full portrait:p-4 portrait:gap-3">
           <div className="w-[15%] shrink-0 portrait:w-full">
-            <h2 className="text-[clamp(15px,1.2vw,20px)] leading-tight font-bold text-[#0D55CF] portrait:text-[20px]">
-              Our Promise
-              <br />
-              To You
+            <h2 className="whitespace-pre-line text-[clamp(15px,1.2vw,20px)] leading-tight font-bold text-[#0D55CF] portrait:text-[20px]">
+              {promiseHeading}
             </h2>
             <p className="mt-1 line-clamp-2 text-[11px] text-slate-500 lg:text-[12px] xl:text-[clamp(11px,0.6vw,9px)] portrait:text-[13px]">
-              We promise to deliver the freshest.
+              {promiseSubtitle}
             </p>
           </div>
 
           <div className="flex min-h-0 flex-1 justify-around gap-1 px-1 lg:gap-2 xl:gap-1 portrait:grid portrait:grid-cols-2 portrait:gap-3 portrait:w-full">
-            {[
-              { icon: ShieldCheck, text: 'Never compromise on quality' },
-              { icon: ShieldCheck, text: 'Hygienically cleaned & packed' },
-              { icon: Truck, text: 'Sourced from trusted suppliers' },
-              { icon: Package, text: 'Delivered with care & on time' },
-              { icon: Heart, text: '100% satisfaction or we make it right' },
-              { icon: ShieldCheck, text: 'Sustainable Sourcing' },
-            ].map((item, i, arr) => (
+            {promises.map((item, i, arr) => (
               <React.Fragment key={i}>
                 <div className="flex min-w-0 items-center gap-[clamp(4px,0.4vw,8px)]">
-                  <item.icon className="h-[clamp(14px,1.2vw,20px)] w-[clamp(14px,1.2vw,20px)] shrink-0 text-blue-600" />
-
+                  {getPromiseIcon(item.icon)}
                   <span className="text-[11px] leading-tight font-semibold text-slate-700 lg:text-[12px] xl:text-[clamp(12px,0.65vw,10px)]">
                     {item.text}
                   </span>
                 </div>
                 {i < arr.length - 1 && (
-                  <div className="h-6 lg:h-8 w-[1px] shrink-0 bg-slate-300 portrait:hidden" />
+                  <div className="h-6 w-[1px] shrink-0 bg-slate-300 lg:h-8 portrait:hidden" />
                 )}
               </React.Fragment>
             ))}
           </div>
         </div>
-        <div className="relative h-full w-[10%] shrink-0 lg:w-[13%] xl:w-[17%] portrait:w-full portrait:h-[120px] portrait:relative">
+        <div className="relative h-full w-[10%] shrink-0 lg:w-[13%] xl:w-[17%] portrait:h-[120px] portrait:w-full">
           <Image
-            src="/assets/story_seafood.png"
+            src={promiseImage}
             alt="Premium Seafood"
             fill
             className="object-cover"
@@ -249,55 +411,22 @@ export default function StoryPage() {
         </div>
       </div>
 
-      {/* ROW 4 — From Ocean To Your Shop (25%) */}
-      <div className="flex min-h-0 flex-col rounded-[8px] bg-white p-3 pt-2 pb-1  lg:p-4 lg:pt-3 lg:pb-2 xl:p-[clamp(12px,1.5vw,24px)] xl:pt-[clamp(3px,0.6vw,6px)] xl:pb-2">
+      {/* ROW 4 — From Ocean To Your Shop */}
+      <div className="flex min-h-0 flex-col rounded-[8px] bg-white p-3 pt-2 pb-1 lg:p-4 lg:pt-3 lg:pb-2 xl:p-[clamp(12px,1.5vw,24px)] xl:pt-[clamp(3px,0.6vw,6px)] xl:pb-2">
         <h2 className="mb-[6px] shrink-0 text-[clamp(14px,1.2vw,20px)] font-bold text-[#0D55CF]">
-          From Ocean To Our Shop – Here&apos;s How It Happens
+          {processHeading}
         </h2>
 
         <div className="flex min-h-0 flex-1 justify-between gap-[clamp(2px,0.4vw,6px)] portrait:grid portrait:grid-cols-2 portrait:gap-3">
-          {[
-            {
-              img: 'prod_1_salmon.jpg',
-              title: 'Daily Catch',
-            },
-            {
-              img: 'prod_2_seabass.jpg',
-              title: 'Sorting & Cleaning',
-            },
-            {
-              img: 'crushed_ice_bg.png',
-              title: 'Ice Packing',
-            },
-            {
-              img: 'aa_fish.png',
-              title: 'Air Freight',
-            },
-            {
-              img: 'ice_cubes_bg.png',
-              title: 'Import & Inspection',
-            },
-            {
-              img: 'meat.png',
-              title: 'Cold Storage & Transport',
-            },
-            {
-              img: 'chicken.png',
-              title: 'Final Check at Our Shop',
-            },
-            {
-              img: 'contact_boy.png',
-              title: 'Delivered to You',
-            },
-          ].map((step, i, arr) => (
+          {processSteps.map((step, i, arr) => (
             <React.Fragment key={i}>
               <div className="flex h-full min-w-0 flex-1 flex-col">
                 <div className="relative mb-[clamp(2px,0.3vw,4px)] aspect-[2.5/1] w-full shrink-0 overflow-hidden rounded-[8px] bg-slate-200">
-                  <div className="absolute top-1 left-1 z-10 flex h-[clamp(12px,1vw,18px)] w-[clamp(12px,1vw,18px)] items-center justify-center rounded-full bg-blue-600 text-[clamp(8px,0.6vw,10px)] font-bold text-white ">
+                  <div className="absolute top-1 left-1 z-10 flex h-[clamp(12px,1vw,18px)] w-[clamp(12px,1vw,18px)] items-center justify-center rounded-full bg-blue-600 text-[clamp(8px,0.6vw,10px)] font-bold text-white">
                     {i + 1}
                   </div>
                   <Image
-                    src={`/assets/${step.img}`}
+                    src={step.img}
                     alt={step.title}
                     fill
                     className="object-cover"
@@ -317,92 +446,48 @@ export default function StoryPage() {
         </div>
       </div>
 
-      {/* ROW 5 — Thank You Footer (10%) */}
+      {/* ROW 5 — Thank You Footer */}
       <div className="grid min-h-0 grid-cols-2 gap-[var(--main-gap)] overflow-hidden portrait:hidden">
         {/* Left Footer Card */}
-        <div className="flex h-full min-h-0 items-center justify-between overflow-hidden rounded-[8px] bg-white p-2  lg:p-3 xl:p-[clamp(8px,1vw,16px)]">
+        <div className="flex h-full min-h-0 items-center justify-between overflow-hidden rounded-[8px] bg-white p-2 lg:p-3 xl:p-[clamp(8px,1vw,16px)]">
           <div className="flex min-h-0 flex-1 items-center gap-[clamp(8px,1vw,16px)] pr-2">
             <Heart className="h-[clamp(24px,2.5vw,40px)] w-[clamp(24px,2.5vw,40px)] shrink-0 text-red-500" />
             <div className="flex min-h-0 flex-col">
               <h2 className="mb-1 text-[clamp(16px,1.5vw,20px)] font-bold text-[#0D55CF]">
-                Thank You!
+                {thankYouHeading}
               </h2>
               <p className="line-clamp-2 text-[14px] leading-tight font-medium text-slate-600 lg:text-[12px] xl:text-[clamp(9px,0.8vw,11px)]">
-                Every order, every feedback, and every smile pushes us to do
-                better every day.
+                {thankYouText}
               </p>
             </div>
           </div>
           <div className="relative h-[100%] min-h-0 w-[20%] shrink-0 lg:w-[28%] xl:w-[35%]">
             <Image
-              src="/assets/story_family_footer.png"
+              src={familyImage}
               alt="Family"
               fill
-              className="object-contain object-center scale-[1.9]"
+              className="scale-[1.9] object-contain object-center"
             />
           </div>
         </div>
 
         {/* Right Footer Card */}
-        <div className="flex h-full min-h-0 items-center justify-between overflow-hidden rounded-[8px] bg-white p-2  lg:p-3 xl:p-[clamp(8px,1vw,16px)]">
+        <div className="flex h-full min-h-0 items-center justify-between overflow-hidden rounded-[8px] bg-white p-2 lg:p-3 xl:p-[clamp(8px,1vw,16px)]">
           <div className="flex h-full flex-1 items-center justify-center pl-2">
-            <p className="text-[14px] leading-tight font-bold text-slate-600 italic lg:text-[14px] xl:text-[clamp(11px,1.2vw,16px)]">
+            <p className="whitespace-pre-line text-[14px] leading-tight font-bold italic text-slate-600 lg:text-[14px] xl:text-[clamp(11px,1.2vw,16px)]">
               <span className="text-[clamp(20px,2.5vw,32px)] leading-none text-blue-200">
                 &quot;
               </span>{' '}
-              We don&apos;t just sell fish & meat,
-              <br />
-              we deliver trust, health and happiness.
+              {closingQuote}
             </p>
           </div>
           <div className="relative h-full w-[28%] shrink-0 lg:w-[32%] xl:w-[35%]">
             <Image
-              src="/assets/story_family_footer.png"
+              src={familyImage}
               alt="Boat Illustration"
               fill
-              className="object-contain object-center scale-[1.9]"
+              className="scale-[1.9] object-contain object-center"
             />
-          </div>
-        </div>
-      </div>
-
-      {/* Portrait-only Mobile Footer */}
-      <div className="hidden portrait:flex portrait:flex-col portrait:gap-3 portrait:px-2 portrait:pb-4">
-        <div className="flex shrink-0 gap-3 w-full">
-          <div className="relative flex aspect-[4/3] flex-1 flex-col overflow-hidden rounded-[12px] border border-gray-50 bg-white p-4 shadow-[0_2px_12px_rgba(0,0,0,0.06)]">
-            <div className="relative z-10 flex flex-col">
-              <h4 className="mb-1 text-[18px] font-bold text-[#0D55CF]">About Us</h4>
-              <p className="text-[13px] leading-[1.3] font-medium text-slate-500">Delivering fresh & healthy food to your family.</p>
-            </div>
-          </div>
-          <div className="relative flex aspect-[4/3] flex-1 flex-col overflow-hidden rounded-[12px] border border-gray-50 bg-white p-4 shadow-[0_2px_12px_rgba(0,0,0,0.06)]">
-            <div className="relative z-10 flex flex-col">
-              <h4 className="mb-1 text-[18px] font-bold text-[#0D55CF]">Our Stories</h4>
-              <p className="max-w-[90%] text-[13px] leading-[1.3] font-medium text-slate-500">From ocean to your kitchen, journey of freshness.</p>
-            </div>
-            <div className="absolute right-1 bottom-1 h-12 w-16 opacity-90 mix-blend-multiply">
-              <Image src="/assets/boat_exact.png" alt="Our Stories" fill className="object-contain object-right-bottom" />
-            </div>
-          </div>
-        </div>
-        <div className="relative flex shrink-0 flex-col justify-center gap-2 overflow-hidden rounded-[12px] border border-gray-50 bg-white p-4 shadow-[0_2px_12px_rgba(0,0,0,0.06)]">
-          <div className="relative z-10 flex w-full flex-col items-center gap-2 text-center">
-            <h4 className="mb-1 text-[18px] font-bold text-[#0D55CF]">Contact Us</h4>
-            <div className="flex items-center justify-center gap-2">
-              <MapPin className="h-4 w-4 shrink-0 text-[#0D55CF]" />
-              <span className="text-[14px] leading-tight font-medium text-slate-600">Unit 5 Hythe Quay, England, CO2 8JB</span>
-            </div>
-            <div className="flex items-center justify-center gap-2">
-              <PhoneCall className="h-4 w-4 shrink-0 text-[#0D55CF]" />
-              <span className="text-[14px] font-bold text-[#0B1F5B]">+44 1206 123456</span>
-            </div>
-            <div className="flex items-center justify-center gap-2">
-              <Mail className="h-4 w-4 shrink-0 text-[#0D55CF]" />
-              <span className="text-[14px] font-bold text-[#0D55CF]">hello@fishcart.co.uk</span>
-            </div>
-          </div>
-          <div className="absolute top-1/2 right-2 h-14 w-16 -translate-y-1/2 opacity-20 mix-blend-multiply">
-            <Image src="/assets/fishdd.png" alt="Address" fill className="object-contain object-right" />
           </div>
         </div>
       </div>

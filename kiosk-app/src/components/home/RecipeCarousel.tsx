@@ -1,11 +1,13 @@
 "use client";
 
-import React, { useState, TouchEvent } from 'react';
+import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
+import { sanityFetch } from '@/lib/sanity';
+import { HOME_RECIPES_QUERY } from '@/lib/sanityQueries';
 
-const RECIPES = [
+const DEFAULT_RECIPES = [
   { img: '/assets/fish2.jpg', title: 'Fish Curry', sub: 'Spicy & Tangy' },
   { img: '/assets/prod_1_salmon.jpg', title: 'Grilled Fish', sub: 'Healthy & Tasty' },
   { img: '/assets/prod_7_prawns.jpg', title: 'Prawns', sub: 'Crispy & Juicy' },
@@ -13,10 +15,30 @@ const RECIPES = [
 ];
 
 export function RecipeCarousel() {
+  const [recipes, setRecipes] = useState(DEFAULT_RECIPES);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [dragStart, setDragStart] = useState<number | null>(null);
 
-  const totalItems = RECIPES.length + 1; // +1 for "View All" link
+  useEffect(() => {
+    sanityFetch<any>(HOME_RECIPES_QUERY)
+      .then((res) => {
+        if (!res) return;
+        const videoList = [res.video1, res.video2, res.video3, res.video4].filter(Boolean);
+        const list = videoList.length > 0 ? videoList : (res.featuredRecipes || []);
+        if (list.length > 0) {
+          setRecipes(
+            list.slice(0, 4).map((r: any, idx: number) => ({
+              img: r.img || r.imageSrc || DEFAULT_RECIPES[idx % DEFAULT_RECIPES.length].img,
+              title: r.title || 'Delicious Recipe',
+              sub: r.subtitle || r.category || 'Step by step cooking video',
+            }))
+          );
+        }
+      })
+      .catch(() => {});
+  }, []);
+
+  const totalItems = recipes.length + 1; // +1 for "View All" link
 
   const handleNext = () => {
     if (currentIndex < totalItems - 2) {
@@ -53,7 +75,7 @@ export function RecipeCarousel() {
         if (dragStart !== null) handlePointerUp(e.clientX);
       }}
     >
-      {[...RECIPES, 'VIEW_ALL'].map((item, i) => {
+      {[...recipes, 'VIEW_ALL'].map((item, i) => {
         // Calculate dynamic smooth widths
         let widthStyle: React.CSSProperties = {
           width: '0%',
@@ -96,7 +118,7 @@ export function RecipeCarousel() {
           );
         }
 
-        const recipe = item as typeof RECIPES[0];
+        const recipe = item as typeof DEFAULT_RECIPES[0];
 
         return (
           <div

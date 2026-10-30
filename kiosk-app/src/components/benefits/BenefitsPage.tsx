@@ -146,12 +146,123 @@ const cardVariants = {
   exit: { opacity: 0, scale: 0.95, transition: { duration: 0.2 } },
 };
 
-// ─── Component ───
-export function BenefitsPage() {
-  const [activeCategory, setActiveCategory] = useState<Category>('fish');
+export interface CmsBenefitItem {
+  title?: string;
+  description?: string;
+  icon?: string;
+}
 
+export interface BenefitsContentData {
+  pageTitle?: string;
+  pageSubtitle?: string;
+  whyFreshMatters?: {
+    title?: string;
+    description?: string;
+  };
+  fish1?: CmsBenefitItem;
+  fish2?: CmsBenefitItem;
+  fish3?: CmsBenefitItem;
+  fish4?: CmsBenefitItem;
+  fish5?: CmsBenefitItem;
+  fish6?: CmsBenefitItem;
+  meat1?: CmsBenefitItem;
+  meat2?: CmsBenefitItem;
+  meat3?: CmsBenefitItem;
+  meat4?: CmsBenefitItem;
+  meat5?: CmsBenefitItem;
+  meat6?: CmsBenefitItem;
+  chicken1?: CmsBenefitItem;
+  chicken2?: CmsBenefitItem;
+  chicken3?: CmsBenefitItem;
+  chicken4?: CmsBenefitItem;
+  chicken5?: CmsBenefitItem;
+  chicken6?: CmsBenefitItem;
+  egg1?: CmsBenefitItem;
+  egg2?: CmsBenefitItem;
+  egg3?: CmsBenefitItem;
+  egg4?: CmsBenefitItem;
+  egg5?: CmsBenefitItem;
+  egg6?: CmsBenefitItem;
+  fishBenefits?: CmsBenefitItem[];
+  meatBenefits?: CmsBenefitItem[];
+  chickenBenefits?: CmsBenefitItem[];
+  eggBenefits?: CmsBenefitItem[];
+}
+
+const ICON_MAP: Record<string, React.ElementType> = {
+  dumbbell: Dumbbell,
+  droplets: Droplets,
+  heart: Heart,
+  brain: Brain,
+  sun: Sun,
+  leaf: Leaf,
+  shield: Shield,
+  zap: Zap,
+  flame: Flame,
+  apple: Apple,
+  eye: Eye,
+};
+
+// ─── Component ───
+export function BenefitsPage({ data }: { data?: BenefitsContentData | null }) {
+  const [activeCategory, setActiveCategory] = useState<Category>('fish');
   const activeCfg = categoryConfig.find((c) => c.id === activeCategory)!;
-  const benefits = benefitsData[activeCategory];
+
+  const getCategoryCards = (cat: Category): BenefitItem[] => {
+    const defaults = benefitsData[cat];
+    const prefix = cat === 'eggs' ? 'egg' : cat;
+
+    // Check direct fields (e.g., fish1..fish6)
+    const directCards: BenefitItem[] = [];
+    for (let i = 1; i <= 6; i++) {
+      const item = (data as any)?.[`${prefix}${i}`] as CmsBenefitItem | undefined;
+      const fallback = defaults[i - 1];
+      const title = item?.title || fallback.title;
+      const description = item?.description || fallback.description;
+      const iconKey = item?.icon?.toLowerCase();
+      const IconComp = (iconKey && ICON_MAP[iconKey]) || fallback.icon || Dumbbell;
+      directCards.push({ title, description, icon: IconComp });
+    }
+
+    const hasAnyDirectData = [1, 2, 3, 4, 5, 6].some(
+      (i) => (data as any)?.[`${prefix}${i}`]?.title
+    );
+    if (hasAnyDirectData) {
+      return directCards;
+    }
+
+    const legacyArray =
+      cat === 'fish'
+        ? data?.fishBenefits
+        : cat === 'meat'
+          ? data?.meatBenefits
+          : cat === 'chicken'
+            ? data?.chickenBenefits
+            : data?.eggBenefits;
+
+    if (legacyArray && legacyArray.length > 0) {
+      return legacyArray.map((item, idx) => ({
+        title: item.title || defaults[idx % defaults.length].title,
+        description: item.description || defaults[idx % defaults.length].description,
+        icon:
+          (item.icon && ICON_MAP[item.icon.toLowerCase()]) ||
+          defaults[idx % defaults.length].icon ||
+          Dumbbell,
+      }));
+    }
+
+    return defaults;
+  };
+
+  const benefits: BenefitItem[] = getCategoryCards(activeCategory);
+
+  const pageTitle = data?.pageTitle || 'Nutritional Value';
+  const pageSubtitle =
+    data?.pageSubtitle || 'Discover the powerful health benefits of our fresh products.';
+  const whyFreshTitle = data?.whyFreshMatters?.title || 'Why Fresh Matters';
+  const whyFreshDesc =
+    data?.whyFreshMatters?.description ||
+    'Fresh, responsibly sourced food helps preserve nutrients, improves taste, and supports a healthier lifestyle.';
 
   return (
     <div className="grid h-full w-full grid-rows-[minmax(0,90fr)_minmax(0,10fr)] gap-[clamp(5px,1vw,15px)] bg-transparent select-none overflow-hidden portrait:flex portrait:flex-col portrait:h-auto portrait:overflow-visible">
@@ -183,10 +294,10 @@ export function BenefitsPage() {
 
           
           <h2 className="text-[clamp(32px,min(3vw,4svh),44px)] leading-tight font-bold tracking-tight text-[#102B7B]">
-            Nutritional Value
+            {pageTitle}
           </h2>
           <p className="mt-2 text-[18px] font-medium text-slate-600">
-            Discover the powerful health benefits of our fresh products.
+            {pageSubtitle}
           </p>
         </div>
 
@@ -311,10 +422,10 @@ export function BenefitsPage() {
         </motion.div>
         <div className="flex flex-col">
           <h4 className={cn("text-[18px] font-bold", activeCfg.textColor)}>
-            Why Fresh Matters
+            {whyFreshTitle}
           </h4>
           <p className="mt-0.5 text-[15px] font-medium text-slate-600">
-            Fresh, responsibly sourced food helps preserve nutrients, improves taste, and supports a healthier lifestyle.
+            {whyFreshDesc}
           </p>
         </div>
       </motion.div>

@@ -10,7 +10,12 @@ const withSerwist = withSerwistInit({
 const nextConfig: NextConfig = {
   images: {
     formats: ["image/avif", "image/webp"],
-    remotePatterns: [],
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "cdn.sanity.io",
+      },
+    ],
   },
 };
 

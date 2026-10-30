@@ -1,8 +1,36 @@
-import React from 'react';
+'use client';
+
+import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { MapPin, PhoneCall, Mail } from 'lucide-react';
+import { sanityFetch } from '@/lib/sanity';
+import { HOME_FOOTER_QUERY } from '@/lib/sanityQueries';
 
 export function HomeFooter() {
+  const [footer, setFooter] = useState<{
+    storeAddress?: string;
+    phone?: string;
+    email?: string;
+    aboutUsText?: string;
+    ourStoriesText?: string;
+    contactUsText?: string;
+  } | null>(null);
+
+  useEffect(() => {
+    sanityFetch<any>(HOME_FOOTER_QUERY)
+      .then((res) => {
+        if (res) setFooter(res);
+      })
+      .catch(() => {});
+  }, []);
+
+  const address = footer?.storeAddress || 'Unit 5 Hythe Quay, England, CO2 8JB';
+  const phone = footer?.phone || '+44 1206 123456';
+  const email = footer?.email || 'hello@fishcart.co.uk';
+  const aboutText = footer?.aboutUsText || 'Delivering fresh & healthy food to your family.';
+  const storiesText = footer?.ourStoriesText || 'From ocean to your kitchen, Journey of freshness.';
+  const contactText = footer?.contactUsText || 'We are here to help you. Reach out anytime.';
+
   return (
     <footer className="grid h-full w-full grid-cols-4 items-stretch overflow-hidden rounded-[8px] border border-slate-200 bg-white portrait:grid-cols-1 portrait:divide-y portrait:divide-slate-200 portrait:h-auto">
       {/* Card 1: About Us */}
@@ -12,7 +40,7 @@ export function HomeFooter() {
             About Us
           </h4>
           <p className="line-clamp-2 text-[clamp(11px,min(0.8vw,1.2svh),13px)] leading-[1.3] text-[#475569]">
-            Delivering fresh & healthy food to your family.
+            {aboutText}
           </p>
         </div>
       </div>
@@ -24,7 +52,7 @@ export function HomeFooter() {
             Our Stories
           </h4>
           <p className="line-clamp-2 text-[clamp(11px,min(0.8vw,1.2svh),13px)] leading-[1.3] text-[#475569]">
-            From ocean to your kitchen, Journey of freshness.
+            {storiesText}
           </p>
         </div>
         <div className="absolute right-4 bottom-0 h-full w-[45%] opacity-90 mix-blend-multiply">
@@ -44,7 +72,7 @@ export function HomeFooter() {
             Contact Us
           </h4>
           <p className="line-clamp-2 text-[clamp(11px,min(0.8vw,1.2svh),13px)] leading-[1.3] text-[#475569]">
-            We are here to help you. Reach out anytime.
+            {contactText}
           </p>
         </div>
         <div className="absolute right-0 bottom-0 h-full w-[38%] opacity-90 mix-blend-multiply">
@@ -63,19 +91,19 @@ export function HomeFooter() {
           <div className="flex items-center gap-2">
             <MapPin className="h-4 w-4 shrink-0 text-[#0D55CF]" />
             <span className="truncate text-[clamp(10px,min(0.75vw,1.1svh),12px)] leading-[1.2] text-[#475569]">
-              Unit 5 Hythe Quay, England, CO2 8JB
+              {address}
             </span>
           </div>
           <div className="flex items-center gap-2">
             <PhoneCall className="h-4 w-4 shrink-0 text-[#0D55CF]" />
             <span className="text-[clamp(10px,min(0.75vw,1.1svh),12px)] font-bold text-[#1E293B]">
-              +44 1206 123456
+              {phone}
             </span>
           </div>
           <div className="flex items-center gap-2">
             <Mail className="h-4 w-4 shrink-0 text-[#0D55CF]" />
             <span className="text-[clamp(10px,min(0.75vw,1.1svh),12px)] font-bold text-[#0D55CF]">
-              hello@fishcart.co.uk
+              {email}
             </span>
           </div>
         </div>

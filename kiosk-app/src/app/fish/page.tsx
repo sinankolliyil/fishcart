@@ -1,6 +1,8 @@
 import { CatalogPage } from "@/components/catalog/CatalogPage";
 import { fishCatalogData } from "@/data/catalogData";
+import { getMergedCatalogProducts } from "@/lib/productUtils";
 
-export default function FishPage() {
-  return <CatalogPage data={fishCatalogData} />;
+export default async function FishPage() {
+  const mergedProducts = await getMergedCatalogProducts('fish', fishCatalogData.products);
+  return <CatalogPage data={{ ...fishCatalogData, products: mergedProducts }} />;
 }

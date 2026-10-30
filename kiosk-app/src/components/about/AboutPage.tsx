@@ -10,14 +10,157 @@ import {
   Medal,
   Thermometer,
   Headset,
-  CheckCircle2,
   Truck,
-  Beef,
-  Bird,
 } from 'lucide-react';
-import { HomeFooter } from '@/components/layout/HomeFooter';
 
-export function AboutPage() {
+export interface HighlightItem {
+  title?: string;
+  description?: string;
+  icon?: string;
+}
+
+export interface AboutUsData {
+  heroSubtitle?: string;
+  heroHeading?: string;
+  heroDescription?: string;
+  teamSignature?: string;
+  selectionTagline?: string;
+  selectionHeading?: string;
+  selectionSubtitle?: string;
+  whyChooseHeading?: string;
+  highlight1?: HighlightItem;
+  highlight2?: HighlightItem;
+  highlight3?: HighlightItem;
+  highlight4?: HighlightItem;
+  highlights?: HighlightItem[];
+}
+
+const DEFAULT_SELECTION = [
+  { title: 'Fish', img: '/assets/about_fish.png', href: '/fish' },
+  { title: 'Meat', img: '/assets/about_meat.png', href: '/meat' },
+  { title: 'Chicken', img: '/assets/about_chicken.png', href: '/chicken' },
+  { title: 'Egg', img: '/assets/about_egg.png', href: '/eggs' },
+];
+
+const DEFAULT_HIGHLIGHTS = [
+  {
+    icon: 'medal',
+    title: 'Premium Quality',
+    description: 'We never compromise on quality.',
+  },
+  {
+    icon: 'thermometer',
+    title: 'Fresh & Hygienic',
+    description: 'Maintained with the highest standards.',
+  },
+  {
+    icon: 'heart',
+    title: 'Trusted & Reliable',
+    description: 'Thousands of families trust us every day.',
+  },
+  {
+    icon: 'headset',
+    title: 'Customer First',
+    description: "We're here for you, always.",
+  },
+];
+
+function getHighlightIcon(icon?: string) {
+  switch (icon?.toLowerCase()) {
+    case 'medal':
+      return <Medal className="h-6 w-6 text-[#0D55CF]" />;
+    case 'thermometer':
+      return <Thermometer className="h-6 w-6 text-[#0D55CF]" />;
+    case 'heart':
+      return <Heart className="h-6 w-6 text-[#0D55CF]" />;
+    case 'headset':
+      return <Headset className="h-6 w-6 text-[#0D55CF]" />;
+    case 'truck':
+      return <Truck className="h-6 w-6 text-[#0D55CF]" />;
+    default:
+      return <ShieldCheck className="h-6 w-6 text-[#0D55CF]" />;
+  }
+}
+
+export function AboutPage({ data }: { data?: AboutUsData | null }) {
+  const heroSubtitle = data?.heroSubtitle || 'About Us';
+  const heroHeading =
+    data?.heroHeading || 'Fresh. Hygienic. \nTrusted. Delivered.';
+  const heroDescription =
+    data?.heroDescription ||
+    'We are passionate about delivering the freshest non-veg products to your doorstep. Quality, hygiene and trust are at the heart of everything we do.';
+  const teamSignature = data?.teamSignature || 'Team FishCart';
+  const heroImage = '/assets/new_aboutus.png';
+
+  const selectionTagline = data?.selectionTagline || 'What We Offer';
+  const selectionHeading =
+    data?.selectionHeading || 'Explore Our Fresh Selection';
+  const selectionSubtitle =
+    data?.selectionSubtitle ||
+    'Handpicked non-veg products, cleaned with care and delivered fresh.';
+
+  const selectionCards = DEFAULT_SELECTION;
+
+  const whyChooseHeading = data?.whyChooseHeading || 'Why Choose FishCart?';
+  const highlights = [
+    {
+      title:
+        data?.highlight1?.title ||
+        data?.highlights?.[0]?.title ||
+        DEFAULT_HIGHLIGHTS[0].title,
+      description:
+        data?.highlight1?.description ||
+        data?.highlights?.[0]?.description ||
+        DEFAULT_HIGHLIGHTS[0].description,
+      icon:
+        data?.highlight1?.icon ||
+        data?.highlights?.[0]?.icon ||
+        DEFAULT_HIGHLIGHTS[0].icon,
+    },
+    {
+      title:
+        data?.highlight2?.title ||
+        data?.highlights?.[1]?.title ||
+        DEFAULT_HIGHLIGHTS[1].title,
+      description:
+        data?.highlight2?.description ||
+        data?.highlights?.[1]?.description ||
+        DEFAULT_HIGHLIGHTS[1].description,
+      icon:
+        data?.highlight2?.icon ||
+        data?.highlights?.[1]?.icon ||
+        DEFAULT_HIGHLIGHTS[1].icon,
+    },
+    {
+      title:
+        data?.highlight3?.title ||
+        data?.highlights?.[2]?.title ||
+        DEFAULT_HIGHLIGHTS[2].title,
+      description:
+        data?.highlight3?.description ||
+        data?.highlights?.[2]?.description ||
+        DEFAULT_HIGHLIGHTS[2].description,
+      icon:
+        data?.highlight3?.icon ||
+        data?.highlights?.[2]?.icon ||
+        DEFAULT_HIGHLIGHTS[2].icon,
+    },
+    {
+      title:
+        data?.highlight4?.title ||
+        data?.highlights?.[3]?.title ||
+        DEFAULT_HIGHLIGHTS[3].title,
+      description:
+        data?.highlight4?.description ||
+        data?.highlights?.[3]?.description ||
+        DEFAULT_HIGHLIGHTS[3].description,
+      icon:
+        data?.highlight4?.icon ||
+        data?.highlights?.[3]?.icon ||
+        DEFAULT_HIGHLIGHTS[3].icon,
+    },
+  ];
+
   return (
     <div className="flex h-full w-full scrollbar-thin scrollbar-thumb-slate-200 flex-col overflow-x-hidden overflow-y-auto bg-[#EFF2FA] select-none portrait:h-auto portrait:overflow-visible">
       {/* ─── Main Content ─── */}
@@ -27,7 +170,7 @@ export function AboutPage() {
           {/* Full Hero Image containing all elements */}
           <div className="pointer-events-none absolute inset-0 z-0 -mx-[clamp(20px,4vw,60px)] -mt-10 overflow-visible portrait:hidden">
             <Image
-              src="/assets/new_aboutus.png"
+              src={heroImage}
               alt="Fresh Meat and Fish Hero"
               fill
               className="origin-right -translate-x-18 -translate-y-3 scale-[1.09] object-contain object-right"
@@ -40,21 +183,18 @@ export function AboutPage() {
             <div className="-mt-35 flex w-1/2 flex-col pr-10 portrait:mt-0 portrait:w-full portrait:pr-0">
               <div className="mb-2 flex items-center gap-2">
                 <span className="text-sm font-bold text-[#0D55CF] italic">
-                  About Us
+                  {heroSubtitle}
                 </span>
                 <div className="h-[2px] w-12 bg-blue-200" />
               </div>
-              <h1 className="text-[clamp(32px,min(3vw,4svh),44px)] leading-tight font-bold tracking-tight text-slate-900 portrait:text-[26px]">
-                Fresh. Hygienic. <br />
-                Trusted. <span className="text-[#0D55CF]">Delivered.</span>
+              <h1 className="whitespace-pre-line text-[clamp(32px,min(3vw,4svh),44px)] leading-tight font-bold tracking-tight text-slate-900 portrait:text-[26px]">
+                {heroHeading}
               </h1>
               <p className="mt-4 max-w-[85%] text-[clamp(13px,1vw,16px)] leading-relaxed font-medium text-slate-500 portrait:mt-2 portrait:max-w-full portrait:text-[13px]">
-                We are passionate about delivering the freshest non-veg products
-                to your doorstep. Quality, hygiene and trust are at the heart of
-                everything we do.
+                {heroDescription}
               </p>
               <div className="font-handwriting mt-6 text-2xl font-medium text-[#0D55CF] italic opacity-80 portrait:mt-2 portrait:text-lg">
-                Team FishCart
+                {teamSignature}
               </div>
             </div>
           </div>
@@ -66,16 +206,15 @@ export function AboutPage() {
             <div className="mb-2 flex items-center gap-2">
               <div className="h-[1px] w-8 bg-blue-200" />
               <span className="text-xs font-bold tracking-wider text-[#0D55CF] uppercase">
-                What We Offer
+                {selectionTagline}
               </span>
               <div className="h-[1px] w-8 bg-blue-200" />
             </div>
             <h2 className="text-3xl font-bold text-slate-900 portrait:text-2xl">
-              Explore Our Fresh Selection
+              {selectionHeading}
             </h2>
             <p className="mt-2 text-sm font-medium text-slate-500">
-              Handpicked non-veg products, cleaned with care and delivered
-              fresh.
+              {selectionSubtitle}
             </p>
           </div>
 
@@ -92,16 +231,7 @@ export function AboutPage() {
               </defs>
             </svg>
 
-            {[
-              { title: 'Fish', img: '/assets/about_fish.png', href: '/fish' },
-              { title: 'Meat', img: '/assets/about_meat.png', href: '/meat' },
-              {
-                title: 'Chicken',
-                img: '/assets/about_chicken.png',
-                href: '/chicken',
-              },
-              { title: 'Egg', img: '/assets/about_egg.png', href: '/eggs' },
-            ].map((cat, idx) => (
+            {selectionCards.map((cat, idx) => (
               <Link
                 key={idx}
                 href={cat.href}
@@ -114,7 +244,7 @@ export function AboutPage() {
                     className="absolute inset-0 bg-blue-100/30 backdrop-blur-[16px]"
                     style={{ clipPath: 'url(#glass-shape)' }}
                   >
-                    {/* 3D Inner Highlight & Shade (glare top-left, shadow bottom-right) */}
+                    {/* 3D Inner Highlight & Shade */}
                     <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-white/80 via-blue-100/20 to-blue-900/10" />
                   </div>
 
@@ -159,7 +289,7 @@ export function AboutPage() {
                   {cat.title.slice(1)}
                 </div>
 
-                {/* Arrow Navigation Icon (Centered perfectly in the small card's bounding box) */}
+                {/* Arrow Navigation Icon */}
                 <div className="absolute top-[75%] left-[70%] z-20 flex h-[25%] w-[30%] items-center justify-center transition-transform duration-300 group-hover:translate-x-1">
                   <ArrowRight
                     className="h-5 w-5 text-[#0D55CF]"
@@ -174,35 +304,14 @@ export function AboutPage() {
         {/* 5. Why Choose FishCart */}
         <div className="mt-2 flex w-full flex-col justify-center rounded-[12px] border border-slate-200/80 bg-white/60 p-4 shadow-2xs portrait:p-3">
           <h3 className="mb-4 text-center text-lg font-bold text-slate-800">
-            Why Choose FishCart?
+            {whyChooseHeading}
           </h3>
           <div className="grid grid-cols-4 gap-4 portrait:grid-cols-2 portrait:gap-y-4">
-            {[
-              {
-                icon: <Medal className="h-6 w-6 text-[#0D55CF]" />,
-                title: 'Premium Quality',
-                desc: 'We never compromise on quality.',
-              },
-              {
-                icon: <Thermometer className="h-6 w-6 text-[#0D55CF]" />,
-                title: 'Fresh & Hygienic',
-                desc: 'Maintained with the highest standards.',
-              },
-              {
-                icon: <Heart className="h-6 w-6 text-[#0D55CF]" />,
-                title: 'Trusted & Reliable',
-                desc: 'Thousands of families trust us every day.',
-              },
-              {
-                icon: <Headset className="h-6 w-6 text-[#0D55CF]" />,
-                title: 'Customer First',
-                desc: "We're here for you, always.",
-              },
-            ].map((item, idx) => (
+            {highlights.map((item, idx) => (
               <div key={idx} className="flex items-center gap-3">
                 <div className="flex shrink-0 text-[#0D55CF]">
                   <div className="relative flex h-11 w-11 items-center justify-center rounded-full bg-blue-50">
-                    {item.icon}
+                    {getHighlightIcon(item.icon)}
                   </div>
                 </div>
                 <div className="flex flex-col">
@@ -210,7 +319,7 @@ export function AboutPage() {
                     {item.title}
                   </h4>
                   <p className="mt-0.5 text-xs leading-tight font-medium text-slate-500">
-                    {item.desc}
+                    {item.description}
                   </p>
                 </div>
               </div>

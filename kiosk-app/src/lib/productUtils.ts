@@ -89,3 +89,60 @@ export const getProductById = (id: string): ProductDetails | null => {
   }
   return null;
 };
+
+/**
+ * Async lookup with Sanity CMS priority and seamless fallback to hardcoded catalog.
+ * Guarantees zero downtime and complete catalog preservation.
+ */
+export const getProductByIdAsync = async (id: string): Promise<ProductDetails | null> => {
+  try {
+    const { sanityFetch } = await import('@/lib/sanity');
+    const { PRODUCT_BY_SLUG_QUERY } = await import('@/lib/sanityQueries');
+    const sanityProduct = await sanityFetch<any>(PRODUCT_BY_SLUG_QUERY, { slug: id });
+
+    if (sanityProduct) {
+      const mockDefaults = getMockDetails(sanityProduct.title, sanityProduct.category || 'fish', sanityProduct.price);
+      return {
+        ...mockDefaults,
+        ...sanityProduct,
+        id: sanityProduct.id || id,
+        category: sanityProduct.category || 'fish',
+      } as ProductDetails;
+    }
+  } catch (err) {
+    console.warn('Error fetching product from Sanity, falling back to local catalog:', err);
+  }
+
+  // Graceful fallback to existing hardcoded catalog
+  return getProductById(id);
+};
+
+/**
+ * Merges CMS products with local catalog products safely by ID/slug.
+ * Local products remain active unless overridden by published CMS documents.
+ */
+export const getMergedCatalogProducts = async (
+  category: 'fish' | 'meat' | 'chicken' | 'eggs',
+  localProducts: any[]
+): Promise<any[]> => {
+  try {
+    const { sanityFetch } = await import('@/lib/sanity');
+    const { PRODUCTS_BY_CATEGORY_QUERY } = await import('@/lib/sanityQueries');
+    const cmsProducts = await sanityFetch<any[]>(PRODUCTS_BY_CATEGORY_QUERY, { category });
+
+    if (!cmsProducts || cmsProducts.length === 0) {
+      return localProducts;
+    }
+
+    // Merge strategy: CMS products override local items with matching ID;
+    // local items not in CMS are preserved; new CMS items are appended.
+    const mergedMap = new Map<string, any>();
+    localProducts.forEach((p) => mergedMap.set(p.id, p));
+    cmsProducts.forEach((p) => mergedMap.set(p.id, { ...(mergedMap.get(p.id) || {}), ...p }));
+
+    return Array.from(mergedMap.values());
+  } catch (err) {
+    console.warn('Error merging catalog products with Sanity:', err);
+    return localProducts;
+  }
+};

@@ -46,6 +46,7 @@ export interface Video {
   time: string;
   serves: number;
   ingredients: Ingredient[];
+  pdfUrl?: string;
 }
 
 // --- Mock Data ---
@@ -745,9 +746,25 @@ export function getCategoryIcon(cat: Category) {
   }
 }
 
-export function HowToCookPage() {
+export function HowToCookPage({
+  initialRecipes,
+}: {
+  initialRecipes?: Video[];
+}) {
+  const videoList: Video[] = React.useMemo(() => {
+    if (!initialRecipes || initialRecipes.length === 0) return MOCK_VIDEOS;
+    // CMS recipes take priority; keep non-colliding mock videos as fallbacks
+    const existingIds = new Set(initialRecipes.map((r) => String(r.id)));
+    const remainingMock = MOCK_VIDEOS.filter(
+      (m) => !existingIds.has(String(m.id))
+    );
+    return [...initialRecipes, ...remainingMock];
+  }, [initialRecipes]);
+
   const [activeCategory, setActiveCategory] = useState<Category>('Fish');
-  const [activeVideo, setActiveVideo] = useState<Video>(MOCK_VIDEOS[0]);
+  const [activeVideo, setActiveVideo] = useState<Video>(
+    videoList[0] || MOCK_VIDEOS[0]
+  );
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
@@ -772,17 +789,15 @@ export function HowToCookPage() {
     const params = new URLSearchParams(window.location.search);
     const videoId = params.get('videoId');
     if (videoId) {
-      const vid = MOCK_VIDEOS.find((v) => v.id === parseInt(videoId));
+      const vid = videoList.find((v) => String(v.id) === videoId);
       if (vid) {
         setActiveVideo(vid);
         setActiveCategory(vid.category);
       }
     }
-  }, []);
+  }, [videoList]);
 
-  const filteredVideos = MOCK_VIDEOS.filter(
-    (v) => v.category === activeCategory
-  );
+  const filteredVideos = videoList.filter((v) => v.category === activeCategory);
 
   const uniqueCategoryVideos: Video[] = [];
   const seenIngredients = new Set<string>();
@@ -795,21 +810,25 @@ export function HowToCookPage() {
     }
   }
 
-  let otherVideos = MOCK_VIDEOS.filter(
-    (v) =>
-      v.id !== activeVideo.id &&
-      v.ingredients[0]?.name === activeVideo.ingredients[0]?.name
-  ).slice(0, 3);
+  let otherVideos = videoList
+    .filter(
+      (v) =>
+        v.id !== activeVideo.id &&
+        v.ingredients[0]?.name === activeVideo.ingredients[0]?.name
+    )
+    .slice(0, 3);
 
   // Fallback to category if no other videos share the exact same ingredient
   if (otherVideos.length === 0) {
-    otherVideos = MOCK_VIDEOS.filter(
-      (v) => v.id !== activeVideo.id && v.category === activeVideo.category
-    ).slice(0, 3);
+    otherVideos = videoList
+      .filter(
+        (v) => v.id !== activeVideo.id && v.category === activeVideo.category
+      )
+      .slice(0, 3);
   }
 
   return (
-    <div className="grid h-full min-h-[750px] w-full grid-rows-[auto_minmax(0,42fr)_minmax(0,20fr)] gap-[clamp(12px,2svh,24px)] overflow-hidden bg-white select-none portrait:flex portrait:flex-col portrait:h-auto portrait:overflow-visible">
+    <div className="grid h-full min-h-[750px] w-full grid-rows-[auto_minmax(0,42fr)_minmax(0,20fr)] gap-[clamp(12px,2svh,24px)] overflow-hidden bg-white select-none portrait:flex portrait:h-auto portrait:flex-col portrait:overflow-visible">
       {/* 1. Header (Title + Categories) */}
       <div className="flex shrink-0 flex-col px-[clamp(8px,1.2vw,18px)] pt-[clamp(6px,0.8vw,12px)]">
         <h1 className="text-[clamp(32px,min(3vw,4svh),44px)] leading-tight font-bold tracking-tight text-[#102B7B]">
@@ -821,11 +840,11 @@ export function HowToCookPage() {
       </div>
 
       {/* 2. 3-Column Main Grid */}
-      <div className="grid min-h-0 grid-cols-12 gap-6 px-[clamp(8px,1vw,16px)] portrait:flex portrait:flex-col portrait:h-auto">
+      <div className="grid min-h-0 grid-cols-12 gap-6 px-[clamp(8px,1vw,16px)] portrait:flex portrait:h-auto portrait:flex-col">
         {/* A. Main Video Player (Left, spanning 6 cols) */}
-        <div className="col-span-6 flex min-h-0 flex-col portrait:w-full portrait:h-auto portrait:flex-none">
+        <div className="col-span-6 flex min-h-0 flex-col portrait:h-auto portrait:w-full portrait:flex-none">
           {/* Categories */}
-          <div className="mb-3 flex h-10 w-fit shrink-0 items-center rounded-lg border border-slate-200 bg-white p-1 shadow-sm portrait:w-full portrait:overflow-x-auto portrait:justify-start">
+          <div className="mb-3 flex h-10 w-fit shrink-0 items-center rounded-lg border border-slate-200 bg-white p-1 shadow-sm portrait:w-full portrait:justify-start portrait:overflow-x-auto">
             {(['Fish', 'Meat', 'Chicken', 'Egg'] as Category[]).map((cat) => {
               const isActive = cat === activeCategory;
               return (
@@ -833,7 +852,7 @@ export function HowToCookPage() {
                   key={cat}
                   onClick={() => {
                     setActiveCategory(cat);
-                    const firstVideo = MOCK_VIDEOS.find(
+                    const firstVideo = videoList.find(
                       (v) => v.category === cat
                     );
                     if (firstVideo) setActiveVideo(firstVideo);
@@ -929,7 +948,7 @@ export function HowToCookPage() {
             </h2>
 
             <div className="mt-1.5 flex items-center justify-between portrait:flex-col portrait:items-start portrait:gap-3">
-              <div className="flex items-center gap-6 portrait:gap-4 portrait:flex-wrap">
+              <div className="flex items-center gap-6 portrait:flex-wrap portrait:gap-4">
                 {/* Meta Items */}
                 <div className="flex items-center gap-1.5">
                   {getCategoryIcon(activeVideo.category)}
@@ -968,7 +987,7 @@ export function HowToCookPage() {
         </div>
 
         {/* B. Ingredients Overview (Middle, spanning 3 cols) */}
-        <div className="col-span-3 flex min-h-0 flex-col rounded-xl border border-gray-100 bg-white p-5 shadow-sm portrait:w-full portrait:h-auto portrait:min-h-[300px]">
+        <div className="col-span-3 flex min-h-0 flex-col rounded-xl border border-gray-100 bg-white p-5 shadow-sm portrait:h-auto portrait:min-h-[300px] portrait:w-full">
           <div className="mb-4 flex shrink-0 items-center justify-between border-b border-gray-100 pb-4">
             <h3 className="text-lg font-bold text-[#0B1F5B]">
               Ingredients Overview
@@ -1033,34 +1052,42 @@ export function HowToCookPage() {
             })}
           </div>
 
-          <a
-            href={
-              activeVideo.id === 1 ? '/assets/grilled_sea_bass_recipe.pdf' : '#'
-            }
-            download={
-              activeVideo.id === 1 ? 'Grilled_Sea_Bass_Recipe.pdf' : undefined
-            }
-            target={activeVideo.id === 1 ? '_blank' : undefined}
-            rel="noreferrer"
-            onClick={(e) => {
-              if (activeVideo.id !== 1) {
-                e.preventDefault();
-                // Real implementation would fetch PDF from backend for other recipes
-              }
-            }}
-            className="group mt-4 flex w-full shrink-0 cursor-pointer items-center justify-between rounded-lg bg-[#F4F7FB] px-4 py-3 transition-colors hover:bg-[#E5EEFF]"
-          >
-            <div className="flex items-center gap-2 text-sm font-bold text-[#0D55CF]">
-              <Download className="h-4 w-4" /> Download Recipe
-            </div>
-            <span className="text-xs font-bold text-slate-400 transition-colors group-hover:text-[#0D55CF]">
-              PDF
-            </span>
-          </a>
+          {(() => {
+            const pdfHref =
+              activeVideo.pdfUrl ||
+              (activeVideo.id === 1
+                ? '/assets/grilled_sea_bass_recipe.pdf'
+                : undefined);
+            return (
+              <a
+                href={pdfHref || '#'}
+                download={
+                  pdfHref
+                    ? `${activeVideo.title.replace(/[^\w\s-]/g, '').replace(/\s+/g, '_')}_Recipe.pdf`
+                    : undefined
+                }
+                target={pdfHref ? '_blank' : undefined}
+                rel="noreferrer"
+                onClick={(e) => {
+                  if (!pdfHref) {
+                    e.preventDefault();
+                  }
+                }}
+                className="group mt-4 flex w-full shrink-0 cursor-pointer items-center justify-between rounded-lg bg-[#F4F7FB] px-4 py-3 transition-colors hover:bg-[#E5EEFF]"
+              >
+                <div className="flex items-center gap-2 text-sm font-bold text-[#0D55CF]">
+                  <Download className="h-4 w-4" /> Download Recipe
+                </div>
+                <span className="text-xs font-bold text-slate-400 transition-colors group-hover:text-[#0D55CF]">
+                  PDF
+                </span>
+              </a>
+            );
+          })()}
         </div>
 
         {/* C. Follow Other Videos (Right, spanning 3 cols) */}
-        <div className="col-span-3 flex min-h-0 flex-col rounded-xl border border-gray-100 bg-white p-5 shadow-sm portrait:w-full portrait:h-auto portrait:min-h-[300px]">
+        <div className="col-span-3 flex min-h-0 flex-col rounded-xl border border-gray-100 bg-white p-5 shadow-sm portrait:h-auto portrait:min-h-[300px] portrait:w-full">
           <h3 className="mb-4 shrink-0 text-lg font-bold text-[#0B1F5B]">
             Follow Other Videos
           </h3>
@@ -1112,11 +1139,11 @@ export function HowToCookPage() {
         </div>
 
         {/* Grid of 5 videos max */}
-        <div className="grid min-h-0 flex-1 grid-cols-5 gap-6 portrait:flex portrait:overflow-x-auto portrait:snap-x portrait:snap-mandatory portrait:pb-4 portrait:gap-4 portrait:[&::-webkit-scrollbar]:hidden">
+        <div className="grid min-h-0 flex-1 grid-cols-5 gap-6 portrait:flex portrait:snap-x portrait:snap-mandatory portrait:gap-4 portrait:overflow-x-auto portrait:pb-4 portrait:[&::-webkit-scrollbar]:hidden">
           {uniqueCategoryVideos.slice(0, 5).map((v) => (
             <div
               key={v.id}
-              className="group flex h-full min-h-0 cursor-pointer flex-col portrait:shrink-0 portrait:w-[80vw] portrait:snap-center portrait:h-[220px]"
+              className="group flex h-full min-h-0 cursor-pointer flex-col portrait:h-[220px] portrait:w-[80vw] portrait:shrink-0 portrait:snap-center"
               onClick={() => setActiveVideo(v)}
             >
               <div className="relative mb-3 min-h-0 w-full flex-1 overflow-hidden rounded-lg bg-black">
