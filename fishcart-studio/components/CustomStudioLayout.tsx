@@ -146,33 +146,33 @@ export function CustomStudioLayout(props: LayoutProps) {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', height: '100%', width: '100%' }}>
       <style>{`
-        /* ─── COMPACT COLUMN WIDTHS FOR SANITY STUDIO ─── */
+        /* ─── TIGHT & COMPACT COLUMN WIDTHS FOR SANITY STUDIO ─── */
         [data-ui="Pane"] {
-          min-width: 180px !important;
+          min-width: 140px !important;
         }
 
-        /* Column 1: Main navigation (Fishcart Content) */
+        /* Column 1: Main navigation (Fishcart Content) - divider sits right next to longest text (How to Cook / Testimonials) */
         [data-ui="Pane"][data-pane-index="0"] {
-          min-width: 180px !important;
-          max-width: 230px !important;
-          flex: 0 0 210px !important;
-          width: 210px !important;
+          min-width: 150px !important;
+          max-width: 168px !important;
+          flex: 0 0 162px !important;
+          width: 162px !important;
         }
 
-        /* Column 2: Secondary section lists (Fish Products, How to Cook, Home Sections, etc.) */
+        /* Column 2: Secondary section lists (Fish Products, How to Cook, etc. - divider sits right next to Hidden Products (Hide)) */
         [data-ui="Pane"][data-pane-index="1"] {
-          min-width: 200px !important;
-          max-width: 280px !important;
-          flex: 0 0 240px !important;
-          width: 240px !important;
+          min-width: 195px !important;
+          max-width: 215px !important;
+          flex: 0 0 206px !important;
+          width: 206px !important;
         }
 
         /* Column 3: Items / Documents list (Products, Recipes list) */
         [data-ui="Pane"][data-pane-index="2"] {
           min-width: 250px !important;
-          max-width: 340px !important;
-          flex: 0 0 290px !important;
-          width: 290px !important;
+          max-width: 310px !important;
+          flex: 0 0 275px !important;
+          width: 275px !important;
         }
 
         /* Allow Document Editor / Detail pane to fill the remaining screen space */
@@ -184,10 +184,23 @@ export function CustomStudioLayout(props: LayoutProps) {
           width: auto !important;
         }
 
-        /* Slightly more compact list item padding for clean presentation */
-        [data-ui="Pane"] [data-ui="PaneItem"] {
+        /* Tighter list item & header padding so divider sits snug next to text */
+        [data-ui="Pane"][data-pane-index="0"] [data-ui="CommandList"],
+        [data-ui="Pane"][data-pane-index="1"] [data-ui="CommandList"] {
+          padding-left: 4px !important;
+          padding-right: 4px !important;
+        }
+
+        [data-ui="Pane"][data-pane-index="0"] [data-ui="PaneItem"],
+        [data-ui="Pane"][data-pane-index="1"] [data-ui="PaneItem"] {
           padding-left: 6px !important;
           padding-right: 6px !important;
+        }
+
+        [data-ui="Pane"][data-pane-index="0"] [data-ui="PaneHeader"],
+        [data-ui="Pane"][data-pane-index="1"] [data-ui="PaneHeader"] {
+          padding-left: 8px !important;
+          padding-right: 8px !important;
         }
       `}</style>
 
