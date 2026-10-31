@@ -111,7 +111,7 @@ export const deskStructure: StructureResolver = (S) =>
           S.documentList()
             .title('Fish Products')
             .filter('_type == "product" && (category->slug.current == "fish" || category == "fish")')
-            .defaultOrdering([{ field: 'displayOrder', direction: 'asc' }])
+            .defaultOrdering([{ field: 'title', direction: 'asc' }])
             .initialValueTemplates([S.initialValueTemplateItem('product-fish')])
         ),
 
@@ -124,7 +124,7 @@ export const deskStructure: StructureResolver = (S) =>
           S.documentList()
             .title('Meat Products')
             .filter('_type == "product" && (category->slug.current == "meat" || category == "meat")')
-            .defaultOrdering([{ field: 'displayOrder', direction: 'asc' }])
+            .defaultOrdering([{ field: 'title', direction: 'asc' }])
             .initialValueTemplates([S.initialValueTemplateItem('product-meat')])
         ),
 
@@ -137,7 +137,7 @@ export const deskStructure: StructureResolver = (S) =>
           S.documentList()
             .title('Chicken Products')
             .filter('_type == "product" && (category->slug.current == "chicken" || category == "chicken")')
-            .defaultOrdering([{ field: 'displayOrder', direction: 'asc' }])
+            .defaultOrdering([{ field: 'title', direction: 'asc' }])
             .initialValueTemplates([S.initialValueTemplateItem('product-chicken')])
         ),
 
@@ -150,7 +150,7 @@ export const deskStructure: StructureResolver = (S) =>
           S.documentList()
             .title('Eggs Products')
             .filter('_type == "product" && (category->slug.current == "eggs" || category == "eggs")')
-            .defaultOrdering([{ field: 'displayOrder', direction: 'asc' }])
+            .defaultOrdering([{ field: 'title', direction: 'asc' }])
             .initialValueTemplates([S.initialValueTemplateItem('product-eggs')])
         ),
 
@@ -313,7 +313,7 @@ export const deskStructure: StructureResolver = (S) =>
           S.documentTypeList('product')
             .title('All Products')
             .defaultOrdering([
-              { field: 'displayOrder', direction: 'asc' },
+              { field: 'title', direction: 'asc' },
               { field: '_createdAt', direction: 'desc' },
             ])
         ),

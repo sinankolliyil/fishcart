@@ -60,6 +60,7 @@ export function HomeFooter() {
             src="/assets/boat_exact.png"
             alt="Our Stories"
             fill
+            sizes="20vw"
             className="object-contain object-right-bottom"
           />
         </div>
@@ -80,6 +81,7 @@ export function HomeFooter() {
             src="/assets/boy.png"
             alt="Contact Us"
             fill
+            sizes="20vw"
             className="object-contain object-right-bottom"
           />
         </div>
@@ -113,6 +115,7 @@ export function HomeFooter() {
             src="/assets/fishdd.png"
             alt="Address"
             fill
+            sizes="10vw"
             className="object-contain object-right"
           />
         </div>

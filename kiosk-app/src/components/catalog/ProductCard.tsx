@@ -40,13 +40,21 @@ export function ProductCard({ product, category }: ProductCardProps) {
     >
       {/* Product Image Container - flex-grow & min-h-0 to stretch/shrink dynamically */}
       <div className="relative flex min-h-0 w-full flex-1 items-center justify-center overflow-hidden bg-[#F8FAFC] p-1 portrait:aspect-square portrait:min-h-[160px]">
-        <Image
-          src={product.imageSrc}
-          alt={product.title}
-          fill
-          sizes="(max-width: 768px) 50vw, 25vw"
-          className="object-cover"
-        />
+        {product.imageSrc ? (
+          <Image
+            src={product.imageSrc}
+            alt={product.title}
+            fill
+            sizes="(max-width: 768px) 50vw, 25vw"
+            className="object-cover"
+          />
+        ) : (
+          <div className="flex h-full w-full items-center justify-center text-slate-300">
+            <svg viewBox="0 0 64 64" className="h-10 w-10 opacity-30" fill="currentColor">
+              <path d="M32 8C18.7 8 8 18.7 8 32s10.7 24 24 24 24-10.7 24-24S45.3 8 32 8zm0 4c11.0 0 20 9.0 20 20s-9.0 20-20 20S12 43.0 12 32 21.0 12 32 12zm-2 8v14l10 6-2 3.5-12-7V20h4z"/>
+            </svg>
+          </div>
+        )}
 
         {/* Favorite Heart Button */}
         <button
