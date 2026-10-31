@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useFormValue } from 'sanity';
 import { Card, Flex, Box, Text, Button, Stack, Badge } from '@sanity/ui';
 import { ArrowRight, ArrowLeft, AlertCircle, CheckCircle2 } from 'lucide-react';
@@ -15,6 +15,67 @@ export function createSectionNav(config: SectionNavProps) {
   return function SectionNavField(_props?: any) {
     const documentValues = useFormValue([]) as Record<string, any> | undefined;
     const [missingFields, setMissingFields] = useState<string[] | null>(null);
+    const [isAllFields, setIsAllFields] = useState<boolean>(false);
+
+    useEffect(() => {
+      const checkTab = () => {
+        try {
+          const tabs = Array.from(
+            window.document.querySelectorAll<HTMLElement>(
+              'button[role="tab"], [role="tab"], [role="tablist"] button, [data-ui="Tab"]'
+            )
+          );
+          const activeTab = tabs.find(
+            (t) =>
+              t.getAttribute('aria-selected') === 'true' ||
+              t.getAttribute('data-selected') === 'true' ||
+              t.getAttribute('data-selected') === ''
+          );
+          if (activeTab) {
+            const text = (activeTab.innerText || activeTab.textContent || '').toLowerCase().trim();
+            setIsAllFields(text.includes('all fields') || text === 'all');
+          }
+        } catch {
+          // ignore
+        }
+      };
+
+      checkTab();
+
+      // Observer for DOM attribute changes when tabs are switched
+      const observer = new MutationObserver(() => {
+        checkTab();
+      });
+
+      try {
+        observer.observe(window.document.body, {
+          attributes: true,
+          attributeFilter: ['aria-selected', 'data-selected'],
+          subtree: true,
+        });
+      } catch {
+        // ignore
+      }
+
+      const handleClick = () => {
+        setTimeout(checkTab, 30);
+        setTimeout(checkTab, 150);
+      };
+
+      // Also a lightweight interval just in case
+      const interval = setInterval(checkTab, 300);
+
+      window.document.addEventListener('click', handleClick, true);
+      return () => {
+        observer.disconnect();
+        clearInterval(interval);
+        window.document.removeEventListener('click', handleClick, true);
+      };
+    }, []);
+
+    if (isAllFields) {
+      return null;
+    }
 
     const checkMissing = (): string[] => {
       const missing: string[] = [];
@@ -145,17 +206,12 @@ export function createSectionNav(config: SectionNavProps) {
       >
         <Stack space={3}>
           {/* Header indicator */}
-          <Flex align="center" justify="space-between">
-            <Flex align="center" gap={2}>
-              <Badge tone="primary" fontSize={1} padding={2}>
-                Section {config.currentSection} of {config.totalSections || 6}
-              </Badge>
-              <Text weight="semibold" size={1} style={{ color: '#94A3B8' }}>
-                {config.currentTitle}
-              </Text>
-            </Flex>
-            <Text size={1} style={{ color: '#64748B' }}>
-              Step Navigation
+          <Flex align="center" gap={2}>
+            <Badge tone="primary" fontSize={1} padding={2}>
+              Section {config.currentSection} of {config.totalSections || 6}
+            </Badge>
+            <Text weight="semibold" size={1} style={{ color: '#94A3B8' }}>
+              {config.currentTitle}
             </Text>
           </Flex>
 

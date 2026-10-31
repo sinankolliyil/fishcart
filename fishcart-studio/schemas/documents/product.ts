@@ -210,7 +210,7 @@ export default defineType({
       description: 'Main product photo shown on the card and at the top of the details page',
       options: { hotspot: true },
       validation: (r) => r.required(),
-    }),
+    }), 
 
     defineField({
       name: 'origin',
