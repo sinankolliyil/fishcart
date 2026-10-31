@@ -126,6 +126,12 @@ export default defineType({
       hidden: true,
     }),
     defineField({
+      name: 'mediaType',
+      title: 'Legacy Media Type',
+      type: 'string',
+      hidden: true,
+    }),
+    defineField({
       name: 'description',
       title: 'Short Description',
       type: 'text',
