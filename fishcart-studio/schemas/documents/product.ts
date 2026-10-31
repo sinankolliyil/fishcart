@@ -1,5 +1,55 @@
 import { defineField, defineType } from 'sanity';
 import { createSuggestStringInput } from '../../components/SuggestStringInput';
+import { createSectionNav } from '../../components/SectionNav';
+
+// ─── Section Forward & Backward Navigators ───
+const Section1Nav = createSectionNav({
+  currentSection: 1,
+  totalSections: 6,
+  currentTitle: '1. Product List Card',
+  prevGroupTitle: null,
+  nextGroupTitle: '2. Product Details — Overview',
+});
+
+const Section2Nav = createSectionNav({
+  currentSection: 2,
+  totalSections: 6,
+  currentTitle: '2. Product Details — Overview',
+  prevGroupTitle: '1. Product List Card',
+  nextGroupTitle: '3. Sizes',
+});
+
+const Section3Nav = createSectionNav({
+  currentSection: 3,
+  totalSections: 6,
+  currentTitle: '3. Sizes',
+  prevGroupTitle: '2. Product Details — Overview',
+  nextGroupTitle: '4. Nutrition & Health',
+});
+
+const Section4Nav = createSectionNav({
+  currentSection: 4,
+  totalSections: 6,
+  currentTitle: '4. Nutrition & Health',
+  prevGroupTitle: '3. Sizes',
+  nextGroupTitle: '5. Allergy Info',
+});
+
+const Section5Nav = createSectionNav({
+  currentSection: 5,
+  totalSections: 6,
+  currentTitle: '5. Allergy Info',
+  prevGroupTitle: '4. Nutrition & Health',
+  nextGroupTitle: '6. Cooking & Recipes',
+});
+
+const Section6Nav = createSectionNav({
+  currentSection: 6,
+  totalSections: 6,
+  currentTitle: '6. Cooking & Recipes',
+  prevGroupTitle: '5. Allergy Info',
+  nextGroupTitle: null,
+});
 
 // ─── Autocomplete Suggestion Inputs ───
 const FormatInput = createSuggestStringInput(
@@ -218,6 +268,15 @@ export default defineType({
       components: { input: BadgeInput },
     }),
 
+    defineField({
+      name: 'section1Nav',
+      title: ' ',
+      type: 'string',
+      group: 'list',
+      components: { field: Section1Nav },
+      readOnly: true,
+    }),
+
     // ══════════════════════════════════════════════════════════
     // GROUP 2 — Product Details — Overview tab
     // ══════════════════════════════════════════════════════════
@@ -317,6 +376,15 @@ export default defineType({
       validation: (r) => r.required().min(1),
     }),
 
+    defineField({
+      name: 'section2Nav',
+      title: ' ',
+      type: 'string',
+      group: 'details',
+      components: { field: Section2Nav },
+      readOnly: true,
+    }),
+
     // ══════════════════════════════════════════════════════════
     // GROUP 3 — Sizes
     // Size selector pills shown on the right side of the details page
@@ -377,6 +445,15 @@ export default defineType({
         },
       ],
       validation: (r) => r.required().min(1),
+    }),
+
+    defineField({
+      name: 'section3Nav',
+      title: ' ',
+      type: 'string',
+      group: 'sizes',
+      components: { field: Section3Nav },
+      readOnly: true,
     }),
 
     // ══════════════════════════════════════════════════════════
@@ -441,6 +518,15 @@ export default defineType({
       validation: (r) => r.required().min(1),
     }),
 
+    defineField({
+      name: 'section4Nav',
+      title: ' ',
+      type: 'string',
+      group: 'nutrition',
+      components: { field: Section4Nav },
+      readOnly: true,
+    }),
+
     // ══════════════════════════════════════════════════════════
     // GROUP 5 — Allergy Info
     // Shown in the "Allergy Info" tab and on the Overview tab
@@ -477,6 +563,15 @@ export default defineType({
         }),
       ],
       validation: (r) => r.required(),
+    }),
+
+    defineField({
+      name: 'section5Nav',
+      title: ' ',
+      type: 'string',
+      group: 'allergy',
+      components: { field: Section5Nav },
+      readOnly: true,
     }),
 
     // ══════════════════════════════════════════════════════════
@@ -575,6 +670,15 @@ export default defineType({
         },
       ],
       validation: (r) => r.required().min(1),
+    }),
+
+    defineField({
+      name: 'section6Nav',
+      title: ' ',
+      type: 'string',
+      group: 'cooking',
+      components: { field: Section6Nav },
+      readOnly: true,
     }),
 
   ],
