@@ -123,9 +123,10 @@ export const RECIPES_QUERY = `
     cookingTime,
     serves,
     subtitle,
-    mediaType,
+    videoSource,
     "thumbnail": coalesce(thumbnail.asset->url, imageSrc),
     videoUrl,
+    "videoFileUrl": videoFile.asset->url,
     description,
     ingredients[] {
       name,

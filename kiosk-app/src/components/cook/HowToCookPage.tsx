@@ -859,7 +859,7 @@ export function HowToCookPage({
     return null;
   }, [activeVideo.videoUrl, activeVideo.id]);
 
-  const isVideoMode = Boolean(videoInfo) && activeVideo.mediaType !== 'image';
+  const isVideoMode = Boolean(videoInfo);
   const displayThumbnail =
     activeVideo.thumbnail ||
     videoInfo?.defaultThumbnail ||
@@ -1215,7 +1215,7 @@ export function HowToCookPage({
                       fill
                       className="object-cover opacity-80 transition-opacity group-hover:opacity-100"
                     />
-                    {v.mediaType !== 'image' && (
+                    {Boolean(v.videoUrl || v.id === 1) && (
                       <div className="absolute inset-0 flex items-center justify-center bg-black/20 opacity-0 transition-opacity group-hover:opacity-100">
                         <Play className="h-5 w-5 fill-white text-white" />
                       </div>
@@ -1268,7 +1268,7 @@ export function HowToCookPage({
                     fill
                     className="object-cover opacity-85 transition-all duration-300 group-hover:scale-105 group-hover:opacity-100"
                   />
-                  {v.mediaType !== 'image' && (
+                  {Boolean(v.videoUrl || v.id === 1) && (
                     <div className="absolute inset-0 flex items-center justify-center">
                       <div className="flex h-10 w-10 items-center justify-center rounded-full border border-white/20 bg-black/50 backdrop-blur-sm transition-all group-hover:border-[#0D55CF] group-hover:bg-[#0D55CF]">
                         <Play className="ml-0.5 h-4 w-4 fill-white text-white" />

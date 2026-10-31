@@ -21,8 +21,7 @@ export default async function CookPage() {
         serves: r.serves || 2,
         ingredients: r.ingredients || [],
         pdfUrl: r.pdfUrl || undefined,
-        videoUrl: r.videoUrl || undefined,
-        mediaType: r.mediaType || (r.videoUrl ? 'video' : 'image'),
+        videoUrl: r.videoFileUrl || r.videoUrl || undefined,
       }));
     }
   } catch (err) {

@@ -82,64 +82,42 @@ export default defineType({
       initialValue: 2,
     }),
     defineField({
-      name: 'mediaType',
-      title: 'Recipe Media Type (Choose ONE: Video Link OR Upload Image)',
+      name: 'videoSource',
+      title: 'Cooking Video Source',
       type: 'string',
-      description: 'Choose whether this recipe features a Cooking Video Link (e.g. YouTube) OR an Uploaded Image. Only one is allowed.',
+      description: 'Choose whether to attach a Cooking Video URL (e.g. YouTube) or Upload a Video file directly.',
       options: {
         list: [
-          { title: '🎬 Cooking Video Link (YouTube, Vimeo, MP4)', value: 'video' },
-          { title: '🖼️ Upload Recipe Image (Photo)', value: 'image' },
+          { title: 'Video URL (YouTube, Vimeo, MP4 link)', value: 'url' },
+          { title: 'Upload Video File', value: 'upload' },
         ],
         layout: 'radio',
       },
-      initialValue: 'video',
-      validation: (rule) => rule.required(),
+      initialValue: 'url',
     }),
     defineField({
       name: 'videoUrl',
       title: 'Cooking Video URL (YouTube, Vimeo, or MP4 link)',
       type: 'url',
       description: 'Paste any YouTube link (e.g. https://www.youtube.com/watch?v=..., https://youtu.be/..., shorts), Vimeo, or MP4 link.',
-      hidden: ({ document }) => document?.mediaType === 'image',
-      validation: (rule) =>
-        rule.custom((value, context) => {
-          const doc = context.document as { mediaType?: string; thumbnail?: { asset?: unknown } } | undefined;
-          const hasImage = Boolean(doc?.thumbnail?.asset);
-          if (doc?.mediaType === 'image' && value) {
-            return 'Cannot have both Cooking Video URL and Uploaded Image together. Please remove the URL or switch media type to Video Link.';
-          }
-          if (doc?.mediaType === 'video' && !value) {
-            return 'Cooking Video URL is required when Video Link mode is selected.';
-          }
-          if (value && hasImage) {
-            return 'Cannot have both Cooking Video URL and Uploaded Image together. Please remove one.';
-          }
-          return true;
-        }),
+      hidden: ({ document }) => document?.videoSource === 'upload',
+    }),
+    defineField({
+      name: 'videoFile',
+      title: 'Upload Cooking Video File',
+      type: 'file',
+      description: 'Upload a video file (.mp4, .webm, .mov) directly.',
+      options: {
+        accept: 'video/*',
+      },
+      hidden: ({ document }) => document?.videoSource !== 'upload',
     }),
     defineField({
       name: 'thumbnail',
-      title: 'Upload Recipe Image',
+      title: 'Highlight Image (Recipe Photo)',
       type: 'image',
-      description: 'Upload a high-quality dish photo for this recipe. (Used when Upload Recipe Image is selected)',
+      description: 'Upload a high-quality dish photo for this recipe. This is used as the highlight cover image on recipe cards and video posters.',
       options: { hotspot: true },
-      hidden: ({ document }) => document?.mediaType === 'video',
-      validation: (rule) =>
-        rule.custom((value, context) => {
-          const doc = context.document as { mediaType?: string; videoUrl?: string } | undefined;
-          const hasVideo = Boolean(doc?.videoUrl);
-          if (doc?.mediaType === 'video' && value?.asset) {
-            return 'Cannot have both Cooking Video URL and Uploaded Image together. Please remove this image or switch media type to Upload Image.';
-          }
-          if (doc?.mediaType === 'image' && !value?.asset) {
-            return 'Please upload a recipe image when Upload Recipe Image mode is selected.';
-          }
-          if (value?.asset && hasVideo) {
-            return 'Cannot have both Cooking Video URL and Uploaded Image together. Please remove one.';
-          }
-          return true;
-        }),
     }),
     defineField({
       name: 'imageSrc',
