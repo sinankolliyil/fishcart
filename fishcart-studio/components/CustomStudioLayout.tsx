@@ -145,6 +145,52 @@ export function CustomStudioLayout(props: LayoutProps) {
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', height: '100%', width: '100%' }}>
+      <style>{`
+        /* ─── COMPACT COLUMN WIDTHS FOR SANITY STUDIO ─── */
+        [data-ui="Pane"] {
+          min-width: 180px !important;
+        }
+
+        /* Column 1: Main navigation (Fishcart Content) */
+        [data-ui="Pane"][data-pane-index="0"] {
+          min-width: 180px !important;
+          max-width: 230px !important;
+          flex: 0 0 210px !important;
+          width: 210px !important;
+        }
+
+        /* Column 2: Secondary section lists (Fish Products, How to Cook, Home Sections, etc.) */
+        [data-ui="Pane"][data-pane-index="1"] {
+          min-width: 200px !important;
+          max-width: 280px !important;
+          flex: 0 0 240px !important;
+          width: 240px !important;
+        }
+
+        /* Column 3: Items / Documents list (Products, Recipes list) */
+        [data-ui="Pane"][data-pane-index="2"] {
+          min-width: 250px !important;
+          max-width: 340px !important;
+          flex: 0 0 290px !important;
+          width: 290px !important;
+        }
+
+        /* Allow Document Editor / Detail pane to fill the remaining screen space */
+        [data-ui="Pane"][data-ui="DocumentPane"],
+        [data-ui="Pane"][data-pane-index="3"] {
+          min-width: 420px !important;
+          max-width: none !important;
+          flex: 1 1 auto !important;
+          width: auto !important;
+        }
+
+        /* Slightly more compact list item padding for clean presentation */
+        [data-ui="Pane"] [data-ui="PaneItem"] {
+          padding-left: 6px !important;
+          padding-right: 6px !important;
+        }
+      `}</style>
+
       {syncStatus !== 'idle' && (
         <Card
           padding={2}
