@@ -72,6 +72,23 @@ export default defineType({
     // ══════════════════════════════════════════════════════════
 
     defineField({
+      name: 'status',
+      title: 'Product Availability',
+      type: 'string',
+      group: 'list',
+      description: 'Available: Active & clickable on the website. Not Available: Faded & not clickable.',
+      options: {
+        list: [
+          { title: '🟢 Available (Enabled)', value: 'enabled' },
+          { title: '🔴 Not Available (Disabled)', value: 'disabled' },
+        ],
+        layout: 'radio',
+      },
+      initialValue: 'enabled',
+      validation: (r) => r.required(),
+    }),
+
+    defineField({
       name: 'title',
       title: 'Product Title',
       type: 'string',
@@ -117,23 +134,6 @@ export default defineType({
         layout: 'radio',
       },
       initialValue: 'fish',
-      validation: (r) => r.required(),
-    }),
-
-    defineField({
-      name: 'status',
-      title: 'Status (Enable / Disable)',
-      type: 'string',
-      group: 'list',
-      description: 'Disabled mode: item appears faded and is NOT clickable on the website.',
-      options: {
-        list: [
-          { title: '🟢 Enabled (Active & Clickable)', value: 'enabled' },
-          { title: '🔴 Disabled (Faded & Not Clickable)', value: 'disabled' },
-        ],
-        layout: 'radio',
-      },
-      initialValue: 'enabled',
       validation: (r) => r.required(),
     }),
 
