@@ -23,10 +23,17 @@ import {
   getCategoryIcon,
 } from './HowToCookPage';
 
-export function AllVideosPage() {
+export function AllVideosPage({ initialRecipes }: { initialRecipes?: Video[] }) {
   const [activeCategory, setActiveCategory] = useState<Category>('Fish');
 
-  const filteredVideos = MOCK_VIDEOS.filter(
+  const videoList: Video[] = React.useMemo(() => {
+    if (!initialRecipes || initialRecipes.length === 0) return MOCK_VIDEOS;
+    const existingIds = new Set(initialRecipes.map((r) => String(r.id)));
+    const remainingMock = MOCK_VIDEOS.filter((m) => !existingIds.has(String(m.id)));
+    return [...initialRecipes, ...remainingMock];
+  }, [initialRecipes]);
+
+  const filteredVideos = videoList.filter(
     (v) => v.category === activeCategory
   );
 

@@ -36,7 +36,7 @@ export interface Ingredient {
 }
 
 export interface Video {
-  id: number;
+  id: number | string;
   title: string;
   description: string;
   duration: string;
@@ -47,6 +47,55 @@ export interface Video {
   serves: number;
   ingredients: Ingredient[];
   pdfUrl?: string;
+  videoUrl?: string;
+  mediaType?: 'video' | 'image';
+}
+
+export interface VideoPlayerInfo {
+  type: 'youtube' | 'vimeo' | 'html5';
+  src?: string;
+  videoId?: string;
+  embedUrl?: string;
+  defaultThumbnail?: string;
+}
+
+export function parseVideoUrl(url?: string): VideoPlayerInfo | null {
+  if (!url) return null;
+  const trimmed = url.trim();
+  if (!trimmed) return null;
+
+  // YouTube (watch?v=..., youtu.be/..., embed/..., shorts/...)
+  const ytMatch = trimmed.match(
+    /(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=|shorts\/)|youtu\.be\/)([^"&?\/\s]{11})/i
+  );
+  if (ytMatch && ytMatch[1]) {
+    const videoId = ytMatch[1];
+    return {
+      type: 'youtube',
+      videoId,
+      embedUrl: `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1&playsinline=1`,
+      defaultThumbnail: `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`,
+    };
+  }
+
+  // Vimeo
+  const vimeoMatch = trimmed.match(
+    /vimeo\.com\/(?:channels\/(?:\w+\/)?|groups\/([^\/]*)\/videos\/|album\/(\d+)\/video\/|video\/|)(\d+)/i
+  );
+  if (vimeoMatch && vimeoMatch[3]) {
+    const vimeoId = vimeoMatch[3];
+    return {
+      type: 'vimeo',
+      videoId: vimeoId,
+      embedUrl: `https://player.vimeo.com/video/${vimeoId}?autoplay=1`,
+    };
+  }
+
+  // Direct HTML5 video (mp4, webm, etc.) or local file
+  return {
+    type: 'html5',
+    src: trimmed,
+  };
 }
 
 // --- Mock Data ---
@@ -797,6 +846,25 @@ export function HowToCookPage({
     }
   }, [videoList]);
 
+  const videoInfo = React.useMemo(() => {
+    if (activeVideo.videoUrl) {
+      return parseVideoUrl(activeVideo.videoUrl);
+    }
+    if (activeVideo.id === 1) {
+      return {
+        type: 'html5' as const,
+        src: '/assets/rabit.mp4',
+      };
+    }
+    return null;
+  }, [activeVideo.videoUrl, activeVideo.id]);
+
+  const isVideoMode = Boolean(videoInfo) && activeVideo.mediaType !== 'image';
+  const displayThumbnail =
+    activeVideo.thumbnail ||
+    videoInfo?.defaultThumbnail ||
+    '/assets/prod_1_salmon.jpg';
+
   const filteredVideos = videoList.filter((v) => v.category === activeCategory);
 
   const uniqueCategoryVideos: Video[] = [];
@@ -888,57 +956,97 @@ export function HowToCookPage({
           </div>
 
           <div className="group relative min-h-0 w-full flex-1 overflow-hidden rounded-lg bg-black portrait:h-[250px] portrait:flex-none">
-            {activeVideo.id === 1 ? (
-              <video
-                ref={videoRef}
-                src="/assets/rabit.mp4"
-                poster={activeVideo.thumbnail}
-                className="h-full w-full object-cover opacity-80"
-                muted
-                loop
-                playsInline
-                onTimeUpdate={(e) =>
-                  setCurrentTime(e.currentTarget.currentTime)
-                }
-                onLoadedMetadata={(e) => setDuration(e.currentTarget.duration)}
-                onPlay={() => setIsPlaying(true)}
-                onPause={() => setIsPlaying(false)}
-              />
+            {/* If video is actively playing */}
+            {isPlaying && videoInfo ? (
+              videoInfo.type === 'youtube' || videoInfo.type === 'vimeo' ? (
+                <div className="relative h-full w-full">
+                  <iframe
+                    src={videoInfo.embedUrl}
+                    title={activeVideo.title}
+                    className="h-full w-full border-0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowFullScreen
+                  />
+                  <button
+                    onClick={() => setIsPlaying(false)}
+                    className="absolute top-2 right-2 z-20 flex items-center gap-1.5 rounded-full bg-black/80 px-3 py-1.5 text-xs font-bold text-white shadow-lg backdrop-blur transition-all hover:bg-red-600 cursor-pointer"
+                    title="Close Video"
+                  >
+                    ✕ Close Video
+                  </button>
+                </div>
+              ) : (
+                <div className="relative h-full w-full">
+                  <video
+                    ref={videoRef}
+                    src={videoInfo.src}
+                    poster={displayThumbnail}
+                    className="h-full w-full object-cover"
+                    autoPlay
+                    controls
+                    playsInline
+                    onTimeUpdate={(e) => setCurrentTime(e.currentTarget.currentTime)}
+                    onLoadedMetadata={(e) => setDuration(e.currentTarget.duration)}
+                    onPlay={() => setIsPlaying(true)}
+                    onPause={() => setIsPlaying(false)}
+                    onEnded={() => setIsPlaying(false)}
+                  />
+                  <button
+                    onClick={() => {
+                      if (videoRef.current) videoRef.current.pause();
+                      setIsPlaying(false);
+                    }}
+                    className="absolute top-2 right-2 z-20 flex items-center gap-1.5 rounded-full bg-black/80 px-3 py-1.5 text-xs font-bold text-white shadow-lg backdrop-blur transition-all hover:bg-black cursor-pointer"
+                    title="Stop Video"
+                  >
+                    ✕ Stop
+                  </button>
+                </div>
+              )
             ) : (
-              <Image
-                src={activeVideo.thumbnail}
-                alt={activeVideo.title}
-                fill
-                className="object-cover opacity-80"
-              />
-            )}
+              /* Poster / Thumbnail with Play Button or Photo Badge */
+              <div className="relative h-full w-full">
+                <Image
+                  src={displayThumbnail}
+                  alt={activeVideo.title}
+                  fill
+                  className="object-cover opacity-85 transition-opacity group-hover:opacity-95"
+                />
 
-            {/* Giant Center Button */}
-            <div
-              className={cn(
-                'pointer-events-none absolute inset-0 flex items-center justify-center transition-opacity duration-300',
-                isPlaying ? 'opacity-0 group-hover:opacity-100' : 'opacity-100'
-              )}
-            >
-              <button
-                onClick={() => {
-                  if (activeVideo.id === 1) {
-                    if (isPlaying) {
-                      videoRef.current?.pause();
-                    } else {
-                      videoRef.current?.play().catch(() => {});
-                    }
-                  }
-                }}
-                className="pointer-events-auto flex h-16 w-16 items-center justify-center rounded-full bg-white/90 shadow-lg backdrop-blur transition-transform hover:scale-110 active:scale-95"
-              >
-                {activeVideo.id === 1 && isPlaying ? (
-                  <Pause className="h-8 w-8 fill-black text-black" />
+                {isVideoMode ? (
+                  <>
+                    {/* Big Center Play Button */}
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <button
+                        onClick={() => {
+                          setIsPlaying(true);
+                          if (videoInfo?.type === 'html5') {
+                            setTimeout(() => {
+                              videoRef.current?.play().catch(() => {});
+                            }, 50);
+                          }
+                        }}
+                        className="group/btn flex h-20 w-20 items-center justify-center rounded-full bg-white/95 shadow-2xl backdrop-blur transition-all duration-300 hover:scale-110 active:scale-95 cursor-pointer"
+                        title="Watch Cooking Video"
+                      >
+                        <Play className="ml-1 h-9 w-9 fill-[#0D55CF] text-[#0D55CF] transition-transform group-hover/btn:scale-110" />
+                      </button>
+                    </div>
+
+                    {/* Bottom Status Pill */}
+                    <div className="absolute bottom-3 left-3 flex items-center gap-2 rounded-md bg-black/75 px-3 py-1.5 text-xs font-bold text-white backdrop-blur">
+                      <span>🎬 Cooking Video</span>
+                      {activeVideo.duration && <span>• {activeVideo.duration}</span>}
+                    </div>
+                  </>
                 ) : (
-                  <Play className="ml-1 h-8 w-8 fill-black text-black" />
+                  /* Photo Mode */
+                  <div className="absolute bottom-3 left-3 flex items-center gap-2 rounded-md bg-black/75 px-3 py-1.5 text-xs font-bold text-white backdrop-blur">
+                    <span>🖼️ Recipe Photo</span>
+                  </div>
                 )}
-              </button>
-            </div>
+              </div>
+            )}
           </div>
 
           {/* Video Details Below Player */}
@@ -1092,36 +1200,41 @@ export function HowToCookPage({
             Follow Other Videos
           </h3>
           <div className="scrollbar-minimal -mr-4 flex flex-1 flex-col gap-4 overflow-y-auto pr-4">
-            {otherVideos.slice(0, 5).map((v) => (
-              <div
-                key={v.id}
-                className="group flex shrink-0 cursor-pointer gap-3"
-                onClick={() => setActiveVideo(v)}
-              >
-                <div className="relative h-[60px] w-[100px] shrink-0 overflow-hidden rounded-lg bg-black">
-                  <Image
-                    src={v.thumbnail}
-                    alt={v.title}
-                    fill
-                    className="object-cover opacity-80 transition-opacity group-hover:opacity-100"
-                  />
-                  <div className="absolute inset-0 flex items-center justify-center bg-black/20 opacity-0 transition-opacity group-hover:opacity-100">
-                    <Play className="h-5 w-5 fill-white text-white" />
+            {otherVideos.slice(0, 5).map((v) => {
+              const vThumb = v.thumbnail || parseVideoUrl(v.videoUrl)?.defaultThumbnail || '/assets/prod_1_salmon.jpg';
+              return (
+                <div
+                  key={v.id}
+                  className="group flex shrink-0 cursor-pointer gap-3"
+                  onClick={() => setActiveVideo(v)}
+                >
+                  <div className="relative h-[60px] w-[100px] shrink-0 overflow-hidden rounded-lg bg-black">
+                    <Image
+                      src={vThumb}
+                      alt={v.title}
+                      fill
+                      className="object-cover opacity-80 transition-opacity group-hover:opacity-100"
+                    />
+                    {v.mediaType !== 'image' && (
+                      <div className="absolute inset-0 flex items-center justify-center bg-black/20 opacity-0 transition-opacity group-hover:opacity-100">
+                        <Play className="h-5 w-5 fill-white text-white" />
+                      </div>
+                    )}
+                    <div className="absolute right-1 bottom-1 rounded bg-black/80 px-1 text-[10px] font-bold text-white">
+                      {v.duration}
+                    </div>
                   </div>
-                  <div className="absolute right-1 bottom-1 rounded bg-black/80 px-1 text-[10px] font-bold text-white">
-                    {v.duration}
+                  <div className="flex flex-col justify-center">
+                    <h4 className="line-clamp-2 text-sm leading-tight font-bold text-[#0B1F5B] transition-colors group-hover:text-[#0D55CF]">
+                      {v.title}
+                    </h4>
+                    <span className="mt-0.5 text-xs font-medium text-slate-400">
+                      {v.duration}
+                    </span>
                   </div>
                 </div>
-                <div className="flex flex-col justify-center">
-                  <h4 className="line-clamp-2 text-sm leading-tight font-bold text-[#0B1F5B] transition-colors group-hover:text-[#0D55CF]">
-                    {v.title}
-                  </h4>
-                  <span className="mt-0.5 text-xs font-medium text-slate-400">
-                    {v.duration}
-                  </span>
-                </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </div>
@@ -1140,32 +1253,36 @@ export function HowToCookPage({
 
         {/* Grid of 5 videos max */}
         <div className="grid min-h-0 flex-1 grid-cols-5 gap-6 portrait:flex portrait:snap-x portrait:snap-mandatory portrait:gap-4 portrait:overflow-x-auto portrait:pb-4 portrait:[&::-webkit-scrollbar]:hidden">
-          {uniqueCategoryVideos.slice(0, 5).map((v) => (
-            <div
-              key={v.id}
-              className="group flex h-full min-h-0 cursor-pointer flex-col portrait:h-[220px] portrait:w-[80vw] portrait:shrink-0 portrait:snap-center"
-              onClick={() => setActiveVideo(v)}
-            >
-              <div className="relative mb-3 min-h-0 w-full flex-1 overflow-hidden rounded-lg bg-black">
-                <Image
-                  src={v.thumbnail}
-                  alt={v.title}
-                  fill
-                  className="object-cover opacity-85 transition-all duration-300 group-hover:scale-105 group-hover:opacity-100"
-                />
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-full border border-white/20 bg-black/50 backdrop-blur-sm transition-all group-hover:border-[#0D55CF] group-hover:bg-[#0D55CF]">
-                    <Play className="ml-0.5 h-4 w-4 fill-white text-white" />
+          {uniqueCategoryVideos.slice(0, 5).map((v) => {
+            const vThumb = v.thumbnail || parseVideoUrl(v.videoUrl)?.defaultThumbnail || '/assets/prod_1_salmon.jpg';
+            return (
+              <div
+                key={v.id}
+                className="group flex h-full min-h-0 cursor-pointer flex-col portrait:h-[220px] portrait:w-[80vw] portrait:shrink-0 portrait:snap-center"
+                onClick={() => setActiveVideo(v)}
+              >
+                <div className="relative mb-3 min-h-0 w-full flex-1 overflow-hidden rounded-lg bg-black">
+                  <Image
+                    src={vThumb}
+                    alt={v.title}
+                    fill
+                    className="object-cover opacity-85 transition-all duration-300 group-hover:scale-105 group-hover:opacity-100"
+                  />
+                  {v.mediaType !== 'image' && (
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <div className="flex h-10 w-10 items-center justify-center rounded-full border border-white/20 bg-black/50 backdrop-blur-sm transition-all group-hover:border-[#0D55CF] group-hover:bg-[#0D55CF]">
+                        <Play className="ml-0.5 h-4 w-4 fill-white text-white" />
+                      </div>
+                    </div>
+                  )}
+                  <div className="absolute right-2 bottom-2 rounded bg-black/80 px-1.5 py-0.5 text-xs font-bold text-white">
+                    {v.duration}
                   </div>
                 </div>
-                <div className="absolute right-2 bottom-2 rounded bg-black/80 px-1.5 py-0.5 text-xs font-bold text-white">
-                  {v.duration}
-                </div>
-              </div>
 
-              <h4 className="mb-2 line-clamp-1 shrink-0 text-base leading-tight font-bold text-[#0B1F5B] transition-colors group-hover:text-[#0D55CF]">
-                {v.title}
-              </h4>
+                <h4 className="mb-2 line-clamp-1 shrink-0 text-base leading-tight font-bold text-[#0B1F5B] transition-colors group-hover:text-[#0D55CF]">
+                  {v.title}
+                </h4>
 
               <div className="flex shrink-0 items-center gap-4">
                 <div className="flex items-center gap-1.5">
@@ -1188,9 +1305,10 @@ export function HowToCookPage({
                 </div>
               </div>
             </div>
-          ))}
-        </div>
+          );
+        })}
       </div>
     </div>
+  </div>
   );
 }
