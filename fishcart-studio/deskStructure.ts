@@ -106,52 +106,192 @@ export const deskStructure: StructureResolver = (S) =>
       S.listItem()
         .title('Fish')
         .icon(Emoji('🐟'))
-        .schemaType('product')
         .child(
-          S.documentList()
+          S.list()
             .title('Fish Products')
-            .filter('_type == "product" && (category->slug.current == "fish" || category == "fish")')
-            .defaultOrdering([{ field: 'title', direction: 'asc' }])
-            .initialValueTemplates([S.initialValueTemplateItem('product-fish')])
+            .items([
+              S.listItem()
+                .title('Out of Stock Products')
+                .icon(Emoji('🛑'))
+                .schemaType('product')
+                .child(
+                  S.documentList()
+                    .title('Out of Stock Fish')
+                    .filter('_type == "product" && (category->slug.current == "fish" || category == "fish") && (status == "disabled" || availabilityStatus == "disabled" || availabilityStatus == "unavailable" || availability == false)')
+                    .defaultOrdering([{ field: 'title', direction: 'asc' }])
+                    .initialValueTemplates([S.initialValueTemplateItem('product-fish')])
+                ),
+
+              S.listItem()
+                .title('Hidden Products (Hide)')
+                .icon(Emoji('🚫'))
+                .schemaType('product')
+                .child(
+                  S.documentList()
+                    .title('Hidden Fish')
+                    .filter('_type == "product" && (category->slug.current == "fish" || category == "fish") && (visibility == "hide" || visibility == "hidden" || visibilityStatus == "hidden" || visibilityStatus == false || visibility == false)')
+                    .defaultOrdering([{ field: 'title', direction: 'asc' }])
+                    .initialValueTemplates([S.initialValueTemplateItem('product-fish')])
+                ),
+
+              S.divider(),
+
+              S.listItem()
+                .title('All Fish Products')
+                .icon(Emoji('🐟'))
+                .schemaType('product')
+                .child(
+                  S.documentList()
+                    .title('All Fish Products')
+                    .filter('_type == "product" && (category->slug.current == "fish" || category == "fish")')
+                    .defaultOrdering([{ field: 'title', direction: 'asc' }])
+                    .initialValueTemplates([S.initialValueTemplateItem('product-fish')])
+                ),
+            ])
         ),
 
       // 3. Meat
       S.listItem()
         .title('Meat')
         .icon(Emoji('🥩'))
-        .schemaType('product')
         .child(
-          S.documentList()
+          S.list()
             .title('Meat Products')
-            .filter('_type == "product" && (category->slug.current == "meat" || category == "meat")')
-            .defaultOrdering([{ field: 'title', direction: 'asc' }])
-            .initialValueTemplates([S.initialValueTemplateItem('product-meat')])
+            .items([
+              S.listItem()
+                .title('Out of Stock Products')
+                .icon(Emoji('🛑'))
+                .schemaType('product')
+                .child(
+                  S.documentList()
+                    .title('Out of Stock Meat')
+                    .filter('_type == "product" && (category->slug.current == "meat" || category == "meat") && (status == "disabled" || availabilityStatus == "disabled" || availabilityStatus == "unavailable" || availability == false)')
+                    .defaultOrdering([{ field: 'title', direction: 'asc' }])
+                    .initialValueTemplates([S.initialValueTemplateItem('product-meat')])
+                ),
+
+              S.listItem()
+                .title('Hidden Products (Hide)')
+                .icon(Emoji('🚫'))
+                .schemaType('product')
+                .child(
+                  S.documentList()
+                    .title('Hidden Meat')
+                    .filter('_type == "product" && (category->slug.current == "meat" || category == "meat") && (visibility == "hide" || visibility == "hidden" || visibilityStatus == "hidden" || visibilityStatus == false || visibility == false)')
+                    .defaultOrdering([{ field: 'title', direction: 'asc' }])
+                    .initialValueTemplates([S.initialValueTemplateItem('product-meat')])
+                ),
+
+              S.divider(),
+
+              S.listItem()
+                .title('All Meat Products')
+                .icon(Emoji('🥩'))
+                .schemaType('product')
+                .child(
+                  S.documentList()
+                    .title('All Meat Products')
+                    .filter('_type == "product" && (category->slug.current == "meat" || category == "meat")')
+                    .defaultOrdering([{ field: 'title', direction: 'asc' }])
+                    .initialValueTemplates([S.initialValueTemplateItem('product-meat')])
+                ),
+            ])
         ),
 
       // 4. Chicken
       S.listItem()
         .title('Chicken')
         .icon(Emoji('🍗'))
-        .schemaType('product')
         .child(
-          S.documentList()
+          S.list()
             .title('Chicken Products')
-            .filter('_type == "product" && (category->slug.current == "chicken" || category == "chicken")')
-            .defaultOrdering([{ field: 'title', direction: 'asc' }])
-            .initialValueTemplates([S.initialValueTemplateItem('product-chicken')])
+            .items([
+              S.listItem()
+                .title('Out of Stock Products')
+                .icon(Emoji('🛑'))
+                .schemaType('product')
+                .child(
+                  S.documentList()
+                    .title('Out of Stock Chicken')
+                    .filter('_type == "product" && (category->slug.current == "chicken" || category == "chicken") && (status == "disabled" || availabilityStatus == "disabled" || availabilityStatus == "unavailable" || availability == false)')
+                    .defaultOrdering([{ field: 'title', direction: 'asc' }])
+                    .initialValueTemplates([S.initialValueTemplateItem('product-chicken')])
+                ),
+
+              S.listItem()
+                .title('Hidden Products (Hide)')
+                .icon(Emoji('🚫'))
+                .schemaType('product')
+                .child(
+                  S.documentList()
+                    .title('Hidden Chicken')
+                    .filter('_type == "product" && (category->slug.current == "chicken" || category == "chicken") && (visibility == "hide" || visibility == "hidden" || visibilityStatus == "hidden" || visibilityStatus == false || visibility == false)')
+                    .defaultOrdering([{ field: 'title', direction: 'asc' }])
+                    .initialValueTemplates([S.initialValueTemplateItem('product-chicken')])
+                ),
+
+              S.divider(),
+
+              S.listItem()
+                .title('All Chicken Products')
+                .icon(Emoji('🍗'))
+                .schemaType('product')
+                .child(
+                  S.documentList()
+                    .title('All Chicken Products')
+                    .filter('_type == "product" && (category->slug.current == "chicken" || category == "chicken")')
+                    .defaultOrdering([{ field: 'title', direction: 'asc' }])
+                    .initialValueTemplates([S.initialValueTemplateItem('product-chicken')])
+                ),
+            ])
         ),
 
       // 5. Eggs
       S.listItem()
         .title('Eggs')
         .icon(Emoji('🥚'))
-        .schemaType('product')
         .child(
-          S.documentList()
+          S.list()
             .title('Eggs Products')
-            .filter('_type == "product" && (category->slug.current == "eggs" || category == "eggs")')
-            .defaultOrdering([{ field: 'title', direction: 'asc' }])
-            .initialValueTemplates([S.initialValueTemplateItem('product-eggs')])
+            .items([
+              S.listItem()
+                .title('Out of Stock Products')
+                .icon(Emoji('🛑'))
+                .schemaType('product')
+                .child(
+                  S.documentList()
+                    .title('Out of Stock Eggs')
+                    .filter('_type == "product" && (category->slug.current == "eggs" || category == "eggs") && (status == "disabled" || availabilityStatus == "disabled" || availabilityStatus == "unavailable" || availability == false)')
+                    .defaultOrdering([{ field: 'title', direction: 'asc' }])
+                    .initialValueTemplates([S.initialValueTemplateItem('product-eggs')])
+                ),
+
+              S.listItem()
+                .title('Hidden Products (Hide)')
+                .icon(Emoji('🚫'))
+                .schemaType('product')
+                .child(
+                  S.documentList()
+                    .title('Hidden Eggs')
+                    .filter('_type == "product" && (category->slug.current == "eggs" || category == "eggs") && (visibility == "hide" || visibility == "hidden" || visibilityStatus == "hidden" || visibilityStatus == false || visibility == false)')
+                    .defaultOrdering([{ field: 'title', direction: 'asc' }])
+                    .initialValueTemplates([S.initialValueTemplateItem('product-eggs')])
+                ),
+
+              S.divider(),
+
+              S.listItem()
+                .title('All Eggs Products')
+                .icon(Emoji('🥚'))
+                .schemaType('product')
+                .child(
+                  S.documentList()
+                    .title('All Eggs Products')
+                    .filter('_type == "product" && (category->slug.current == "eggs" || category == "eggs")')
+                    .defaultOrdering([{ field: 'title', direction: 'asc' }])
+                    .initialValueTemplates([S.initialValueTemplateItem('product-eggs')])
+                ),
+            ])
         ),
 
       // 6. How to Cook
@@ -308,13 +448,46 @@ export const deskStructure: StructureResolver = (S) =>
       S.listItem()
         .title('All Products')
         .icon(Emoji('📦'))
-        .schemaType('product')
         .child(
-          S.documentTypeList('product')
+          S.list()
             .title('All Products')
-            .defaultOrdering([
-              { field: 'title', direction: 'asc' },
-              { field: '_createdAt', direction: 'desc' },
+            .items([
+              S.listItem()
+                .title('Out of Stock Products (All)')
+                .icon(Emoji('🛑'))
+                .schemaType('product')
+                .child(
+                  S.documentList()
+                    .title('Out of Stock Products')
+                    .filter('_type == "product" && (status == "disabled" || availabilityStatus == "disabled" || availabilityStatus == "unavailable" || availability == false)')
+                    .defaultOrdering([{ field: 'title', direction: 'asc' }])
+                ),
+
+              S.listItem()
+                .title('Hidden Products (All)')
+                .icon(Emoji('🚫'))
+                .schemaType('product')
+                .child(
+                  S.documentList()
+                    .title('Hidden Products')
+                    .filter('_type == "product" && (visibility == "hide" || visibility == "hidden" || visibilityStatus == "hidden" || visibilityStatus == false || visibility == false)')
+                    .defaultOrdering([{ field: 'title', direction: 'asc' }])
+                ),
+
+              S.divider(),
+
+              S.listItem()
+                .title('All Products (Complete Catalog)')
+                .icon(Emoji('📦'))
+                .schemaType('product')
+                .child(
+                  S.documentTypeList('product')
+                    .title('All Products')
+                    .defaultOrdering([
+                      { field: 'title', direction: 'asc' },
+                      { field: '_createdAt', direction: 'desc' },
+                    ])
+                ),
             ])
         ),
 
