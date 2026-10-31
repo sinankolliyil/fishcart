@@ -226,22 +226,23 @@ export function CategoryAccordionPane({ options = {} }: CategoryAccordionPanePro
     const cardBorder = isActive
       ? '1px solid #3B82F6'
       : parentTone === 'critical'
-      ? '1px solid rgba(239, 68, 68, 0.25)'
+      ? '1px solid rgba(239, 68, 68, 0.28)'
       : parentTone === 'caution'
-      ? '1px solid rgba(245, 158, 11, 0.25)'
+      ? '1px solid rgba(245, 158, 11, 0.28)'
       : '1px solid rgba(255, 255, 255, 0.08)';
 
     return (
       <Card
         key={product._id}
-        padding={2}
+        padding={3}
         radius={2}
         style={{
           cursor: 'pointer',
           background: cardBg,
           border: cardBorder,
+          borderRadius: '8px',
+          boxShadow: '0 2px 6px rgba(0,0,0,0.2)',
           transition: 'all 0.15s ease',
-          marginBottom: '6px',
         }}
         onClick={() => handleOpenProduct(product._id)}
       >
@@ -250,9 +251,9 @@ export function CategoryAccordionPane({ options = {} }: CategoryAccordionPanePro
             {/* Thumbnail */}
             <Box
               style={{
-                width: 36,
-                height: 36,
-                borderRadius: 6,
+                width: 42,
+                height: 42,
+                borderRadius: 8,
                 overflow: 'hidden',
                 background: '#1E293B',
                 display: 'flex',
@@ -268,30 +269,39 @@ export function CategoryAccordionPane({ options = {} }: CategoryAccordionPanePro
                   style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                 />
               ) : (
-                <span style={{ fontSize: '1.1rem' }}>{categoryIcon}</span>
+                <span style={{ fontSize: '1.25rem' }}>{categoryIcon}</span>
               )}
             </Box>
 
             {/* Title & details */}
             <Box style={{ minWidth: 0, flex: 1 }}>
-              <Text
-                weight="bold"
-                size={1}
-                textOverflow="ellipsis"
+              <div
                 style={{
-                  color: isActive ? '#FFFFFF' : '#F1F5F9',
+                  fontSize: '14px',
+                  fontWeight: 600,
+                  color: isActive ? '#FFFFFF' : '#F8FAFC',
+                  lineHeight: '1.3',
+                  marginBottom: '5px',
+                  whiteSpace: 'nowrap',
+                  overflow: 'hidden',
+                  textOverflow: 'ellipsis',
                 }}
               >
                 {product.title || 'Untitled Product'}
-              </Text>
+              </div>
               {subText && (
-                <Text
-                  size={0}
-                  textOverflow="ellipsis"
-                  style={{ color: '#94A3B8', marginTop: '3px' }}
+                <div
+                  style={{
+                    fontSize: '12px',
+                    color: '#94A3B8',
+                    lineHeight: '1.3',
+                    whiteSpace: 'nowrap',
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
+                  }}
                 >
                   {subText}
-                </Text>
+                </div>
               )}
             </Box>
           </Flex>
@@ -302,13 +312,13 @@ export function CategoryAccordionPane({ options = {} }: CategoryAccordionPanePro
               <span
                 style={{
                   display: 'inline-block',
-                  padding: '3px 8px',
+                  padding: '4px 10px',
                   borderRadius: '12px',
                   fontSize: '11px',
                   fontWeight: 600,
-                  backgroundColor: 'rgba(239, 68, 68, 0.2)',
+                  backgroundColor: 'rgba(239, 68, 68, 0.22)',
                   color: '#F87171',
-                  border: '1px solid rgba(239, 68, 68, 0.4)',
+                  border: '1px solid rgba(239, 68, 68, 0.45)',
                 }}
               >
                 Out of Stock
@@ -318,13 +328,13 @@ export function CategoryAccordionPane({ options = {} }: CategoryAccordionPanePro
               <span
                 style={{
                   display: 'inline-block',
-                  padding: '3px 8px',
+                  padding: '4px 10px',
                   borderRadius: '12px',
                   fontSize: '11px',
                   fontWeight: 600,
-                  backgroundColor: 'rgba(245, 158, 11, 0.2)',
+                  backgroundColor: 'rgba(245, 158, 11, 0.22)',
                   color: '#FBBF24',
-                  border: '1px solid rgba(245, 158, 11, 0.4)',
+                  border: '1px solid rgba(245, 158, 11, 0.45)',
                 }}
               >
                 Hidden
@@ -514,7 +524,7 @@ export function CategoryAccordionPane({ options = {} }: CategoryAccordionPanePro
               {/* Expands directly downwards inside this list pane */}
               {activeSection === 'outOfStock' && (
                 <Box
-                  padding={2}
+                  padding={3}
                   style={{
                     borderTop: '1px solid rgba(239, 68, 68, 0.2)',
                     background: '#150D11',
@@ -527,7 +537,9 @@ export function CategoryAccordionPane({ options = {} }: CategoryAccordionPanePro
                       </Text>
                     </Box>
                   ) : (
-                    outOfStockList.map((p) => renderProductCard(p, 'critical'))
+                    <Stack space={3}>
+                      {outOfStockList.map((p) => renderProductCard(p, 'critical'))}
+                    </Stack>
                   )}
                 </Box>
               )}
@@ -594,7 +606,7 @@ export function CategoryAccordionPane({ options = {} }: CategoryAccordionPanePro
               {/* Expands directly downwards inside this list pane */}
               {activeSection === 'hidden' && (
                 <Box
-                  padding={2}
+                  padding={3}
                   style={{
                     borderTop: '1px solid rgba(245, 158, 11, 0.2)',
                     background: '#14110A',
@@ -607,7 +619,9 @@ export function CategoryAccordionPane({ options = {} }: CategoryAccordionPanePro
                       </Text>
                     </Box>
                   ) : (
-                    hiddenList.map((p) => renderProductCard(p, 'caution'))
+                    <Stack space={3}>
+                      {hiddenList.map((p) => renderProductCard(p, 'caution'))}
+                    </Stack>
                   )}
                 </Box>
               )}
@@ -674,7 +688,7 @@ export function CategoryAccordionPane({ options = {} }: CategoryAccordionPanePro
               {/* Expands directly downwards inside this list pane */}
               {activeSection === 'all' && (
                 <Box
-                  padding={2}
+                  padding={3}
                   style={{
                     borderTop: '1px solid rgba(59, 130, 246, 0.2)',
                     background: '#0D121F',
@@ -687,7 +701,9 @@ export function CategoryAccordionPane({ options = {} }: CategoryAccordionPanePro
                       </Text>
                     </Box>
                   ) : (
-                    allProductsList.map((p) => renderProductCard(p, 'primary'))
+                    <Stack space={3}>
+                      {allProductsList.map((p) => renderProductCard(p, 'primary'))}
+                    </Stack>
                   )}
                 </Box>
               )}
