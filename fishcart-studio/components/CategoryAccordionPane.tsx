@@ -267,11 +267,22 @@ export function CategoryAccordionPane({ options = {} }: CategoryAccordionPanePro
           {/* Status Tags */}
           <Flex align="center" gap={1} style={{ flexShrink: 0 }}>
             {disabled && (
-              <Badge tone="critical" fontSize={0} padding={1}>
-                Out of Stock
-              </Badge>
+              <>
+                <Badge tone="critical" fontSize={0} padding={1}>
+                  Out of Stock
+                </Badge>
+                {hidden ? (
+                  <Badge tone="caution" fontSize={0} padding={1}>
+                    Hidden
+                  </Badge>
+                ) : (
+                  <Badge tone="primary" fontSize={0} padding={1}>
+                    Shown
+                  </Badge>
+                )}
+              </>
             )}
-            {hidden && (
+            {!disabled && hidden && (
               <Badge tone="caution" fontSize={0} padding={1}>
                 Hidden
               </Badge>
