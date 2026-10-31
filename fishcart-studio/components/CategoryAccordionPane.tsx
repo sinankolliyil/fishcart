@@ -30,10 +30,13 @@ interface CategoryAccordionPaneProps {
   };
 }
 
+type ActiveSection = 'outOfStock' | 'hidden' | 'all' | null;
+
 export function CategoryAccordionPane({ options = {} }: CategoryAccordionPaneProps) {
   const category = options.category || 'fish';
   const categoryTitle = options.title || `${options.singular || 'Fish'} Products`;
   const categoryIcon = options.icon || '🐟';
+  const singular = options.singular || 'Fish';
   const templateId = options.templateId || `product-${category}`;
 
   const client = useClient({ apiVersion: '2024-03-01' });
@@ -43,10 +46,9 @@ export function CategoryAccordionPane({ options = {} }: CategoryAccordionPanePro
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
 
-  // Accordion open/close state
-  const [outOfStockOpen, setOutOfStockOpen] = useState(true);
-  const [hiddenOpen, setHiddenOpen] = useState(true);
-  const [allProductsOpen, setAllProductsOpen] = useState(true);
+  // Single-open accordion state: only ONE section open at a time
+  // When another heading is clicked, the previous one hides back
+  const [activeSection, setActiveSection] = useState<ActiveSection>('all');
 
   // Find currently open document ID to highlight it
   const activeDocId = useMemo(() => {
@@ -114,7 +116,7 @@ export function CategoryAccordionPane({ options = {} }: CategoryAccordionPanePro
   useEffect(() => {
     fetchProducts();
 
-    // Listen for live changes
+    // Listen for live updates
     const subscription = client
       .listen(query, category === 'all' ? {} : { category })
       .subscribe(() => {
@@ -173,6 +175,24 @@ export function CategoryAccordionPane({ options = {} }: CategoryAccordionPanePro
     [filteredProducts]
   );
 
+  // If user is searching, automatically open the section that has matches
+  useEffect(() => {
+    if (searchQuery.trim()) {
+      if (outOfStockList.length > 0 && activeSection !== 'outOfStock') {
+        setActiveSection('outOfStock');
+      } else if (hiddenList.length > 0 && activeSection !== 'hidden') {
+        setActiveSection('hidden');
+      } else {
+        setActiveSection('all');
+      }
+    }
+  }, [searchQuery]);
+
+  const handleToggleSection = (section: ActiveSection) => {
+    // If clicking the currently open section, close it. Otherwise open it and close the others.
+    setActiveSection((current) => (current === section ? null : section));
+  };
+
   const handleOpenProduct = (id: string) => {
     navigateIntent('edit', { id, type: 'product' });
   };
@@ -204,11 +224,13 @@ export function CategoryAccordionPane({ options = {} }: CategoryAccordionPanePro
         style={{
           cursor: 'pointer',
           background: isActive
-            ? 'rgba(13, 85, 207, 0.22)'
-            : 'rgba(255, 255, 255, 0.02)',
+            ? 'rgba(13, 85, 207, 0.28)'
+            : 'rgba(255, 255, 255, 0.03)',
           borderLeft: isActive ? '3px solid #3B82F6' : '3px solid transparent',
           transition: 'all 0.15s ease',
-          marginBottom: '2px',
+          marginBottom: '3px',
+          marginLeft: '4px',
+          marginRight: '4px',
         }}
         onClick={() => handleOpenProduct(product._id)}
       >
@@ -217,9 +239,9 @@ export function CategoryAccordionPane({ options = {} }: CategoryAccordionPanePro
             {/* Thumbnail */}
             <Box
               style={{
-                width: 32,
-                height: 32,
-                borderRadius: 6,
+                width: 30,
+                height: 30,
+                borderRadius: 5,
                 overflow: 'hidden',
                 background: '#1E293B',
                 display: 'flex',
@@ -235,7 +257,7 @@ export function CategoryAccordionPane({ options = {} }: CategoryAccordionPanePro
                   style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                 />
               ) : (
-                <span style={{ fontSize: '1rem' }}>{categoryIcon}</span>
+                <span style={{ fontSize: '0.9rem' }}>{categoryIcon}</span>
               )}
             </Box>
 
@@ -247,7 +269,7 @@ export function CategoryAccordionPane({ options = {} }: CategoryAccordionPanePro
                 textOverflow="ellipsis"
                 style={{
                   color: isActive ? '#FFFFFF' : '#E2E8F0',
-                  opacity: disabled ? 0.75 : 1,
+                  opacity: disabled ? 0.8 : 1,
                 }}
               >
                 {product.title || 'Untitled Product'}
@@ -313,9 +335,10 @@ export function CategoryAccordionPane({ options = {} }: CategoryAccordionPanePro
         flexDirection: 'column',
         background: '#0B0F19',
         color: '#E2E8F0',
+        borderRight: '1px solid rgba(255, 255, 255, 0.08)',
       }}
     >
-      {/* Pane Header */}
+      {/* Pane Top Header — matches Sanity Studio pane header */}
       <Box padding={3} style={{ borderBottom: '1px solid rgba(255, 255, 255, 0.08)' }}>
         <Flex align="center" justify="space-between" gap={2} style={{ marginBottom: '10px' }}>
           <Flex align="center" gap={2}>
@@ -339,13 +362,13 @@ export function CategoryAccordionPane({ options = {} }: CategoryAccordionPanePro
           />
         </Flex>
 
-        {/* Search input */}
+        {/* Search list bar */}
         <Flex align="center" gap={2}>
           <Box style={{ flex: 1, position: 'relative' }}>
             <TextInput
               fontSize={1}
               icon={<Search size={14} style={{ color: '#94A3B8' }} />}
-              placeholder={`Search ${category} products...`}
+              placeholder={`Search list...`}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.currentTarget.value)}
             />
@@ -376,59 +399,84 @@ export function CategoryAccordionPane({ options = {} }: CategoryAccordionPanePro
         </Flex>
       </Box>
 
-      {/* Pane Content — Scrollable Sections */}
+      {/* Pane Content — The 3 Main Headings (Single-Open Accordion) */}
       <Box style={{ flex: 1, overflowY: 'auto' }} padding={2}>
         {loading ? (
           <Flex justify="center" align="center" style={{ height: 160 }}>
             <Spinner />
           </Flex>
         ) : (
-          <Stack space={3}>
-            {/* ─── SECTION 1: OUT OF STOCK PRODUCTS ─── */}
-            <Card
-              radius={2}
-              tone="default"
-              style={{
-                background: 'rgba(239, 68, 68, 0.06)',
-                border: '1px solid rgba(239, 68, 68, 0.25)',
-                overflow: 'hidden',
-              }}
-            >
-              {/* Accordion Header */}
-              <Flex
-                align="center"
-                justify="space-between"
+          <Stack space={1}>
+            {/* ═══════════════════════════════════════════════
+                HEADING 1: OUT OF STOCK PRODUCTS
+               ═══════════════════════════════════════════════ */}
+            <Box style={{ marginBottom: '4px' }}>
+              {/* Main Heading Row — Styled like native Sanity list row */}
+              <Card
                 padding={3}
-                onClick={() => setOutOfStockOpen(!outOfStockOpen)}
+                radius={2}
+                tone={activeSection === 'outOfStock' ? 'critical' : 'default'}
                 style={{
                   cursor: 'pointer',
                   userSelect: 'none',
-                  background: outOfStockOpen ? 'rgba(239, 68, 68, 0.08)' : 'transparent',
+                  background:
+                    activeSection === 'outOfStock'
+                      ? 'rgba(239, 68, 68, 0.16)'
+                      : 'rgba(255, 255, 255, 0.02)',
+                  border:
+                    activeSection === 'outOfStock'
+                      ? '1px solid rgba(239, 68, 68, 0.4)'
+                      : '1px solid rgba(255, 255, 255, 0.06)',
+                  transition: 'all 0.15s ease',
                 }}
+                onClick={() => handleToggleSection('outOfStock')}
               >
-                <Flex align="center" gap={2}>
-                  <span style={{ fontSize: '1.1rem' }}>🛑</span>
-                  <Text weight="bold" size={1} style={{ color: '#FCA5A5' }}>
-                    Out of Stock Products
-                  </Text>
-                  <Badge tone="critical" fontSize={0} padding={1}>
-                    {outOfStockList.length}
-                  </Badge>
-                </Flex>
-                {outOfStockOpen ? (
-                  <ChevronDown size={16} color="#FCA5A5" />
-                ) : (
-                  <ChevronRight size={16} color="#FCA5A5" />
-                )}
-              </Flex>
+                <Flex align="center" justify="space-between">
+                  <Flex align="center" gap={3}>
+                    <span style={{ fontSize: '1.15rem' }}>🛑</span>
+                    <Text
+                      weight="bold"
+                      size={1}
+                      style={{
+                        color: activeSection === 'outOfStock' ? '#FCA5A5' : '#E2E8F0',
+                      }}
+                    >
+                      Out of Stock Products
+                    </Text>
+                  </Flex>
 
-              {/* Accordion Content — Products right below header */}
-              {outOfStockOpen && (
-                <Box padding={2} style={{ borderTop: '1px solid rgba(239, 68, 68, 0.15)' }}>
+                  <Flex align="center" gap={2}>
+                    <Badge tone="critical" fontSize={0} padding={1}>
+                      {outOfStockList.length}
+                    </Badge>
+                    {activeSection === 'outOfStock' ? (
+                      <ChevronDown size={16} color="#FCA5A5" />
+                    ) : (
+                      <ChevronRight size={16} color="#94A3B8" />
+                    )}
+                  </Flex>
+                </Flex>
+              </Card>
+
+              {/* Expands directly downwards inside the same list pane */}
+              {activeSection === 'outOfStock' && (
+                <Box
+                  padding={2}
+                  style={{
+                    background: 'rgba(239, 68, 68, 0.04)',
+                    borderLeft: '2px solid rgba(239, 68, 68, 0.35)',
+                    borderRight: '1px solid rgba(239, 68, 68, 0.15)',
+                    borderBottom: '1px solid rgba(239, 68, 68, 0.15)',
+                    borderBottomLeftRadius: 6,
+                    borderBottomRightRadius: 6,
+                    marginTop: '2px',
+                    marginBottom: '6px',
+                  }}
+                >
                   {outOfStockList.length === 0 ? (
-                    <Box padding={2}>
+                    <Box padding={3}>
                       <Text size={1} style={{ color: '#94A3B8', fontStyle: 'italic' }}>
-                        No out of stock products.
+                        No out of stock products in {categoryTitle}.
                       </Text>
                     </Box>
                   ) : (
@@ -436,53 +484,78 @@ export function CategoryAccordionPane({ options = {} }: CategoryAccordionPanePro
                   )}
                 </Box>
               )}
-            </Card>
+            </Box>
 
-            {/* ─── SECTION 2: HIDDEN PRODUCTS ─── */}
-            <Card
-              radius={2}
-              tone="default"
-              style={{
-                background: 'rgba(245, 158, 11, 0.06)',
-                border: '1px solid rgba(245, 158, 11, 0.25)',
-                overflow: 'hidden',
-              }}
-            >
-              {/* Accordion Header */}
-              <Flex
-                align="center"
-                justify="space-between"
+            {/* ═══════════════════════════════════════════════
+                HEADING 2: HIDDEN PRODUCTS (HIDE)
+               ═══════════════════════════════════════════════ */}
+            <Box style={{ marginBottom: '4px' }}>
+              {/* Main Heading Row */}
+              <Card
                 padding={3}
-                onClick={() => setHiddenOpen(!hiddenOpen)}
+                radius={2}
+                tone={activeSection === 'hidden' ? 'caution' : 'default'}
                 style={{
                   cursor: 'pointer',
                   userSelect: 'none',
-                  background: hiddenOpen ? 'rgba(245, 158, 11, 0.08)' : 'transparent',
+                  background:
+                    activeSection === 'hidden'
+                      ? 'rgba(245, 158, 11, 0.16)'
+                      : 'rgba(255, 255, 255, 0.02)',
+                  border:
+                    activeSection === 'hidden'
+                      ? '1px solid rgba(245, 158, 11, 0.4)'
+                      : '1px solid rgba(255, 255, 255, 0.06)',
+                  transition: 'all 0.15s ease',
                 }}
+                onClick={() => handleToggleSection('hidden')}
               >
-                <Flex align="center" gap={2}>
-                  <span style={{ fontSize: '1.1rem' }}>🚫</span>
-                  <Text weight="bold" size={1} style={{ color: '#FCD34D' }}>
-                    Hidden Products (Hide)
-                  </Text>
-                  <Badge tone="caution" fontSize={0} padding={1}>
-                    {hiddenList.length}
-                  </Badge>
-                </Flex>
-                {hiddenOpen ? (
-                  <ChevronDown size={16} color="#FCD34D" />
-                ) : (
-                  <ChevronRight size={16} color="#FCD34D" />
-                )}
-              </Flex>
+                <Flex align="center" justify="space-between">
+                  <Flex align="center" gap={3}>
+                    <span style={{ fontSize: '1.15rem' }}>🚫</span>
+                    <Text
+                      weight="bold"
+                      size={1}
+                      style={{
+                        color: activeSection === 'hidden' ? '#FCD34D' : '#E2E8F0',
+                      }}
+                    >
+                      Hidden Products (Hide)
+                    </Text>
+                  </Flex>
 
-              {/* Accordion Content — Products right below header */}
-              {hiddenOpen && (
-                <Box padding={2} style={{ borderTop: '1px solid rgba(245, 158, 11, 0.15)' }}>
+                  <Flex align="center" gap={2}>
+                    <Badge tone="caution" fontSize={0} padding={1}>
+                      {hiddenList.length}
+                    </Badge>
+                    {activeSection === 'hidden' ? (
+                      <ChevronDown size={16} color="#FCD34D" />
+                    ) : (
+                      <ChevronRight size={16} color="#94A3B8" />
+                    )}
+                  </Flex>
+                </Flex>
+              </Card>
+
+              {/* Expands directly downwards inside the same list pane */}
+              {activeSection === 'hidden' && (
+                <Box
+                  padding={2}
+                  style={{
+                    background: 'rgba(245, 158, 11, 0.04)',
+                    borderLeft: '2px solid rgba(245, 158, 11, 0.35)',
+                    borderRight: '1px solid rgba(245, 158, 11, 0.15)',
+                    borderBottom: '1px solid rgba(245, 158, 11, 0.15)',
+                    borderBottomLeftRadius: 6,
+                    borderBottomRightRadius: 6,
+                    marginTop: '2px',
+                    marginBottom: '6px',
+                  }}
+                >
                   {hiddenList.length === 0 ? (
-                    <Box padding={2}>
+                    <Box padding={3}>
                       <Text size={1} style={{ color: '#94A3B8', fontStyle: 'italic' }}>
-                        No hidden products.
+                        No hidden products in {categoryTitle}.
                       </Text>
                     </Box>
                   ) : (
@@ -490,51 +563,76 @@ export function CategoryAccordionPane({ options = {} }: CategoryAccordionPanePro
                   )}
                 </Box>
               )}
-            </Card>
+            </Box>
 
-            {/* ─── SECTION 3: ALL PRODUCTS ─── */}
-            <Card
-              radius={2}
-              tone="default"
-              style={{
-                background: 'rgba(255, 255, 255, 0.03)',
-                border: '1px solid rgba(255, 255, 255, 0.1)',
-                overflow: 'hidden',
-              }}
-            >
-              {/* Accordion Header */}
-              <Flex
-                align="center"
-                justify="space-between"
+            {/* ═══════════════════════════════════════════════
+                HEADING 3: ALL PRODUCTS
+               ═══════════════════════════════════════════════ */}
+            <Box style={{ marginBottom: '4px' }}>
+              {/* Main Heading Row */}
+              <Card
                 padding={3}
-                onClick={() => setAllProductsOpen(!allProductsOpen)}
+                radius={2}
+                tone={activeSection === 'all' ? 'primary' : 'default'}
                 style={{
                   cursor: 'pointer',
                   userSelect: 'none',
-                  background: allProductsOpen ? 'rgba(255, 255, 255, 0.05)' : 'transparent',
+                  background:
+                    activeSection === 'all'
+                      ? 'rgba(13, 85, 207, 0.22)'
+                      : 'rgba(255, 255, 255, 0.02)',
+                  border:
+                    activeSection === 'all'
+                      ? '1px solid rgba(59, 130, 246, 0.45)'
+                      : '1px solid rgba(255, 255, 255, 0.06)',
+                  transition: 'all 0.15s ease',
                 }}
+                onClick={() => handleToggleSection('all')}
               >
-                <Flex align="center" gap={2}>
-                  <span style={{ fontSize: '1.1rem' }}>{categoryIcon}</span>
-                  <Text weight="bold" size={1} style={{ color: '#E2E8F0' }}>
-                    All {options.singular || 'Fish'} Products
-                  </Text>
-                  <Badge tone="default" fontSize={0} padding={1}>
-                    {allProductsList.length}
-                  </Badge>
-                </Flex>
-                {allProductsOpen ? (
-                  <ChevronDown size={16} color="#94A3B8" />
-                ) : (
-                  <ChevronRight size={16} color="#94A3B8" />
-                )}
-              </Flex>
+                <Flex align="center" justify="space-between">
+                  <Flex align="center" gap={3}>
+                    <span style={{ fontSize: '1.15rem' }}>{categoryIcon}</span>
+                    <Text
+                      weight="bold"
+                      size={1}
+                      style={{
+                        color: activeSection === 'all' ? '#60A5FA' : '#E2E8F0',
+                      }}
+                    >
+                      All {singular} Products
+                    </Text>
+                  </Flex>
 
-              {/* Accordion Content — Products right below header */}
-              {allProductsOpen && (
-                <Box padding={2} style={{ borderTop: '1px solid rgba(255, 255, 255, 0.08)' }}>
+                  <Flex align="center" gap={2}>
+                    <Badge tone="default" fontSize={0} padding={1}>
+                      {allProductsList.length}
+                    </Badge>
+                    {activeSection === 'all' ? (
+                      <ChevronDown size={16} color="#60A5FA" />
+                    ) : (
+                      <ChevronRight size={16} color="#94A3B8" />
+                    )}
+                  </Flex>
+                </Flex>
+              </Card>
+
+              {/* Expands directly downwards inside the same list pane */}
+              {activeSection === 'all' && (
+                <Box
+                  padding={2}
+                  style={{
+                    background: 'rgba(59, 130, 246, 0.03)',
+                    borderLeft: '2px solid rgba(59, 130, 246, 0.35)',
+                    borderRight: '1px solid rgba(59, 130, 246, 0.15)',
+                    borderBottom: '1px solid rgba(59, 130, 246, 0.15)',
+                    borderBottomLeftRadius: 6,
+                    borderBottomRightRadius: 6,
+                    marginTop: '2px',
+                    marginBottom: '6px',
+                  }}
+                >
                   {allProductsList.length === 0 ? (
-                    <Box padding={2}>
+                    <Box padding={3}>
                       <Text size={1} style={{ color: '#94A3B8', fontStyle: 'italic' }}>
                         No products found.
                       </Text>
@@ -544,7 +642,7 @@ export function CategoryAccordionPane({ options = {} }: CategoryAccordionPanePro
                   )}
                 </Box>
               )}
-            </Card>
+            </Box>
           </Stack>
         )}
       </Box>
