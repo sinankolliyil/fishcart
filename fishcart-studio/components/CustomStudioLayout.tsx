@@ -146,6 +146,11 @@ export function CustomStudioLayout(props: LayoutProps) {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', height: '100%', width: '100%' }}>
       <style>{`
+        /* ─── 80% COMPACT SCALE ON 100% BROWSER ZOOM ─── */
+        html {
+          zoom: 0.82 !important;
+        }
+
         /* ─── TIGHT & COMPACT COLUMN WIDTHS FOR SANITY STUDIO NAVIGATION ─── */
         /* Column 1: Main navigation (Fishcart Content) - divider sits right next to longest text (How to Cook / Testimonials) */
         [data-ui="Pane"][data-pane-index="0"] {
@@ -202,6 +207,12 @@ export function CustomStudioLayout(props: LayoutProps) {
         [data-ui="Pane"][data-pane-index="1"] [data-ui="PaneHeader"] {
           padding-left: 8px !important;
           padding-right: 8px !important;
+        }
+
+        /* Crisp, compact document title */
+        [data-testid="document-panel-document-title"] {
+          font-size: 1.45rem !important;
+          line-height: 1.25 !important;
         }
       `}</style>
 
