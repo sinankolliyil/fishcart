@@ -100,15 +100,19 @@ export function createSectionNav(config: SectionNavProps) {
           missing.push('At least 1 Size Option');
         }
       } else if (s === 4) {
-        if (!Array.isArray(documentValues?.nutritionInfo) || documentValues.nutritionInfo.length === 0) {
-          missing.push('Nutritional Information');
+        const nut = documentValues?.nutritionInfo;
+        const hasNut = nut && (nut.protein || nut.calories || nut.amount || nut.fat || nut.omega3);
+        if (!hasNut) {
+          missing.push('Nutritional Facts');
         }
         if (!Array.isArray(documentValues?.goodFor) || documentValues.goodFor.length === 0) {
-          missing.push('Health Benefits');
+          missing.push('Health Benefits (Good For)');
         }
       } else if (s === 5) {
-        if (!Array.isArray(documentValues?.allergyInfo) || documentValues.allergyInfo.length === 0) {
-          missing.push('Allergen & Storage Information');
+        const alg = documentValues?.allergyInfo;
+        const hasAlg = alg && (alg.title || alg.desc || alg.warning);
+        if (!hasAlg) {
+          missing.push('Allergy Information');
         }
       } else if (s === 6) {
         if (!Array.isArray(documentValues?.bestFor) || documentValues.bestFor.length === 0) {
