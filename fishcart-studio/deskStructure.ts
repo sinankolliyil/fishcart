@@ -13,6 +13,7 @@ export const SINGLETON_TYPES = new Set([
   'homeCarousel',
   'homeCustomerSays',
   'homeFooter',
+  'homeSidebar',
 ]);
 
 const Emoji = (char: string) => () =>
@@ -100,6 +101,17 @@ export const deskStructure: StructureResolver = (S) =>
                     .schemaType('homeFooter')
                     .documentId('homeFooter')
                     .title('Footer Address')
+                ),
+
+              S.listItem()
+                .title('Sidebar')
+                .icon(Emoji('📱'))
+                .id('homeSidebar')
+                .child(
+                  S.document()
+                    .schemaType('homeSidebar')
+                    .documentId('homeSidebar')
+                    .title('Sidebar')
                 ),
             ])
         ),

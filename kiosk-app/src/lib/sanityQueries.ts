@@ -335,6 +335,19 @@ export const HOME_CAROUSEL_QUERY = `
   }
 `;
 
+export const HOME_SIDEBAR_QUERY = `
+  *[_type == "homeSidebar" && _id in ["homeSidebar", "drafts.homeSidebar"]][0] {
+    sidebarBadgeTitle,
+    sidebarBadgeSubtitle,
+    modalHeading,
+    modalDescription,
+    "qrCodeImage": qrCodeImage.asset->url,
+    communityLink,
+    linkButtonText,
+    visibility
+  }
+`;
+
 export const TESTIMONIALS_QUERY = `
   *[_type == "testimonial" && visibility != false] | order(displayOrder asc) {
     "id": _id,

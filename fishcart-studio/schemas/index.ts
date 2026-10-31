@@ -14,6 +14,7 @@ import homeRecipes from './documents/homeRecipes';
 import homeCarousel from './documents/homeCarousel';
 import homeCustomerSays from './documents/homeCustomerSays';
 import homeFooter from './documents/homeFooter';
+import homeSidebar from './documents/homeSidebar';
 
 export const schemaTypes = [
   // Products & Taxonomy
@@ -31,6 +32,7 @@ export const schemaTypes = [
   homeRecipes,
   homeCustomerSays,
   homeFooter,
+  homeSidebar,
   testimonial,
 
   // Content Pages (Singletons)

@@ -1,10 +1,10 @@
 'use client';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import Image from 'next/image';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, ExternalLink } from 'lucide-react';
 import {
   Home,
   Fish,
@@ -24,6 +24,8 @@ import {
   Menu,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { sanityFetch } from '@/lib/sanity';
+import { HOME_SIDEBAR_QUERY } from '@/lib/sanityQueries';
 
 const NAV_ITEMS = [
   { href: '/', label: 'Home', icon: Home, color: 'text-[#0D55CF]' },
@@ -61,6 +63,35 @@ export function Sidebar({
   const pathname = usePathname();
   const [isQRModalOpen, setIsQRModalOpen] = useState(false);
   const [internalIsMobileMenuOpen, setInternalIsMobileMenuOpen] = useState(false);
+  const [sidebarData, setSidebarData] = useState<{
+    sidebarBadgeTitle?: string;
+    sidebarBadgeSubtitle?: string;
+    modalHeading?: string;
+    modalDescription?: string;
+    qrCodeImage?: string;
+    communityLink?: string;
+    linkButtonText?: string;
+    visibility?: boolean;
+  } | null>(null);
+
+  useEffect(() => {
+    sanityFetch<any>(HOME_SIDEBAR_QUERY)
+      .then((res) => {
+        if (res) setSidebarData(res);
+      })
+      .catch(() => {});
+  }, []);
+
+  const badgeTitle = sidebarData?.sidebarBadgeTitle || 'Tap Here to Scan & Join';
+  const badgeSubtitle = sidebarData?.sidebarBadgeSubtitle || 'Join Our Community';
+  const modalHeading = sidebarData?.modalHeading || 'Scan to Join';
+  const modalDescription =
+    sidebarData?.modalDescription ||
+    'Scan this QR code with your phone camera to join our WhatsApp community.';
+  const qrImageSrc = sidebarData?.qrCodeImage || '/assets/whatsapp_qr.png';
+  const communityLink = sidebarData?.communityLink;
+  const linkText = sidebarData?.linkButtonText || 'Join WhatsApp Community ➔';
+  const isVisible = sidebarData?.visibility !== false;
 
   const isMobileMenuOpen = externalIsMobileMenuOpen ?? internalIsMobileMenuOpen;
   const setIsMobileMenuOpen = externalSetIsMobileMenuOpen ?? setInternalIsMobileMenuOpen;
@@ -356,37 +387,41 @@ export function Sidebar({
           })}
 
           {/* Scan & Join card inside mobile drawer */}
-          <div className="hidden portrait:block pt-2 shrink-0 pb-2">
-            <div 
-              onClick={() => {
-                setIsMobileMenuOpen(false);
-                setIsQRModalOpen(true);
-              }}
-              className="cursor-pointer rounded-[14px] bg-[#0D55CF] p-3 text-center text-white transition-transform active:scale-95 shadow-md flex flex-col items-center justify-center gap-1"
-            >
-              <QrCode className="h-7 w-7 text-white" />
-              <h3 className="text-[14px] font-bold">Tap Here to Scan & Join</h3>
-              <p className="text-[11px] text-white/90">Join Our Community</p>
+          {isVisible && (
+            <div className="hidden portrait:block pt-2 shrink-0 pb-2">
+              <div 
+                onClick={() => {
+                  setIsMobileMenuOpen(false);
+                  setIsQRModalOpen(true);
+                }}
+                className="cursor-pointer rounded-[14px] bg-[#0D55CF] p-3 text-center text-white transition-transform active:scale-95 shadow-md flex flex-col items-center justify-center gap-1"
+              >
+                <QrCode className="h-7 w-7 text-white" />
+                <h3 className="text-[14px] font-bold">{badgeTitle}</h3>
+                <p className="text-[11px] text-white/90">{badgeSubtitle}</p>
+              </div>
             </div>
-          </div>
+          )}
         </div>
       </nav>
 
       {/* ── Scan Now Card ───────────────────────────────────────── */}
-      <div className="px-[var(--sidebar-nav-padding-x)] pb-[var(--sidebar-nav-padding-x)] portrait:hidden">
-        <div 
-          onClick={() => setIsQRModalOpen(true)}
-          className="cursor-pointer rounded-[clamp(10px,min(1vw,1.5svh),16px)] bg-[#0D55CF] p-[var(--sidebar-community-padding)] py-[clamp(12px,min(1.5vw,2svh),20px)]  transition-transform hover:-translate-y-0.5 hover: flex flex-col items-center justify-center"
-        >
-          <QrCode className="mb-[clamp(4px,min(0.5vw,0.7svh),8px)] h-[clamp(28px,min(3vw,4.5svh),42px)] w-[clamp(28px,min(3vw,4.5svh),42px)] text-white" />
-          <h3 className="text-center text-[clamp(13px,min(1.2vw,1.6svh),18px)] font-bold text-white">
-            Tap Here to Scan & Join
-          </h3>
-          <p className="mt-[clamp(2px,min(0.4vw,0.55svh),5px)] text-center text-[clamp(10px,min(0.75vw,1.1svh),13px)] text-white/90">
-            Join Our Community
-          </p>
+      {isVisible && (
+        <div className="px-[var(--sidebar-nav-padding-x)] pb-[var(--sidebar-nav-padding-x)] portrait:hidden">
+          <div 
+            onClick={() => setIsQRModalOpen(true)}
+            className="cursor-pointer rounded-[clamp(10px,min(1vw,1.5svh),16px)] bg-[#0D55CF] p-[var(--sidebar-community-padding)] py-[clamp(12px,min(1.5vw,2svh),20px)] transition-transform hover:-translate-y-0.5 flex flex-col items-center justify-center"
+          >
+            <QrCode className="mb-[clamp(4px,min(0.5vw,0.7svh),8px)] h-[clamp(28px,min(3vw,4.5svh),42px)] w-[clamp(28px,min(3vw,4.5svh),42px)] text-white" />
+            <h3 className="text-center text-[clamp(13px,min(1.2vw,1.6svh),18px)] font-bold text-white">
+              {badgeTitle}
+            </h3>
+            <p className="mt-[clamp(2px,min(0.4vw,0.55svh),5px)] text-center text-[clamp(10px,min(0.75vw,1.1svh),13px)] text-white/90">
+              {badgeSubtitle}
+            </p>
+          </div>
         </div>
-      </div>
+      )}
 
       {/* ── QR Modal ───────────────────────────────────────────── */}
       {isQRModalOpen && (
@@ -394,32 +429,54 @@ export function Sidebar({
           className="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 backdrop-blur-sm transition-opacity" 
           onClick={() => setIsQRModalOpen(false)}
         >
-        
           <div 
-            className="relative flex flex-col items-center justify-center rounded-[24px] bg-white p-[clamp(24px,3vw,40px)]  animate-in zoom-in-95 duration-200"
+            className="relative flex flex-col items-center justify-center rounded-[24px] bg-white p-[clamp(24px,3vw,40px)] animate-in zoom-in-95 duration-200 shadow-2xl max-w-[90vw]"
             onClick={(e) => e.stopPropagation()}
-            
           >
-            
             <button 
               onClick={() => setIsQRModalOpen(false)}
               className="absolute right-[clamp(12px,1.5vw,20px)] top-[clamp(12px,1.5vw,20px)] rounded-full bg-gray-100 p-[clamp(6px,0.8vw,10px)] text-gray-500 hover:bg-gray-200 hover:text-gray-700 transition-colors"
             >
               <X className="h-[clamp(18px,2vw,24px)] w-[clamp(18px,2vw,24px)]" />
             </button>
-            <h2 className="mb-2 text-[clamp(20px,2.5vw,32px)] font-bold text-[#0D55CF]">Scan to Join</h2>
-            <p className="mb-[clamp(16px,2vw,24px)] text-center text-[clamp(13px,1.2vw,16px)] text-gray-500">
-              Scan this QR code with your phone camera <br /> to join our WhatsApp community.
+            <h2 className="mb-2 text-[clamp(20px,2.5vw,32px)] font-bold text-[#0D55CF]">
+              {modalHeading}
+            </h2>
+            <p className="mb-[clamp(16px,2vw,24px)] text-center text-[clamp(13px,1.2vw,16px)] text-gray-500 max-w-[340px]">
+              {modalDescription}
             </p>
-            <div className="rounded-[8px] border-[4px] border-[#0D55CF]/10 p-[clamp(12px,1.5vw,20px)]  bg-white">
+            <div className="rounded-[8px] border-[4px] border-[#0D55CF]/10 p-[clamp(12px,1.5vw,20px)] bg-white shadow-sm">
               <Image
-                src="/assets/whatsapp_qr.png"
+                src={qrImageSrc}
                 alt="WhatsApp QR"
                 width={250}
                 height={250}
                 className="h-[clamp(150px,18vw,250px)] w-[clamp(150px,18vw,250px)] object-contain"
               />
             </div>
+
+            {/* Direct Join Link right under the QR code */}
+            {communityLink ? (
+              <a
+                href={communityLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-4 flex w-full items-center justify-center gap-2 rounded-xl bg-[#25D366] px-5 py-3 text-center text-sm font-bold text-white shadow-md transition-all hover:bg-[#20ba59] hover:shadow-lg active:scale-95 cursor-pointer"
+              >
+                <span>{linkText}</span>
+                <ExternalLink className="h-4 w-4" />
+              </a>
+            ) : (
+              <a
+                href="https://chat.whatsapp.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-4 flex w-full items-center justify-center gap-2 rounded-xl bg-[#25D366] px-5 py-3 text-center text-sm font-bold text-white shadow-md transition-all hover:bg-[#20ba59] hover:shadow-lg active:scale-95 cursor-pointer"
+              >
+                <span>Join WhatsApp Community ➔</span>
+                <ExternalLink className="h-4 w-4" />
+              </a>
+            )}
           </div>
         </div>
       )}
