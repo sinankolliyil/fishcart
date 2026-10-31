@@ -27,6 +27,8 @@ export const deskStructure: StructureResolver = (S) =>
   S.list()
     .title('Fishcart Content')
     .items([
+      S.divider(),
+
       // 1. Home
       S.listItem()
         .title('Home')
@@ -317,9 +319,6 @@ export const deskStructure: StructureResolver = (S) =>
             .documentId('storeContact')
             .title('Contact Us')
         ),
-
-      // ─── Divider & Catalog Management Tools ───
-      S.divider(),
 
       // All Products
       S.listItem()
