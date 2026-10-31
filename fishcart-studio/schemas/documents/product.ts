@@ -126,7 +126,7 @@ export default defineType({
       title: 'Product Availability',
       type: 'string',
       group: 'list',
-      description: 'Available: Active & clickable on the website. Not Available: Faded & not clickable.',
+      description: 'Available: Active & clickable on the website. Not Available: Shows Out of Stock & not clickable.',
       options: {
         list: [
           { title: 'Available', value: 'enabled' },

@@ -62,7 +62,7 @@ export function ProductCard({ product, category }: ProductCardProps) {
         {isDisabled && (
           <div className="absolute inset-0 z-10 flex items-center justify-center bg-white/40 backdrop-blur-[1px]">
             <span className="rounded-md bg-slate-800/80 px-2.5 py-1 text-[11px] font-bold text-white shadow-sm">
-              Currently Unavailable
+              Out of Stock
             </span>
           </div>
         )}
@@ -145,7 +145,7 @@ export function ProductCard({ product, category }: ProductCardProps) {
             )}
           >
             <span className={isDisabled ? '' : 'group-hover:underline'}>
-              {isDisabled ? 'Unavailable' : 'Details'}
+              {isDisabled ? 'Out of Stock' : 'Details'}
             </span>
             {!isDisabled && <ArrowRight className="h-3 w-3 portrait:h-2.5 portrait:w-2.5 stroke-[2.5]" />}
           </div>
