@@ -209,7 +209,14 @@ export default defineType({
       group: 'list',
       description: 'Main product photo shown on the card and at the top of the details page',
       options: { hotspot: true },
-      validation: (r) => r.required(),
+      validation: (r) =>
+        r.custom((value, context) => {
+          const doc = context.document as { imageSrc?: string } | undefined;
+          if (!value && !doc?.imageSrc) {
+            return 'Product photo is required';
+          }
+          return true;
+        }),
     }), 
 
     defineField({
@@ -607,11 +614,10 @@ export default defineType({
             }),
             defineField({
               name: 'image',
-              title: 'Method Image',
+              title: 'Method Image (Optional)',
               type: 'image',
               options: { hotspot: true },
-              description: 'Small circular photo shown next to the cooking method',
-              validation: (r) => r.required(),
+              description: 'Optional photo shown next to the cooking method. If not uploaded, a clean default icon is used.',
             }),
           ],
           preview: {
@@ -657,11 +663,10 @@ export default defineType({
             }),
             defineField({
               name: 'image',
-              title: 'Recipe Thumbnail Image',
+              title: 'Recipe Thumbnail Image (Optional)',
               type: 'image',
               options: { hotspot: true },
-              description: 'Background image for the recipe card',
-              validation: (r) => r.required(),
+              description: 'Optional background image for the recipe card. If not uploaded, a clean default image is used.',
             }),
           ],
           preview: {
