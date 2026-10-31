@@ -79,13 +79,12 @@ export default defineType({
       description: 'Available: Active & clickable on the website. Not Available: Faded & not clickable.',
       options: {
         list: [
-          { title: '🟢 Available (Enabled)', value: 'enabled' },
-          { title: '🔴 Not Available (Disabled)', value: 'disabled' },
+          { title: 'Available', value: 'enabled' },
+          { title: 'Not Available', value: 'disabled' },
         ],
         layout: 'radio',
       },
       initialValue: 'enabled',
-      validation: (r) => r.required(),
     }),
 
     defineField({
@@ -145,13 +144,12 @@ export default defineType({
       description: 'Hide mode: item will NOT show on listings on the website.',
       options: {
         list: [
-          { title: '👁️ Show (Visible on website)', value: 'show' },
-          { title: '🚫 Hide (Hidden from listings)', value: 'hide' },
+          { title: 'Show (Visible on website)', value: 'show' },
+          { title: 'Hide (Hidden from listings)', value: 'hide' },
         ],
         layout: 'radio',
       },
       initialValue: 'show',
-      validation: (r) => r.required(),
     }),
 
     defineField({
