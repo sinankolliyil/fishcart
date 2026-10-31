@@ -2,8 +2,8 @@
 
 // Products
 export const PRODUCTS_BY_CATEGORY_QUERY = `
-  *[_type == "product" && (category->slug.current == $category || category == $category) && visibilityStatus != "hidden" && visibilityStatus != false] | order(displayOrder asc) {
-    "id": slug.current,
+  *[_type == "product" && (category->slug.current == $category || category == $category) && visibilityStatus != "hidden" && visibilityStatus != false] | order(_createdAt desc) {
+    "id": coalesce(slug.current, _id),
     title,
     origin,
     filterCountry,

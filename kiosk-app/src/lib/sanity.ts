@@ -42,10 +42,10 @@ export async function sanityFetch<T>(query: string, params: Record<string, any> 
     return null;
   }
   try {
-    const data = await (client as any).fetch<T>(query, params, {
+    const data = (await (client as any).fetch(query, params, {
       next: { revalidate: 0 },
       cache: 'no-store',
-    });
+    })) as T;
     return data;
   } catch (err) {
     console.warn('Sanity query failed (falling back to local data):', err);
