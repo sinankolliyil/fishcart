@@ -15,7 +15,7 @@ export const client = isSanityConfigured
       projectId,
       dataset,
       apiVersion,
-      useCdn: process.env.NODE_ENV === 'production',
+      useCdn: false,
     })
   : null;
 
@@ -42,7 +42,10 @@ export async function sanityFetch<T>(query: string, params: Record<string, any> 
     return null;
   }
   try {
-    const data = await client.fetch<T>(query, params);
+    const data = await (client as any).fetch<T>(query, params, {
+      next: { revalidate: 0 },
+      cache: 'no-store',
+    });
     return data;
   } catch (err) {
     console.warn('Sanity query failed (falling back to local data):', err);
