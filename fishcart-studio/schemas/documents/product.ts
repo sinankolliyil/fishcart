@@ -142,7 +142,7 @@ export default defineType({
       title: 'Visibility (Show / Hide)',
       type: 'string',
       group: 'list',
-      description: 'Hide mode: item will NOT show on listings on the website.',
+      description: 'Show: Display on the website. Hide: Keep in CMS but not shown on the website.',
       options: {
         list: [
           { title: 'Show', value: 'show' },

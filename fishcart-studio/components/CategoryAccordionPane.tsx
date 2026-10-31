@@ -2,7 +2,7 @@ import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import { useClient } from 'sanity';
 import { usePaneRouter } from 'sanity/structure';
 import { Card, Flex, Box, Text, Badge, Button, TextInput, Stack, Spinner } from '@sanity/ui';
-import { Search, ChevronDown, ChevronRight, Plus, RefreshCw, X } from 'lucide-react';
+import { Search, ChevronDown, ChevronUp, Plus, RefreshCw, X } from 'lucide-react';
 
 interface ProductItem {
   _id: string;
@@ -47,8 +47,8 @@ export function CategoryAccordionPane({ options = {} }: CategoryAccordionPanePro
   const [searchQuery, setSearchQuery] = useState('');
 
   // Single-open accordion state: only ONE section open at a time
-  // When another heading is clicked, the previous one hides back
-  const [activeSection, setActiveSection] = useState<ActiveSection>('all');
+  // Default to 'outOfStock' if there are out of stock items (as shown in user mockup), else 'all'
+  const [activeSection, setActiveSection] = useState<ActiveSection>('outOfStock');
 
   // Find currently open document ID to highlight it
   const activeDocId = useMemo(() => {
@@ -178,18 +178,18 @@ export function CategoryAccordionPane({ options = {} }: CategoryAccordionPanePro
   // If user is searching, automatically open the section that has matches
   useEffect(() => {
     if (searchQuery.trim()) {
-      if (outOfStockList.length > 0 && activeSection !== 'outOfStock') {
+      if (outOfStockList.length > 0) {
         setActiveSection('outOfStock');
-      } else if (hiddenList.length > 0 && activeSection !== 'hidden') {
+      } else if (hiddenList.length > 0) {
         setActiveSection('hidden');
       } else {
         setActiveSection('all');
       }
     }
-  }, [searchQuery]);
+  }, [searchQuery, outOfStockList.length, hiddenList.length]);
 
   const handleToggleSection = (section: ActiveSection) => {
-    // If clicking the currently open section, close it. Otherwise open it and close the others.
+    // Single-open accordion: Clicking another heading hides the previous one
     setActiveSection((current) => (current === section ? null : section));
   };
 
@@ -204,7 +204,7 @@ export function CategoryAccordionPane({ options = {} }: CategoryAccordionPanePro
     });
   };
 
-  const renderProductRow = (product: ProductItem) => {
+  const renderProductCard = (product: ProductItem, parentTone: 'critical' | 'caution' | 'primary') => {
     const isActive = activeDocId === product._id || activeDocId === `drafts.${product._id}`;
     const disabled = isOutOfStock(product);
     const hidden = isHidden(product);
@@ -215,22 +215,33 @@ export function CategoryAccordionPane({ options = {} }: CategoryAccordionPanePro
         : '';
     const subText = [product.origin, product.format, priceText].filter(Boolean).join(' · ');
 
+    const cardBg = isActive
+      ? 'rgba(13, 85, 207, 0.35)'
+      : parentTone === 'critical'
+      ? '#22141A'
+      : parentTone === 'caution'
+      ? '#231B12'
+      : '#151D2C';
+
+    const cardBorder = isActive
+      ? '1px solid #3B82F6'
+      : parentTone === 'critical'
+      ? '1px solid rgba(239, 68, 68, 0.25)'
+      : parentTone === 'caution'
+      ? '1px solid rgba(245, 158, 11, 0.25)'
+      : '1px solid rgba(255, 255, 255, 0.08)';
+
     return (
       <Card
         key={product._id}
         padding={2}
         radius={2}
-        tone={isActive ? 'primary' : 'default'}
         style={{
           cursor: 'pointer',
-          background: isActive
-            ? 'rgba(13, 85, 207, 0.28)'
-            : 'rgba(255, 255, 255, 0.03)',
-          borderLeft: isActive ? '3px solid #3B82F6' : '3px solid transparent',
+          background: cardBg,
+          border: cardBorder,
           transition: 'all 0.15s ease',
-          marginBottom: '3px',
-          marginLeft: '4px',
-          marginRight: '4px',
+          marginBottom: '6px',
         }}
         onClick={() => handleOpenProduct(product._id)}
       >
@@ -239,9 +250,9 @@ export function CategoryAccordionPane({ options = {} }: CategoryAccordionPanePro
             {/* Thumbnail */}
             <Box
               style={{
-                width: 30,
-                height: 30,
-                borderRadius: 5,
+                width: 36,
+                height: 36,
+                borderRadius: 6,
                 overflow: 'hidden',
                 background: '#1E293B',
                 display: 'flex',
@@ -257,19 +268,18 @@ export function CategoryAccordionPane({ options = {} }: CategoryAccordionPanePro
                   style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                 />
               ) : (
-                <span style={{ fontSize: '0.9rem' }}>{categoryIcon}</span>
+                <span style={{ fontSize: '1.1rem' }}>{categoryIcon}</span>
               )}
             </Box>
 
             {/* Title & details */}
             <Box style={{ minWidth: 0, flex: 1 }}>
               <Text
-                weight="semibold"
+                weight="bold"
                 size={1}
                 textOverflow="ellipsis"
                 style={{
-                  color: isActive ? '#FFFFFF' : '#E2E8F0',
-                  opacity: disabled ? 0.8 : 1,
+                  color: isActive ? '#FFFFFF' : '#F1F5F9',
                 }}
               >
                 {product.title || 'Untitled Product'}
@@ -278,7 +288,7 @@ export function CategoryAccordionPane({ options = {} }: CategoryAccordionPanePro
                 <Text
                   size={0}
                   textOverflow="ellipsis"
-                  style={{ color: '#94A3B8', marginTop: '2px' }}
+                  style={{ color: '#94A3B8', marginTop: '3px' }}
                 >
                   {subText}
                 </Text>
@@ -286,28 +296,39 @@ export function CategoryAccordionPane({ options = {} }: CategoryAccordionPanePro
             </Box>
           </Flex>
 
-          {/* Status Tags */}
+          {/* Right Tag */}
           <Flex align="center" gap={1} style={{ flexShrink: 0 }}>
             {disabled && (
-              <>
-                <Badge tone="critical" fontSize={0} padding={1}>
-                  Out of Stock
-                </Badge>
-                {hidden ? (
-                  <Badge tone="caution" fontSize={0} padding={1}>
-                    Hidden
-                  </Badge>
-                ) : (
-                  <Badge tone="primary" fontSize={0} padding={1}>
-                    Shown
-                  </Badge>
-                )}
-              </>
+              <span
+                style={{
+                  display: 'inline-block',
+                  padding: '3px 8px',
+                  borderRadius: '12px',
+                  fontSize: '11px',
+                  fontWeight: 600,
+                  backgroundColor: 'rgba(239, 68, 68, 0.2)',
+                  color: '#F87171',
+                  border: '1px solid rgba(239, 68, 68, 0.4)',
+                }}
+              >
+                Out of Stock
+              </span>
             )}
             {!disabled && hidden && (
-              <Badge tone="caution" fontSize={0} padding={1}>
+              <span
+                style={{
+                  display: 'inline-block',
+                  padding: '3px 8px',
+                  borderRadius: '12px',
+                  fontSize: '11px',
+                  fontWeight: 600,
+                  backgroundColor: 'rgba(245, 158, 11, 0.2)',
+                  color: '#FBBF24',
+                  border: '1px solid rgba(245, 158, 11, 0.4)',
+                }}
+              >
                 Hidden
-              </Badge>
+              </span>
             )}
             {!disabled && !hidden && (
               <span
@@ -338,17 +359,27 @@ export function CategoryAccordionPane({ options = {} }: CategoryAccordionPanePro
         borderRight: '1px solid rgba(255, 255, 255, 0.08)',
       }}
     >
-      {/* Pane Top Header — matches Sanity Studio pane header */}
+      {/* ─── PANE HEADER ─── */}
       <Box padding={3} style={{ borderBottom: '1px solid rgba(255, 255, 255, 0.08)' }}>
-        <Flex align="center" justify="space-between" gap={2} style={{ marginBottom: '10px' }}>
+        <Flex align="center" justify="space-between" gap={2} style={{ marginBottom: '12px' }}>
           <Flex align="center" gap={2}>
             <span style={{ fontSize: '1.25rem' }}>{categoryIcon}</span>
             <Text weight="bold" size={2} style={{ color: '#F8FAFC' }}>
               {categoryTitle}
             </Text>
-            <Badge tone="default" fontSize={1}>
+            <span
+              style={{
+                display: 'inline-block',
+                padding: '2px 8px',
+                borderRadius: '10px',
+                fontSize: '12px',
+                fontWeight: 600,
+                backgroundColor: 'rgba(255, 255, 255, 0.1)',
+                color: '#CBD5E1',
+              }}
+            >
               {products.length}
-            </Badge>
+            </span>
           </Flex>
 
           <Button
@@ -356,9 +387,15 @@ export function CategoryAccordionPane({ options = {} }: CategoryAccordionPanePro
             padding={2}
             tone="primary"
             icon={<Plus size={16} />}
-            text="Add"
+            text={`Add ${singular}`}
             onClick={handleCreateProduct}
-            style={{ cursor: 'pointer', fontWeight: 600 }}
+            style={{
+              cursor: 'pointer',
+              fontWeight: 700,
+              backgroundColor: '#0D55CF',
+              color: '#FFFFFF',
+              borderRadius: '6px',
+            }}
           />
         </Flex>
 
@@ -368,7 +405,7 @@ export function CategoryAccordionPane({ options = {} }: CategoryAccordionPanePro
             <TextInput
               fontSize={1}
               icon={<Search size={14} style={{ color: '#94A3B8' }} />}
-              placeholder={`Search list...`}
+              placeholder={`Search ${singular.toLowerCase()} products...`}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.currentTarget.value)}
             />
@@ -399,78 +436,88 @@ export function CategoryAccordionPane({ options = {} }: CategoryAccordionPanePro
         </Flex>
       </Box>
 
-      {/* Pane Content — The 3 Main Headings (Single-Open Accordion) */}
-      <Box style={{ flex: 1, overflowY: 'auto' }} padding={2}>
+      {/* ─── PANE BODY: THE 3 MAIN HEADINGS ─── */}
+      <Box style={{ flex: 1, overflowY: 'auto' }} padding={3}>
         {loading ? (
           <Flex justify="center" align="center" style={{ height: 160 }}>
             <Spinner />
           </Flex>
         ) : (
-          <Stack space={1}>
+          <Stack space={3}>
             {/* ═══════════════════════════════════════════════
-                HEADING 1: OUT OF STOCK PRODUCTS
+                1. OUT OF STOCK PRODUCTS
                ═══════════════════════════════════════════════ */}
-            <Box style={{ marginBottom: '4px' }}>
-              {/* Main Heading Row — Styled like native Sanity list row */}
-              <Card
+            <Box
+              style={{
+                borderRadius: '8px',
+                border:
+                  activeSection === 'outOfStock'
+                    ? '1px solid rgba(239, 68, 68, 0.45)'
+                    : '1px solid rgba(239, 68, 68, 0.25)',
+                background:
+                  activeSection === 'outOfStock' ? '#1A1015' : 'rgba(239, 68, 68, 0.04)',
+                overflow: 'hidden',
+                transition: 'all 0.15s ease',
+              }}
+            >
+              {/* Header row */}
+              <Flex
+                align="center"
+                justify="space-between"
                 padding={3}
-                radius={2}
-                tone={activeSection === 'outOfStock' ? 'critical' : 'default'}
+                onClick={() => handleToggleSection('outOfStock')}
                 style={{
                   cursor: 'pointer',
                   userSelect: 'none',
                   background:
                     activeSection === 'outOfStock'
-                      ? 'rgba(239, 68, 68, 0.16)'
-                      : 'rgba(255, 255, 255, 0.02)',
-                  border:
-                    activeSection === 'outOfStock'
-                      ? '1px solid rgba(239, 68, 68, 0.4)'
-                      : '1px solid rgba(255, 255, 255, 0.06)',
-                  transition: 'all 0.15s ease',
+                      ? 'rgba(239, 68, 68, 0.12)'
+                      : 'transparent',
                 }}
-                onClick={() => handleToggleSection('outOfStock')}
               >
-                <Flex align="center" justify="space-between">
-                  <Flex align="center" gap={3}>
-                    <span style={{ fontSize: '1.15rem' }}>🛑</span>
-                    <Text
-                      weight="bold"
-                      size={1}
-                      style={{
-                        color: activeSection === 'outOfStock' ? '#FCA5A5' : '#E2E8F0',
-                      }}
-                    >
-                      Out of Stock Products
-                    </Text>
-                  </Flex>
-
-                  <Flex align="center" gap={2}>
-                    <Badge tone="critical" fontSize={0} padding={1}>
-                      {outOfStockList.length}
-                    </Badge>
-                    {activeSection === 'outOfStock' ? (
-                      <ChevronDown size={16} color="#FCA5A5" />
-                    ) : (
-                      <ChevronRight size={16} color="#94A3B8" />
-                    )}
-                  </Flex>
+                <Flex align="center" gap={3}>
+                  <span
+                    style={{
+                      width: 14,
+                      height: 14,
+                      borderRadius: '50%',
+                      backgroundColor: '#EF4444',
+                      display: 'inline-block',
+                      boxShadow: '0 0 8px rgba(239, 68, 68, 0.5)',
+                    }}
+                  />
+                  <Text weight="bold" size={1} style={{ color: '#FFFFFF' }}>
+                    Out of Stock Products
+                  </Text>
+                  <span
+                    style={{
+                      display: 'inline-block',
+                      padding: '1px 7px',
+                      borderRadius: '10px',
+                      fontSize: '11px',
+                      fontWeight: 700,
+                      backgroundColor: '#EF4444',
+                      color: '#FFFFFF',
+                    }}
+                  >
+                    {outOfStockList.length}
+                  </span>
                 </Flex>
-              </Card>
 
-              {/* Expands directly downwards inside the same list pane */}
+                {activeSection === 'outOfStock' ? (
+                  <ChevronUp size={16} color="#FCA5A5" />
+                ) : (
+                  <ChevronDown size={16} color="#94A3B8" />
+                )}
+              </Flex>
+
+              {/* Expands directly downwards inside this list pane */}
               {activeSection === 'outOfStock' && (
                 <Box
                   padding={2}
                   style={{
-                    background: 'rgba(239, 68, 68, 0.04)',
-                    borderLeft: '2px solid rgba(239, 68, 68, 0.35)',
-                    borderRight: '1px solid rgba(239, 68, 68, 0.15)',
-                    borderBottom: '1px solid rgba(239, 68, 68, 0.15)',
-                    borderBottomLeftRadius: 6,
-                    borderBottomRightRadius: 6,
-                    marginTop: '2px',
-                    marginBottom: '6px',
+                    borderTop: '1px solid rgba(239, 68, 68, 0.2)',
+                    background: '#150D11',
                   }}
                 >
                   {outOfStockList.length === 0 ? (
@@ -480,76 +527,77 @@ export function CategoryAccordionPane({ options = {} }: CategoryAccordionPanePro
                       </Text>
                     </Box>
                   ) : (
-                    outOfStockList.map(renderProductRow)
+                    outOfStockList.map((p) => renderProductCard(p, 'critical'))
                   )}
                 </Box>
               )}
             </Box>
 
             {/* ═══════════════════════════════════════════════
-                HEADING 2: HIDDEN PRODUCTS (HIDE)
+                2. HIDDEN PRODUCTS (HIDE)
                ═══════════════════════════════════════════════ */}
-            <Box style={{ marginBottom: '4px' }}>
-              {/* Main Heading Row */}
-              <Card
+            <Box
+              style={{
+                borderRadius: '8px',
+                border:
+                  activeSection === 'hidden'
+                    ? '1px solid rgba(245, 158, 11, 0.45)'
+                    : '1px solid rgba(245, 158, 11, 0.25)',
+                background:
+                  activeSection === 'hidden' ? '#1C1810' : 'rgba(245, 158, 11, 0.04)',
+                overflow: 'hidden',
+                transition: 'all 0.15s ease',
+              }}
+            >
+              {/* Header row */}
+              <Flex
+                align="center"
+                justify="space-between"
                 padding={3}
-                radius={2}
-                tone={activeSection === 'hidden' ? 'caution' : 'default'}
+                onClick={() => handleToggleSection('hidden')}
                 style={{
                   cursor: 'pointer',
                   userSelect: 'none',
                   background:
                     activeSection === 'hidden'
-                      ? 'rgba(245, 158, 11, 0.16)'
-                      : 'rgba(255, 255, 255, 0.02)',
-                  border:
-                    activeSection === 'hidden'
-                      ? '1px solid rgba(245, 158, 11, 0.4)'
-                      : '1px solid rgba(255, 255, 255, 0.06)',
-                  transition: 'all 0.15s ease',
+                      ? 'rgba(245, 158, 11, 0.12)'
+                      : 'transparent',
                 }}
-                onClick={() => handleToggleSection('hidden')}
               >
-                <Flex align="center" justify="space-between">
-                  <Flex align="center" gap={3}>
-                    <span style={{ fontSize: '1.15rem' }}>🚫</span>
-                    <Text
-                      weight="bold"
-                      size={1}
-                      style={{
-                        color: activeSection === 'hidden' ? '#FCD34D' : '#E2E8F0',
-                      }}
-                    >
-                      Hidden Products (Hide)
-                    </Text>
-                  </Flex>
-
-                  <Flex align="center" gap={2}>
-                    <Badge tone="caution" fontSize={0} padding={1}>
-                      {hiddenList.length}
-                    </Badge>
-                    {activeSection === 'hidden' ? (
-                      <ChevronDown size={16} color="#FCD34D" />
-                    ) : (
-                      <ChevronRight size={16} color="#94A3B8" />
-                    )}
-                  </Flex>
+                <Flex align="center" gap={3}>
+                  <span style={{ fontSize: '1.1rem' }}>🚫</span>
+                  <Text weight="bold" size={1} style={{ color: '#FFFFFF' }}>
+                    Hidden Products (Hide)
+                  </Text>
+                  <span
+                    style={{
+                      display: 'inline-block',
+                      padding: '1px 7px',
+                      borderRadius: '10px',
+                      fontSize: '11px',
+                      fontWeight: 700,
+                      backgroundColor: '#F59E0B',
+                      color: '#000000',
+                    }}
+                  >
+                    {hiddenList.length}
+                  </span>
                 </Flex>
-              </Card>
 
-              {/* Expands directly downwards inside the same list pane */}
+                {activeSection === 'hidden' ? (
+                  <ChevronUp size={16} color="#FCD34D" />
+                ) : (
+                  <ChevronDown size={16} color="#94A3B8" />
+                )}
+              </Flex>
+
+              {/* Expands directly downwards inside this list pane */}
               {activeSection === 'hidden' && (
                 <Box
                   padding={2}
                   style={{
-                    background: 'rgba(245, 158, 11, 0.04)',
-                    borderLeft: '2px solid rgba(245, 158, 11, 0.35)',
-                    borderRight: '1px solid rgba(245, 158, 11, 0.15)',
-                    borderBottom: '1px solid rgba(245, 158, 11, 0.15)',
-                    borderBottomLeftRadius: 6,
-                    borderBottomRightRadius: 6,
-                    marginTop: '2px',
-                    marginBottom: '6px',
+                    borderTop: '1px solid rgba(245, 158, 11, 0.2)',
+                    background: '#14110A',
                   }}
                 >
                   {hiddenList.length === 0 ? (
@@ -559,76 +607,77 @@ export function CategoryAccordionPane({ options = {} }: CategoryAccordionPanePro
                       </Text>
                     </Box>
                   ) : (
-                    hiddenList.map(renderProductRow)
+                    hiddenList.map((p) => renderProductCard(p, 'caution'))
                   )}
                 </Box>
               )}
             </Box>
 
             {/* ═══════════════════════════════════════════════
-                HEADING 3: ALL PRODUCTS
+                3. ALL PRODUCTS
                ═══════════════════════════════════════════════ */}
-            <Box style={{ marginBottom: '4px' }}>
-              {/* Main Heading Row */}
-              <Card
+            <Box
+              style={{
+                borderRadius: '8px',
+                border:
+                  activeSection === 'all'
+                    ? '1px solid rgba(59, 130, 246, 0.45)'
+                    : '1px solid rgba(59, 130, 246, 0.22)',
+                background:
+                  activeSection === 'all' ? '#101626' : 'rgba(59, 130, 246, 0.04)',
+                overflow: 'hidden',
+                transition: 'all 0.15s ease',
+              }}
+            >
+              {/* Header row */}
+              <Flex
+                align="center"
+                justify="space-between"
                 padding={3}
-                radius={2}
-                tone={activeSection === 'all' ? 'primary' : 'default'}
+                onClick={() => handleToggleSection('all')}
                 style={{
                   cursor: 'pointer',
                   userSelect: 'none',
                   background:
                     activeSection === 'all'
-                      ? 'rgba(13, 85, 207, 0.22)'
-                      : 'rgba(255, 255, 255, 0.02)',
-                  border:
-                    activeSection === 'all'
-                      ? '1px solid rgba(59, 130, 246, 0.45)'
-                      : '1px solid rgba(255, 255, 255, 0.06)',
-                  transition: 'all 0.15s ease',
+                      ? 'rgba(59, 130, 246, 0.12)'
+                      : 'transparent',
                 }}
-                onClick={() => handleToggleSection('all')}
               >
-                <Flex align="center" justify="space-between">
-                  <Flex align="center" gap={3}>
-                    <span style={{ fontSize: '1.15rem' }}>{categoryIcon}</span>
-                    <Text
-                      weight="bold"
-                      size={1}
-                      style={{
-                        color: activeSection === 'all' ? '#60A5FA' : '#E2E8F0',
-                      }}
-                    >
-                      All {singular} Products
-                    </Text>
-                  </Flex>
-
-                  <Flex align="center" gap={2}>
-                    <Badge tone="default" fontSize={0} padding={1}>
-                      {allProductsList.length}
-                    </Badge>
-                    {activeSection === 'all' ? (
-                      <ChevronDown size={16} color="#60A5FA" />
-                    ) : (
-                      <ChevronRight size={16} color="#94A3B8" />
-                    )}
-                  </Flex>
+                <Flex align="center" gap={3}>
+                  <span style={{ fontSize: '1.15rem' }}>{categoryIcon}</span>
+                  <Text weight="bold" size={1} style={{ color: '#FFFFFF' }}>
+                    All {singular} Products
+                  </Text>
+                  <span
+                    style={{
+                      display: 'inline-block',
+                      padding: '1px 7px',
+                      borderRadius: '10px',
+                      fontSize: '11px',
+                      fontWeight: 700,
+                      backgroundColor: '#3B82F6',
+                      color: '#FFFFFF',
+                    }}
+                  >
+                    {allProductsList.length}
+                  </span>
                 </Flex>
-              </Card>
 
-              {/* Expands directly downwards inside the same list pane */}
+                {activeSection === 'all' ? (
+                  <ChevronUp size={16} color="#60A5FA" />
+                ) : (
+                  <ChevronDown size={16} color="#94A3B8" />
+                )}
+              </Flex>
+
+              {/* Expands directly downwards inside this list pane */}
               {activeSection === 'all' && (
                 <Box
                   padding={2}
                   style={{
-                    background: 'rgba(59, 130, 246, 0.03)',
-                    borderLeft: '2px solid rgba(59, 130, 246, 0.35)',
-                    borderRight: '1px solid rgba(59, 130, 246, 0.15)',
-                    borderBottom: '1px solid rgba(59, 130, 246, 0.15)',
-                    borderBottomLeftRadius: 6,
-                    borderBottomRightRadius: 6,
-                    marginTop: '2px',
-                    marginBottom: '6px',
+                    borderTop: '1px solid rgba(59, 130, 246, 0.2)',
+                    background: '#0D121F',
                   }}
                 >
                   {allProductsList.length === 0 ? (
@@ -638,7 +687,7 @@ export function CategoryAccordionPane({ options = {} }: CategoryAccordionPanePro
                       </Text>
                     </Box>
                   ) : (
-                    allProductsList.map(renderProductRow)
+                    allProductsList.map((p) => renderProductCard(p, 'primary'))
                   )}
                 </Box>
               )}
