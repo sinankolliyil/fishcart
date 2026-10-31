@@ -146,11 +146,7 @@ export function CustomStudioLayout(props: LayoutProps) {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', height: '100%', width: '100%' }}>
       <style>{`
-        /* ─── TIGHT & COMPACT COLUMN WIDTHS FOR SANITY STUDIO ─── */
-        [data-ui="Pane"] {
-          min-width: 140px !important;
-        }
-
+        /* ─── TIGHT & COMPACT COLUMN WIDTHS FOR SANITY STUDIO NAVIGATION ─── */
         /* Column 1: Main navigation (Fishcart Content) - divider sits right next to longest text (How to Cook / Testimonials) */
         [data-ui="Pane"][data-pane-index="0"] {
           min-width: 150px !important;
@@ -159,29 +155,34 @@ export function CustomStudioLayout(props: LayoutProps) {
           width: 162px !important;
         }
 
-        /* Column 2: Secondary section lists (Fish Products, How to Cook, etc. - divider sits right next to Hidden Products (Hide)) */
-        [data-ui="Pane"][data-pane-index="1"] {
+        /* Column 2: Secondary section list ONLY (Fish Products, How to Cook categories, etc.) - divider sits right next to text */
+        [data-ui="Pane"][data-pane-index="1"]:not([data-testid="document-pane"]):not(:has([data-testid="document-pane"])):not(:has([data-testid="document-panel-scroller"])):not(:has(form)) {
           min-width: 195px !important;
           max-width: 215px !important;
           flex: 0 0 206px !important;
           width: 206px !important;
         }
 
-        /* Column 3: Items / Documents list (Products, Recipes list) */
-        [data-ui="Pane"][data-pane-index="2"] {
+        /* Column 3: Items / Documents list ONLY (Products list, Recipes list) */
+        [data-ui="Pane"][data-pane-index="2"]:not([data-testid="document-pane"]):not(:has([data-testid="document-pane"])):not(:has([data-testid="document-panel-scroller"])):not(:has(form)) {
           min-width: 250px !important;
-          max-width: 310px !important;
-          flex: 0 0 275px !important;
-          width: 275px !important;
+          max-width: 320px !important;
+          flex: 0 0 280px !important;
+          width: 280px !important;
         }
 
-        /* Allow Document Editor / Detail pane to fill the remaining screen space */
-        [data-ui="Pane"][data-ui="DocumentPane"],
-        [data-ui="Pane"][data-pane-index="3"] {
-          min-width: 420px !important;
+        /* ─── DOCUMENT EDITOR PANE: ALWAYS EXPAND TO FILL ALL REMAINING SCREEN SPACE ─── */
+        /* Applies whenever a document is being edited (New Recipe, Product, Singleton, etc.) regardless of pane index */
+        [data-ui="Pane"][data-testid="document-pane"],
+        [data-ui="Pane"]:has([data-testid="document-pane"]),
+        [data-ui="Pane"]:has([data-testid="document-panel-scroller"]),
+        [data-ui="Pane"]:has([data-testid="document-panel-portal"]),
+        [data-ui="Pane"]:has(form),
+        [data-ui="Pane"][data-pane-index]:last-child:not([data-pane-index="0"]):not(:has([data-ui="CommandList"])) {
+          min-width: 520px !important;
           max-width: none !important;
-          flex: 1 1 auto !important;
-          width: auto !important;
+          flex: 1 1 0% !important;
+          width: 100% !important;
         }
 
         /* Tighter list item & header padding so divider sits snug next to text */

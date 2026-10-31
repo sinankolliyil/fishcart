@@ -312,6 +312,12 @@ export const deskStructure: StructureResolver = (S) =>
                     .title('All Recipes')
                     .filter('_type == "recipe"')
                     .defaultOrdering([{ field: 'displayOrder', direction: 'asc' }])
+                    .initialValueTemplates([
+                      S.initialValueTemplateItem('recipe-fish'),
+                      S.initialValueTemplateItem('recipe-meat'),
+                      S.initialValueTemplateItem('recipe-chicken'),
+                      S.initialValueTemplateItem('recipe-egg'),
+                    ])
                 ),
 
               S.listItem()
