@@ -12,9 +12,9 @@ interface ProductItem {
   format?: string;
   origin?: string;
   status?: string;
-  visibility?: string;
-  availabilityStatus?: string;
-  visibilityStatus?: string;
+  visibility?: string | boolean;
+  availabilityStatus?: string | boolean;
+  visibilityStatus?: string | boolean;
   availability?: boolean;
   imageUrl?: string;
   _createdAt?: string;
