@@ -1,6 +1,5 @@
 import React from 'react';
 import type { StructureResolver } from 'sanity/structure';
-import { CategoryAccordionPane } from './components/CategoryAccordionPane';
 
 // Singletons with stable document IDs that must never be duplicated or deleted
 export const SINGLETON_TYPES = new Set([
@@ -110,16 +109,47 @@ export const deskStructure: StructureResolver = (S) =>
         .title('Fish')
         .icon(Emoji('🐟'))
         .child(
-          S.component(CategoryAccordionPane)
-            .id('fish-products-pane')
+          S.list()
             .title('Fish Products')
-            .options({
-              category: 'fish',
-              title: 'Fish Products',
-              singular: 'Fish',
-              icon: '🐟',
-              templateId: 'product-fish',
-            })
+            .items([
+              S.listItem()
+                .title('Out of Stock Products')
+                .icon(Emoji('🛑'))
+                .schemaType('product')
+                .child(
+                  S.documentList()
+                    .title('Out of Stock Fish')
+                    .filter('_type == "product" && (category->slug.current == "fish" || category == "fish") && (status == "disabled" || availabilityStatus == "disabled" || availabilityStatus == "unavailable" || availability == false)')
+                    .defaultOrdering([{ field: 'title', direction: 'asc' }])
+                    .initialValueTemplates([S.initialValueTemplateItem('product-fish')])
+                ),
+
+              S.listItem()
+                .title('Hidden Products (Hide)')
+                .icon(Emoji('🚫'))
+                .schemaType('product')
+                .child(
+                  S.documentList()
+                    .title('Hidden Fish')
+                    .filter('_type == "product" && (category->slug.current == "fish" || category == "fish") && (visibility == "hide" || visibility == "hidden" || visibilityStatus == "hidden" || visibilityStatus == false || visibility == false)')
+                    .defaultOrdering([{ field: 'title', direction: 'asc' }])
+                    .initialValueTemplates([S.initialValueTemplateItem('product-fish')])
+                ),
+
+              S.divider(),
+
+              S.listItem()
+                .title('All Fish Products')
+                .icon(Emoji('🐟'))
+                .schemaType('product')
+                .child(
+                  S.documentList()
+                    .title('All Fish Products')
+                    .filter('_type == "product" && (category->slug.current == "fish" || category == "fish")')
+                    .defaultOrdering([{ field: 'title', direction: 'asc' }])
+                    .initialValueTemplates([S.initialValueTemplateItem('product-fish')])
+                ),
+            ])
         ),
 
       // 3. Meat
@@ -127,16 +157,47 @@ export const deskStructure: StructureResolver = (S) =>
         .title('Meat')
         .icon(Emoji('🥩'))
         .child(
-          S.component(CategoryAccordionPane)
-            .id('meat-products-pane')
+          S.list()
             .title('Meat Products')
-            .options({
-              category: 'meat',
-              title: 'Meat Products',
-              singular: 'Meat',
-              icon: '🥩',
-              templateId: 'product-meat',
-            })
+            .items([
+              S.listItem()
+                .title('Out of Stock Products')
+                .icon(Emoji('🛑'))
+                .schemaType('product')
+                .child(
+                  S.documentList()
+                    .title('Out of Stock Meat')
+                    .filter('_type == "product" && (category->slug.current == "meat" || category == "meat") && (status == "disabled" || availabilityStatus == "disabled" || availabilityStatus == "unavailable" || availability == false)')
+                    .defaultOrdering([{ field: 'title', direction: 'asc' }])
+                    .initialValueTemplates([S.initialValueTemplateItem('product-meat')])
+                ),
+
+              S.listItem()
+                .title('Hidden Products (Hide)')
+                .icon(Emoji('🚫'))
+                .schemaType('product')
+                .child(
+                  S.documentList()
+                    .title('Hidden Meat')
+                    .filter('_type == "product" && (category->slug.current == "meat" || category == "meat") && (visibility == "hide" || visibility == "hidden" || visibilityStatus == "hidden" || visibilityStatus == false || visibility == false)')
+                    .defaultOrdering([{ field: 'title', direction: 'asc' }])
+                    .initialValueTemplates([S.initialValueTemplateItem('product-meat')])
+                ),
+
+              S.divider(),
+
+              S.listItem()
+                .title('All Meat Products')
+                .icon(Emoji('🥩'))
+                .schemaType('product')
+                .child(
+                  S.documentList()
+                    .title('All Meat Products')
+                    .filter('_type == "product" && (category->slug.current == "meat" || category == "meat")')
+                    .defaultOrdering([{ field: 'title', direction: 'asc' }])
+                    .initialValueTemplates([S.initialValueTemplateItem('product-meat')])
+                ),
+            ])
         ),
 
       // 4. Chicken
@@ -144,16 +205,47 @@ export const deskStructure: StructureResolver = (S) =>
         .title('Chicken')
         .icon(Emoji('🍗'))
         .child(
-          S.component(CategoryAccordionPane)
-            .id('chicken-products-pane')
+          S.list()
             .title('Chicken Products')
-            .options({
-              category: 'chicken',
-              title: 'Chicken Products',
-              singular: 'Chicken',
-              icon: '🍗',
-              templateId: 'product-chicken',
-            })
+            .items([
+              S.listItem()
+                .title('Out of Stock Products')
+                .icon(Emoji('🛑'))
+                .schemaType('product')
+                .child(
+                  S.documentList()
+                    .title('Out of Stock Chicken')
+                    .filter('_type == "product" && (category->slug.current == "chicken" || category == "chicken") && (status == "disabled" || availabilityStatus == "disabled" || availabilityStatus == "unavailable" || availability == false)')
+                    .defaultOrdering([{ field: 'title', direction: 'asc' }])
+                    .initialValueTemplates([S.initialValueTemplateItem('product-chicken')])
+                ),
+
+              S.listItem()
+                .title('Hidden Products (Hide)')
+                .icon(Emoji('🚫'))
+                .schemaType('product')
+                .child(
+                  S.documentList()
+                    .title('Hidden Chicken')
+                    .filter('_type == "product" && (category->slug.current == "chicken" || category == "chicken") && (visibility == "hide" || visibility == "hidden" || visibilityStatus == "hidden" || visibilityStatus == false || visibility == false)')
+                    .defaultOrdering([{ field: 'title', direction: 'asc' }])
+                    .initialValueTemplates([S.initialValueTemplateItem('product-chicken')])
+                ),
+
+              S.divider(),
+
+              S.listItem()
+                .title('All Chicken Products')
+                .icon(Emoji('🍗'))
+                .schemaType('product')
+                .child(
+                  S.documentList()
+                    .title('All Chicken Products')
+                    .filter('_type == "product" && (category->slug.current == "chicken" || category == "chicken")')
+                    .defaultOrdering([{ field: 'title', direction: 'asc' }])
+                    .initialValueTemplates([S.initialValueTemplateItem('product-chicken')])
+                ),
+            ])
         ),
 
       // 5. Eggs
@@ -161,16 +253,47 @@ export const deskStructure: StructureResolver = (S) =>
         .title('Eggs')
         .icon(Emoji('🥚'))
         .child(
-          S.component(CategoryAccordionPane)
-            .id('eggs-products-pane')
+          S.list()
             .title('Eggs Products')
-            .options({
-              category: 'eggs',
-              title: 'Eggs Products',
-              singular: 'Eggs',
-              icon: '🥚',
-              templateId: 'product-eggs',
-            })
+            .items([
+              S.listItem()
+                .title('Out of Stock Products')
+                .icon(Emoji('🛑'))
+                .schemaType('product')
+                .child(
+                  S.documentList()
+                    .title('Out of Stock Eggs')
+                    .filter('_type == "product" && (category->slug.current == "eggs" || category == "eggs") && (status == "disabled" || availabilityStatus == "disabled" || availabilityStatus == "unavailable" || availability == false)')
+                    .defaultOrdering([{ field: 'title', direction: 'asc' }])
+                    .initialValueTemplates([S.initialValueTemplateItem('product-eggs')])
+                ),
+
+              S.listItem()
+                .title('Hidden Products (Hide)')
+                .icon(Emoji('🚫'))
+                .schemaType('product')
+                .child(
+                  S.documentList()
+                    .title('Hidden Eggs')
+                    .filter('_type == "product" && (category->slug.current == "eggs" || category == "eggs") && (visibility == "hide" || visibility == "hidden" || visibilityStatus == "hidden" || visibilityStatus == false || visibility == false)')
+                    .defaultOrdering([{ field: 'title', direction: 'asc' }])
+                    .initialValueTemplates([S.initialValueTemplateItem('product-eggs')])
+                ),
+
+              S.divider(),
+
+              S.listItem()
+                .title('All Eggs Products')
+                .icon(Emoji('🥚'))
+                .schemaType('product')
+                .child(
+                  S.documentList()
+                    .title('All Eggs Products')
+                    .filter('_type == "product" && (category->slug.current == "eggs" || category == "eggs")')
+                    .defaultOrdering([{ field: 'title', direction: 'asc' }])
+                    .initialValueTemplates([S.initialValueTemplateItem('product-eggs')])
+                ),
+            ])
         ),
 
       // 6. How to Cook
@@ -325,16 +448,46 @@ export const deskStructure: StructureResolver = (S) =>
         .title('All Products')
         .icon(Emoji('📦'))
         .child(
-          S.component(CategoryAccordionPane)
-            .id('all-products-pane')
+          S.list()
             .title('All Products')
-            .options({
-              category: 'all',
-              title: 'All Products',
-              singular: 'Product',
-              icon: '📦',
-              templateId: 'product',
-            })
+            .items([
+              S.listItem()
+                .title('Out of Stock Products (All)')
+                .icon(Emoji('🛑'))
+                .schemaType('product')
+                .child(
+                  S.documentList()
+                    .title('Out of Stock Products')
+                    .filter('_type == "product" && (status == "disabled" || availabilityStatus == "disabled" || availabilityStatus == "unavailable" || availability == false)')
+                    .defaultOrdering([{ field: 'title', direction: 'asc' }])
+                ),
+
+              S.listItem()
+                .title('Hidden Products (All)')
+                .icon(Emoji('🚫'))
+                .schemaType('product')
+                .child(
+                  S.documentList()
+                    .title('Hidden Products')
+                    .filter('_type == "product" && (visibility == "hide" || visibility == "hidden" || visibilityStatus == "hidden" || visibilityStatus == false || visibility == false)')
+                    .defaultOrdering([{ field: 'title', direction: 'asc' }])
+                ),
+
+              S.divider(),
+
+              S.listItem()
+                .title('All Products (Complete Catalog)')
+                .icon(Emoji('📦'))
+                .schemaType('product')
+                .child(
+                  S.documentTypeList('product')
+                    .title('All Products')
+                    .defaultOrdering([
+                      { field: 'title', direction: 'asc' },
+                      { field: '_createdAt', direction: 'desc' },
+                    ])
+                ),
+            ])
         ),
 
 
