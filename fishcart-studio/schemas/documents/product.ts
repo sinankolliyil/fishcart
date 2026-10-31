@@ -217,7 +217,7 @@ export default defineType({
       title: 'Origin / Source',
       type: 'string',
       group: 'list',
-      description: 'Shown on the card as "{Origin} • {Format}" — e.g. "Scotland", "Norway", "Local Farms"',
+      description: 'Shown on the card as "Origin • Format" — e.g. "Scotland", "Norway", "Local Farms"',
       components: { input: OriginInput },
       validation: (r) => r.required(),
     }),
