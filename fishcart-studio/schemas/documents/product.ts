@@ -138,6 +138,22 @@ export default defineType({
     }),
 
     defineField({
+      name: 'visibility',
+      title: 'Visibility (Show / Hide)',
+      type: 'string',
+      group: 'list',
+      description: 'Hide mode: item will NOT show on listings on the website.',
+      options: {
+        list: [
+          { title: 'Show', value: 'show' },
+          { title: 'Hide', value: 'hide' },
+        ],
+        layout: 'radio',
+      },
+      initialValue: 'show',
+    }),
+
+    defineField({
       name: 'title',
       title: 'Product Title',
       type: 'string',
@@ -184,22 +200,6 @@ export default defineType({
       },
       initialValue: 'fish',
       validation: (r) => r.required(),
-    }),
-
-    defineField({
-      name: 'visibility',
-      title: 'Visibility (Show / Hide)',
-      type: 'string',
-      group: 'list',
-      description: 'Hide mode: item will NOT show on listings on the website.',
-      options: {
-        list: [
-          { title: 'Show (Visible on website)', value: 'show' },
-          { title: 'Hide (Hidden from listings)', value: 'hide' },
-        ],
-        layout: 'radio',
-      },
-      initialValue: 'show',
     }),
 
     defineField({
