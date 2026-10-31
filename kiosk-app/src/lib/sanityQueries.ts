@@ -2,7 +2,7 @@
 
 // Products
 export const PRODUCTS_BY_CATEGORY_QUERY = `
-  *[_type == "product" && (category->slug.current == $category || category == $category) && visibilityStatus != "hidden" && visibilityStatus != false] | order(_createdAt desc) {
+  *[_type == "product" && (category->slug.current == $category || category == $category) && visibility != "hide" && visibilityStatus != "hidden" && visibilityStatus != false] | order(_createdAt desc) {
     "id": coalesce(slug.current, _id),
     title,
     origin,
@@ -13,15 +13,16 @@ export const PRODUCTS_BY_CATEGORY_QUERY = `
     unit,
     "imageSrc": coalesce(image.asset->url, mainImage.asset->url, imageSrc),
     isFavorite,
-    "availability": availabilityStatus != "unavailable" && availability != false,
-    availabilityStatus,
-    displayOrder
+    "status": coalesce(status, availabilityStatus, "enabled"),
+    "visibility": coalesce(visibility, visibilityStatus, "show"),
+    "isDisabled": coalesce(status, availabilityStatus, "enabled") == "disabled",
+    "isHidden": coalesce(visibility, visibilityStatus, "show") == "hide" || visibilityStatus == "hidden"
   }
 `;
 
 export const PRODUCT_BY_SLUG_QUERY = `
-  *[_type == "product" && (slug.current == $slug || _id == $slug) && visibilityStatus != "hidden" && visibilityStatus != false][0] {
-    "id": slug.current,
+  *[_type == "product" && (slug.current == $slug || _id == $slug) && visibility != "hide" && visibilityStatus != "hidden" && visibilityStatus != false][0] {
+    "id": coalesce(slug.current, _id),
     title,
     origin,
     filterCountry,

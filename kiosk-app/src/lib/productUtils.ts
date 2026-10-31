@@ -140,7 +140,10 @@ export const getMergedCatalogProducts = async (
     localProducts.forEach((p) => mergedMap.set(p.id, p));
     cmsProducts.forEach((p) => mergedMap.set(p.id, { ...(mergedMap.get(p.id) || {}), ...p }));
 
-    return Array.from(mergedMap.values());
+    // Hide mode: on admin an item in hide mode will not show on listings on front end
+    return Array.from(mergedMap.values()).filter(
+      (p) => !p.isHidden && p.visibility !== 'hide' && p.visibilityStatus !== 'hide' && p.visibilityStatus !== 'hidden'
+    );
   } catch (err) {
     console.warn('Error merging catalog products with Sanity:', err);
     return localProducts;

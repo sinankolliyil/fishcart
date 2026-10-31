@@ -30,6 +30,10 @@ export interface ProductItem {
   unit: string; // e.g. "kg" | "pack"
   imageSrc: string;
   isFavorite?: boolean;
+  status?: 'enabled' | 'disabled';
+  visibility?: 'show' | 'hide';
+  isDisabled?: boolean;
+  isHidden?: boolean;
 }
 
 export interface BottomInfoItem {

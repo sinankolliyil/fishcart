@@ -121,6 +121,40 @@ export default defineType({
     }),
 
     defineField({
+      name: 'status',
+      title: 'Status (Enable / Disable)',
+      type: 'string',
+      group: 'list',
+      description: 'Disabled mode: item appears faded and is NOT clickable on the website.',
+      options: {
+        list: [
+          { title: '🟢 Enabled (Active & Clickable)', value: 'enabled' },
+          { title: '🔴 Disabled (Faded & Not Clickable)', value: 'disabled' },
+        ],
+        layout: 'radio',
+      },
+      initialValue: 'enabled',
+      validation: (r) => r.required(),
+    }),
+
+    defineField({
+      name: 'visibility',
+      title: 'Visibility (Show / Hide)',
+      type: 'string',
+      group: 'list',
+      description: 'Hide mode: item will NOT show on listings on the website.',
+      options: {
+        list: [
+          { title: '👁️ Show (Visible on website)', value: 'show' },
+          { title: '🚫 Hide (Hidden from listings)', value: 'hide' },
+        ],
+        layout: 'radio',
+      },
+      initialValue: 'show',
+      validation: (r) => r.required(),
+    }),
+
+    defineField({
       name: 'image',
       title: 'Product Photo',
       type: 'image',
@@ -570,14 +604,16 @@ export default defineType({
 
   preview: {
     select: {
-      title:    'title',
-      price:    'price',
-      unit:     'unit',
-      media:    'image',
-      format:   'format',
+      title: 'title',
+      price: 'price',
+      unit: 'unit',
+      media: 'image',
+      format: 'format',
       category: 'category',
+      status: 'status',
+      visibility: 'visibility',
     },
-    prepare({ title, price, unit, media, format, category }) {
+    prepare({ title, price, unit, media, format, category, status, visibility }) {
       const numPrice = typeof price === 'number' ? price : Number(price);
       const hasValidPrice = !isNaN(numPrice) && numPrice > 0;
       const priceStr = hasValidPrice ? `£${numPrice.toFixed(2)} / ${unit || 'kg'}` : '';
@@ -586,8 +622,14 @@ export default defineType({
         category === 'meat'    ? '🥩' :
         category === 'chicken' ? '🍗' :
         category === 'eggs'    ? '🥚' : '📦';
+      
+      const tags: string[] = [];
+      if (visibility === 'hide') tags.push('🚫 Hidden');
+      if (status === 'disabled') tags.push('🔴 Disabled');
+      const tagStr = tags.length > 0 ? ` (${tags.join(', ')})` : '';
+
       return {
-        title: `${catEmoji} ${title || 'Untitled Product'}`,
+        title: `${catEmoji} ${title || 'Untitled Product'}${tagStr}`,
         subtitle: [format, priceStr].filter(Boolean).join(' · ') || 'Product',
         media,
       };

@@ -15,6 +15,11 @@ export interface ProductCardProps {
 
 export function ProductCard({ product, category }: ProductCardProps) {
   const [isFav, setIsFav] = useState(product.isFavorite || false);
+  const isDisabled = Boolean(
+    product.isDisabled ||
+    product.status === 'disabled' ||
+    (product as any).availabilityStatus === 'disabled'
+  );
 
   const colors = {
     fish: 'text-[#0D55CF] hover:text-[#0c4dbd]',
@@ -33,11 +38,8 @@ export function ProductCard({ product, category }: ProductCardProps) {
   const currentColorClass = colors[category] || colors.fish;
   const currentBadgeBg = badgeBgColors[category] || badgeBgColors.fish;
 
-  return (
-    <Link
-      href={`/product/${product.id}`}
-      className="group flex h-full min-h-0 w-full flex-col justify-between overflow-hidden rounded-[8px] border border-slate-200 bg-[#F8FAFC] transition-all duration-200 select-none hover:cursor-pointer"
-    >
+  const cardContent = (
+    <>
       {/* Product Image Container - flex-grow & min-h-0 to stretch/shrink dynamically */}
       <div className="relative flex min-h-0 w-full flex-1 items-center justify-center overflow-hidden bg-[#F8FAFC] p-1 portrait:aspect-square portrait:min-h-[160px]">
         {product.imageSrc ? (
@@ -56,24 +58,35 @@ export function ProductCard({ product, category }: ProductCardProps) {
           </div>
         )}
 
-        {/* Favorite Heart Button */}
-        <button
-          onClick={(e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            setIsFav(!isFav);
-          }}
-          className="text-text-muted hover: absolute top-[clamp(2px,0.4vw,6px)] right-[clamp(2px,0.4vw,6px)] z-20 cursor-pointer rounded-full bg-white p-[clamp(2px,0.3vw,4px)] transition-all duration-200 hover:bg-white active:scale-90"
-        >
-          <Heart
-            className={cn(
-              'h-[clamp(10px,1vw,14px)] w-[clamp(10px,1vw,14px)] stroke-[2.5]',
-              isFav
-                ? 'fill-[#F0314A] text-[#F0314A]'
-                : 'text-text-muted hover:text-text-heading'
-            )}
-          />
-        </button>
+        {/* Disabled Overlay Badge */}
+        {isDisabled && (
+          <div className="absolute inset-0 z-10 flex items-center justify-center bg-white/40 backdrop-blur-[1px]">
+            <span className="rounded-md bg-slate-800/80 px-2.5 py-1 text-[11px] font-bold text-white shadow-sm">
+              Currently Unavailable
+            </span>
+          </div>
+        )}
+
+        {/* Favorite Heart Button (only active when enabled) */}
+        {!isDisabled && (
+          <button
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              setIsFav(!isFav);
+            }}
+            className="text-text-muted hover: absolute top-[clamp(2px,0.4vw,6px)] right-[clamp(2px,0.4vw,6px)] z-20 cursor-pointer rounded-full bg-white p-[clamp(2px,0.3vw,4px)] transition-all duration-200 hover:bg-white active:scale-90"
+          >
+            <Heart
+              className={cn(
+                'h-[clamp(10px,1vw,14px)] w-[clamp(10px,1vw,14px)] stroke-[2.5]',
+                isFav
+                  ? 'fill-[#F0314A] text-[#F0314A]'
+                  : 'text-text-muted hover:text-text-heading'
+              )}
+            />
+          </button>
+        )}
       </div>
 
       {/* Product Content Details - shrink-0 to retain vertical space */}
@@ -83,13 +96,15 @@ export function ProductCard({ product, category }: ProductCardProps) {
           <h3
             className={cn(
               'mb-0.5 truncate text-[15px] leading-tight font-bold transition-colors text-slate-800',
-              category === 'fish'
-                ? 'group-hover:text-[#0D55CF]'
-                : category === 'meat'
-                  ? 'group-hover:text-[#F0314A]'
-                  : category === 'chicken'
-                    ? 'group-hover:text-[#F59000]'
-                    : 'group-hover:text-[#10B981]'
+              !isDisabled && (
+                category === 'fish'
+                  ? 'group-hover:text-[#0D55CF]'
+                  : category === 'meat'
+                    ? 'group-hover:text-[#F0314A]'
+                    : category === 'chicken'
+                      ? 'group-hover:text-[#F59000]'
+                      : 'group-hover:text-[#10B981]'
+              )
             )}
           >
             {product.title}
@@ -126,14 +141,35 @@ export function ProductCard({ product, category }: ProductCardProps) {
           <div
             className={cn(
               'inline-flex shrink-0 items-center gap-0.5 text-[12px] portrait:text-[11px] font-bold transition-all duration-150 ml-1',
-              currentColorClass
+              isDisabled ? 'text-slate-400' : currentColorClass
             )}
           >
-            <span className="group-hover:underline">Details</span>
-            <ArrowRight className="h-3 w-3 portrait:h-2.5 portrait:w-2.5 stroke-[2.5]" />
+            <span className={isDisabled ? '' : 'group-hover:underline'}>
+              {isDisabled ? 'Unavailable' : 'Details'}
+            </span>
+            {!isDisabled && <ArrowRight className="h-3 w-3 portrait:h-2.5 portrait:w-2.5 stroke-[2.5]" />}
           </div>
         </div>
       </div>
+    </>
+  );
+
+  if (isDisabled) {
+    return (
+      <div
+        className="group flex h-full min-h-0 w-full flex-col justify-between overflow-hidden rounded-[8px] border border-slate-200 bg-[#F8FAFC] opacity-50 grayscale pointer-events-none cursor-not-allowed select-none"
+      >
+        {cardContent}
+      </div>
+    );
+  }
+
+  return (
+    <Link
+      href={`/product/${product.id}`}
+      className="group flex h-full min-h-0 w-full flex-col justify-between overflow-hidden rounded-[8px] border border-slate-200 bg-[#F8FAFC] transition-all duration-200 select-none hover:cursor-pointer"
+    >
+      {cardContent}
     </Link>
   );
 }
