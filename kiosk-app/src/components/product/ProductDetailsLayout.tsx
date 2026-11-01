@@ -103,22 +103,28 @@ export function ProductDetailsLayout({ data }: { data: ProductDetails }) {
                 <p className="mt-[clamp(2px,0.4vw,8px)] line-clamp-3 text-[13px] leading-[1.3] font-medium text-slate-500 lg:text-[14px] xl:text-[clamp(15px,0.7vw,12px)]">
                   {data.description}
                 </p>
-                <div className="mt-[clamp(6px,0.5vw,10px)] flex items-center gap-1">
-                  <div className="flex text-yellow-400">
-                    {[1, 2, 3, 4, 5].map((i) => (
-                      <Star
-                        key={i}
-                        className="h-[clamp(8px,0.7vw,12px)] w-[clamp(8px,0.7vw,12px)] fill-current"
-                      />
-                    ))}
+                {(data.rating !== undefined || data.reviewCount !== undefined) && (
+                  <div className="mt-[clamp(6px,0.5vw,10px)] flex items-center gap-1">
+                    <div className="flex text-yellow-400">
+                      {[1, 2, 3, 4, 5].map((i) => (
+                        <Star
+                          key={i}
+                          className="h-[clamp(8px,0.7vw,12px)] w-[clamp(8px,0.7vw,12px)] fill-current"
+                        />
+                      ))}
+                    </div>
+                    {data.rating !== undefined && (
+                      <span className="ml-0.5 text-[11px] font-bold text-slate-800 lg:text-[12px] xl:text-[clamp(10px,0.7vw,11px)]">
+                        {data.rating}
+                      </span>
+                    )}
+                    {data.reviewCount !== undefined && (
+                      <span className="text-[11px] text-slate-500 lg:text-[12px] xl:text-[clamp(10px,0.6vw,10px)]">
+                        ({data.reviewCount} Reviews)
+                      </span>
+                    )}
                   </div>
-                  <span className="ml-0.5 text-[11px] font-bold text-slate-800 lg:text-[12px] xl:text-[clamp(10px,0.7vw,11px)]">
-                    {data.rating}
-                  </span>
-                  <span className="text-[11px] text-slate-500 lg:text-[12px] xl:text-[clamp(10px,0.6vw,10px)]">
-                    ({data.reviewCount} Reviews)
-                  </span>
-                </div>
+                )}
               </div>
 
               {/* Badges (landscape only) */}

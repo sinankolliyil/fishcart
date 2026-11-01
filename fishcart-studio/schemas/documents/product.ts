@@ -304,9 +304,8 @@ export default defineType({
       title: 'Customer Rating (1.0 – 5.0)',
       type: 'number',
       group: 'details',
-      description: 'Star rating shown next to the product title on the details page — e.g. 4.8',
-      initialValue: 4.8,
-      validation: (r) => r.required().min(1).max(5),
+      description: 'Star rating shown next to the product title on the details page — e.g. 4.8 (Optional)',
+      validation: (r) => r.min(1).max(5),
     }),
 
     defineField({
@@ -314,9 +313,8 @@ export default defineType({
       title: 'Number of Reviews',
       type: 'number',
       group: 'details',
-      description: 'Shown as "(128 Reviews)" next to the star rating on the details page',
-      initialValue: 128,
-      validation: (r) => r.required().min(0),
+      description: 'Shown as "(128 Reviews)" next to the star rating on the details page (Optional)',
+      validation: (r) => r.min(0),
     }),
 
     defineField({
