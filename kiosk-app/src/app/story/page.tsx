@@ -340,23 +340,23 @@ export default async function StoryPage() {
         {journeyCards.map((card, i) => (
           <div
             key={i}
-            className="flex h-full min-h-0 items-center justify-between overflow-hidden rounded-[8px] bg-white p-3 lg:p-4 xl:p-[clamp(12px,1.5vw,24px)]"
+            className="flex h-full min-h-0 items-center justify-between overflow-hidden rounded-[8px] bg-white p-2.5 lg:p-3.5 xl:p-[clamp(10px,1.2vw,20px)]"
           >
-            <div className="flex min-h-0 flex-1 flex-col justify-center pr-3 lg:pr-4 xl:pr-[clamp(12px,1.5vw,24px)]">
-              <h2 className="mb-2 text-[clamp(14px,1.5vw,22px)] leading-tight font-bold text-[#0D55CF] xl:mb-[clamp(4px,0.8vw,12px)]">
+            <div className="flex min-h-0 flex-1 flex-col justify-center pr-2.5 lg:pr-3.5 xl:pr-[clamp(10px,1.2vw,20px)]">
+              <h2 className="mb-1 text-[clamp(13px,1.4vw,20px)] leading-tight font-bold text-[#0D55CF] lg:mb-1.5 xl:mb-1.5">
                 {card.title}
               </h2>
-              <p className="mb-2 line-clamp-1 text-[12px] text-slate-600 lg:text-[13px] xl:mb-[clamp(4px,0.8vw,12px)] xl:text-[clamp(9px,0.8vw,12px)]">
+              <p className="mb-1.5 line-clamp-2 text-[11px] leading-[1.3] text-slate-600 lg:mb-2 lg:text-[12px] xl:mb-2 xl:text-[clamp(9px,0.75vw,11.5px)]">
                 {card.description}
               </p>
-              <div className="flex min-h-0 flex-col gap-1 xl:gap-[clamp(2px,0.4vw,6px)]">
+              <div className="flex min-h-0 flex-col gap-1 xl:gap-[clamp(2px,0.35vw,5px)]">
                 {card.bulletPoints?.map((text, j) => (
                   <div
                     key={j}
-                    className="flex items-center gap-[clamp(4px,0.6vw,8px)]"
+                    className="flex items-center gap-[clamp(4px,0.5vw,7px)]"
                   >
-                    <CheckCircle2 className="h-[clamp(10px,1vw,14px)] w-[clamp(10px,1vw,14px)] shrink-0 text-blue-600" />
-                    <span className="truncate text-[12px] font-medium text-slate-700 lg:text-[13px] xl:text-[clamp(9px,0.7vw,11px)]">
+                    <CheckCircle2 className="h-[clamp(10px,0.9vw,13px)] w-[clamp(10px,0.9vw,13px)] shrink-0 text-blue-600" />
+                    <span className="truncate text-[11px] font-medium text-slate-700 lg:text-[12px] xl:text-[clamp(9px,0.68vw,11px)]">
                       {text}
                     </span>
                   </div>
