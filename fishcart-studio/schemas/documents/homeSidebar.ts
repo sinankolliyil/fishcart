@@ -2,7 +2,7 @@ import { defineField, defineType } from 'sanity';
 
 export default defineType({
   name: 'homeSidebar',
-  title: 'Sidebar (WhatsApp Community & QR Code)',
+  title: 'Sidebar QR',
   type: 'document',
   fields: [
     defineField({

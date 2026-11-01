@@ -104,14 +104,14 @@ export const deskStructure: StructureResolver = (S) =>
                 ),
 
               S.listItem()
-                .title('Sidebar')
+                .title('Sidebar QR')
                 .icon(Emoji('📱'))
                 .id('homeSidebar')
                 .child(
                   S.document()
                     .schemaType('homeSidebar')
                     .documentId('homeSidebar')
-                    .title('Sidebar')
+                    .title('Sidebar QR')
                 ),
             ])
         ),
