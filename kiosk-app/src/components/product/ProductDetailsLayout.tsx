@@ -19,11 +19,17 @@ import {
   Anchor,
   MapPin,
   PhoneCall,
+  ShoppingCart,
+  Share2,
+  Check,
+  Plus,
+  Minus,
 } from 'lucide-react';
 import { ProductDetails } from '@/types/catalog';
 import { cn } from '@/lib/utils';
 import { Badge } from '@/components/ui/Badge';
 import { HomeFooter } from '@/components/layout/HomeFooter';
+import { useStore } from '@/context/StoreContext';
 
 export function ProductDetailsLayout({ data }: { data: ProductDetails }) {
   const [activeTab, setActiveTab] = useState('overview');
@@ -31,6 +37,64 @@ export function ProductDetailsLayout({ data }: { data: ProductDetails }) {
     data.sizes?.[1] || data.sizes?.[0] || null
   );
   const [selectedImage, setSelectedImage] = useState(data.imageSrc);
+  const [quantity, setQuantity] = useState(1);
+  const [isAdded, setIsAdded] = useState(false);
+  const [isCopied, setIsCopied] = useState(false);
+
+  const { isInWishlist, toggleWishlist, addToCart } = useStore();
+  const isSaved = isInWishlist(data.id);
+
+  const handleAddToCart = () => {
+    addToCart(
+      {
+        id: data.id,
+        title: data.title,
+        category: data.category,
+        price: selectedSize?.price ?? data.price,
+        unit: data.unit,
+        imageSrc: data.imageSrc,
+      },
+      selectedSize || undefined,
+      quantity
+    );
+    setIsAdded(true);
+    setTimeout(() => setIsAdded(false), 1800);
+  };
+
+  const handleToggleSave = () => {
+    toggleWishlist({
+      id: data.id,
+      title: data.title,
+      category: data.category,
+      price: selectedSize?.price ?? data.price,
+      unit: data.unit,
+      imageSrc: data.imageSrc,
+      format: data.format,
+      origin: data.origin,
+    });
+  };
+
+  const handleShare = async () => {
+    if (typeof window !== 'undefined' && navigator.share) {
+      try {
+        await navigator.share({
+          title: data.title,
+          text: `Check out ${data.title} on FishCart!`,
+          url: window.location.href,
+        });
+        return;
+      } catch (e) {
+        // fallback to clipboard
+      }
+    }
+    if (typeof window !== 'undefined' && navigator.clipboard) {
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        setIsCopied(true);
+        setTimeout(() => setIsCopied(false), 2000);
+      } catch (e) {}
+    }
+  };
 
   // Keep max 5 images total: current hero image + 4 related images
   const displayGallery = useMemo(() => {
@@ -420,24 +484,78 @@ export function ProductDetailsLayout({ data }: { data: ProductDetails }) {
               </div>
             </div>
 
-            {/* Share / Save */}
-            <div className="flex shrink-0 gap-1.5 xl:gap-[clamp(4px,0.6vw,8px)] portrait:gap-2">
+            {/* Action Row: Qty Stepper, Add to Cart, Save */}
+            <div className="flex shrink-0 items-center gap-1.5 xl:gap-[clamp(4px,0.6vw,8px)] portrait:gap-2">
+              {/* Qty Stepper */}
+              <div className="flex shrink-0 items-center gap-1 rounded-[8px] border border-slate-200 bg-white px-2 py-[clamp(3px,0.4vw,6px)] portrait:py-2">
+                <span className="text-[11px] font-bold text-slate-700 lg:text-[12px] xl:text-[11px] portrait:text-[12px]">
+                  Qty
+                </span>
+                <div className="flex items-center gap-1">
+                  <button
+                    onClick={() => setQuantity((q) => Math.max(1, q - 1))}
+                    disabled={quantity <= 1}
+                    className="flex h-[clamp(20px,1.6vw,26px)] w-[clamp(20px,1.6vw,26px)] items-center justify-center rounded-[5px] text-slate-600 transition-colors hover:bg-slate-100 disabled:opacity-30 disabled:hover:bg-transparent"
+                    aria-label="Decrease quantity"
+                  >
+                    <Minus className="h-3 w-3 stroke-[3]" />
+                  </button>
+                  <span className="w-5 text-center text-[12px] font-bold text-slate-900 lg:text-[13px] xl:text-[12px]">
+                    {quantity}
+                  </span>
+                  <button
+                    onClick={() => setQuantity((q) => q + 1)}
+                    className="flex h-[clamp(20px,1.6vw,26px)] w-[clamp(20px,1.6vw,26px)] items-center justify-center rounded-[5px] text-blue-600 transition-colors hover:bg-blue-50"
+                    aria-label="Increase quantity"
+                  >
+                    <Plus className="h-3 w-3 stroke-[3]" />
+                  </button>
+                </div>
+              </div>
+
+              {/* Add to Cart Button */}
               <button
+                onClick={handleAddToCart}
                 className={cn(
-                  'flex flex-1 items-center justify-center gap-1 rounded-[8px] py-[clamp(4px,0.6vw,8px)] text-[11px] font-bold text-white transition-opacity hover:opacity-90 lg:text-[12px] xl:text-[clamp(9px,0.7vw,11px)] portrait:py-2.5',
+                  'flex flex-1 items-center justify-center gap-1.5 rounded-[8px] py-[clamp(6px,0.7vw,10px)] text-[11px] font-bold text-white shadow-xs transition-all duration-200 hover:opacity-95 active:scale-[0.98] lg:text-[12px] xl:text-[clamp(10px,0.7vw,12px)] portrait:py-2.5 cursor-pointer',
                   themeBg
                 )}
               >
-                <Mail className="h-[clamp(10px,0.8vw,14px)] w-[clamp(10px,0.8vw,14px)] portrait:h-4 portrait:w-4" />{' '}
-                Share
+                {isAdded ? (
+                  <>
+                    <Check className="h-[clamp(12px,0.9vw,16px)] w-[clamp(12px,0.9vw,16px)] stroke-[3]" />
+                    <span>Added!</span>
+                  </>
+                ) : (
+                  <>
+                    <ShoppingCart className="h-[clamp(12px,0.9vw,16px)] w-[clamp(12px,0.9vw,16px)] stroke-[2.2]" />
+                    <span>Add to Cart</span>
+                  </>
+                )}
               </button>
-              <button className="flex flex-1 items-center justify-center gap-1 rounded-[8px] bg-white py-[clamp(4px,0.6vw,8px)] text-[11px] font-bold text-slate-700 transition-colors hover:bg-slate-50 lg:text-[12px] xl:text-[clamp(9px,0.7vw,11px)] portrait:border portrait:border-slate-200 portrait:py-2.5">
-                <Heart className="h-[clamp(10px,0.8vw,14px)] w-[clamp(10px,0.8vw,14px)] portrait:h-4 portrait:w-4" />{' '}
-                Save
+
+              {/* Save (Wishlist) Button */}
+              <button
+                onClick={handleToggleSave}
+                className={cn(
+                  'flex shrink-0 items-center justify-center gap-1 rounded-[8px] border py-[clamp(6px,0.7vw,10px)] px-[clamp(8px,1.2vw,14px)] text-[11px] font-bold transition-all duration-200 active:scale-95 lg:text-[12px] xl:text-[clamp(10px,0.7vw,12px)] portrait:py-2.5 cursor-pointer',
+                  isSaved
+                    ? 'border-red-200 bg-red-50 text-[#F0314A]'
+                    : 'border-slate-200 bg-white text-slate-700 hover:bg-slate-50'
+                )}
+                title={isSaved ? 'Remove from liked' : 'Save to liked'}
+              >
+                <Heart
+                  className={cn(
+                    'h-[clamp(12px,0.9vw,16px)] w-[clamp(12px,0.9vw,16px)] stroke-[2.5]',
+                    isSaved ? 'fill-[#F0314A] text-[#F0314A]' : 'text-slate-500'
+                  )}
+                />
+                <span>{isSaved ? 'Saved' : 'Save'}</span>
               </button>
             </div>
 
-            {/* Got Questions */}
+            {/* Got Questions Banner with Share icon next to Contact */}
             <div
               className={cn(
                 'flex shrink-0 items-center justify-between overflow-hidden rounded-[8px] p-[clamp(6px,0.8vw,10px)] portrait:p-3.5',
@@ -452,13 +570,30 @@ export function ProductDetailsLayout({ data }: { data: ProductDetails }) {
                   Our team is here to help.
                 </p>
               </div>
-              <Link
-                href="/contact"
-                className="flex shrink-0 items-center gap-1 rounded-[6px] bg-white px-[clamp(6px,0.8vw,10px)] py-[clamp(3px,0.4vw,6px)] text-[11px] font-bold text-blue-700 hover:bg-slate-50 lg:text-[12px] xl:text-[clamp(8px,0.6vw,10px)]"
-              >
-                Contact{' '}
-                <ArrowRight className="h-[clamp(8px,0.7vw,10px)] w-[clamp(8px,0.7vw,10px)]" />
-              </Link>
+
+              <div className="flex shrink-0 items-center gap-1.5">
+                {/* Share Icon Button */}
+                <button
+                  onClick={handleShare}
+                  className="flex h-[clamp(24px,1.8vw,30px)] w-[clamp(24px,1.8vw,30px)] items-center justify-center rounded-[6px] bg-white/20 text-white backdrop-blur-xs transition-colors hover:bg-white/30 active:scale-95 portrait:h-8 portrait:w-8 cursor-pointer"
+                  title={isCopied ? 'Link Copied!' : 'Share Product'}
+                  aria-label="Share product"
+                >
+                  {isCopied ? (
+                    <Check className="h-3.5 w-3.5" />
+                  ) : (
+                    <Share2 className="h-[clamp(11px,0.9vw,14px)] w-[clamp(11px,0.9vw,14px)]" />
+                  )}
+                </button>
+
+                {/* Contact Link */}
+                <Link
+                  href="/contact"
+                  className="flex items-center gap-1 rounded-[6px] bg-white px-[clamp(6px,0.8vw,10px)] py-[clamp(3px,0.4vw,6px)] text-[11px] font-bold text-blue-700 hover:bg-slate-50 lg:text-[12px] xl:text-[clamp(8px,0.6vw,10px)] portrait:py-1.5"
+                >
+                  Contact <ArrowRight className="h-[clamp(8px,0.7vw,10px)] w-[clamp(8px,0.7vw,10px)]" />
+                </Link>
+              </div>
             </div>
           </div>
         </div>

@@ -3,17 +3,14 @@
 import { useState } from 'react';
 import { Sidebar } from './Sidebar';
 import { MobileBottomNav } from './MobileBottomNav';
+import { StoreProvider } from '@/context/StoreContext';
 
 export function AppShell({ children }: { children: React.ReactNode }) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   return (
-    /*
-     * This div IS the viewport. It owns h-dvh and overflow-hidden directly —
-     * no dependency on html/body height, no competing utility class cascade.
-     * flex-row → Sidebar (fixed width) + content column (flex-1)
-     */
-    <div className="text-text-body flex h-full w-full overflow-hidden bg-[#F4F7FB] font-sans portrait:flex-col">
+    <StoreProvider>
+      <div className="text-text-body flex h-full w-full overflow-hidden bg-[#F4F7FB] font-sans portrait:flex-col">
       <Sidebar
         isMobileMenuOpen={isMobileMenuOpen}
         setIsMobileMenuOpen={setIsMobileMenuOpen}
@@ -35,5 +32,6 @@ export function AppShell({ children }: { children: React.ReactNode }) {
       {/* Mobile Bottom Navigation — hidden when hamburger menu is open */}
       {!isMobileMenuOpen && <MobileBottomNav />}
     </div>
+    </StoreProvider>
   );
 }

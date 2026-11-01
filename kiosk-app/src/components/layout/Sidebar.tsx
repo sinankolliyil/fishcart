@@ -22,10 +22,13 @@ import {
   X,
   QrCode,
   Menu,
+  Heart,
+  ShoppingCart,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { sanityFetch } from '@/lib/sanity';
 import { HOME_SIDEBAR_QUERY } from '@/lib/sanityQueries';
+import { useStore } from '@/context/StoreContext';
 
 const NAV_ITEMS = [
   { href: '/', label: 'Home', icon: Home, color: 'text-[#0D55CF]' },
@@ -95,18 +98,21 @@ export function Sidebar({
 
   const isMobileMenuOpen = externalIsMobileMenuOpen ?? internalIsMobileMenuOpen;
   const setIsMobileMenuOpen = externalSetIsMobileMenuOpen ?? setInternalIsMobileMenuOpen;
+  const { wishlistCount, cartCount } = useStore();
 
   return (
     <aside className="z-50 flex h-full w-[var(--container-sidebar)] flex-shrink-0 flex-col overflow-hidden border-r border-gray-100 bg-[#F4F7FB] portrait:h-auto portrait:w-full portrait:border-b portrait:border-r-0 portrait:shadow-sm portrait:relative portrait:overflow-visible">
-      {/* ── Logo ─────────────────────────────────────────────────────── */}
-      <div className="relative p-[var(--sidebar-logo-padding)] portrait:px-4 portrait:py-1.5 portrait:flex portrait:items-center portrait:justify-center">
+      {/* ── Logo & Floating Wishlist / Cart Icons ─────────────────────── */}
+      <div className="relative flex items-center justify-between p-[var(--sidebar-logo-padding)] portrait:px-4 portrait:py-1.5 portrait:justify-center">
         {/* Hamburger (Portrait only) */}
         <button
-          className="hidden portrait:block absolute left-[var(--sidebar-logo-padding)] portrait:left-3 top-1/2 -translate-y-1/2"
+          className="hidden portrait:block absolute left-3 top-1/2 -translate-y-1/2 text-[#0D55CF] p-1 cursor-pointer"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          aria-label="Toggle mobile menu"
         >
-          {isMobileMenuOpen ? <X className="h-[24px] w-[24px] text-[#0D55CF]" /> : <Menu className="h-[24px] w-[24px] text-[#0D55CF]" />}
+          {isMobileMenuOpen ? <X className="h-[24px] w-[24px]" /> : <Menu className="h-[24px] w-[24px]" />}
         </button>
+
         <Link
           href="/"
           className="flex items-center gap-[clamp(6px,min(0.63vw,0.9svh),10px)]"
@@ -146,6 +152,42 @@ export function Sidebar({
             </p>
           </div>
         </Link>
+
+        {/* Floating Icons: Wishlist & Cart */}
+        <div className="flex items-center gap-2 portrait:absolute portrait:right-3 portrait:top-1/2 portrait:-translate-y-1/2">
+          {/* Wishlist Link */}
+          <Link
+            href="/wishlist"
+            className="group relative flex h-[clamp(32px,2.2vw,36px)] w-[clamp(32px,2.2vw,36px)] portrait:h-9 portrait:w-9 items-center justify-center rounded-full bg-white text-[#0D55CF] shadow-xs transition-all duration-200 hover:bg-blue-50 hover:scale-105 active:scale-95 border border-blue-100"
+            title="Wishlist / Liked Items"
+          >
+            <Heart
+              className={cn(
+                'h-[clamp(16px,1.2vw,19px)] w-[clamp(16px,1.2vw,19px)] portrait:h-[18px] portrait:w-[18px] stroke-[2.3] transition-colors',
+                wishlistCount > 0 ? 'text-[#0D55CF] fill-[#0D55CF]/15' : 'text-[#0D55CF]'
+              )}
+            />
+            {wishlistCount > 0 && (
+              <span className="absolute -top-1 -right-1 flex h-[clamp(16px,1.1vw,18px)] min-w-[clamp(16px,1.1vw,18px)] portrait:h-[18px] portrait:min-w-[18px] items-center justify-center rounded-full bg-[#EF4444] px-1 text-[10px] portrait:text-[11px] font-bold text-white shadow-sm ring-2 ring-white">
+                {wishlistCount}
+              </span>
+            )}
+          </Link>
+
+          {/* Cart Link */}
+          <Link
+            href="/cart"
+            className="group relative flex h-[clamp(32px,2.2vw,36px)] w-[clamp(32px,2.2vw,36px)] portrait:h-9 portrait:w-9 items-center justify-center rounded-full bg-white text-[#0D55CF] shadow-xs transition-all duration-200 hover:bg-blue-50 hover:scale-105 active:scale-95 border border-blue-100"
+            title="Shopping Cart"
+          >
+            <ShoppingCart className="h-[clamp(16px,1.2vw,19px)] w-[clamp(16px,1.2vw,19px)] portrait:h-[18px] portrait:w-[18px] stroke-[2.3] text-[#0D55CF]" />
+            {cartCount > 0 && (
+              <span className="absolute -top-1 -right-1 flex h-[clamp(16px,1.1vw,18px)] min-w-[clamp(16px,1.1vw,18px)] portrait:h-[18px] portrait:min-w-[18px] items-center justify-center rounded-full bg-[#EF4444] px-1 text-[10px] portrait:text-[11px] font-bold text-white shadow-sm ring-2 ring-white">
+                {cartCount}
+              </span>
+            )}
+          </Link>
+        </div>
       </div>
 
       {/* ── Promotional Ribbon (Portrait Only) ───────────────────────── */}

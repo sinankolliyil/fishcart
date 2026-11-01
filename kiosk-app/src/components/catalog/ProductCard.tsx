@@ -7,6 +7,7 @@ import { Badge } from '@/components/ui/Badge';
 import { PriceDisplay } from '@/components/shared/PriceDisplay';
 import { ProductItem } from '@/types/catalog';
 import { cn } from '@/lib/utils';
+import { useStore } from '@/context/StoreContext';
 
 export interface ProductCardProps {
   product: ProductItem;
@@ -14,7 +15,8 @@ export interface ProductCardProps {
 }
 
 export function ProductCard({ product, category }: ProductCardProps) {
-  const [isFav, setIsFav] = useState(product.isFavorite || false);
+  const { isInWishlist, toggleWishlist } = useStore();
+  const isFav = isInWishlist(product.id);
   const isDisabled = Boolean(
     product.isDisabled ||
     product.status === 'disabled' ||
@@ -73,16 +75,29 @@ export function ProductCard({ product, category }: ProductCardProps) {
             onClick={(e) => {
               e.preventDefault();
               e.stopPropagation();
-              setIsFav(!isFav);
+              toggleWishlist({
+                id: product.id,
+                title: product.title,
+                category,
+                price: product.price,
+                unit: product.unit,
+                imageSrc: product.imageSrc,
+                format: product.format,
+                origin: product.origin,
+                status: product.status,
+                badgeLabel: product.badgeLabel,
+              });
             }}
-            className="text-text-muted hover: absolute top-[clamp(2px,0.4vw,6px)] right-[clamp(2px,0.4vw,6px)] z-20 cursor-pointer rounded-full bg-white p-[clamp(2px,0.3vw,4px)] transition-all duration-200 hover:bg-white active:scale-90"
+            className="text-text-muted hover: absolute top-[clamp(2px,0.4vw,6px)] right-[clamp(2px,0.4vw,6px)] z-20 cursor-pointer rounded-full bg-white p-[clamp(2px,0.3vw,4px)] transition-all duration-200 hover:bg-white active:scale-90 shadow-xs"
+            title={isFav ? 'Remove from liked' : 'Save to liked'}
+            aria-label={isFav ? 'Remove from liked' : 'Save to liked'}
           >
             <Heart
               className={cn(
                 'h-[clamp(10px,1vw,14px)] w-[clamp(10px,1vw,14px)] stroke-[2.5]',
                 isFav
                   ? 'fill-[#F0314A] text-[#F0314A]'
-                  : 'text-text-muted hover:text-text-heading'
+                  : 'text-slate-400 hover:text-slate-600'
               )}
             />
           </button>
