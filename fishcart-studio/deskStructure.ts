@@ -14,6 +14,7 @@ export const SINGLETON_TYPES = new Set([
   'homeCustomerSays',
   'homeFooter',
   'homeSidebar',
+  'orderSettings',
 ]);
 
 const Emoji = (char: string) => () =>
@@ -459,6 +460,18 @@ export const deskStructure: StructureResolver = (S) =>
             .schemaType('storeContact')
             .documentId('storeContact')
             .title('Contact Us')
+        ),
+
+      // 12. WhatsApp Orders & Pre-Order Checkout
+      S.listItem()
+        .title('WhatsApp Orders & Checkout')
+        .icon(Emoji('💬'))
+        .id('orderSettings')
+        .child(
+          S.document()
+            .schemaType('orderSettings')
+            .documentId('orderSettings')
+            .title('WhatsApp Pre-Order & Checkout Settings')
         ),
 
       // All Products

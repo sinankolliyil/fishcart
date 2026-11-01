@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import {
@@ -13,12 +13,76 @@ import {
   ShieldCheck,
   Phone,
   Sparkles,
+  MessageCircle,
 } from 'lucide-react';
 import { useStore } from '@/context/StoreContext';
+import { sanityFetch } from '@/lib/sanity';
+import { ORDER_SETTINGS_QUERY } from '@/lib/sanityQueries';
 import { cn } from '@/lib/utils';
+
+interface OrderSettings {
+  whatsappNumber?: string;
+  orderButtonText?: string;
+  preorderButtonText?: string;
+  orderMessagePrefix?: string;
+  cartNoticeHeading?: string;
+  cartNoticeDescription?: string;
+  enabled?: boolean;
+}
 
 export default function CartPage() {
   const { cart, cartCount, subtotal, updateQuantity, removeFromCart, clearCart } = useStore();
+  const [orderSettings, setOrderSettings] = useState<OrderSettings | null>(null);
+
+  useEffect(() => {
+    sanityFetch<OrderSettings>(ORDER_SETTINGS_QUERY)
+      .then((data) => {
+        if (data) setOrderSettings(data);
+      })
+      .catch((err) => console.warn('Failed to fetch order settings:', err));
+  }, []);
+
+  const whatsappNumber = orderSettings?.whatsappNumber || '+44 1206 123456';
+  const orderButtonText = orderSettings?.orderButtonText || 'Order via WhatsApp';
+  const preorderButtonText = orderSettings?.preorderButtonText || 'Contact Store for Pre-orders';
+  const orderMessagePrefix =
+    orderSettings?.orderMessagePrefix ||
+    'Hello FishCart! I would like to place a pre-order from your website:';
+  const cartNoticeHeading =
+    orderSettings?.cartNoticeHeading || 'Store Pickup / WhatsApp Pre-Order';
+  const cartNoticeDescription =
+    orderSettings?.cartNoticeDescription ||
+    'Orders are placed directly via WhatsApp with our store team for fresh cutting and speedy preparation.';
+  const isWhatsAppEnabled = orderSettings?.enabled !== false;
+
+  const handleWhatsAppCheckout = () => {
+    if (!cart.length) return;
+
+    // Clean phone number: remove spaces, symbols, keep digits
+    const cleanNumber = whatsappNumber.replace(/[^0-9]/g, '');
+
+    // Format cart items
+    const itemsList = cart
+      .map((item, idx) => {
+        const sizeText = item.size
+          ? ` (${item.size.label}${item.size.subLabel ? ` - ${item.size.subLabel}` : ''})`
+          : '';
+        return `${idx + 1}. *${item.title}*${sizeText}\n   Qty: ${item.quantity} × £${item.unitPrice.toFixed(2)} = *£${(item.unitPrice * item.quantity).toFixed(2)}*`;
+      })
+      .join('\n\n');
+
+    const message = `${orderMessagePrefix}\n\n🛒 *ORDER ITEMS:*\n${itemsList}\n\n━━━━━━━━━━━━━━━\n*Total Items:* ${cartCount}\n*Estimated Total:* *£${subtotal.toFixed(2)}*\n━━━━━━━━━━━━━━━\n\nPlease confirm availability and delivery / pickup time. Thank you!`;
+
+    const url = `https://wa.me/${cleanNumber}?text=${encodeURIComponent(message)}`;
+    window.open(url, '_blank');
+  };
+
+  const handlePreorderInquiry = () => {
+    const cleanNumber = whatsappNumber.replace(/[^0-9]/g, '');
+    const message = `Hello FishCart! I would like to inquire about placing a pre-order from your store.`;
+    const url = `https://wa.me/${cleanNumber}?text=${encodeURIComponent(message)}`;
+    window.open(url, '_blank');
+  };
 
   return (
     <div className="flex h-full w-full flex-col overflow-y-auto px-4 py-4 lg:px-8 lg:py-6">
@@ -50,7 +114,7 @@ export default function CartPage() {
         {cart.length > 0 && (
           <button
             onClick={clearCart}
-            className="flex items-center gap-1.5 rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-xs font-semibold text-slate-600 transition-colors hover:border-red-200 hover:bg-red-50 hover:text-red-600 active:scale-95"
+            className="flex items-center gap-1.5 rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-xs font-semibold text-slate-600 transition-colors hover:border-red-200 hover:bg-red-50 hover:text-red-600 active:scale-95 cursor-pointer"
           >
             <Trash2 className="h-3.5 w-3.5" />
             Clear Cart
@@ -133,7 +197,7 @@ export default function CartPage() {
                       </Link>
                       <button
                         onClick={() => removeFromCart(item.cartItemId)}
-                        className="text-slate-400 transition-colors hover:text-red-500 p-1"
+                        className="text-slate-400 transition-colors hover:text-red-500 p-1 cursor-pointer"
                         title="Remove item"
                       >
                         <Trash2 className="h-4 w-4" />
@@ -164,7 +228,7 @@ export default function CartPage() {
                     <div className="flex items-center rounded-lg border border-slate-200 bg-slate-50/80 p-0.5">
                       <button
                         onClick={() => updateQuantity(item.cartItemId, -1)}
-                        className="flex h-7 w-7 items-center justify-center rounded-md text-slate-600 transition-colors hover:bg-white active:scale-90"
+                        className="flex h-7 w-7 items-center justify-center rounded-md text-slate-600 transition-colors hover:bg-white active:scale-90 cursor-pointer"
                         aria-label="Decrease quantity"
                       >
                         <Minus className="h-3 w-3 stroke-[3]" />
@@ -174,7 +238,7 @@ export default function CartPage() {
                       </span>
                       <button
                         onClick={() => updateQuantity(item.cartItemId, 1)}
-                        className="flex h-7 w-7 items-center justify-center rounded-md text-blue-600 transition-colors hover:bg-white active:scale-90"
+                        className="flex h-7 w-7 items-center justify-center rounded-md text-blue-600 transition-colors hover:bg-white active:scale-90 cursor-pointer"
                         aria-label="Increase quantity"
                       >
                         <Plus className="h-3 w-3 stroke-[3]" />
@@ -223,41 +287,53 @@ export default function CartPage() {
               </div>
 
               {/* Informational Notice */}
-              <div className="mt-4 rounded-xl bg-blue-50/70 p-3 border border-blue-100">
+              <div className="mt-4 rounded-xl bg-emerald-50/70 p-3 border border-emerald-100">
                 <div className="flex items-start gap-2">
-                  <ShieldCheck className="h-4 w-4 shrink-0 text-[#0D55CF] mt-0.5" />
+                  <ShieldCheck className="h-4 w-4 shrink-0 text-emerald-600 mt-0.5" />
                   <div>
-                    <p className="text-[11px] font-bold text-blue-900">
-                      Store Pickup / Counter Preparation
+                    <p className="text-[11px] font-bold text-emerald-950">
+                      {cartNoticeHeading}
                     </p>
-                    <p className="mt-0.5 text-[10px] leading-relaxed text-blue-800/80">
-                      Online self-checkout is coming soon! Show this order summary to our counter team
-                      for immediate cutting and preparation.
+                    <p className="mt-0.5 text-[10px] leading-relaxed text-emerald-800/90">
+                      {cartNoticeDescription}
+                    </p>
+                    <p className="mt-1 text-[10px] font-semibold text-emerald-700">
+                      WhatsApp: {whatsappNumber}
                     </p>
                   </div>
                 </div>
               </div>
 
-              {/* Checkout / Counter Button */}
-              <button
-                disabled
-                className="mt-4 flex w-full items-center justify-center gap-2 rounded-xl bg-slate-300 py-3 text-xs font-bold text-slate-600 cursor-not-allowed"
-              >
-                Checkout (Coming Soon)
-              </button>
+              {/* WhatsApp Checkout Button */}
+              {isWhatsAppEnabled ? (
+                <button
+                  onClick={handleWhatsAppCheckout}
+                  className="mt-4 flex w-full items-center justify-center gap-2 rounded-xl bg-[#25D366] hover:bg-[#20bd5a] py-3 text-xs font-bold text-white shadow-md shadow-emerald-500/20 transition-all active:scale-[0.98] cursor-pointer"
+                >
+                  <MessageCircle className="h-4 w-4 fill-white" />
+                  {orderButtonText} ➔
+                </button>
+              ) : (
+                <button
+                  disabled
+                  className="mt-4 flex w-full items-center justify-center gap-2 rounded-xl bg-slate-200 py-3 text-xs font-bold text-slate-500 cursor-not-allowed"
+                >
+                  Online Checkout Disabled
+                </button>
+              )}
 
-              {/* Contact Store / WhatsApp */}
-              <Link
-                href="/contact"
-                className="mt-2.5 flex w-full items-center justify-center gap-2 rounded-xl border border-blue-200 bg-white py-2.5 text-xs font-bold text-[#0D55CF] transition-colors hover:bg-blue-50 active:scale-98"
+              {/* Pre-order Inquiry Button */}
+              <button
+                onClick={handlePreorderInquiry}
+                className="mt-2.5 flex w-full items-center justify-center gap-2 rounded-xl border border-blue-200 bg-white py-2.5 text-xs font-bold text-[#0D55CF] transition-colors hover:bg-blue-50 active:scale-98 cursor-pointer"
               >
                 <Phone className="h-3.5 w-3.5" />
-                Contact Store for Pre-orders
-              </Link>
+                {preorderButtonText}
+              </button>
 
               <Link
                 href="/"
-                className="mt-2 block text-center text-xs font-medium text-slate-500 hover:text-blue-600 transition-colors"
+                className="mt-3 block text-center text-xs font-medium text-slate-500 hover:text-blue-600 transition-colors"
               >
                 ← Continue Shopping
               </Link>

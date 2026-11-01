@@ -374,3 +374,16 @@ export const BANNERS_QUERY = `
     displayOrder
   }
 `;
+
+export const ORDER_SETTINGS_QUERY = `
+  *[_type == "orderSettings" && _id in ["orderSettings", "drafts.orderSettings"]][0] {
+    whatsappNumber,
+    orderButtonText,
+    preorderButtonText,
+    orderMessagePrefix,
+    cartNoticeHeading,
+    cartNoticeDescription,
+    enabled
+  }
+`;
+

@@ -15,6 +15,7 @@ import homeCarousel from './documents/homeCarousel';
 import homeCustomerSays from './documents/homeCustomerSays';
 import homeFooter from './documents/homeFooter';
 import homeSidebar from './documents/homeSidebar';
+import orderSettings from './documents/orderSettings';
 
 export const schemaTypes = [
   // Products & Taxonomy
@@ -40,6 +41,7 @@ export const schemaTypes = [
   aboutUs,
   benefitsContent,
 
-  // Store Contact & Footer
+  // Store Contact & Orders
   storeContact,
+  orderSettings,
 ];
