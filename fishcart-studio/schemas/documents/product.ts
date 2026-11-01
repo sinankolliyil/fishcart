@@ -737,14 +737,10 @@ export default defineType({
       
       const tags: string[] = [];
       if (status === 'disabled') {
-        tags.push('🔴 Out of Stock');
-        if (visibility === 'hide') {
-          tags.push('🚫 Hidden');
-        } else {
-          tags.push('👁️ Shown');
-        }
-      } else if (visibility === 'hide') {
-        tags.push('🚫 Hidden');
+        tags.push('Out of Stock');
+      }
+      if (visibility === 'hide') {
+        tags.push('Hidden');
       }
       const tagStr = tags.length > 0 ? ` (${tags.join(', ')})` : '';
 
