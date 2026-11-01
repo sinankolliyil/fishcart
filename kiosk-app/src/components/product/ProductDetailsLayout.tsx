@@ -156,14 +156,9 @@ export function ProductDetailsLayout({ data }: { data: ProductDetails }) {
                 >
                   Premium Choice
                 </Badge>
-                <div className="flex items-center gap-1.5">
-                  <h1 className="truncate text-[clamp(20px,1.8vw,28px)] leading-none font-bold text-slate-800">
-                    {data.title}
-                  </h1>
-                  <button className="flex h-[clamp(20px,1.5vw,28px)] w-[clamp(20px,1.5vw,28px)] shrink-0 items-center justify-center rounded-full text-slate-400 transition-colors hover:border-red-200 hover:text-red-500">
-                    <Heart className="h-[clamp(10px,0.8vw,14px)] w-[clamp(10px,0.8vw,14px)]" />
-                  </button>
-                </div>
+                <h1 className="truncate text-[clamp(20px,1.8vw,28px)] leading-none font-bold text-slate-800">
+                  {data.title}
+                </h1>
                 <p className="mt-[clamp(2px,0.4vw,8px)] line-clamp-3 text-[13px] leading-[1.3] font-medium text-slate-500 lg:text-[14px] xl:text-[clamp(15px,0.7vw,12px)]">
                   {data.description}
                 </p>
