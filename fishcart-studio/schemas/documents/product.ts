@@ -1,6 +1,7 @@
 import { defineField, defineType } from 'sanity';
 import { createSuggestStringInput } from '../../components/SuggestStringInput';
 import { createSectionNav } from '../../components/SectionNav';
+import { SizesArrayInput, DEFAULT_PRODUCT_SIZES } from '../../components/SizesArrayInput';
 
 // ─── Section Forward & Backward Navigators ───
 const Section1Nav = createSectionNav({
@@ -402,7 +403,9 @@ export default defineType({
       title: 'Available Sizes',
       type: 'array',
       group: 'sizes',
-      description: 'Size options shown as selector pills ("Select Size") on the details page. Each size can have its own price.',
+      description: 'Fixed 4 sizes: Small, Medium, Large, Extra Large. You can change their labels, weight/portion sub-labels, and prices. Adding more than 4 sizes is restricted.',
+      components: { input: SizesArrayInput },
+      initialValue: DEFAULT_PRODUCT_SIZES,
       of: [
         {
           type: 'object',
@@ -411,7 +414,7 @@ export default defineType({
               name: 'id',
               title: 'Size ID',
               type: 'string',
-              description: 'Internal ID — e.g. "small", "medium", "1kg"',
+              description: 'Internal ID — e.g. "small", "medium", "large", "xl"',
               components: { input: SizeIdInput },
               validation: (r) => r.required(),
             }),
@@ -419,7 +422,7 @@ export default defineType({
               name: 'label',
               title: 'Size Label',
               type: 'string',
-              description: 'Shown on the pill button — e.g. "Small", "Medium", "1kg"',
+              description: 'Shown on the pill button — e.g. "Small", "Medium", "Large", "Extra Large"',
               components: { input: SizeLabelInput },
               validation: (r) => r.required(),
             }),
@@ -427,7 +430,7 @@ export default defineType({
               name: 'subLabel',
               title: 'Sub-label (Weight or Portion)',
               type: 'string',
-              description: 'Shown below the label — e.g. "(500g – 1kg)", "(53g – 63g)"',
+              description: 'Shown below the label — e.g. "(500g – 1kg)", "(1kg – 2kg)"',
               components: { input: SizeSubLabelInput },
               validation: (r) => r.required(),
             }),
@@ -451,7 +454,11 @@ export default defineType({
           },
         },
       ],
-      validation: (r) => r.required().min(1),
+      validation: (r) =>
+        r
+          .required()
+          .max(4)
+          .error('Maximum 4 sizes allowed (Small, Medium, Large, Extra Large). Never add more than 4 sizes.'),
     }),
 
     defineField({

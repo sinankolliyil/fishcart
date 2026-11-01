@@ -4,6 +4,7 @@ import { visionTool } from '@sanity/vision';
 import { schemaTypes } from './schemas';
 import { deskStructure, SINGLETON_TYPES } from './deskStructure';
 import { CustomStudioLayout } from './components/CustomStudioLayout';
+import { DEFAULT_PRODUCT_SIZES } from './components/SizesArrayInput';
 
 const projectId = process.env.SANITY_STUDIO_PROJECT_ID || '4uuomk8a';
 const dataset = process.env.SANITY_STUDIO_DATASET || 'production';
@@ -39,25 +40,25 @@ export default defineConfig({
         id: 'product-fish',
         title: 'Fish Product',
         schemaType: 'product',
-        value: { category: 'fish' },
+        value: { category: 'fish', sizes: DEFAULT_PRODUCT_SIZES },
       },
       {
         id: 'product-meat',
         title: 'Meat Product',
         schemaType: 'product',
-        value: { category: 'meat' },
+        value: { category: 'meat', sizes: DEFAULT_PRODUCT_SIZES },
       },
       {
         id: 'product-chicken',
         title: 'Chicken Product',
         schemaType: 'product',
-        value: { category: 'chicken' },
+        value: { category: 'chicken', sizes: DEFAULT_PRODUCT_SIZES },
       },
       {
         id: 'product-eggs',
         title: 'Eggs Product',
         schemaType: 'product',
-        value: { category: 'eggs' },
+        value: { category: 'eggs', sizes: DEFAULT_PRODUCT_SIZES },
       },
       {
         id: 'recipe-fish',
