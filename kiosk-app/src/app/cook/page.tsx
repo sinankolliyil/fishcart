@@ -3,6 +3,8 @@ import { HowToCookPage, Video, Category, Difficulty } from '@/components/cook/Ho
 import { sanityFetch } from '@/lib/sanity';
 import { RECIPES_QUERY } from '@/lib/sanityQueries';
 
+export const revalidate = 60;
+
 export default async function CookPage() {
   let initialRecipes: Video[] = [];
 

@@ -1,5 +1,7 @@
 import { fishCatalogData, meatCatalogData, chickenCatalogData, eggsCatalogData } from '@/data/catalogData';
 import { ProductDetails } from '@/types/catalog';
+import { sanityFetch } from '@/lib/sanity';
+import { PRODUCT_BY_SLUG_QUERY, PRODUCTS_BY_CATEGORY_QUERY } from '@/lib/sanityQueries';
 
 const catalogs = [fishCatalogData, meatCatalogData, chickenCatalogData, eggsCatalogData];
 
@@ -96,8 +98,6 @@ export const getProductById = (id: string): ProductDetails | null => {
  */
 export const getProductByIdAsync = async (id: string): Promise<ProductDetails | null> => {
   try {
-    const { sanityFetch } = await import('@/lib/sanity');
-    const { PRODUCT_BY_SLUG_QUERY } = await import('@/lib/sanityQueries');
     const sanityProduct = await sanityFetch<any>(PRODUCT_BY_SLUG_QUERY, { slug: id });
 
     if (sanityProduct) {
@@ -126,8 +126,6 @@ export const getMergedCatalogProducts = async (
   localProducts: any[]
 ): Promise<any[]> => {
   try {
-    const { sanityFetch } = await import('@/lib/sanity');
-    const { PRODUCTS_BY_CATEGORY_QUERY } = await import('@/lib/sanityQueries');
     const cmsProducts = await sanityFetch<any[]>(PRODUCTS_BY_CATEGORY_QUERY, { category });
 
     if (!cmsProducts || cmsProducts.length === 0) {

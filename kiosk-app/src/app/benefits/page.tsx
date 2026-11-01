@@ -3,6 +3,8 @@ import { BenefitsPage, BenefitsContentData } from '@/components/benefits/Benefit
 import { sanityFetch } from '@/lib/sanity';
 import { BENEFITS_CONTENT_QUERY } from '@/lib/sanityQueries';
 
+export const revalidate = 60;
+
 export default async function BenefitsRoute() {
   let benefitsData: BenefitsContentData | null = null;
   try {

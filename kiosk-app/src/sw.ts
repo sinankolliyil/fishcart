@@ -10,8 +10,18 @@ declare global {
 
 declare const self: ServiceWorkerGlobalScope;
 
+const sanitizedManifest = (self.__SW_MANIFEST || []).map((entry) => {
+  if (typeof entry === 'string') {
+    return entry.replace(/\\/g, '/');
+  }
+  if (entry && typeof entry === 'object' && entry.url) {
+    return { ...entry, url: entry.url.replace(/\\/g, '/') };
+  }
+  return entry;
+});
+
 const serwist = new Serwist({
-  precacheEntries: self.__SW_MANIFEST,
+  precacheEntries: sanitizedManifest,
   skipWaiting: true,
   clientsClaim: true,
   navigationPreload: true,

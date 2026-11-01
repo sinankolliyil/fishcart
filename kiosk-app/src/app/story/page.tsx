@@ -162,6 +162,8 @@ function getPromiseIcon(icon?: string) {
   }
 }
 
+export const revalidate = 60;
+
 export default async function StoryPage() {
   let story: StoryData | null = null;
   try {
