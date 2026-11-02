@@ -237,7 +237,7 @@ export const STORE_CONTACT_QUERY = `
 `;
 
 export const HOME_RIBBON_QUERY = `
-  *[_type == "homeRibbon" && _id in ["homeRibbon", "drafts.homeRibbon"]][0] {
+  coalesce(*[_id == "drafts.homeRibbon"][0], *[_id == "homeRibbon"][0], *[_type == "homeRibbon"][0]) {
     announcements[] {
       text,
       icon,
@@ -248,7 +248,7 @@ export const HOME_RIBBON_QUERY = `
 `;
 
 export const TOP_RIGHT_ITEM_COUNT_QUERY = `
-  *[_type == "topRightItemCount" && _id in ["topRightItemCount", "drafts.topRightItemCount"]][0] {
+  coalesce(*[_id == "drafts.topRightItemCount"][0], *[_id == "topRightItemCount"][0], *[_type == "topRightItemCount"][0]) {
     fishSubtitle,
     meatSubtitle,
     chickenSubtitle,
@@ -257,7 +257,7 @@ export const TOP_RIGHT_ITEM_COUNT_QUERY = `
 `;
 
 export const HOME_RECIPES_QUERY = `
-  *[_type == "homeRecipes" && _id in ["homeRecipes", "drafts.homeRecipes"]][0] {
+  coalesce(*[_id == "drafts.homeRecipes"][0], *[_id == "homeRecipes"][0], *[_type == "homeRecipes"][0]) {
     sectionTitle,
     sectionSubtitle,
     viewAllUrl,
@@ -300,7 +300,7 @@ export const HOME_RECIPES_QUERY = `
 `;
 
 export const HOME_FOOTER_QUERY = `
-  *[_type == "homeFooter" && _id in ["homeFooter", "drafts.homeFooter"]][0] {
+  coalesce(*[_id == "drafts.homeFooter"][0], *[_id == "homeFooter"][0], *[_type == "homeFooter"][0]) {
     storeAddress,
     phone,
     email,
@@ -311,7 +311,7 @@ export const HOME_FOOTER_QUERY = `
 `;
 
 export const HOME_CUSTOMER_SAYS_QUERY = `
-  *[_type == "homeCustomerSays" && _id in ["homeCustomerSays", "drafts.homeCustomerSays"]][0] {
+  coalesce(*[_id == "drafts.homeCustomerSays"][0], *[_id == "homeCustomerSays"][0], *[_type == "homeCustomerSays"][0]) {
     sectionHeading,
     reviews[] {
       customerName,
@@ -323,11 +323,11 @@ export const HOME_CUSTOMER_SAYS_QUERY = `
 `;
 
 export const HOME_CAROUSEL_QUERY = `
-  *[_type == "homeCarousel" && _id in ["homeCarousel", "drafts.homeCarousel"]][0] {
+  coalesce(*[_id == "drafts.homeCarousel"][0], *[_id == "homeCarousel"][0], *[_type == "homeCarousel"][0]) {
     slides[] {
       title,
       description,
-      "image": image.asset->url,
+      "image": coalesce(image.asset->url, imageSrc),
       destinationUrl,
       offerText,
       active
@@ -336,12 +336,12 @@ export const HOME_CAROUSEL_QUERY = `
 `;
 
 export const HOME_SIDEBAR_QUERY = `
-  *[_type == "homeSidebar" && _id in ["homeSidebar", "drafts.homeSidebar"]][0] {
+  coalesce(*[_id == "drafts.homeSidebar"][0], *[_id == "homeSidebar"][0], *[_type == "homeSidebar"][0]) {
     sidebarBadgeTitle,
     sidebarBadgeSubtitle,
     modalHeading,
     modalDescription,
-    "qrCodeImage": qrCodeImage.asset->url,
+    "qrCodeImage": coalesce(qrCodeImage.asset->url, qrCodeImageSrc),
     communityLink,
     linkButtonText,
     visibility

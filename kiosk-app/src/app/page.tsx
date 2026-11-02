@@ -21,8 +21,24 @@ import { HomeFooter } from '@/components/layout/HomeFooter';
 import { HeroBannerCarousel } from '@/components/shared/HeroBannerCarousel';
 import { RecipeCarousel } from '@/components/home/RecipeCarousel';
 import { HomeCustomerReviewCard } from '@/components/home/HomeCustomerReviewCard';
+import { sanityFetch } from '@/lib/sanity';
+import { TOP_RIGHT_ITEM_COUNT_QUERY } from '@/lib/sanityQueries';
 
-export default function HomePage() {
+export const revalidate = 60;
+
+export default async function HomePage() {
+  const itemCounts = await sanityFetch<{
+    fishSubtitle?: string;
+    meatSubtitle?: string;
+    chickenSubtitle?: string;
+    eggsSubtitle?: string;
+  }>(TOP_RIGHT_ITEM_COUNT_QUERY).catch(() => null);
+
+  const fishSubtitle = itemCounts?.fishSubtitle || '100+ Items';
+  const meatSubtitle = itemCounts?.meatSubtitle || '50+ Items';
+  const chickenSubtitle = itemCounts?.chickenSubtitle || '30+ Items';
+  const eggsSubtitle = itemCounts?.eggsSubtitle || 'Farm Fresh';
+
   return (
     <>
       {/* ── LANDSCAPE VIEW ── 
@@ -51,7 +67,7 @@ export default function HomePage() {
             <div className="grid grid-cols-3 gap-[var(--cat-gap)] overflow-hidden portrait:h-[180px] portrait:grid-cols-3">
               <CategoryCard
                 title="Fish"
-                subtitle="100+ Items"
+                subtitle={fishSubtitle}
                 imageSrc="/assets/aa_fish.png"
                 variant="fish"
                 href="/fish"
@@ -59,7 +75,7 @@ export default function HomePage() {
               />
               <CategoryCard
                 title="Meat"
-                subtitle="50+ Items"
+                subtitle={meatSubtitle}
                 imageSrc="/assets/meat.png"
                 variant="meat"
                 href="/meat"
@@ -67,7 +83,7 @@ export default function HomePage() {
               />
               <CategoryCard
                 title="Chicken"
-                subtitle="30+ Items"
+                subtitle={chickenSubtitle}
                 imageSrc="/assets/chicken.png"
                 variant="chicken"
                 href="/chicken"
@@ -77,7 +93,7 @@ export default function HomePage() {
             <div className="portrait:h-[120px]">
               <CategoryCard
                 title="Eggs"
-                subtitle="Farm Fresh"
+                subtitle={eggsSubtitle}
                 imageSrc="/assets/egg.png"
                 variant="eggs"
                 href="/eggs"
@@ -332,7 +348,7 @@ export default function HomePage() {
             {[
               {
                 title: 'Fish',
-                items: '100+ Items',
+                items: fishSubtitle,
                 img: '/assets/aa_fish.png',
                 href: '/fish',
                 bg: '#EAF4FE',
@@ -341,7 +357,7 @@ export default function HomePage() {
               },
               {
                 title: 'Meat',
-                items: '50+ Items',
+                items: meatSubtitle,
                 img: '/assets/meat.png',
                 href: '/meat',
                 bg: '#FFEBEE',
@@ -350,7 +366,7 @@ export default function HomePage() {
               },
               {
                 title: 'Chicken',
-                items: '30+ Items',
+                items: chickenSubtitle,
                 img: '/assets/chicken.png',
                 href: '/chicken',
                 bg: '#FFF3E0',
@@ -359,7 +375,7 @@ export default function HomePage() {
               },
               {
                 title: 'Eggs',
-                items: 'Farm Fresh',
+                items: eggsSubtitle,
                 img: '/assets/egg_pas.png',
                 href: '/eggs',
                 bg: '#EBF7EE',
