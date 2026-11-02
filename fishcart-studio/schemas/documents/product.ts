@@ -429,6 +429,18 @@ export default defineType({
               type: 'number',
               description: 'Price shown on the details page when this size is selected. Leave blank to use the base price.',
             }),
+            defineField({
+              name: 'stock',
+              title: 'Stock',
+              type: 'number',
+              hidden: true,
+            }),
+            defineField({
+              name: 'availability',
+              title: 'Availability',
+              type: 'boolean',
+              hidden: true,
+            }),
           ],
           preview: {
             select: { title: 'label', subtitle: 'subLabel', price: 'price' },
