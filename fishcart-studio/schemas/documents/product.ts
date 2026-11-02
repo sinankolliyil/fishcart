@@ -410,7 +410,7 @@ export default defineType({
             }),
             defineField({
               name: 'label',
-              title: 'Size Label',
+              title: 'Size',
               type: 'string',
               readOnly: true,
               description: 'Fixed size (Small, Medium, Large, Extra Large)',
