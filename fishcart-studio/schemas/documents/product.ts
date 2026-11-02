@@ -403,6 +403,7 @@ export default defineType({
               name: 'id',
               title: 'Size ID',
               type: 'string',
+              hidden: true,
               readOnly: true,
               description: 'Fixed internal identifier',
               validation: (r) => r.required(),
