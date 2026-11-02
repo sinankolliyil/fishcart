@@ -1,4 +1,5 @@
 import { defineField, defineType } from 'sanity';
+import { CategoryOrderInput } from '../../components/CategoryOrderInput';
 
 export default defineType({
   name: 'recipe',
@@ -178,9 +179,12 @@ export default defineType({
     }),
     defineField({
       name: 'displayOrder',
-      title: 'Display Order',
+      title: 'Display Order in Category',
+      description: 'Position number within this recipe category (Fish, Meat, Chicken, Egg). Setting an order automatically steps down any existing recipes without duplicate numbers.',
       type: 'number',
-      initialValue: 1,
+      components: {
+        input: CategoryOrderInput,
+      },
     }),
   ],
   preview: {
