@@ -9,25 +9,21 @@ export const DEFAULT_PRODUCT_SIZES = [
     _key: 'size-small',
     id: 'small',
     label: 'Small',
-    subLabel: '(500g - 1kg)',
   },
   {
     _key: 'size-medium',
     id: 'medium',
     label: 'Medium',
-    subLabel: '(1kg - 2kg)',
   },
   {
     _key: 'size-large',
     id: 'large',
     label: 'Large',
-    subLabel: '(2kg - 3kg)',
   },
   {
     _key: 'size-xl',
     id: 'xl',
     label: 'Extra Large',
-    subLabel: '(3kg+)',
   },
 ];
 
@@ -84,7 +80,7 @@ export function SizesArrayInput(props: ArrayOfObjectsInputProps) {
             </Flex>
             <Text size={1} muted>
               {count === 4
-                ? 'These 4 sizes are fixed. Click any size below to edit its label text, sub-label (weight/portion), or price. Adding more than 4 is strictly disabled.'
+                ? 'These 4 sizes are fixed: Small, Medium, Large, Extra Large. Click any size below to edit its weight or portion and price.'
                 : count > 4
                 ? 'This product has more than 4 sizes. Click "Reset to 4 Fixed Sizes" or remove extra sizes to continue.'
                 : 'Keep only 4 sizes: Small, Medium, Large, Extra Large. Click "Load 4 Fixed Sizes" to populate.'}

@@ -88,15 +88,6 @@ const HowToCookTimeInput = createSuggestStringInput(
   'howToCook[].time'
 );
 
-const SizeIdInput = createSuggestStringInput(
-  ['small', 'medium', 'large', 'xl', '500g', '1kg', '1.5kg', '2kg', '6-pack', '12-pack'],
-  'sizes[].id'
-);
-
-const SizeLabelInput = createSuggestStringInput(
-  ['Small', 'Medium', 'Large', 'Extra Large', 'Standard Pack', 'Family Pack', '500g', '1kg', '1.5kg', '2kg'],
-  'sizes[].label'
-);
 
 const SizeSubLabelInput = createSuggestStringInput(
   ['(0 - 500g)', '(500g - 1kg)', '(1kg - 2kg)', '(2kg - 3kg)', '(3kg+)', '(53g - 63g)', '(63g - 73g)', '(73g+)', 'Serves 1-2', 'Serves 2-3', 'Serves 4-6'],
@@ -401,7 +392,7 @@ export default defineType({
       title: 'Available Sizes',
       type: 'array',
       group: 'sizes',
-      description: 'Fixed 4 sizes: Small, Medium, Large, Extra Large. You can change their labels, weight/portion sub-labels, and prices. Adding more than 4 sizes is restricted.',
+      description: 'Fixed 4 sizes: Small, Medium, Large, Extra Large. Click any size to edit its Weight or Portion and price. Adding more than 4 sizes is restricted.',
       components: { input: SizesArrayInput },
       initialValue: DEFAULT_PRODUCT_SIZES,
       of: [
@@ -412,25 +403,24 @@ export default defineType({
               name: 'id',
               title: 'Size ID',
               type: 'string',
-              description: 'Internal ID — e.g. "small", "medium", "large", "xl"',
-              components: { input: SizeIdInput },
+              readOnly: true,
+              description: 'Fixed internal identifier',
               validation: (r) => r.required(),
             }),
             defineField({
               name: 'label',
               title: 'Size Label',
               type: 'string',
-              description: 'Shown on the pill button — e.g. "Small", "Medium", "Large", "Extra Large"',
-              components: { input: SizeLabelInput },
+              readOnly: true,
+              description: 'Fixed size (Small, Medium, Large, Extra Large)',
               validation: (r) => r.required(),
             }),
             defineField({
               name: 'subLabel',
-              title: 'Sub-label (Weight or Portion)',
+              title: 'Weight or Portion',
               type: 'string',
-              description: 'Shown below the label — e.g. "(500g – 1kg)", "(1kg – 2kg)"',
+              description: 'Shown below the label — e.g. "(500g – 1kg)", "(1kg – 2kg)", "(0 – 500g)", "6 pieces"',
               components: { input: SizeSubLabelInput },
-              validation: (r) => r.required(),
             }),
             defineField({
               name: 'price',
@@ -444,8 +434,9 @@ export default defineType({
             prepare({ title, subtitle, price }) {
               const numPrice = typeof price === 'number' ? price : Number(price);
               const hasPrice = !isNaN(numPrice) && numPrice > 0;
+              const sub = subtitle?.trim() ? ` ${subtitle.trim().startsWith('(') ? subtitle.trim() : `(${subtitle.trim()})`}` : '';
               return {
-                title: `${title || 'Size'} ${subtitle || ''}`,
+                title: `${title || 'Size'}${sub}`,
                 subtitle: hasPrice ? `£${numPrice.toFixed(2)}` : 'Uses base price',
               };
             },
