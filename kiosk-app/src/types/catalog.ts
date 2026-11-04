@@ -9,7 +9,7 @@ export interface FilterOption {
   id: string;
   label: string;
   count?: number;
-  flag?: "UK" | "Norway" | "Scotland" | "Iceland" | "Netherlands"; // Flag types for country SVGs
+  flag?: string; // Flag code for country SVGs (UK, Norway, Scotland, Spain, Poland, etc.)
 }
 
 export interface FilterSection {
@@ -30,6 +30,7 @@ export interface ProductItem {
   unit: string; // e.g. "kg" | "pack"
   imageSrc: string;
   isFavorite?: boolean;
+  bestForTitles?: string[];
   status?: 'enabled' | 'disabled';
   visibility?: 'show' | 'hide';
   isDisabled?: boolean;

@@ -16,6 +16,112 @@ export interface CatalogPageProps {
   data: CatalogPageData;
 }
 
+// Helper to normalize origin / country dynamically
+function normalizeCountry(raw?: string): { id: string; label: string; flag?: string } {
+  const trimmed = (raw || '').trim();
+  const lower = trimmed.toLowerCase();
+  if (!lower) return { id: '', label: '' };
+  if (
+    lower === 'uk' ||
+    lower === 'united kingdom' ||
+    lower === 'great britain' ||
+    lower === 'england' ||
+    lower === 'britain'
+  ) {
+    return { id: 'uk', label: 'United Kingdom', flag: 'UK' };
+  }
+  if (lower === 'norway') {
+    return { id: 'norway', label: 'Norway', flag: 'Norway' };
+  }
+  if (lower === 'scotland') {
+    return { id: 'scotland', label: 'Scotland', flag: 'Scotland' };
+  }
+  if (lower === 'iceland') {
+    return { id: 'iceland', label: 'Iceland', flag: 'Iceland' };
+  }
+  if (lower === 'netherlands' || lower === 'holland') {
+    return { id: 'netherlands', label: 'Netherlands', flag: 'Netherlands' };
+  }
+  if (lower === 'spain') {
+    return { id: 'spain', label: 'Spain', flag: 'Spain' };
+  }
+  if (lower === 'poland') {
+    return { id: 'poland', label: 'Poland', flag: 'Poland' };
+  }
+  if (lower === 'new zealand' || lower === 'nz') {
+    return { id: 'new-zealand', label: 'New Zealand', flag: 'New Zealand' };
+  }
+  if (lower === 'thailand') {
+    return { id: 'thailand', label: 'Thailand', flag: 'Thailand' };
+  }
+  if (lower === 'local farms' || lower === 'local') {
+    return { id: 'local-farms', label: 'Local Farms' };
+  }
+  if (lower === 'organic farms') {
+    return { id: 'organic-farms', label: 'Organic Farms' };
+  }
+
+  // Any other country or farm dynamically added in CMS!
+  const id = lower.replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+  const label = trimmed.replace(/\b\w/g, (l) => l.toUpperCase());
+  return { id, label };
+}
+
+// Helper to normalize format / cut style dynamically
+function normalizeFormat(raw?: string): { id: string; label: string } {
+  const trimmed = (raw || '').trim();
+  const lower = trimmed.toLowerCase();
+  if (!lower) return { id: '', label: '' };
+
+  if (lower === 'filet' || lower === 'fillet' || lower === 'fillets') {
+    return { id: 'fillets', label: 'Fillet' };
+  }
+  if (lower === 'steak' || lower === 'steak cut' || lower === 'steaks') {
+    return { id: 'steak', label: 'Steak Cut' };
+  }
+  if (lower === 'whole' || lower === 'whole fish' || lower === 'whole chicken') {
+    return { id: 'whole', label: 'Whole' };
+  }
+  if (lower === 'boneless' || lower === 'boneless cut') {
+    return { id: 'boneless', label: 'Boneless' };
+  }
+  if (lower === 'with bone' || lower === 'bone-in' || lower === 'bone in') {
+    return { id: 'bone-in', label: 'Bone-in' };
+  }
+  if (lower === 'chops' || lower === 'chop') {
+    return { id: 'chops', label: 'Chops' };
+  }
+  if (lower === 'whole leg' || lower === 'leg') {
+    return { id: 'whole-leg', label: 'Whole Leg' };
+  }
+  if (lower === 'fresh cuts' || lower === 'curry cut' || lower === 'curry cut with bone') {
+    return { id: 'curry-cut', label: 'Curry Cut' };
+  }
+  if (lower === 'shell-on' || lower === 'shell on') {
+    return { id: 'shell-on', label: 'Shell-on' };
+  }
+  if (lower === 'wings') {
+    return { id: 'wings', label: 'Wings' };
+  }
+  if (lower === 'drumstick' || lower === 'drumsticks') {
+    return { id: 'drumstick', label: 'Drumstick' };
+  }
+  if (lower === '12 pack' || lower === '12-pack' || lower === '12 eggs pack') {
+    return { id: 'pack-12', label: '12 Pack' };
+  }
+  if (lower === '6 pack' || lower === '6-pack' || lower === '6 eggs pack') {
+    return { id: 'pack-6', label: '6 Pack' };
+  }
+  if (lower === '30 pack' || lower === '30-pack' || lower === '30 eggs tray' || lower === 'tray') {
+    return { id: 'pack-30', label: '30 Pack Tray' };
+  }
+
+  // Any other format dynamically added in CMS!
+  const id = lower.replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+  const label = trimmed.replace(/\b\w/g, (l) => l.toUpperCase());
+  return { id, label };
+}
+
 export function CatalogPage({ data }: CatalogPageProps) {
   // 1. Tab State (e.g. "all-fish", "by-country", "grill-fishes", etc.)
   const [activeTabId, setActiveTabId] = useState(data.tabs[0]?.id || 'all');
@@ -31,6 +137,7 @@ export function CatalogPage({ data }: CatalogPageProps) {
     country: [],
     type: [],
     size: [],
+    pack: [],
   });
 
   const [appliedFilters, setAppliedFilters] = useState<
@@ -39,6 +146,7 @@ export function CatalogPage({ data }: CatalogPageProps) {
     country: [],
     type: [],
     size: [],
+    pack: [],
   });
 
   // Handle checking/unchecking boxes in sidebar (immediate visual feedback inside state)
@@ -59,7 +167,7 @@ export function CatalogPage({ data }: CatalogPageProps) {
 
   // Reset filters
   const handleResetFilters = () => {
-    const empty = { country: [], type: [], size: [] };
+    const empty = { country: [], type: [], size: [], pack: [] };
     setTempFilters(empty);
     setAppliedFilters(empty);
   };
@@ -71,80 +179,138 @@ export function CatalogPage({ data }: CatalogPageProps) {
     // A. Sub-category Tabs Filtering
     if (data.category === 'fish') {
       if (activeTabId === 'grill-fishes') {
-        result = result.filter((p) =>
-          ['salmon', 'sea-bass', 'tuna-steak', 'prawns'].includes(p.id)
+        result = result.filter(
+          (p) =>
+            p.bestForTitles?.some((b) => b.toLowerCase().includes('grill')) ||
+            ['salmon', 'sea-bass', 'tuna-steak', 'prawns'].includes(p.id)
         );
       } else if (activeTabId === 'curry-fishes') {
-        result = result.filter((p) =>
-          ['mackerel', 'tilapia', 'prawns', 'trout'].includes(p.id)
+        result = result.filter(
+          (p) =>
+            p.bestForTitles?.some((b) => b.toLowerCase().includes('curry')) ||
+            ['mackerel', 'tilapia', 'prawns', 'trout'].includes(p.id)
         );
       } else if (activeTabId === 'by-country') {
-        result = result.filter((p) =>
-          ['salmon', 'tuna-steak', 'tilapia', 'prawns', 'trout'].includes(p.id)
-        );
+        result = result.filter((p) => {
+          const norm = normalizeCountry(p.filterCountry || p.origin);
+          return norm.id !== 'uk' && norm.id !== 'local-farms';
+        });
       } else if (activeTabId === 'other-types') {
-        result = result.filter((p) =>
-          ['cod-fillet', 'tilapia', 'trout'].includes(p.id)
+        result = result.filter(
+          (p) =>
+            !p.bestForTitles?.some((b) => b.toLowerCase().includes('grill')) &&
+            !p.bestForTitles?.some((b) => b.toLowerCase().includes('curry')) &&
+            !['salmon', 'sea-bass', 'tuna-steak', 'prawns', 'mackerel'].includes(p.id)
         );
       }
-    } else {
-      // Dynamic tabs filtering for other categories
-      if (activeTabId.includes('beef') || activeTabId.includes('curry')) {
-        result = result.slice(0, Math.ceil(result.length / 2));
-      } else if (
-        activeTabId.includes('mutton') ||
-        activeTabId.includes('boneless')
-      ) {
-        result = result.slice(Math.ceil(result.length / 2));
-      } else if (activeTabId.includes('country')) {
-        result = result.filter((p) => p.origin !== 'Local Farms');
+    } else if (data.category === 'meat') {
+      if (activeTabId === 'beef') {
+        result = result.filter((p) => (p.title || '').toLowerCase().includes('beef'));
+      } else if (activeTabId === 'mutton') {
+        result = result.filter(
+          (p) =>
+            (p.title || '').toLowerCase().includes('mutton') ||
+            (p.title || '').toLowerCase().includes('lamb')
+        );
+      } else if (activeTabId === 'by-country') {
+        result = result.filter((p) => {
+          const norm = normalizeCountry(p.filterCountry || p.origin);
+          return norm.id !== 'uk' && norm.id !== 'local-farms';
+        });
+      } else if (activeTabId === 'others') {
+        result = result.filter(
+          (p) =>
+            !(p.title || '').toLowerCase().includes('beef') &&
+            !(p.title || '').toLowerCase().includes('mutton') &&
+            !(p.title || '').toLowerCase().includes('lamb')
+        );
+      }
+    } else if (data.category === 'chicken') {
+      if (activeTabId === 'curry-cut') {
+        result = result.filter(
+          (p) =>
+            (p.format || '').toLowerCase().includes('curry') ||
+            (p.title || '').toLowerCase().includes('curry')
+        );
+      } else if (activeTabId === 'boneless') {
+        result = result.filter(
+          (p) =>
+            (p.format || '').toLowerCase().includes('boneless') ||
+            (p.format || '').toLowerCase().includes('fillet')
+        );
+      } else if (activeTabId === 'whole-roast') {
+        result = result.filter((p) => (p.format || '').toLowerCase().includes('whole'));
+      } else if (activeTabId === 'others') {
+        result = result.filter(
+          (p) =>
+            !(p.format || '').toLowerCase().includes('curry') &&
+            !(p.format || '').toLowerCase().includes('boneless') &&
+            !(p.format || '').toLowerCase().includes('fillet') &&
+            !(p.format || '').toLowerCase().includes('whole')
+        );
+      }
+    } else if (data.category === 'eggs') {
+      if (activeTabId === 'free-range') {
+        result = result.filter(
+          (p) =>
+            (p.badgeLabel || '').toLowerCase().includes('free') ||
+            (p.title || '').toLowerCase().includes('free')
+        );
+      } else if (activeTabId === 'organic') {
+        result = result.filter(
+          (p) =>
+            (p.origin || '').toLowerCase().includes('organic') ||
+            (p.badgeLabel || '').toLowerCase().includes('organic')
+        );
+      } else if (activeTabId === 'specialty') {
+        result = result.filter(
+          (p) =>
+            (p.title || '').toLowerCase().includes('quail') ||
+            (p.title || '').toLowerCase().includes('duck')
+        );
       }
     }
 
     // B. Checkbox Filters Filtering
-    // 1. Country Filter
+    // 1. Country Filter (Dynamic)
     const selectedCountries = appliedFilters.country || [];
     if (selectedCountries.length > 0) {
       result = result.filter((p) => {
-        const countryLower = (p.filterCountry || p.origin).toLowerCase();
-        return selectedCountries.some((c) => {
-          if (c === 'uk')
-            return countryLower === 'united kingdom' || countryLower === 'uk';
-          return countryLower === c;
-        });
+        const norm = normalizeCountry(p.filterCountry || p.origin);
+        return selectedCountries.includes(norm.id);
       });
     }
 
-    // 2. Type Filter
+    // 2. Type / Format Filter (Dynamic)
     const selectedTypes = appliedFilters.type || [];
     if (selectedTypes.length > 0) {
       result = result.filter((p) => {
         return selectedTypes.some((t) => {
-          if (t === 'grill')
-            return ['salmon', 'sea-bass', 'tuna-steak', 'prawns'].includes(
-              p.id
-            );
-          if (t === 'curry')
-            return ['mackerel', 'tilapia', 'prawns', 'trout'].includes(p.id);
-          if (t === 'steak') return p.format.toLowerCase().includes('steak');
-          if (t === 'whole') return p.format.toLowerCase().includes('whole');
-          if (t === 'fillets')
+          if (t === 'grill') {
             return (
-              p.format.toLowerCase().includes('filet') ||
-              p.format.toLowerCase().includes('fillet')
+              p.bestForTitles?.some((b) => b.toLowerCase().includes('grill')) ||
+              ['salmon', 'sea-bass', 'tuna-steak', 'prawns'].includes(p.id)
             );
-          // For meat/chicken
-          if (t === 'boneless')
+          }
+          if (t === 'curry') {
             return (
-              p.format.toLowerCase().includes('boneless') ||
-              p.format.toLowerCase().includes('fillet')
+              p.bestForTitles?.some((b) => b.toLowerCase().includes('curry')) ||
+              ['mackerel', 'tilapia', 'prawns', 'trout'].includes(p.id)
             );
-          if (t === 'bone-in')
-            return (
-              p.format.toLowerCase().includes('bone') ||
-              p.format.toLowerCase().includes('whole')
-            );
-          return false;
+          }
+          if (t === 'chicken-egg') {
+            return (p.title || '').toLowerCase().includes('chicken');
+          }
+          if (t === 'duck-egg') {
+            return (p.title || '').toLowerCase().includes('duck');
+          }
+          if (t === 'quail-egg') {
+            return (p.title || '').toLowerCase().includes('quail');
+          }
+
+          const norm = normalizeFormat(p.format);
+          if (norm.id === t) return true;
+          return (p.format || '').toLowerCase().includes(t.replace(/-/g, ' '));
         });
       });
     }
@@ -154,11 +320,23 @@ export function CatalogPage({ data }: CatalogPageProps) {
     if (selectedSizes.length > 0) {
       result = result.filter((p) => {
         return selectedSizes.some((s) => {
-          if (s === 'small' || s === 'pack-6') return p.price < 8.0;
-          if (s === 'medium' || s === 'pack-12')
-            return p.price >= 8.0 && p.price < 15.0;
-          if (s === 'large' || s === 'pack-30') return p.price >= 15.0;
+          if (s === 'small') return p.price < 8.0;
+          if (s === 'medium') return p.price >= 8.0 && p.price < 15.0;
+          if (s === 'large') return p.price >= 15.0;
           return false;
+        });
+      });
+    }
+
+    // 4. Pack Filter (for Eggs)
+    const selectedPacks = appliedFilters.pack || [];
+    if (selectedPacks.length > 0) {
+      result = result.filter((p) => {
+        return selectedPacks.some((packId) => {
+          const norm = normalizeFormat(p.format);
+          if (norm.id === packId) return true;
+          const numMatch = packId.replace('pack-', '');
+          return (p.format || '').toLowerCase().includes(numMatch);
         });
       });
     }
@@ -169,7 +347,7 @@ export function CatalogPage({ data }: CatalogPageProps) {
     } else if (activeSort === 'price-high') {
       result.sort((a, b) => b.price - a.price);
     } else if (activeSort === 'popularity') {
-      result.sort((a, b) => b.title.length - a.title.length);
+      result.sort((a, b) => (b.title || '').length - (a.title || '').length);
     }
 
     return result;
@@ -181,32 +359,94 @@ export function CatalogPage({ data }: CatalogPageProps) {
       let count = data.products.length;
       if (data.category === 'fish') {
         if (tab.id === 'grill-fishes') {
-          count = data.products.filter((p) =>
-            ['salmon', 'sea-bass', 'tuna-steak', 'prawns'].includes(p.id)
+          count = data.products.filter(
+            (p) =>
+              p.bestForTitles?.some((b) => b.toLowerCase().includes('grill')) ||
+              ['salmon', 'sea-bass', 'tuna-steak', 'prawns'].includes(p.id)
           ).length;
         } else if (tab.id === 'curry-fishes') {
-          count = data.products.filter((p) =>
-            ['mackerel', 'tilapia', 'prawns', 'trout'].includes(p.id)
+          count = data.products.filter(
+            (p) =>
+              p.bestForTitles?.some((b) => b.toLowerCase().includes('curry')) ||
+              ['mackerel', 'tilapia', 'prawns', 'trout'].includes(p.id)
           ).length;
         } else if (tab.id === 'by-country') {
-          count = data.products.filter((p) =>
-            ['salmon', 'tuna-steak', 'tilapia', 'prawns', 'trout'].includes(
-              p.id
-            )
-          ).length;
+          count = data.products.filter((p) => {
+            const norm = normalizeCountry(p.filterCountry || p.origin);
+            return norm.id !== 'uk' && norm.id !== 'local-farms';
+          }).length;
         } else if (tab.id === 'other-types') {
-          count = data.products.filter((p) =>
-            ['cod-fillet', 'tilapia', 'trout'].includes(p.id)
+          count = data.products.filter(
+            (p) =>
+              !p.bestForTitles?.some((b) => b.toLowerCase().includes('grill')) &&
+              !p.bestForTitles?.some((b) => b.toLowerCase().includes('curry')) &&
+              !['salmon', 'sea-bass', 'tuna-steak', 'prawns', 'mackerel'].includes(p.id)
           ).length;
         }
-      } else {
-        if (tab.id.includes('beef') || tab.id.includes('curry')) {
-          count = Math.ceil(data.products.length / 2);
-        } else if (tab.id.includes('mutton') || tab.id.includes('boneless')) {
-          count = data.products.length - Math.ceil(data.products.length / 2);
-        } else if (tab.id.includes('country')) {
+      } else if (data.category === 'meat') {
+        if (tab.id === 'beef') {
+          count = data.products.filter((p) => (p.title || '').toLowerCase().includes('beef')).length;
+        } else if (tab.id === 'mutton') {
           count = data.products.filter(
-            (p) => p.origin !== 'Local Farms'
+            (p) =>
+              (p.title || '').toLowerCase().includes('mutton') ||
+              (p.title || '').toLowerCase().includes('lamb')
+          ).length;
+        } else if (tab.id === 'by-country') {
+          count = data.products.filter((p) => {
+            const norm = normalizeCountry(p.filterCountry || p.origin);
+            return norm.id !== 'uk' && norm.id !== 'local-farms';
+          }).length;
+        } else if (tab.id === 'others') {
+          count = data.products.filter(
+            (p) =>
+              !(p.title || '').toLowerCase().includes('beef') &&
+              !(p.title || '').toLowerCase().includes('mutton') &&
+              !(p.title || '').toLowerCase().includes('lamb')
+          ).length;
+        }
+      } else if (data.category === 'chicken') {
+        if (tab.id === 'curry-cut') {
+          count = data.products.filter(
+            (p) =>
+              (p.format || '').toLowerCase().includes('curry') ||
+              (p.title || '').toLowerCase().includes('curry')
+          ).length;
+        } else if (tab.id === 'boneless') {
+          count = data.products.filter(
+            (p) =>
+              (p.format || '').toLowerCase().includes('boneless') ||
+              (p.format || '').toLowerCase().includes('fillet')
+          ).length;
+        } else if (tab.id === 'whole-roast') {
+          count = data.products.filter((p) => (p.format || '').toLowerCase().includes('whole')).length;
+        } else if (tab.id === 'others') {
+          count = data.products.filter(
+            (p) =>
+              !(p.format || '').toLowerCase().includes('curry') &&
+              !(p.format || '').toLowerCase().includes('boneless') &&
+              !(p.format || '').toLowerCase().includes('fillet') &&
+              !(p.format || '').toLowerCase().includes('whole')
+          ).length;
+        }
+      } else if (data.category === 'eggs') {
+        if (tab.id === 'free-range') {
+          count = data.products.filter(
+            (p) =>
+              (p.badgeLabel || '').toLowerCase().includes('free') ||
+              (p.title || '').toLowerCase().includes('free')
+          ).length;
+        } else if (tab.id === 'organic') {
+          count = data.products.filter(
+            (p) =>
+              (p.origin || '').toLowerCase().includes('organic') ||
+              (p.badgeLabel || '').toLowerCase().includes('organic')
+          ).length;
+        } else if (tab.id === 'specialty') {
+          count = data.products.filter(
+            (p) =>
+              (p.title || '').toLowerCase().includes('quail') ||
+              (p.title || '').toLowerCase().includes('duck')
           ).length;
         }
       }
@@ -214,61 +454,217 @@ export function CatalogPage({ data }: CatalogPageProps) {
     });
   }, [data]);
 
-  // Dynamic Filter Sections with Real Counts
+  // Dynamic Filter Sections with Automatic Extraction from CMS Products (Method 1)
   const dynamicFilterSections = useMemo(() => {
-    return data.filterSections.map((section) => ({
-      ...section,
-      options: section.options.map((opt) => {
-        let count = 0;
-        if (section.id === 'country') {
-          count = data.products.filter((p) => {
-            const countryLower = (p.filterCountry || p.origin).toLowerCase();
-            if (opt.id === 'uk')
-              return countryLower === 'united kingdom' || countryLower === 'uk';
-            return countryLower === opt.id;
-          }).length;
-        } else if (section.id === 'type') {
-          count = data.products.filter((p) => {
-            if (opt.id === 'grill')
-              return ['salmon', 'sea-bass', 'tuna-steak', 'prawns'].includes(
-                p.id
-              );
-            if (opt.id === 'curry')
-              return ['mackerel', 'tilapia', 'prawns', 'trout'].includes(p.id);
-            if (opt.id === 'steak')
-              return p.format.toLowerCase().includes('steak');
-            if (opt.id === 'whole')
-              return p.format.toLowerCase().includes('whole');
-            if (opt.id === 'fillets')
-              return (
-                p.format.toLowerCase().includes('filet') ||
-                p.format.toLowerCase().includes('fillet')
-              );
-            if (opt.id === 'boneless')
-              return (
-                p.format.toLowerCase().includes('boneless') ||
-                p.format.toLowerCase().includes('fillet')
-              );
-            if (opt.id === 'bone-in')
-              return (
-                p.format.toLowerCase().includes('bone') ||
-                p.format.toLowerCase().includes('whole')
-              );
-            return false;
-          }).length;
-        } else if (section.id === 'size') {
-          count = data.products.filter((p) => {
-            if (opt.id === 'small' || opt.id === 'pack-6') return p.price < 8.0;
-            if (opt.id === 'medium' || opt.id === 'pack-12')
-              return p.price >= 8.0 && p.price < 15.0;
-            if (opt.id === 'large' || opt.id === 'pack-30')
-              return p.price >= 15.0;
-            return false;
-          }).length;
+    return data.filterSections.map((section) => {
+      // 1. COUNTRY / ORIGIN SECTION
+      // Automatically extracts any new country or farm added in CMS!
+      if (section.id === 'country') {
+        const countryMap = new Map<
+          string,
+          { id: string; label: string; count: number; flag?: string }
+        >();
+
+        data.products.forEach((p) => {
+          const norm = normalizeCountry(p.filterCountry || p.origin);
+          if (!norm.id) return;
+          const existing = countryMap.get(norm.id);
+          if (existing) {
+            existing.count += 1;
+          } else {
+            countryMap.set(norm.id, {
+              id: norm.id,
+              label: norm.label,
+              count: 1,
+              flag: norm.flag,
+            });
+          }
+        });
+
+        // Sorted by count descending
+        const options = Array.from(countryMap.values()).sort(
+          (a, b) => b.count - a.count
+        );
+        return {
+          ...section,
+          options,
+        };
+      }
+
+      // 2. TYPE / FORMAT SECTION
+      // Automatically extracts any new cut style or preparation added in CMS!
+      if (section.id === 'type') {
+        const typeMap = new Map<
+          string,
+          { id: string; label: string; count: number }
+        >();
+
+        // For fish category: support preparation methods (Grill / Curry)
+        if (data.category === 'fish') {
+          const grillCount = data.products.filter(
+            (p) =>
+              p.bestForTitles?.some((b) => b.toLowerCase().includes('grill')) ||
+              ['salmon', 'sea-bass', 'tuna-steak', 'prawns'].includes(p.id)
+          ).length;
+          if (grillCount > 0) {
+            typeMap.set('grill', {
+              id: 'grill',
+              label: 'Grill Fishes',
+              count: grillCount,
+            });
+          }
+
+          const curryCount = data.products.filter(
+            (p) =>
+              p.bestForTitles?.some((b) => b.toLowerCase().includes('curry')) ||
+              ['mackerel', 'tilapia', 'prawns', 'trout'].includes(p.id)
+          ).length;
+          if (curryCount > 0) {
+            typeMap.set('curry', {
+              id: 'curry',
+              label: 'Curry Fishes',
+              count: curryCount,
+            });
+          }
         }
-        return { ...opt, count };
-      }),
-    }));
+
+        // For eggs category: egg varieties
+        if (data.category === 'eggs') {
+          const eggTypes = [
+            {
+              id: 'chicken-egg',
+              label: 'Chicken Eggs',
+              test: (p: any) =>
+                (p.title || '').toLowerCase().includes('chicken'),
+            },
+            {
+              id: 'duck-egg',
+              label: 'Duck Eggs',
+              test: (p: any) => (p.title || '').toLowerCase().includes('duck'),
+            },
+            {
+              id: 'quail-egg',
+              label: 'Quail Eggs',
+              test: (p: any) => (p.title || '').toLowerCase().includes('quail'),
+            },
+          ];
+          eggTypes.forEach((et) => {
+            const count = data.products.filter(et.test).length;
+            if (count > 0) {
+              typeMap.set(et.id, { id: et.id, label: et.label, count });
+            }
+          });
+        }
+
+        // Automatically extract all product formats from CMS
+        data.products.forEach((p) => {
+          if (
+            data.category === 'eggs' &&
+            ((p.format || '').toLowerCase().includes('pack') ||
+              (p.format || '').toLowerCase().includes('tray'))
+          ) {
+            return; // In eggs, pack formats belong to the 'pack' section
+          }
+          const norm = normalizeFormat(p.format);
+          if (!norm.id) return;
+          const existing = typeMap.get(norm.id);
+          if (existing) {
+            existing.count += 1;
+          } else {
+            typeMap.set(norm.id, {
+              id: norm.id,
+              label: norm.label,
+              count: 1,
+            });
+          }
+        });
+
+        const options = Array.from(typeMap.values()).sort(
+          (a, b) => b.count - a.count
+        );
+        return {
+          ...section,
+          options,
+        };
+      }
+
+      // 3. SIZE SECTION
+      if (section.id === 'size') {
+        const smallCount = data.products.filter((p) => p.price < 8.0).length;
+        const mediumCount = data.products.filter(
+          (p) => p.price >= 8.0 && p.price < 15.0
+        ).length;
+        const largeCount = data.products.filter((p) => p.price >= 15.0).length;
+
+        const options = [
+          {
+            id: 'small',
+            label:
+              data.category === 'chicken'
+                ? 'Small (under 1kg)'
+                : 'Small (0 - 500g)',
+            count: smallCount,
+          },
+          {
+            id: 'medium',
+            label:
+              data.category === 'chicken'
+                ? 'Medium (1kg - 1.5kg)'
+                : 'Medium (500g - 1kg)',
+            count: mediumCount,
+          },
+          {
+            id: 'large',
+            label:
+              data.category === 'chicken' ? 'Large (1.5kg+)' : 'Large (1kg+)',
+            count: largeCount,
+          },
+        ];
+
+        return {
+          ...section,
+          options,
+        };
+      }
+
+      // 4. PACK SECTION (Eggs)
+      if (section.id === 'pack') {
+        const packMap = new Map<
+          string,
+          { id: string; label: string; count: number }
+        >();
+        data.products.forEach((p) => {
+          const norm = normalizeFormat(p.format);
+          if (norm.id.startsWith('pack-')) {
+            const existing = packMap.get(norm.id);
+            if (existing) {
+              existing.count += 1;
+            } else {
+              packMap.set(norm.id, {
+                id: norm.id,
+                label: norm.label,
+                count: 1,
+              });
+            }
+          }
+        });
+
+        if (packMap.size === 0) {
+          packMap.set('pack-6', { id: 'pack-6', label: '6 Eggs Pack', count: 0 });
+          packMap.set('pack-12', { id: 'pack-12', label: '12 Eggs Pack', count: 0 });
+          packMap.set('pack-30', { id: 'pack-30', label: '30 Eggs Tray', count: 0 });
+        }
+
+        const options = Array.from(packMap.values());
+        return {
+          ...section,
+          options,
+        };
+      }
+
+      // Fallback
+      return section;
+    });
   }, [data]);
 
   // Tab change handler

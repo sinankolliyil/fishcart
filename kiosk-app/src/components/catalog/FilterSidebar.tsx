@@ -66,6 +66,54 @@ function CountryFlag({ code }: { code: string }) {
           <rect y="8" width="16" height="4" fill="#21468B" />
         </svg>
       );
+    case 'Spain':
+      return (
+        <svg
+          viewBox="0 0 16 12"
+          className="h-3 w-4 shrink-0 rounded-sm select-none"
+        >
+          <rect width="16" height="3" fill="#AA151B" />
+          <rect y="3" width="16" height="6" fill="#F1BF00" />
+          <rect y="9" width="16" height="3" fill="#AA151B" />
+        </svg>
+      );
+    case 'Poland':
+      return (
+        <svg
+          viewBox="0 0 16 12"
+          className="h-3 w-4 shrink-0 rounded-sm select-none border border-gray-200"
+        >
+          <rect width="16" height="6" fill="#FFFFFF" />
+          <rect y="6" width="16" height="6" fill="#DC143C" />
+        </svg>
+      );
+    case 'New Zealand':
+    case 'NZ':
+      return (
+        <svg
+          viewBox="0 0 16 12"
+          className="h-3 w-4 shrink-0 rounded-sm select-none"
+        >
+          <rect width="16" height="12" fill="#00247D" />
+          <circle cx="12" cy="3" r="0.9" fill="#CC142B" />
+          <circle cx="10" cy="6" r="0.9" fill="#CC142B" />
+          <circle cx="14" cy="7" r="0.9" fill="#CC142B" />
+          <circle cx="12" cy="10" r="0.9" fill="#CC142B" />
+        </svg>
+      );
+    case 'Thailand':
+      return (
+        <svg
+          viewBox="0 0 16 12"
+          className="h-3 w-4 shrink-0 rounded-sm select-none"
+        >
+          <rect width="16" height="2" fill="#A51931" />
+          <rect y="2" width="16" height="2" fill="#FFFFFF" />
+          <rect y="4" width="16" height="4" fill="#2D2A4A" />
+          <rect y="8" width="16" height="2" fill="#FFFFFF" />
+          <rect y="10" width="16" height="2" fill="#A51931" />
+        </svg>
+      );
     default:
       return null;
   }
@@ -213,7 +261,7 @@ export function FilterSidebar({
                           </span>
                         </span>
 
-                        
+                        {option.flag && <CountryFlag code={option.flag} />}
 
                         <span
                           className={cn(

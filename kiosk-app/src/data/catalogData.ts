@@ -391,6 +391,14 @@ export const chickenCatalogData: CatalogPageData = {
   ],
   filterSections: [
     {
+      id: "country",
+      title: "By Origin",
+      options: [
+        { id: "local-farms", label: "Local Farms", count: 8 },
+        { id: "uk", label: "United Kingdom", count: 4 },
+      ],
+    },
+    {
       id: "type",
       title: "By Type",
       options: [
@@ -547,6 +555,14 @@ export const eggsCatalogData: CatalogPageData = {
     { id: "specialty", label: "Specialty", countLabel: "5+ Items", iconName: "dots" },
   ],
   filterSections: [
+    {
+      id: "country",
+      title: "By Origin",
+      options: [
+        { id: "organic-farms", label: "Organic Farms", count: 6 },
+        { id: "local-farms", label: "Local Farms", count: 4 },
+      ],
+    },
     {
       id: "type",
       title: "By Type",

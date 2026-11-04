@@ -13,6 +13,7 @@ export const PRODUCTS_BY_CATEGORY_QUERY = `
     unit,
     "imageSrc": coalesce(image.asset->url, mainImage.asset->url, imageSrc),
     isFavorite,
+    "bestForTitles": bestFor[].title,
     "status": coalesce(status, availabilityStatus, "enabled"),
     "visibility": coalesce(visibility, visibilityStatus, "show"),
     "isDisabled": coalesce(status, availabilityStatus, "enabled") == "disabled",
