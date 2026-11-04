@@ -15,7 +15,7 @@ export const client = isSanityConfigured
       projectId,
       dataset,
       apiVersion,
-      useCdn: true, // Enable Sanity global Edge CDN for ultra-fast response times
+      useCdn: false, // Bypass Sanity Edge CDN to get instantaneous updates upon publishing in CMS
     })
   : null;
 
@@ -34,7 +34,7 @@ export function urlForImage(source: any): string {
   }
 }
 
-// In-memory cache for ultra-fast (0ms) repeated query responses
+// In-memory cache for fallback when network fails or times out
 interface CacheEntry<T> {
   timestamp: number;
   data: T;
@@ -42,15 +42,21 @@ interface CacheEntry<T> {
 
 const memoryCache = new Map<string, CacheEntry<any>>();
 const inflightQueries = new Map<string, Promise<any>>();
-const CACHE_TTL_MS = 60 * 1000; // 60 seconds cache
+// Set to 0ms so every request fetches fresh live data from Sanity CMS without delay.
+// memoryCache is preserved strictly as a fallback if the network or Sanity fails/times out.
+const CACHE_TTL_MS = 0;
+
+export function clearSanityCache(): void {
+  memoryCache.clear();
+  inflightQueries.clear();
+}
 
 /**
  * Safe, high-performance fetch wrapper:
- * - Serves from memory cache in 0ms if fresh
- * - Deduplicates concurrent requests
- * - Routes via Sanity Edge CDN
+ * - Direct live queries (useCdn: false) for 0s publish-to-website latency
+ * - Deduplicates concurrent inflight requests
  * - Enforces a strict 2.5-second timeout so the UI NEVER lags or hangs
- * - Falls back to local data gracefully on timeout or network error
+ * - Falls back to local/cached data gracefully on timeout or network error
  */
 export async function sanityFetch<T>(
   query: string,
@@ -64,8 +70,8 @@ export async function sanityFetch<T>(
   const cacheKey = `${query}_${JSON.stringify(params)}`;
   const now = Date.now();
 
-  // Check in-memory cache
-  if (!options.bypassCache) {
+  // Check in-memory cache if TTL is configured
+  if (!options.bypassCache && CACHE_TTL_MS > 0) {
     const cached = memoryCache.get(cacheKey);
     if (cached && now - cached.timestamp < CACHE_TTL_MS) {
       return cached.data as T;
@@ -82,7 +88,8 @@ export async function sanityFetch<T>(
   const fetchPromise = (async () => {
     try {
       const fetchCall = (client as any).fetch(query, params, {
-        next: { revalidate: 60 },
+        cache: 'no-store',
+        next: { revalidate: 0 },
       });
 
       const timeoutCall = new Promise<null>((resolve) => {

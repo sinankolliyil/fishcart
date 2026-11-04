@@ -162,7 +162,8 @@ function getPromiseIcon(icon?: string) {
   }
 }
 
-export const revalidate = 60;
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
 
 export default async function StoryPage() {
   let story: StoryData | null = null;

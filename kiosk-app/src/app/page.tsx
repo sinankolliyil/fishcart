@@ -24,7 +24,8 @@ import { HomeCustomerReviewCard } from '@/components/home/HomeCustomerReviewCard
 import { sanityFetch } from '@/lib/sanity';
 import { TOP_RIGHT_ITEM_COUNT_QUERY } from '@/lib/sanityQueries';
 
-export const revalidate = 60;
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
 
 export default async function HomePage() {
   const itemCounts = await sanityFetch<{
