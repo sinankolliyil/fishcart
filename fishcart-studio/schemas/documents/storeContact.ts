@@ -57,7 +57,7 @@ export default defineType({
       title: 'Head Office Address',
       type: 'text',
       rows: 2,
-      initialValue: '123, Fresh Fish Street, T. Nagar,\nChennai, Tamil Nadu - 600017',
+      initialValue: '5 Hythe Quay, Colchester, Essex, CO2 8JB',
     }),
     defineField({
       name: 'workingHours',
@@ -69,14 +69,14 @@ export default defineType({
       name: 'storeAddress',
       title: 'Store Address (Footer & Kiosk)',
       type: 'string',
-      initialValue: 'Unit 5 Hythe Quay, England, CO2 8JB',
+      initialValue: '5 Hythe Quay, Colchester CO2 8JB',
       validation: (rule) => rule.required(),
     }),
     defineField({
       name: 'mapEmbedUrl',
       title: 'Map Embed URL',
       type: 'url',
-      initialValue: 'https://www.openstreetmap.org/export/embed.html?bbox=80.19,13.04,80.25,13.08&layer=mapnik',
+      initialValue: 'https://www.openstreetmap.org/export/embed.html?bbox=0.915,51.880,0.932,51.890&layer=mapnik&marker=51.8845,0.9235',
     }),
   ],
   preview: {

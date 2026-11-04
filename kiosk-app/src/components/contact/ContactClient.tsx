@@ -10,6 +10,8 @@ import {
   ChevronDown,
   User,
   MessageSquare,
+  Navigation,
+  ExternalLink,
 } from 'lucide-react';
 
 export interface StoreContactData {
@@ -39,13 +41,19 @@ export function ContactClient({ data }: { data?: StoreContactData | null }) {
     data?.emailNote || "Drop us an email and we'll get back to you.";
   const headOfficeAddress =
     data?.headOfficeAddress ||
-    '123, Fresh Fish Street, T. Nagar,\nChennai, Tamil Nadu - 600017';
+    '5 Hythe Quay, Colchester, Essex, CO2 8JB';
+  const storeAddress =
+    data?.storeAddress ||
+    '5 Hythe Quay, Colchester CO2 8JB';
   const workingHours =
     data?.workingHours || 'Monday - Sunday: 8:00 AM - 10:00 PM';
   const storeName = data?.businessName || 'FishCart Store';
   const mapUrl =
-    data?.mapEmbedUrl ||
-    'https://www.openstreetmap.org/export/embed.html?bbox=80.19,13.04,80.25,13.08&layer=mapnik';
+    data?.mapEmbedUrl && !data.mapEmbedUrl.includes('80.19')
+      ? data.mapEmbedUrl
+      : 'https://www.openstreetmap.org/export/embed.html?bbox=0.915,51.880,0.932,51.890&layer=mapnik&marker=51.8845,0.9235';
+  const directionsUrl =
+    'https://www.google.com/maps/dir/?api=1&destination=5+Hythe+Quay,+Colchester+CO2+8JB,+United+Kingdom';
 
   const meatImg = '/assets/5_image.png';
   const chickenImg = '/assets/boneless_chicken.jpg';
@@ -204,14 +212,14 @@ export function ContactClient({ data }: { data?: StoreContactData | null }) {
                 </div>
               </div>
 
-              {/* Head Office */}
+              {/* Store Location */}
               <div className="flex items-start gap-3">
                 <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-blue-50 text-[#0D55CF]">
                   <MapPin className="h-3.5 w-3.5" />
                 </div>
                 <div className="flex flex-col">
                   <h3 className="text-[13px] font-bold text-slate-800">
-                    Head Office
+                    Store Location
                   </h3>
                   <p className="mt-0.5 whitespace-pre-line text-[11px] leading-tight font-medium text-slate-500">
                     {headOfficeAddress}
@@ -345,18 +353,44 @@ export function ContactClient({ data }: { data?: StoreContactData | null }) {
         <div className="absolute inset-x-0 top-0 z-10 h-[60px] bg-gradient-to-b from-white to-transparent"></div>
         <div className="absolute inset-0 z-0 bg-white/40"></div>
 
-        {/* Floating Map Pin Card */}
-        <div className="relative z-20 flex items-center gap-3 rounded-xl border border-slate-100 bg-white px-6 py-4 shadow-lg">
-          <div className="flex h-10 w-10 items-center justify-center rounded-full bg-blue-50 text-[#0D55CF]">
-            <MapPin className="h-5 w-5" />
+        {/* Floating Interactive Store & Directions Card */}
+        <a
+          href={directionsUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          title="Click to get directions on Google Maps"
+          className="group relative z-20 flex items-center gap-4 rounded-2xl border border-slate-200/90 bg-white/95 px-6 py-3.5 shadow-xl backdrop-blur-md transition-all duration-300 hover:-translate-y-1 hover:border-[#0D55CF] hover:shadow-2xl hover:shadow-[#0D55CF]/20 cursor-pointer portrait:flex-col portrait:text-center portrait:p-4 portrait:w-[92%]"
+        >
+          {/* Pulsing Pin Icon */}
+          <div className="relative flex shrink-0">
+            <span className="absolute -inset-1 rounded-full bg-[#0D55CF]/20 animate-ping" />
+            <div className="relative flex h-11 w-11 items-center justify-center rounded-full bg-gradient-to-br from-[#0D55CF] to-[#1E6BFF] text-white shadow-md shadow-[#0D55CF]/30 transition-transform duration-300 group-hover:scale-110">
+              <MapPin className="h-5 w-5" />
+            </div>
           </div>
-          <div className="flex flex-col text-left">
-            <h3 className="text-[14px] font-bold text-slate-800">{storeName}</h3>
-            <p className="mt-0.5 whitespace-pre-line text-[12px] font-medium text-slate-500">
-              {headOfficeAddress}
+
+          {/* Store Info & Address */}
+          <div className="flex flex-col text-left portrait:text-center">
+            <div className="flex items-center gap-2 portrait:justify-center">
+              <h3 className="text-[15px] font-bold tracking-tight text-slate-900 transition-colors group-hover:text-[#0D55CF]">
+                {storeName}
+              </h3>
+              <span className="inline-flex items-center rounded-full bg-emerald-50 px-2 py-0.5 text-[10px] font-bold text-emerald-700 border border-emerald-200">
+                Open
+              </span>
+            </div>
+            <p className="mt-0.5 text-[12px] font-medium text-slate-600">
+              {storeAddress}
             </p>
           </div>
-        </div>
+
+          {/* "Click here to get direction" Action Button */}
+          <div className="ml-2 flex shrink-0 items-center gap-1.5 rounded-full bg-[#0D55CF] px-4 py-2 text-[12px] font-bold text-white shadow-md shadow-[#0D55CF]/20 transition-all duration-300 group-hover:bg-[#0842A6] group-hover:shadow-lg group-hover:scale-105 portrait:ml-0 portrait:mt-2">
+            <Navigation className="h-3.5 w-3.5 text-white" />
+            <span>Click here to get direction</span>
+            <ExternalLink className="h-3 w-3 opacity-80" />
+          </div>
+        </a>
       </div>
     </div>
   );
