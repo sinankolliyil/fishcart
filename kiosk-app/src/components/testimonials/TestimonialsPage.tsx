@@ -797,7 +797,7 @@ export function TestimonialsPage() {
   };
 
   return (
-    <div className="grid h-full min-h-0 w-full grid-rows-[minmax(0,89fr)_minmax(0,10fr)] gap-[var(--main-gap)] overflow-hidden portrait:flex portrait:flex-col portrait:h-auto portrait:overflow-visible portrait:pb-4">
+    <div className="grid h-full min-h-0 w-full grid-rows-[minmax(0,1fr)_auto] gap-[var(--main-gap)] overflow-hidden portrait:flex portrait:flex-col portrait:h-auto portrait:overflow-visible portrait:pb-4">
       {/* ── Main Content ── */}
       <div className="flex min-h-0 flex-col gap-[12px] overflow-hidden">
         {/* ── ROW A: Hero + Platform tabs ── */}
@@ -1192,8 +1192,8 @@ export function TestimonialsPage() {
         </div>
       </div>
 
-      {/* ── Footer row — same 10fr fraction as homepage row 5 ── */}
-      <div className="overflow-hidden portrait:hidden">
+      {/* ── Footer row ── */}
+      <div className="shrink-0 portrait:hidden">
         <HomeFooter />
       </div>
 

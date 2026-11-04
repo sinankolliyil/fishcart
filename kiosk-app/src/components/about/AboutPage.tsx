@@ -162,63 +162,63 @@ export function AboutPage({ data }: { data?: AboutUsData | null }) {
   ];
 
   return (
-    <div className="flex h-full w-full scrollbar-thin scrollbar-thumb-slate-200 flex-col overflow-x-hidden overflow-y-auto bg-[#EFF2FA] select-none portrait:h-auto portrait:overflow-visible">
-      {/* ─── Main Content ─── */}
-      <div className="flex w-full flex-1 flex-col gap-4 px-[clamp(20px,4vw,60px)] py-4 portrait:px-3 portrait:pb-8">
-        {/* ─── Hero & Features Wrapper ─── */}
-        <div className="relative w-full">
-          {/* Full Hero Image containing all elements */}
-          <div className="pointer-events-none absolute inset-0 z-0 -mx-[clamp(20px,4vw,60px)] -mt-10 overflow-visible portrait:hidden">
+    <div className="h-full w-full overflow-hidden bg-[#EFF2FA] select-none portrait:h-auto portrait:overflow-y-auto">
+      {/* ─── Main Content Grid (100% viewport height in landscape, no scroll) ─── */}
+      <div className="grid h-full w-full grid-rows-[minmax(0,34fr)_minmax(0,46fr)_minmax(0,20fr)] gap-[clamp(4px,0.8svh,12px)] px-[clamp(16px,3vw,48px)] py-[clamp(6px,1svh,14px)] portrait:flex portrait:flex-col portrait:h-auto portrait:gap-4 portrait:px-3 portrait:pb-8">
+        
+        {/* ─── 1. Hero Section ─── */}
+        <div className="relative min-h-0 w-full overflow-hidden rounded-[10px] portrait:overflow-visible">
+          {/* Full Hero Image containing background elements */}
+          <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden portrait:hidden">
             <Image
               src={heroImage}
               alt="Fresh Meat and Fish Hero"
               fill
-              className="origin-right -translate-x-18 -translate-y-3 scale-[1.09] object-contain object-right"
+              className="origin-right scale-[1.05] object-contain object-right"
               priority
             />
           </div>
 
-          {/* 1. Hero Section */}
-          <div className="relative z-10 flex min-h-[400px] w-full items-center justify-start portrait:min-h-0 portrait:py-2">
-            <div className="-mt-35 flex w-1/2 flex-col pr-10 portrait:mt-0 portrait:w-full portrait:pr-0">
-              <div className="mb-2 flex items-center gap-2">
-                <span className="text-sm font-bold text-[#0D55CF] italic">
+          <div className="relative z-10 flex h-full w-full items-center justify-start portrait:py-2">
+            <div className="flex w-1/2 flex-col justify-center pr-6 portrait:w-full portrait:pr-0">
+              <div className="mb-1 flex items-center gap-2">
+                <span className="text-xs font-bold text-[#0D55CF] italic">
                   {heroSubtitle}
                 </span>
-                <div className="h-[2px] w-12 bg-blue-200" />
+                <div className="h-[2px] w-10 bg-blue-200" />
               </div>
-              <h1 className="whitespace-pre-line text-[clamp(32px,min(3vw,4svh),44px)] leading-tight font-bold tracking-tight text-slate-900 portrait:text-[26px]">
+              <h1 className="whitespace-pre-line text-[clamp(22px,min(2.4vw,3.6svh),38px)] leading-tight font-bold tracking-tight text-slate-900 portrait:text-[24px]">
                 {heroHeading}
               </h1>
-              <p className="mt-4 max-w-[85%] text-[clamp(13px,1vw,16px)] leading-relaxed font-medium text-slate-500 portrait:mt-2 portrait:max-w-full portrait:text-[13px]">
+              <p className="mt-1.5 max-w-[90%] text-[clamp(11px,0.85vw,14px)] leading-snug font-medium text-slate-500 portrait:mt-2 portrait:max-w-full portrait:text-[13px]">
                 {heroDescription}
               </p>
-              <div className="font-handwriting mt-6 text-2xl font-medium text-[#0D55CF] italic opacity-80 portrait:mt-2 portrait:text-lg">
+              <div className="font-handwriting mt-2 text-[clamp(15px,1.2vw,20px)] font-medium text-[#0D55CF] italic opacity-85 portrait:mt-2 portrait:text-base">
                 {teamSignature}
               </div>
             </div>
           </div>
         </div>
 
-        {/* 4. Explore Our Fresh Selection */}
-        <div className="relative z-20 -mt-[160px] flex w-full flex-col portrait:mt-6">
-          <div className="mb-4 flex flex-col items-center justify-center text-center">
-            <div className="mb-2 flex items-center gap-2">
-              <div className="h-[1px] w-8 bg-blue-200" />
-              <span className="text-xs font-bold tracking-wider text-[#0D55CF] uppercase">
+        {/* ─── 2. Explore Our Fresh Selection ─── */}
+        <div className="relative z-20 flex min-h-0 w-full flex-col justify-between portrait:mt-2">
+          <div className="mb-1.5 flex flex-col items-center justify-center text-center">
+            <div className="mb-0.5 flex items-center gap-2">
+              <div className="h-[1px] w-6 bg-blue-200" />
+              <span className="text-[10px] font-bold tracking-wider text-[#0D55CF] uppercase">
                 {selectionTagline}
               </span>
-              <div className="h-[1px] w-8 bg-blue-200" />
+              <div className="h-[1px] w-6 bg-blue-200" />
             </div>
-            <h2 className="text-3xl font-bold text-slate-900 portrait:text-2xl">
+            <h2 className="text-[clamp(16px,1.4vw,22px)] font-bold text-slate-900 leading-tight portrait:text-xl">
               {selectionHeading}
             </h2>
-            <p className="mt-2 text-sm font-medium text-slate-500">
+            <p className="text-[clamp(10px,0.75vw,12px)] font-medium text-slate-500">
               {selectionSubtitle}
             </p>
           </div>
 
-          <div className="grid flex-1 grid-cols-4 gap-4 portrait:grid-cols-2 portrait:gap-2">
+          <div className="grid flex-1 grid-cols-4 gap-3 portrait:grid-cols-2 portrait:gap-2">
             {/* Define the SVG clip path for the custom organic glass card */}
             <svg width="0" height="0" className="pointer-events-none absolute">
               <defs>
@@ -235,10 +235,10 @@ export function AboutPage({ data }: { data?: AboutUsData | null }) {
               <Link
                 key={idx}
                 href={cat.href}
-                className="group relative flex h-[220px] w-full flex-col transition-transform duration-300 hover:-translate-y-1"
+                className="group relative flex h-full max-h-[185px] min-h-[110px] w-full flex-col transition-transform duration-300 hover:-translate-y-0.5 portrait:h-[180px]"
               >
                 {/* Unified Glassmorphism Base (Main + Small Card) */}
-                <div className="absolute inset-0 drop-shadow-[0_6px_12px_rgba(0,0,0,0.08)] filter">
+                <div className="absolute inset-0 drop-shadow-[0_4px_10px_rgba(0,0,0,0.06)] filter">
                   {/* Clipped Glass Background */}
                   <div
                     className="absolute inset-0 bg-blue-100/30 backdrop-blur-[16px]"
@@ -274,25 +274,25 @@ export function AboutPage({ data }: { data?: AboutUsData | null }) {
                 </div>
 
                 {/* Product Image Container */}
-                <div className="relative z-10 mt-2 h-[125px] w-[85%] px-2">
+                <div className="relative z-10 mx-auto mt-1 h-[65%] w-[85%] px-2">
                   <Image
                     src={cat.img}
                     alt={cat.title}
                     fill
-                    className="scale-[1.08] object-contain mix-blend-multiply drop-shadow-md transition-transform duration-500 group-hover:scale-115"
+                    className="scale-[1.05] object-contain mix-blend-multiply drop-shadow-sm transition-transform duration-500 group-hover:scale-110"
                   />
                 </div>
 
                 {/* Product Title */}
-                <div className="absolute bottom-5 left-5 z-20 text-[22px] font-bold tracking-tight text-[#0E1A2B]">
+                <div className="absolute bottom-2.5 left-4 z-20 text-[clamp(15px,1.1vw,19px)] font-bold tracking-tight text-[#0E1A2B]">
                   <span className="text-[#0D55CF]">{cat.title.charAt(0)}</span>
                   {cat.title.slice(1)}
                 </div>
 
                 {/* Arrow Navigation Icon */}
-                <div className="absolute top-[75%] left-[70%] z-20 flex h-[25%] w-[30%] items-center justify-center transition-transform duration-300 group-hover:translate-x-1">
+                <div className="absolute top-[75%] left-[72%] z-20 flex h-[25%] w-[28%] items-center justify-center transition-transform duration-300 group-hover:translate-x-1">
                   <ArrowRight
-                    className="h-5 w-5 text-[#0D55CF]"
+                    className="h-4 w-4 text-[#0D55CF]"
                     strokeWidth={2.5}
                   />
                 </div>
@@ -301,24 +301,24 @@ export function AboutPage({ data }: { data?: AboutUsData | null }) {
           </div>
         </div>
 
-        {/* 5. Why Choose FishCart */}
-        <div className="mt-2 flex w-full flex-col justify-center rounded-[12px] border border-slate-200/80 bg-white/60 p-4 shadow-2xs portrait:p-3">
-          <h3 className="mb-4 text-center text-lg font-bold text-slate-800">
+        {/* ─── 3. Why Choose FishCart ─── */}
+        <div className="flex min-h-0 w-full flex-col justify-center rounded-[10px] border border-slate-200/80 bg-white/70 py-[clamp(4px,0.7svh,8px)] px-[clamp(10px,1.5vw,20px)] shadow-2xs portrait:p-3">
+          <h3 className="mb-1 text-center text-[clamp(12px,0.9vw,14px)] font-bold text-slate-800">
             {whyChooseHeading}
           </h3>
-          <div className="grid grid-cols-4 gap-4 portrait:grid-cols-2 portrait:gap-y-4">
+          <div className="grid grid-cols-4 gap-3 portrait:grid-cols-2 portrait:gap-y-3">
             {highlights.map((item, idx) => (
-              <div key={idx} className="flex items-center gap-3">
+              <div key={idx} className="flex items-center gap-2.5">
                 <div className="flex shrink-0 text-[#0D55CF]">
-                  <div className="relative flex h-11 w-11 items-center justify-center rounded-full bg-blue-50">
+                  <div className="relative flex h-8 w-8 items-center justify-center rounded-full bg-blue-50">
                     {getHighlightIcon(item.icon)}
                   </div>
                 </div>
-                <div className="flex flex-col">
-                  <h4 className="text-sm font-bold text-slate-800">
+                <div className="flex min-w-0 flex-col">
+                  <h4 className="truncate text-[clamp(11px,0.75vw,13px)] font-bold text-slate-800">
                     {item.title}
                   </h4>
-                  <p className="mt-0.5 text-xs leading-tight font-medium text-slate-500">
+                  <p className="line-clamp-1 text-[clamp(9.5px,0.65vw,11px)] leading-tight font-medium text-slate-500">
                     {item.description}
                   </p>
                 </div>
@@ -326,6 +326,7 @@ export function AboutPage({ data }: { data?: AboutUsData | null }) {
             ))}
           </div>
         </div>
+
       </div>
     </div>
   );

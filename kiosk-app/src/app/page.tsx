@@ -52,7 +52,7 @@ export default async function HomePage() {
      * This is mathematically identical to the reference design (1920×1200) and
      * scales proportionally to every shorter landscape viewport without overflow.
      */}
-      <div className="grid h-full min-h-[950px] w-full grid-rows-[minmax(0,38fr)_minmax(0,32fr)_minmax(0,16fr)_minmax(0,11fr)_minmax(0,10fr)] gap-[clamp(5px,1vw,15px)] portrait:hidden">
+      <div className="grid h-full min-h-[950px] w-full grid-rows-[minmax(0,38fr)_minmax(0,32fr)_minmax(0,16fr)_minmax(0,11fr)_auto] gap-[clamp(5px,1vw,15px)] portrait:hidden">
         {/* ═══════════════════════════════════════════════════
           ROW 1 — Hero (7 cols) + Categories (5 cols)  33%
           ═══════════════════════════════════════════════════ */}
@@ -330,7 +330,7 @@ export default async function HomePage() {
           ROW 5 — Footer         (auto)
           Gets exactly the remaining space after rows 1–4 and 4 gaps.
           ════════════════════════════════ */}
-        <div className="h-full w-full">
+        <div className="w-full shrink-0">
           <HomeFooter />
         </div>
       </div>

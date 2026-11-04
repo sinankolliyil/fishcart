@@ -280,7 +280,7 @@ export function CatalogPage({ data }: CatalogPageProps) {
   return (
     <>
       {/* ── LANDSCAPE VIEW ── */}
-      <div className="portrait:hidden grid h-full min-h-[950px] w-full grid-rows-[minmax(0,14fr)_minmax(0,7fr)_minmax(0,70fr)_minmax(0,11fr)_minmax(0,10fr)] gap-[var(--main-gap)] select-none">
+      <div className="portrait:hidden grid h-full min-h-[950px] w-full grid-rows-[minmax(0,14fr)_minmax(0,7fr)_minmax(0,68fr)_minmax(0,11fr)_auto] gap-[var(--main-gap)] select-none">
         {/* 1. Hero Section */}
         <div className="h-full w-full overflow-hidden">
           <CatalogHero
@@ -340,7 +340,7 @@ export function CatalogPage({ data }: CatalogPageProps) {
         </div>
 
         {/* 5. Reusable Footer */}
-        <div className="h-full w-full shrink-0 overflow-hidden">
+        <div className="w-full shrink-0">
           <HomeFooter />
         </div>
       </div>

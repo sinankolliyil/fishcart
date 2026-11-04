@@ -135,7 +135,7 @@ export function ProductDetailsLayout({ data }: { data: ProductDetails }) {
      * Overview Section = 60% of 84 = ~50fr.
      * Footer = 10fr.
      */
-    <div className="grid h-full min-h-0 w-full grid-rows-[minmax(0,32fr)_minmax(0,40fr)_minmax(0,10fr)] gap-[clamp(4px,0.8vw,10px)] portrait:flex portrait:h-auto portrait:flex-col">
+    <div className="grid h-full min-h-0 w-full grid-rows-[minmax(0,44fr)_minmax(0,56fr)_auto] gap-[clamp(4px,0.8vw,10px)] portrait:flex portrait:h-auto portrait:flex-col">
       {/* ═══════════════════════════════════════════════════
           ROW 1 — Hero Section (40% of content)
           Includes Hero Info, Pricing, etc.
@@ -1227,10 +1227,10 @@ export function ProductDetailsLayout({ data }: { data: ProductDetails }) {
       </div>
 
       {/* ═══════════════════════════════════════════════════
-          ROW 3 — Footer (10%)
-          Gets exactly the remaining space like the Home page.
+          ROW 3 — Footer
+          Natural auto height: never cropped under any screen ratio.
           ═══════════════════════════════════════════════════ */}
-      <div className="overflow-hidden portrait:overflow-visible">
+      <div className="shrink-0 portrait:overflow-visible">
         {/* Landscape: original footer */}
         <div className="portrait:hidden">
           <HomeFooter />

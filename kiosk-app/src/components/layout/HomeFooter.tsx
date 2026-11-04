@@ -32,26 +32,26 @@ export function HomeFooter() {
   const contactText = footer?.contactUsText || 'We are here to help you. Reach out anytime.';
 
   return (
-    <footer className="grid h-full w-full grid-cols-4 items-stretch overflow-hidden rounded-[8px] border border-slate-200 bg-white portrait:grid-cols-1 portrait:divide-y portrait:divide-slate-200 portrait:h-auto">
+    <footer className="grid w-full grid-cols-4 items-stretch rounded-[8px] border border-slate-200 bg-white portrait:grid-cols-1 portrait:divide-y portrait:divide-slate-200 portrait:h-auto min-h-[clamp(60px,8.5svh,82px)]">
       {/* Card 1: About Us */}
-      <div className="relative flex flex-col justify-center overflow-hidden p-[clamp(16px,1.8vw,28px)]">
+      <div className="relative flex flex-col justify-center overflow-hidden py-[clamp(6px,0.9svh,14px)] px-[clamp(12px,1.4vw,24px)]">
         <div className="relative z-10 flex flex-col">
-          <h4 className="mb-0.5 text-[clamp(14px,min(1vw,1.6svh),18px)] font-bold text-[#0D55CF]">
+          <h4 className="mb-0.5 text-[clamp(13px,min(0.95vw,1.4svh),17px)] font-bold text-[#0D55CF]">
             About Us
           </h4>
-          <p className="line-clamp-2 text-[clamp(11px,min(0.8vw,1.2svh),13px)] leading-[1.3] text-[#475569]">
+          <p className="line-clamp-2 text-[clamp(10.5px,min(0.75vw,1.1svh),12.5px)] leading-[1.25] text-[#475569]">
             {aboutText}
           </p>
         </div>
       </div>
 
       {/* Card 2: Our Stories */}
-      <div className="relative flex flex-col justify-center overflow-hidden p-[clamp(16px,1.8vw,28px)] before:absolute before:left-0 before:top-6 before:bottom-6 before:w-[1px] before:bg-slate-200 portrait:before:hidden">
+      <div className="relative flex flex-col justify-center overflow-hidden py-[clamp(6px,0.9svh,14px)] px-[clamp(12px,1.4vw,24px)] before:absolute before:left-0 before:top-3 before:bottom-3 before:w-[1px] before:bg-slate-200 portrait:before:hidden">
         <div className="relative z-10 flex max-w-[55%] flex-col">
-          <h4 className="mb-0.5 text-[clamp(14px,min(1vw,1.6svh),18px)] font-bold text-[#0D55CF]">
+          <h4 className="mb-0.5 text-[clamp(13px,min(0.95vw,1.4svh),17px)] font-bold text-[#0D55CF]">
             Our Stories
           </h4>
-          <p className="line-clamp-2 text-[clamp(11px,min(0.8vw,1.2svh),13px)] leading-[1.3] text-[#475569]">
+          <p className="line-clamp-2 text-[clamp(10.5px,min(0.75vw,1.1svh),12.5px)] leading-[1.25] text-[#475569]">
             {storiesText}
           </p>
         </div>
@@ -67,12 +67,12 @@ export function HomeFooter() {
       </div>
 
       {/* Card 3: Contact Us */}
-      <div className="relative flex flex-col justify-center overflow-hidden p-[clamp(16px,1.8vw,28px)] before:absolute before:left-0 before:top-6 before:bottom-6 before:w-[1px] before:bg-slate-200 portrait:before:hidden">
+      <div className="relative flex flex-col justify-center overflow-hidden py-[clamp(6px,0.9svh,14px)] px-[clamp(12px,1.4vw,24px)] before:absolute before:left-0 before:top-3 before:bottom-3 before:w-[1px] before:bg-slate-200 portrait:before:hidden">
         <div className="relative z-10 flex max-w-[60%] flex-col">
-          <h4 className="mb-0.5 text-[clamp(14px,min(1vw,1.6svh),18px)] font-bold text-[#0D55CF]">
+          <h4 className="mb-0.5 text-[clamp(13px,min(0.95vw,1.4svh),17px)] font-bold text-[#0D55CF]">
             Contact Us
           </h4>
-          <p className="line-clamp-2 text-[clamp(11px,min(0.8vw,1.2svh),13px)] leading-[1.3] text-[#475569]">
+          <p className="line-clamp-2 text-[clamp(10.5px,min(0.75vw,1.1svh),12.5px)] leading-[1.25] text-[#475569]">
             {contactText}
           </p>
         </div>
@@ -88,23 +88,23 @@ export function HomeFooter() {
       </div>
 
       {/* Card 4: Address */}
-      <div className="relative flex flex-col justify-center gap-2 overflow-hidden p-[clamp(16px,1.8vw,28px)] before:absolute before:left-0 before:top-6 before:bottom-6 before:w-[1px] before:bg-slate-200 portrait:before:hidden">
-        <div className="relative z-10 flex max-w-[75%] flex-col gap-2">
-          <div className="flex items-center gap-2">
-            <MapPin className="h-4 w-4 shrink-0 text-[#0D55CF]" />
-            <span className="truncate text-[clamp(10px,min(0.75vw,1.1svh),12px)] leading-[1.2] text-[#475569]">
+      <div className="relative flex flex-col justify-center gap-[clamp(3px,0.5svh,6px)] overflow-hidden py-[clamp(6px,0.9svh,14px)] px-[clamp(12px,1.4vw,24px)] before:absolute before:left-0 before:top-3 before:bottom-3 before:w-[1px] before:bg-slate-200 portrait:before:hidden">
+        <div className="relative z-10 flex max-w-[78%] flex-col gap-[clamp(2px,0.4svh,5px)]">
+          <div className="flex items-center gap-1.5">
+            <MapPin className="h-[clamp(11px,1.1svh,15px)] w-[clamp(11px,1.1svh,15px)] shrink-0 text-[#0D55CF]" />
+            <span className="truncate text-[clamp(9.5px,min(0.72vw,1.1svh),12px)] leading-tight text-[#475569]">
               {address}
             </span>
           </div>
-          <div className="flex items-center gap-2">
-            <PhoneCall className="h-4 w-4 shrink-0 text-[#0D55CF]" />
-            <span className="text-[clamp(10px,min(0.75vw,1.1svh),12px)] font-bold text-[#1E293B]">
+          <div className="flex items-center gap-1.5">
+            <PhoneCall className="h-[clamp(11px,1.1svh,15px)] w-[clamp(11px,1.1svh,15px)] shrink-0 text-[#0D55CF]" />
+            <span className="text-[clamp(9.5px,min(0.72vw,1.1svh),12px)] leading-tight font-bold text-[#1E293B]">
               {phone}
             </span>
           </div>
-          <div className="flex items-center gap-2">
-            <Mail className="h-4 w-4 shrink-0 text-[#0D55CF]" />
-            <span className="text-[clamp(10px,min(0.75vw,1.1svh),12px)] font-bold text-[#0D55CF]">
+          <div className="flex items-center gap-1.5">
+            <Mail className="h-[clamp(11px,1.1svh,15px)] w-[clamp(11px,1.1svh,15px)] shrink-0 text-[#0D55CF]" />
+            <span className="text-[clamp(9.5px,min(0.72vw,1.1svh),12px)] leading-tight font-bold text-[#0D55CF]">
               {email}
             </span>
           </div>

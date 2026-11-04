@@ -265,8 +265,8 @@ export function BenefitsPage({ data }: { data?: BenefitsContentData | null }) {
     'Fresh, responsibly sourced food helps preserve nutrients, improves taste, and supports a healthier lifestyle.';
 
   return (
-    <div className="grid h-full w-full grid-rows-[minmax(0,90fr)_minmax(0,10fr)] gap-[clamp(5px,1vw,15px)] bg-transparent select-none overflow-hidden portrait:flex portrait:flex-col portrait:h-auto portrait:overflow-visible">
-      <div className="grid h-full w-full grid-rows-[minmax(0,19fr)_minmax(0,8fr)_minmax(0,50fr)_minmax(0,13fr)] gap-[clamp(5px,1vw,15px)] bg-white rounded-[12px] p-[clamp(10px,1.5vw,20px)] portrait:flex portrait:flex-col portrait:h-auto">
+    <div className="flex h-full w-full flex-col gap-[clamp(6px,0.8vw,14px)] bg-transparent select-none overflow-hidden portrait:h-auto portrait:overflow-visible">
+      <div className="grid flex-1 min-h-0 w-full grid-rows-[minmax(0,19fr)_minmax(0,8fr)_minmax(0,50fr)_minmax(0,13fr)] gap-[clamp(4px,0.8vw,12px)] bg-white rounded-[12px] p-[clamp(10px,1.2vw,18px)] portrait:flex portrait:flex-col portrait:h-auto">
       {/* ─── 1. Animated Hero Banner ─── */}
       <motion.div
         layout
@@ -432,7 +432,7 @@ export function BenefitsPage({ data }: { data?: BenefitsContentData | null }) {
       </div>
 
       {/* ─── 5. Footer ─── */}
-      <div className="h-full w-full overflow-hidden portrait:overflow-visible">
+      <div className="w-full shrink-0 portrait:overflow-visible">
         {/* Landscape: original footer */}
         <div className="portrait:hidden">
           <HomeFooter />

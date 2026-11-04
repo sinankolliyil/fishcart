@@ -285,7 +285,7 @@ export default async function StoryPage() {
   const familyImage = '/assets/story_family_footer.png';
 
   return (
-    <div className="grid h-full min-h-0 w-full grid-rows-[minmax(0,35fr)_minmax(0,27fr)_minmax(0,17fr)_minmax(0,24fr)_minmax(0,12fr)] gap-2 lg:gap-3 xl:gap-[var(--main-gap)] portrait:flex portrait:flex-col portrait:h-auto portrait:gap-4 portrait:overflow-visible portrait:pb-4">
+    <div className="grid h-full min-h-0 w-full grid-rows-[minmax(0,33fr)_minmax(0,25fr)_minmax(0,16fr)_minmax(0,22fr)_auto] gap-2 lg:gap-3 xl:gap-[var(--main-gap)] portrait:flex portrait:flex-col portrait:h-auto portrait:gap-4 portrait:overflow-visible portrait:pb-4">
       {/* ROW 1 — Story Introduction */}
       <div className="grid min-h-0 grid-cols-[40fr_20fr_40fr] gap-2 overflow-hidden lg:gap-3 xl:grid-cols-[38fr_28fr_34fr] xl:gap-[var(--main-gap)] portrait:flex portrait:flex-col portrait:gap-4 portrait:overflow-visible">
         {/* Left Side: Intro */}
@@ -449,46 +449,46 @@ export default async function StoryPage() {
       </div>
 
       {/* ROW 5 — Thank You Footer */}
-      <div className="grid min-h-0 grid-cols-2 gap-[var(--main-gap)] overflow-hidden portrait:hidden">
+      <div className="grid min-h-[clamp(65px,8.5svh,84px)] grid-cols-2 gap-[var(--main-gap)] portrait:hidden">
         {/* Left Footer Card */}
-        <div className="flex h-full min-h-0 items-center justify-between overflow-hidden rounded-[8px] bg-white p-2 lg:p-3 xl:p-[clamp(8px,1vw,16px)]">
+        <div className="flex h-full min-h-0 items-center justify-between overflow-hidden rounded-[8px] bg-white py-[clamp(6px,0.8svh,12px)] px-3 xl:px-[clamp(10px,1.2vw,18px)]">
           <div className="flex min-h-0 flex-1 items-center gap-[clamp(8px,1vw,16px)] pr-2">
-            <Heart className="h-[clamp(24px,2.5vw,40px)] w-[clamp(24px,2.5vw,40px)] shrink-0 text-red-500" />
+            <Heart className="h-[clamp(22px,2vw,36px)] w-[clamp(22px,2vw,36px)] shrink-0 text-red-500" />
             <div className="flex min-h-0 flex-col">
-              <h2 className="mb-1 text-[clamp(16px,1.5vw,20px)] font-bold text-[#0D55CF]">
+              <h2 className="mb-0.5 text-[clamp(14px,1.2vw,18px)] font-bold text-[#0D55CF]">
                 {thankYouHeading}
               </h2>
-              <p className="line-clamp-2 text-[14px] leading-tight font-medium text-slate-600 lg:text-[12px] xl:text-[clamp(9px,0.8vw,11px)]">
+              <p className="line-clamp-2 text-[clamp(10px,0.8vw,12px)] leading-snug font-medium text-slate-600">
                 {thankYouText}
               </p>
             </div>
           </div>
-          <div className="relative h-[100%] min-h-0 w-[20%] shrink-0 lg:w-[28%] xl:w-[35%]">
+          <div className="relative h-full min-h-[50px] w-[20%] shrink-0 lg:w-[26%] xl:w-[32%] overflow-hidden">
             <Image
               src={familyImage}
               alt="Family"
               fill
-              className="scale-[1.9] object-contain object-center"
+              className="scale-[1.6] object-contain object-center"
             />
           </div>
         </div>
 
         {/* Right Footer Card */}
-        <div className="flex h-full min-h-0 items-center justify-between overflow-hidden rounded-[8px] bg-white p-2 lg:p-3 xl:p-[clamp(8px,1vw,16px)]">
+        <div className="flex h-full min-h-0 items-center justify-between overflow-hidden rounded-[8px] bg-white py-[clamp(6px,0.8svh,12px)] px-3 xl:px-[clamp(10px,1.2vw,18px)]">
           <div className="flex h-full flex-1 items-center justify-center pl-2">
-            <p className="whitespace-pre-line text-[14px] leading-tight font-bold italic text-slate-600 lg:text-[14px] xl:text-[clamp(11px,1.2vw,16px)]">
-              <span className="text-[clamp(20px,2.5vw,32px)] leading-none text-blue-200">
+            <p className="whitespace-pre-line text-[clamp(11px,1vw,14px)] leading-tight font-bold italic text-slate-600">
+              <span className="text-[clamp(18px,2vw,26px)] leading-none text-blue-200">
                 &quot;
               </span>{' '}
               {closingQuote}
             </p>
           </div>
-          <div className="relative h-full w-[28%] shrink-0 lg:w-[32%] xl:w-[35%]">
+          <div className="relative h-full min-h-[50px] w-[24%] shrink-0 lg:w-[28%] xl:w-[32%] overflow-hidden">
             <Image
               src={familyImage}
               alt="Boat Illustration"
               fill
-              className="scale-[1.9] object-contain object-center"
+              className="scale-[1.6] object-contain object-center"
             />
           </div>
         </div>
