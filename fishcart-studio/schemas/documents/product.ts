@@ -73,6 +73,11 @@ const ServesInput = createSuggestStringInput(
   'serves'
 );
 
+const CutOptionLabelInput = createSuggestStringInput(
+  ['Fillet', 'Steak', 'Whole', 'Curry Cut', 'Boneless', 'Bone-in', 'Chops', 'Wings', 'Drumstick', 'Cleaned & Gutted', 'Shell-on'],
+  'cutOptions[].label'
+);
+
 const BestForTitleInput = createSuggestStringInput(
   ['Curry', 'Grill', 'Pan Fry', 'Bake / Roast', 'Deep Fry', 'Steamed', 'Slow Cook / Stew', 'BBQ', 'Boil / Poach', 'Scramble & Bake'],
   'bestFor[].title'
@@ -316,6 +321,49 @@ export default defineType({
       description: 'Portion guide shown in the details — e.g. "2 - 4 People", "Family Pack"',
       components: { input: ServesInput },
       validation: (r) => r.required(),
+    }),
+
+    defineField({
+      name: 'cutOptions',
+      title: 'Available Cut Styles / Options',
+      type: 'array',
+      group: 'details',
+      description: 'List the cut options available for this product (shown in the "Cut Options" card on the details page) — e.g. "Fillet", "Steak", "Whole", "Curry Cut", "Boneless".',
+      of: [
+        {
+          type: 'object',
+          fields: [
+            defineField({
+              name: 'label',
+              title: 'Cut Style Name',
+              type: 'string',
+              description: 'e.g. Fillet, Steak, Whole, Curry Cut, Boneless, Bone-in, Chops',
+              components: { input: CutOptionLabelInput },
+              validation: (r) => r.required(),
+            }),
+            defineField({
+              name: 'id',
+              title: 'Cut ID (Optional - auto-generated if left blank)',
+              type: 'string',
+              description: 'Internal identifier — e.g. "fillet", "steak"',
+            }),
+          ],
+          preview: {
+            select: { title: 'label', subtitle: 'id' },
+            prepare({ title, subtitle }) {
+              return {
+                title: title || 'Cut Option',
+                subtitle: subtitle ? `ID: ${subtitle}` : undefined,
+              };
+            },
+          },
+        },
+      ],
+      initialValue: [
+        { label: 'Fillet', id: 'fillet' },
+        { label: 'Steak', id: 'steak' },
+        { label: 'Whole', id: 'whole' },
+      ],
     }),
 
     defineField({

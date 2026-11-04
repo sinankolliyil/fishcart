@@ -107,6 +107,10 @@ export const getProductByIdAsync = async (id: string): Promise<ProductDetails | 
         ...sanityProduct,
         id: sanityProduct.id || id,
         category: sanityProduct.category || 'fish',
+        cutOptions:
+          sanityProduct.cutOptions && sanityProduct.cutOptions.length > 0
+            ? sanityProduct.cutOptions
+            : mockDefaults.cutOptions,
       } as ProductDetails;
     }
   } catch (err) {

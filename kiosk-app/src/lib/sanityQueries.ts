@@ -46,7 +46,7 @@ export const PRODUCT_BY_SLUG_QUERY = `
       availability
     },
     cutOptions[] {
-      id,
+      "id": coalesce(id, lower(label)),
       label
     },
     serves,
