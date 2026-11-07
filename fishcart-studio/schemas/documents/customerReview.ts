@@ -7,70 +7,75 @@ export default defineType({
   fields: [
     defineField({
       name: 'approved',
-      title: 'Approved / Publish to Website',
+      title: 'Publish or Hide on Website',
       type: 'boolean',
       description:
-        'When checked, this review will be displayed publicly on the website under "All Reviews". Keep unchecked to keep it pending.',
+        'Toggle ON (Published) to show this review publicly on the website under "All Reviews". Toggle OFF (Hidden) to keep it hidden/pending.',
       initialValue: false,
     }),
     defineField({
       name: 'customerName',
       title: 'Customer Name',
       type: 'string',
-      validation: (rule) => rule.required(),
+      readOnly: true,
+      description: 'Submitted by customer on website (read-only)',
     }),
     defineField({
       name: 'rating',
       title: 'Star Rating (1 - 5)',
       type: 'number',
-      validation: (rule) => rule.required().min(1).max(5),
-      initialValue: 5,
+      readOnly: true,
+      description: 'Submitted by customer on website (read-only)',
     }),
     defineField({
       name: 'reviewText',
       title: 'Review Text',
       type: 'text',
       rows: 4,
-      validation: (rule) => rule.required(),
+      readOnly: true,
+      description: 'Submitted by customer on website (read-only)',
     }),
     defineField({
       name: 'productImage',
       title: 'Product Image (Customer Upload)',
       type: 'image',
-      description:
-        'Photo of the seafood or product ordered, uploaded by the customer or admin.',
+      description: 'Photo uploaded by the customer (read-only)',
       options: { hotspot: true },
+      readOnly: true,
     }),
     defineField({
       name: 'phone',
       title: 'Phone Number',
       type: 'string',
-      description:
-        'Customer contact phone number (either phone or email is required upon submission)',
+      readOnly: true,
+      description: 'Customer contact phone (read-only)',
     }),
     defineField({
       name: 'email',
       title: 'Email Address',
       type: 'string',
-      description:
-        'Customer contact email (either phone or email is required upon submission)',
+      readOnly: true,
+      description: 'Customer contact email (read-only)',
     }),
     defineField({
       name: 'submittedAt',
       title: 'Submission Date',
       type: 'datetime',
-      initialValue: () => new Date().toISOString(),
+      readOnly: true,
+      description: 'Submission timestamp (read-only)',
     }),
     defineField({
       name: 'likes',
       title: 'Likes Count',
       type: 'number',
+      readOnly: true,
       initialValue: 0,
     }),
     defineField({
       name: 'displayOrder',
       title: 'Display Order',
       type: 'number',
+      readOnly: true,
       initialValue: 1,
     }),
   ],
@@ -84,7 +89,7 @@ export default defineType({
     },
     prepare({ name, rating, approved, media, text }) {
       return {
-        title: `${name || 'Customer'} (${rating || 5}★) ${approved ? '✅ Approved' : '⏳ Pending'}`,
+        title: `${name || 'Customer'} (${rating || 5}★) — ${approved ? '✅ Published' : '🚫 Hidden'}`,
         subtitle: text?.slice(0, 60) || '',
         media,
       };
