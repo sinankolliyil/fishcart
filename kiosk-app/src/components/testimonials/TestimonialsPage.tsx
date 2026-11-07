@@ -16,13 +16,16 @@ import {
   MapPin,
   PhoneCall,
   Mail,
+  CheckCircle2,
+  AlertCircle,
+  MessageSquare,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { HomeFooter } from '@/components/layout/HomeFooter';
 
 // ─── Types ──────────────────────────────────────────────────────────────────
 
-type Platform = 'google' | 'all' | 'feedback';
+type Platform = 'opinion' | 'addReview' | 'google' | 'all';
 
 interface Review {
   id: number;
@@ -138,10 +141,21 @@ const googleReviews: Review[] = [
 
 // ─── Rating summaries per platform ───────────────────────────────────────────
 
-const ratingSummaries: Record<Exclude<Platform, 'feedback'>, RatingSummary> = {
+const ratingSummaries: Record<'opinion' | 'google' | 'all', RatingSummary> = {
+  opinion: {
+    average: 4.9,
+    total: 380,
+    distribution: [
+      { stars: 5, pct: 92 },
+      { stars: 4, pct: 6 },
+      { stars: 3, pct: 1 },
+      { stars: 2, pct: 1 },
+      { stars: 1, pct: 0 },
+    ],
+  },
   google: {
     average: 4.9,
-    total: 245,
+    total: 745,
     distribution: [
       { stars: 5, pct: 90 },
       { stars: 4, pct: 7 },
@@ -152,7 +166,7 @@ const ratingSummaries: Record<Exclude<Platform, 'feedback'>, RatingSummary> = {
   },
   all: {
     average: 4.9,
-    total: 245,
+    total: 1248,
     distribution: [
       { stars: 5, pct: 90 },
       { stars: 4, pct: 7 },
@@ -163,24 +177,54 @@ const ratingSummaries: Record<Exclude<Platform, 'feedback'>, RatingSummary> = {
   },
 };
 
+// ─── Customer Opinions Data ──────────────────────────────────────────────────
+
+const customerOpinions = [
+  {
+    id: 101,
+    name: 'Aisha Al-Mansoori',
+    title: 'Unmatched Freshness',
+    text: 'Every order from Fishcart arrives chilled and as fresh as if caught this morning. Keep up the high standard!',
+    date: 'Yesterday',
+    badge: 'Verified Buyer',
+  },
+  {
+    id: 102,
+    name: 'David Robinson',
+    title: 'First-class Service',
+    text: 'The packaging and on-time delivery exceeded my expectations. The salmon fillets were exceptionally clean and succulent.',
+    date: '3 days ago',
+    badge: 'Regular Customer',
+  },
+  {
+    id: 103,
+    name: 'Priya Sharma',
+    title: 'Best Seafood in the City',
+    text: 'Fishcart makes ordering seafood effortless. Their customer support team is always helpful and friendly.',
+    date: '1 week ago',
+    badge: 'Verified Buyer',
+  },
+];
+
 // ─── Platform config ─────────────────────────────────────────────────────────
 
 const PLATFORMS: {
   id: Platform;
   label: string;
   sublabel: string;
-  icon: React.ReactNode;
-  activeClass: string;
-  inactiveClass: string;
+  renderIcon: (active: boolean) => React.ReactNode;
 }[] = [
   {
-    id: 'feedback',
-    label: 'Share Opinion',
-    sublabel: "We'd love to hear",
-    icon: (
+    id: 'opinion',
+    label: 'Your Opinion',
+    sublabel: "Customers' voices",
+    renderIcon: (active: boolean) => (
       <svg
         viewBox="0 0 24 24"
-        className="h-[20px] w-[20px]"
+        className={cn(
+          'h-[20px] w-[20px]',
+          active ? 'text-white' : 'text-[#0D55CF]'
+        )}
         fill="none"
         stroke="currentColor"
         strokeWidth={2}
@@ -188,15 +232,25 @@ const PLATFORMS: {
         <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
       </svg>
     ),
-    activeClass: 'bg-[#0D55CF] text-white shadow-blue-200 shadow-sm',
-    inactiveClass: 'bg-white text-slate-700 hover:border-[#0D55CF]/40',
   },
-
+  {
+    id: 'addReview',
+    label: 'Add Review',
+    sublabel: 'Share your experience',
+    renderIcon: (active: boolean) => (
+      <Edit3
+        className={cn(
+          'h-[20px] w-[20px]',
+          active ? 'text-white' : 'text-[#0D55CF]'
+        )}
+      />
+    ),
+  },
   {
     id: 'google',
     label: 'Google Reviews',
-    sublabel: '4.9 (245 reviews)',
-    icon: (
+    sublabel: '4.9 (745 reviews)',
+    renderIcon: () => (
       <svg viewBox="0 0 24 24" className="h-[20px] w-[20px]">
         <path
           d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
@@ -216,17 +270,18 @@ const PLATFORMS: {
         />
       </svg>
     ),
-    activeClass: 'bg-white text-slate-800 border-[#4285F4] shadow-blue-100',
-    inactiveClass: 'bg-white text-slate-700 hover:border-[#4285F4]/40',
   },
   {
     id: 'all',
     label: 'All Reviews',
-    sublabel: '4.8 (469 reviews)',
-    icon: (
+    sublabel: '1,248 reviews',
+    renderIcon: (active: boolean) => (
       <svg
         viewBox="0 0 24 24"
-        className="h-[20px] w-[20px]"
+        className={cn(
+          'h-[20px] w-[20px]',
+          active ? 'text-white' : 'text-[#0D55CF]'
+        )}
         fill="none"
         stroke="currentColor"
         strokeWidth={1.8}
@@ -234,10 +289,51 @@ const PLATFORMS: {
         <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
       </svg>
     ),
-    activeClass: 'bg-white text-[#0D55CF] border-[#0D55CF] shadow-blue-100',
-    inactiveClass: 'bg-white text-slate-700 hover:border-[#0D55CF]/40',
   },
 ];
+
+// ─── Star Rating Input Component ─────────────────────────────────────────────
+
+function StarRatingInput({
+  rating,
+  setRating,
+}: {
+  rating: number;
+  setRating: (r: number) => void;
+}) {
+  const [hoverRating, setHoverRating] = useState(0);
+
+  return (
+    <div className="flex items-center gap-1.5">
+      {[1, 2, 3, 4, 5].map((star) => {
+        const isFilled = star <= (hoverRating || rating);
+        return (
+          <button
+            key={star}
+            type="button"
+            onClick={() => setRating(star)}
+            onMouseEnter={() => setHoverRating(star)}
+            onMouseLeave={() => setHoverRating(0)}
+            className="p-1 transition-transform hover:scale-110 focus:outline-none"
+            aria-label={`Rate ${star} star${star > 1 ? 's' : ''}`}
+          >
+            <Star
+              className={cn(
+                'h-[26px] w-[26px] transition-colors',
+                isFilled
+                  ? 'fill-[#F59E0B] text-[#F59E0B]'
+                  : 'fill-transparent text-slate-300 stroke-[1.6]'
+              )}
+            />
+          </button>
+        );
+      })}
+      <span className="ml-2 text-[13px] font-semibold text-slate-600">
+        {rating > 0 ? `${rating}.0 / 5.0` : 'Tap to rate'}
+      </span>
+    </div>
+  );
+}
 
 // ─── Platform icon (small, for use inside review cards) ──────────────────────
 
@@ -459,11 +555,21 @@ const CUSTOMER_PHOTOS = [
 // ─── Main Component ───────────────────────────────────────────────────────────
 
 export function TestimonialsPage() {
-  const [activePlatform, setActivePlatform] = useState<Platform>('feedback');
+  const [activePlatform, setActivePlatform] = useState<Platform>('addReview');
   const [page, setPage] = useState(0);
 
+  // Review Form States
+  const [reviewName, setReviewName] = useState('');
+  const [reviewRating, setReviewRating] = useState(0);
+  const [reviewPhoneCode, setReviewPhoneCode] = useState('+44');
+  const [reviewPhone, setReviewPhone] = useState('');
+  const [reviewContent, setReviewContent] = useState('');
+  const [formError, setFormError] = useState<string | null>(null);
+  const [submittedReview, setSubmittedReview] = useState(false);
+  const [userReviews, setUserReviews] = useState<Review[]>([]);
+
   // Compute displayed reviews
-  const allReviews = [...googleReviews];
+  const allReviews = [...userReviews, ...googleReviews];
   const sourceReviews =
     activePlatform === 'google'
       ? googleReviews
@@ -477,7 +583,7 @@ export function TestimonialsPage() {
   );
 
   const summary =
-    activePlatform === 'feedback'
+    activePlatform === 'addReview'
       ? ratingSummaries['all']
       : ratingSummaries[activePlatform];
 
@@ -489,6 +595,44 @@ export function TestimonialsPage() {
 
   const handleViewMore = () => {
     setPage((prev) => (prev + 1) % totalPages);
+  };
+
+  const handleSubmitReview = (e?: React.FormEvent) => {
+    if (e) e.preventDefault();
+    if (!reviewName.trim()) {
+      setFormError('Please enter your name.');
+      return;
+    }
+    if (!reviewRating || reviewRating < 1) {
+      setFormError('Please select a star rating.');
+      return;
+    }
+    if (!reviewContent.trim()) {
+      setFormError('Please write your review before submitting.');
+      return;
+    }
+
+    const newRev: Review = {
+      id: Date.now(),
+      platform: 'google',
+      name: reviewName.trim(),
+      avatar:
+        reviewName
+          .trim()
+          .split(' ')
+          .map((n) => n[0])
+          .join('')
+          .toUpperCase()
+          .slice(0, 2) || 'RV',
+      timeAgo: 'Just now',
+      rating: reviewRating,
+      text: reviewContent.trim(),
+      likes: 0,
+    };
+
+    setUserReviews((prev) => [newRev, ...prev]);
+    setSubmittedReview(true);
+    setFormError(null);
   };
 
   return (
@@ -525,34 +669,37 @@ export function TestimonialsPage() {
             </div>
 
             {/* Platform tabs */}
-            <div className="grid grid-cols-3 gap-[10px] portrait:flex portrait:flex-wrap portrait:gap-[8px]">
-              {PLATFORMS.map((p) => (
-                <button
-                  key={p.id}
-                  onClick={() => handlePlatformChange(p.id)}
-                  className={cn(
-                    'flex items-center gap-[9px] rounded-[12px] border-2 border-transparent px-[14px] py-[12px] transition-all duration-200',
-                    activePlatform === p.id ? p.activeClass : p.inactiveClass
-                  )}
-                >
-                  <span className="shrink-0">{p.icon}</span>
-                  <span className="flex min-w-0 flex-col items-start">
-                    <span className="truncate text-[13px] leading-tight font-bold">
-                      {p.label}
+            <div className="grid grid-cols-4 gap-[10px] portrait:flex portrait:flex-wrap portrait:gap-[8px]">
+              {PLATFORMS.map((p) => {
+                const isActive = activePlatform === p.id;
+                return (
+                  <button
+                    key={p.id}
+                    onClick={() => handlePlatformChange(p.id)}
+                    className={cn(
+                      'flex items-center gap-[10px] rounded-[14px] border px-[14px] py-[12px] transition-all duration-200 text-left',
+                      isActive
+                        ? 'bg-[#0D55CF] text-white border-[#0D55CF] shadow-md shadow-blue-500/20'
+                        : 'bg-white text-slate-800 border-slate-100 shadow-sm hover:border-[#0D55CF]/40'
+                    )}
+                  >
+                    <span className="shrink-0">{p.renderIcon(isActive)}</span>
+                    <span className="flex min-w-0 flex-col items-start">
+                      <span className="truncate text-[13px] leading-tight font-bold">
+                        {p.label}
+                      </span>
+                      <span
+                        className={cn(
+                          'text-[11px] leading-tight',
+                          isActive ? 'text-blue-100' : 'text-slate-400'
+                        )}
+                      >
+                        {p.sublabel}
+                      </span>
                     </span>
-                    <span
-                      className={cn(
-                        'text-[11px] leading-tight',
-                        activePlatform === p.id
-                          ? 'opacity-80'
-                          : 'text-slate-400'
-                      )}
-                    >
-                      {p.sublabel}
-                    </span>
-                  </span>
-                </button>
-              ))}
+                  </button>
+                );
+              })}
             </div>
           </div>
         </div>
@@ -561,96 +708,128 @@ export function TestimonialsPage() {
         <div
           className={cn(
             'grid min-h-0 flex-1 gap-[14px] overflow-hidden portrait:flex portrait:flex-col portrait:h-auto portrait:overflow-visible',
-            activePlatform === 'all' || activePlatform === 'feedback'
-              ? 'grid-cols-1'
-              : 'grid-cols-[1fr_minmax(0,280px)]'
+            activePlatform === 'google'
+              ? 'grid-cols-[1fr_minmax(0,280px)]'
+              : 'grid-cols-1'
           )}
         >
           {/* Main View Area */}
-          {activePlatform === 'feedback' ? (
-            <div className="flex h-full min-h-0 w-full flex-1 flex-col overflow-y-auto rounded-[16px] border border-slate-100 bg-white shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)]">
-              {/* Top Banner */}
-              <div className="flex items-center gap-[24px] bg-[#F8FBFF] p-[24px]">
-                {/* Left Illustration placeholder */}
-                <div className="relative flex h-[60px] w-[60px] shrink-0 items-center justify-center rounded-full border border-blue-200 bg-blue-100 shadow-inner">
-                  <MessageSquareHeart className="h-[30px] w-[30px] text-blue-600" />
+          {activePlatform === 'addReview' ? (
+            <div className="flex h-full min-h-0 w-full flex-1 flex-col overflow-y-auto rounded-[16px] border border-slate-100 bg-white p-[24px] shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)]">
+              {submittedReview ? (
+                <div className="flex h-full min-h-[360px] flex-col items-center justify-center gap-4 text-center p-8">
+                  <div className="flex h-[64px] w-[64px] items-center justify-center rounded-full bg-emerald-100 text-emerald-600 shadow-sm">
+                    <CheckCircle2 className="h-[36px] w-[36px]" />
+                  </div>
+                  <div className="flex flex-col gap-1 max-w-md">
+                    <h3 className="text-[22px] font-bold text-slate-900">
+                      Thank You, {reviewName}!
+                    </h3>
+                    <p className="text-[13px] text-slate-500">
+                      Your review has been successfully submitted. We appreciate your valuable feedback!
+                    </p>
+                  </div>
+                  <div className="flex items-center gap-3 mt-4">
+                    <button
+                      onClick={() => {
+                        setReviewName('');
+                        setReviewRating(0);
+                        setReviewPhone('');
+                        setReviewContent('');
+                        setSubmittedReview(false);
+                        setFormError(null);
+                      }}
+                      className="rounded-[10px] border border-slate-200 bg-white px-5 py-2.5 text-[13px] font-bold text-slate-700 hover:bg-slate-50 transition-colors"
+                    >
+                      Write Another Review
+                    </button>
+                    <button
+                      onClick={() => {
+                        setActivePlatform('all');
+                        setSubmittedReview(false);
+                      }}
+                      className="rounded-[10px] bg-[#0D55CF] px-5 py-2.5 text-[13px] font-bold text-white hover:bg-[#0A40A0] transition-colors"
+                    >
+                      View All Reviews
+                    </button>
+                  </div>
                 </div>
-                {/* Right Text */}
-                <div className="flex flex-col gap-1">
-                  <h2 className="text-[24px] font-bold text-slate-800">
-                    We Value Your Opinion!
-                  </h2>
-                  <p className="max-w-lg text-[14px] leading-relaxed text-slate-500">
-                    Your opinion helps us improve our products and service every
-                    day.
-                  </p>
-                </div>
-              </div>
-
-              {/* Form Fields */}
-              <div className="flex flex-col gap-[20px] p-[24px]">
-                {/* Row 1: Name and Title */}
-                <div className="grid grid-cols-2 gap-[20px] portrait:flex portrait:flex-col">
-                  <div className="flex flex-col gap-[8px]">
-                    <label className="text-[13px] font-bold text-slate-800">
-                      Your Name <span className="text-red-500">*</span>
-                    </label>
-                    <div className="relative">
-                      <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-[16px] text-slate-400">
-                        <User className="h-[18px] w-[18px]" />
-                      </div>
-                      <input
-                        type="text"
-                        placeholder="Enter your name"
-                        className="w-full rounded-[8px] border border-slate-200 py-[10px] pr-[16px] pl-[44px] text-[13px] transition-colors outline-none focus:border-[#0D55CF] focus:ring-1 focus:ring-[#0D55CF]"
-                      />
+              ) : (
+                <div className="flex flex-col gap-[20px]">
+                  {/* Header from user attachment */}
+                  <div className="flex items-start gap-[16px]">
+                    <div className="flex h-[48px] w-[48px] shrink-0 items-center justify-center rounded-full bg-[#EBF3FF] text-[#0D55CF]">
+                      <Edit3 className="h-[22px] w-[22px]" />
+                    </div>
+                    <div className="flex flex-col gap-1">
+                      <h2 className="text-[22px] font-bold text-slate-900 leading-tight">
+                        Share Your Review
+                      </h2>
+                      <p className="text-[13px] text-slate-500">
+                        Tell us about your experience with Fishcart. Your feedback helps us serve you better.
+                      </p>
                     </div>
                   </div>
 
-                  <div className="flex flex-col gap-[8px]">
-                    <label className="text-[13px] font-bold text-slate-800">
-                      Title <span className="text-red-500">*</span>
-                    </label>
-                    <div className="relative">
-                      <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-[16px] text-slate-400">
-                        <Edit3 className="h-[18px] w-[18px]" />
+                  {/* Row 1: Name and Rating */}
+                  <div className="grid grid-cols-2 gap-[24px] portrait:flex portrait:flex-col">
+                    {/* Your Name */}
+                    <div className="flex flex-col gap-[8px]">
+                      <label className="text-[13px] font-bold text-slate-800">
+                        Your Name <span className="text-red-500 font-bold">*</span>
+                      </label>
+                      <div className="relative">
+                        <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-[16px] text-slate-400">
+                          <User className="h-[18px] w-[18px]" />
+                        </div>
+                        <input
+                          type="text"
+                          value={reviewName}
+                          onChange={(e) => {
+                            setReviewName(e.target.value);
+                            if (formError) setFormError(null);
+                          }}
+                          placeholder="Enter your name"
+                          className="w-full rounded-[10px] border border-slate-200 py-[11px] pr-[16px] pl-[44px] text-[13px] transition-colors outline-none focus:border-[#0D55CF] focus:ring-1 focus:ring-[#0D55CF]"
+                        />
                       </div>
-                      <input
-                        type="text"
-                        placeholder="e.g. Great Service, Excellent Quality"
-                        className="w-full rounded-[8px] border border-slate-200 py-[10px] pr-[16px] pl-[44px] text-[13px] transition-colors outline-none focus:border-[#0D55CF] focus:ring-1 focus:ring-[#0D55CF]"
-                      />
+                    </div>
+
+                    {/* Rating */}
+                    <div className="flex flex-col gap-[8px]">
+                      <label className="text-[13px] font-bold text-slate-800">
+                        Rating <span className="text-red-500 font-bold">*</span>
+                      </label>
+                      <div className="flex h-[44px] items-center">
+                        <StarRatingInput
+                          rating={reviewRating}
+                          setRating={(r) => {
+                            setReviewRating(r);
+                            if (formError) setFormError(null);
+                          }}
+                        />
+                      </div>
                     </div>
                   </div>
-                </div>
 
-                {/* Row 2: Suggestion/Feedback */}
-                <div className="flex flex-col gap-[8px]">
-                  <label className="text-[13px] font-bold text-slate-800">
-                    Your Suggestion / Opinion{' '}
-                    <span className="text-red-500">*</span>
-                  </label>
-                  <textarea
-                    rows={3}
-                    placeholder="Write your suggestions or opinion here..."
-                    className="w-full resize-none rounded-[8px] border border-slate-200 p-[12px] text-[13px] transition-colors outline-none focus:border-[#0D55CF] focus:ring-1 focus:ring-[#0D55CF]"
-                  />
-                </div>
-
-                {/* Row 3: Phone Number and Submit */}
-                <div className="grid grid-cols-2 items-end gap-[20px] portrait:flex portrait:flex-col portrait:items-stretch">
+                  {/* Row 2: Phone Number (Optional) */}
                   <div className="flex flex-col gap-[8px]">
                     <label className="text-[13px] font-bold text-slate-800">
                       Phone Number{' '}
-                      <span className="font-normal text-slate-400">
+                      <span className="font-normal text-slate-400 text-[12px]">
                         (Optional)
                       </span>
                     </label>
                     <div className="flex gap-2">
-                      <select className="rounded-[8px] border border-slate-200 bg-white px-[16px] py-[10px] text-[13px] transition-colors outline-none focus:border-[#0D55CF] focus:ring-1 focus:ring-[#0D55CF]">
-                        <option>+44</option>
-                        <option>+91</option>
-                        <option>+1</option>
+                      <select
+                        value={reviewPhoneCode}
+                        onChange={(e) => setReviewPhoneCode(e.target.value)}
+                        className="rounded-[10px] border border-slate-200 bg-white px-[14px] py-[11px] text-[13px] transition-colors outline-none focus:border-[#0D55CF] focus:ring-1 focus:ring-[#0D55CF]"
+                      >
+                        <option value="+44">+44 (UK)</option>
+                        <option value="+91">+91 (IN)</option>
+                        <option value="+1">+1 (US)</option>
+                        <option value="+971">+971 (UAE)</option>
                       </select>
                       <div className="relative flex-1">
                         <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-[16px] text-slate-400">
@@ -658,20 +837,113 @@ export function TestimonialsPage() {
                         </div>
                         <input
                           type="tel"
-                          placeholder="Enter your phone number"
-                          className="w-full rounded-[8px] border border-slate-200 py-[10px] pr-[16px] pl-[44px] text-[13px] transition-colors outline-none focus:border-[#0D55CF] focus:ring-1 focus:ring-[#0D55CF]"
+                          value={reviewPhone}
+                          onChange={(e) => setReviewPhone(e.target.value)}
+                          placeholder="Enter your phone number (optional)"
+                          className="w-full rounded-[10px] border border-slate-200 py-[11px] pr-[16px] pl-[44px] text-[13px] transition-colors outline-none focus:border-[#0D55CF] focus:ring-1 focus:ring-[#0D55CF]"
                         />
                       </div>
                     </div>
                   </div>
 
-                  <div className="flex justify-end portrait:w-full">
-                    <button className="flex items-center justify-center gap-2 rounded-[8px] border border-transparent bg-[#0D55CF] px-[40px] py-[10px] text-[14px] font-bold text-white transition-colors hover:bg-[#0A40A0] portrait:w-full">
+                  {/* Row 3: Your Review */}
+                  <div className="flex flex-col gap-[8px]">
+                    <label className="text-[13px] font-bold text-slate-800">
+                      Your Review <span className="text-red-500 font-bold">*</span>
+                    </label>
+                    <textarea
+                      rows={4}
+                      value={reviewContent}
+                      onChange={(e) => {
+                        setReviewContent(e.target.value);
+                        if (formError) setFormError(null);
+                      }}
+                      placeholder="Write your review or experience here..."
+                      className="w-full resize-none rounded-[10px] border border-slate-200 p-[14px] text-[13px] transition-colors outline-none focus:border-[#0D55CF] focus:ring-1 focus:ring-[#0D55CF]"
+                    />
+                  </div>
+
+                  {/* Row 4: Submit Row */}
+                  <div className="flex items-center justify-between pt-2 portrait:flex-col portrait:gap-3 portrait:items-stretch">
+                    <div>
+                      {formError && (
+                        <div className="flex items-center gap-1.5 text-[12px] font-medium text-red-600 bg-red-50 border border-red-200 px-3 py-1.5 rounded-[8px]">
+                          <AlertCircle className="h-[14px] w-[14px] shrink-0" />
+                          <span>{formError}</span>
+                        </div>
+                      )}
+                    </div>
+                    <button
+                      type="button"
+                      onClick={handleSubmitReview}
+                      className="flex items-center justify-center gap-2 rounded-[10px] bg-[#0D55CF] px-[32px] py-[12px] text-[14px] font-bold text-white shadow-sm transition-all hover:bg-[#0A40A0] hover:shadow active:scale-[0.99] portrait:w-full"
+                    >
                       <Send className="h-[16px] w-[16px]" />
-                      Submit Opinion
+                      Submit Review
                     </button>
                   </div>
                 </div>
+              )}
+            </div>
+          ) : activePlatform === 'opinion' ? (
+            <div className="flex h-full min-h-0 w-full flex-1 flex-col overflow-y-auto rounded-[16px] border border-slate-100 bg-white p-[24px] shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)]">
+              {/* Opinion Top Banner */}
+              <div className="flex items-center justify-between pb-4 border-b border-slate-100">
+                <div className="flex items-center gap-3">
+                  <div className="flex h-[48px] w-[48px] shrink-0 items-center justify-center rounded-full bg-[#EBF3FF] text-[#0D55CF]">
+                    <MessageSquare className="h-[22px] w-[22px]" />
+                  </div>
+                  <div>
+                    <h2 className="text-[22px] font-bold text-slate-900 leading-tight">
+                      Customer Voices &amp; Opinions
+                    </h2>
+                    <p className="text-[13px] text-slate-500">
+                      Real feedback from our loyal seafood community.
+                    </p>
+                  </div>
+                </div>
+                <button
+                  onClick={() => handlePlatformChange('addReview')}
+                  className="flex items-center gap-2 rounded-[10px] bg-[#0D55CF] px-4 py-2 text-[13px] font-bold text-white hover:bg-[#0A40A0] transition-colors"
+                >
+                  <Edit3 className="h-[14px] w-[14px]" />
+                  Add Your Review
+                </button>
+              </div>
+
+              {/* Opinion Cards Grid */}
+              <div className="grid grid-cols-3 gap-4 pt-4 portrait:grid-cols-1">
+                {customerOpinions.map((item) => (
+                  <div
+                    key={item.id}
+                    className="flex flex-col justify-between rounded-[12px] border border-slate-100 bg-slate-50/60 p-4 shadow-sm"
+                  >
+                    <div>
+                      <div className="flex items-center justify-between mb-2">
+                        <span className="text-[11px] font-bold uppercase tracking-wider text-[#0D55CF] bg-blue-50 px-2 py-0.5 rounded-full">
+                          {item.badge}
+                        </span>
+                        <span className="text-[11px] text-slate-400">
+                          {item.date}
+                        </span>
+                      </div>
+                      <h4 className="text-[14px] font-bold text-slate-800 mb-1">
+                        &ldquo;{item.title}&rdquo;
+                      </h4>
+                      <p className="text-[12px] text-slate-600 leading-relaxed">
+                        {item.text}
+                      </p>
+                    </div>
+                    <div className="pt-3 mt-3 border-t border-slate-200/60 flex items-center gap-2">
+                      <div className="flex h-7 w-7 items-center justify-center rounded-full bg-blue-100 text-blue-700 font-bold text-[11px]">
+                        {item.name.charAt(0)}
+                      </div>
+                      <span className="text-[12px] font-semibold text-slate-700">
+                        {item.name}
+                      </span>
+                    </div>
+                  </div>
+                ))}
               </div>
             </div>
           ) : (
@@ -769,7 +1041,7 @@ export function TestimonialsPage() {
           )}
 
           {/* Right panel: We're Everywhere + Hygiene rating */}
-          {activePlatform !== 'all' && activePlatform !== 'feedback' && (
+          {activePlatform === 'google' && (
             <div className="flex min-h-0 flex-col gap-[10px] overflow-x-hidden overflow-y-auto">
               {/* We're Everywhere */}
               <div className="shrink-0 rounded-[14px] bg-white p-[16px]">
