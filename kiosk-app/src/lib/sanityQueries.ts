@@ -329,7 +329,6 @@ export const HOME_CAROUSEL_QUERY = `
       title,
       description,
       "image": coalesce(image.asset->url, imageSrc),
-      destinationUrl,
       offerText,
       active
     }
