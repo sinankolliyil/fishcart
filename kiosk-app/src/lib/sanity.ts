@@ -19,6 +19,23 @@ export const client = isSanityConfigured
     })
   : null;
 
+/**
+ * Server-only authenticated Sanity write client
+ */
+export function getWriteClient() {
+  const token = process.env.SANITY_API_WRITE_TOKEN;
+  if (!token) {
+    throw new Error('SANITY_API_WRITE_TOKEN is not configured');
+  }
+  return createClient({
+    projectId: projectId || '4uuomk8a',
+    dataset: dataset || 'production',
+    apiVersion: apiVersion || '2024-03-01',
+    token,
+    useCdn: false,
+  });
+}
+
 const imageBuilder = isSanityConfigured && client ? createImageUrlBuilder(client) : null;
 
 export function urlForImage(source: any): string {

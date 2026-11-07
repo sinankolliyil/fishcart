@@ -431,12 +431,83 @@ export const deskStructure: StructureResolver = (S) =>
             .title('Our Stories')
         ),
 
-      // 9. Testimonials
+      // 9. Testimonials & Reviews
       S.listItem()
-        .title('Testimonials')
-        .icon(Emoji('💬'))
-        .schemaType('testimonial')
-        .child(S.documentTypeList('testimonial').title('Customer Testimonials')),
+        .title('Testimonials & Reviews')
+        .icon(Emoji('⭐'))
+        .child(
+          S.list()
+            .title('Testimonials & Reviews')
+            .items([
+              // Customer Opinions (from website "Your Opinion" form)
+              S.listItem()
+                .title('Customer Opinions (Website Voices)')
+                .icon(Emoji('💭'))
+                .schemaType('customerOpinion')
+                .child(
+                  S.documentList()
+                    .title('Customer Opinions')
+                    .filter('_type == "customerOpinion"')
+                    .defaultOrdering([{ field: 'submittedAt', direction: 'desc' }])
+                ),
+
+              S.divider(),
+
+              // Website Customer Reviews
+              S.listItem()
+                .title('Website Reviews (Pending Approval)')
+                .icon(Emoji('⏳'))
+                .schemaType('customerReview')
+                .child(
+                  S.documentList()
+                    .title('Pending Customer Reviews')
+                    .filter('_type == "customerReview" && approved != true')
+                    .defaultOrdering([{ field: 'submittedAt', direction: 'desc' }])
+                ),
+
+              S.listItem()
+                .title('Website Reviews (Approved & Live)')
+                .icon(Emoji('✅'))
+                .schemaType('customerReview')
+                .child(
+                  S.documentList()
+                    .title('Approved Live Reviews')
+                    .filter('_type == "customerReview" && approved == true')
+                    .defaultOrdering([
+                      { field: 'displayOrder', direction: 'asc' },
+                      { field: 'submittedAt', direction: 'desc' },
+                    ])
+                ),
+
+              S.listItem()
+                .title('All Website Reviews')
+                .icon(Emoji('📋'))
+                .schemaType('customerReview')
+                .child(
+                  S.documentList()
+                    .title('All Customer Reviews')
+                    .filter('_type == "customerReview"')
+                    .defaultOrdering([{ field: 'submittedAt', direction: 'desc' }])
+                ),
+
+              S.divider(),
+
+              // Google Reviews
+              S.listItem()
+                .title('Google Reviews (with Screenshot Proof)')
+                .icon(Emoji('🌐'))
+                .schemaType('googleReview')
+                .child(
+                  S.documentList()
+                    .title('Google Reviews')
+                    .filter('_type == "googleReview"')
+                    .defaultOrdering([
+                      { field: 'displayOrder', direction: 'asc' },
+                      { field: '_createdAt', direction: 'desc' },
+                    ])
+                ),
+            ])
+        ),
 
       // 10. About Us
       S.listItem()

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import {
@@ -19,6 +19,10 @@ import {
   CheckCircle2,
   AlertCircle,
   MessageSquare,
+  Camera,
+  UploadCloud,
+  X,
+  Loader2,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { HomeFooter } from '@/components/layout/HomeFooter';
@@ -28,14 +32,17 @@ import { HomeFooter } from '@/components/layout/HomeFooter';
 type Platform = 'opinion' | 'addReview' | 'google' | 'all';
 
 interface Review {
-  id: number;
-  platform: 'google';
+  id: number | string;
+  platform: 'google' | 'website';
   name: string;
   avatar: string; // initials fallback
+  avatarUrl?: string | null;
   timeAgo: string;
   rating: number;
   text: string;
   likes: number;
+  productImageUrl?: string | null;
+  screenshotUrl?: string | null;
 }
 
 interface RatingSummary {
@@ -346,6 +353,20 @@ function PlatformIcon({
 }) {
   const cls = size === 'lg' ? 'h-[28px] w-[28px]' : 'h-[18px] w-[18px]';
 
+  if (platform === 'website') {
+    return (
+      <div
+        className={cn(
+          'flex shrink-0 items-center justify-center rounded-full bg-blue-50 text-[#0D55CF]',
+          size === 'lg' ? 'h-[36px] w-[36px]' : 'h-[26px] w-[26px]'
+        )}
+        title="Verified Website Review"
+      >
+        <Star className={cn('fill-[#0D55CF]', cls)} />
+      </div>
+    );
+  }
+
   return (
     <div
       className={cn(
@@ -414,25 +435,41 @@ function ReviewCard({
   return (
     <div
       className={cn(
-        'flex h-full flex-col justify-between overflow-hidden rounded-[14px] bg-white shadow-sm',
-        compact ? 'p-[12px]' : 'p-[18px]'
+        'flex h-full flex-col justify-between overflow-hidden rounded-[14px] bg-white shadow-sm border border-slate-100',
+        compact ? 'p-[12px]' : 'p-[16px]'
       )}
     >
       <div>
         {/* Header */}
         <div className="mb-[8px] flex items-start justify-between gap-2">
           <div className="flex items-center gap-[10px]">
-            <div
-              className={cn(
-                'flex shrink-0 items-center justify-center rounded-full font-bold text-white',
-                compact
-                  ? 'h-[30px] w-[30px] text-[11px]'
-                  : 'h-[36px] w-[36px] text-[12px]',
-                'bg-slate-700'
-              )}
-            >
-              {review.avatar}
-            </div>
+            {review.avatarUrl ? (
+              <div
+                className={cn(
+                  'relative shrink-0 overflow-hidden rounded-full border border-slate-200',
+                  compact ? 'h-[30px] w-[30px]' : 'h-[36px] w-[36px]'
+                )}
+              >
+                <Image
+                  src={review.avatarUrl}
+                  alt={review.name}
+                  fill
+                  className="object-cover"
+                />
+              </div>
+            ) : (
+              <div
+                className={cn(
+                  'flex shrink-0 items-center justify-center rounded-full font-bold text-white',
+                  compact
+                    ? 'h-[30px] w-[30px] text-[11px]'
+                    : 'h-[36px] w-[36px] text-[12px]',
+                  review.platform === 'website' ? 'bg-[#0D55CF]' : 'bg-slate-700'
+                )}
+              >
+                {review.avatar}
+              </div>
+            )}
             <div>
               <p
                 className={cn(
@@ -469,6 +506,38 @@ function ReviewCard({
         >
           {review.text}
         </p>
+
+        {/* Customer Product Image (if uploaded) */}
+        {review.productImageUrl && (
+          <div className="relative mt-2.5 h-28 w-full overflow-hidden rounded-[8px] border border-slate-100 bg-slate-50">
+            <Image
+              src={review.productImageUrl}
+              alt={`Delivered seafood - ${review.name}`}
+              fill
+              className="object-cover transition-transform hover:scale-105 duration-300"
+              sizes="200px"
+            />
+            <span className="absolute bottom-1.5 left-1.5 rounded-full bg-black/65 px-2 py-0.5 text-[9px] font-semibold text-white backdrop-blur-xs">
+              📸 Customer Photo
+            </span>
+          </div>
+        )}
+
+        {/* Google Review Screenshot Proof (if uploaded) */}
+        {review.screenshotUrl && (
+          <div className="relative mt-2.5 h-28 w-full overflow-hidden rounded-[8px] border border-slate-100 bg-slate-50">
+            <Image
+              src={review.screenshotUrl}
+              alt={`Google Review proof`}
+              fill
+              className="object-contain"
+              sizes="200px"
+            />
+            <span className="absolute bottom-1.5 left-1.5 rounded-full bg-[#4285F4] px-2 py-0.5 text-[9px] font-semibold text-white">
+              Google Review Proof
+            </span>
+          </div>
+        )}
       </div>
 
       {/* Footer */}
@@ -497,7 +566,7 @@ function ReviewCard({
             compact ? 'text-[10px]' : 'text-[11px]'
           )}
         >
-          Reply
+          Helpful
         </button>
       </div>
     </div>
@@ -564,15 +633,77 @@ export function TestimonialsPage() {
   const [reviewPhoneCode, setReviewPhoneCode] = useState('+44');
   const [reviewPhone, setReviewPhone] = useState('');
   const [reviewContent, setReviewContent] = useState('');
+  const [selectedImage, setSelectedImage] = useState<File | null>(null);
+  const [imagePreview, setImagePreview] = useState<string | null>(null);
+  const [isSubmittingReview, setIsSubmittingReview] = useState(false);
   const [formError, setFormError] = useState<string | null>(null);
   const [submittedReview, setSubmittedReview] = useState(false);
-  const [userReviews, setUserReviews] = useState<Review[]>([]);
 
-  // Compute displayed reviews
-  const allReviews = [...userReviews, ...googleReviews];
+  // Live Sanity Data States
+  const [liveApprovedReviews, setLiveApprovedReviews] = useState<Review[]>([]);
+  const [liveGoogleReviews, setLiveGoogleReviews] = useState<Review[]>([]);
+  const [liveOpinions, setLiveOpinions] = useState(customerOpinions);
+
+  // Opinion Form States
+  const [showOpinionForm, setShowOpinionForm] = useState(false);
+  const [opinionName, setOpinionName] = useState('');
+  const [opinionPhoneCode, setOpinionPhoneCode] = useState('+44');
+  const [opinionPhone, setOpinionPhone] = useState('');
+  const [opinionTitle, setOpinionTitle] = useState('');
+  const [opinionText, setOpinionText] = useState('');
+  const [isSubmittingOpinion, setIsSubmittingOpinion] = useState(false);
+  const [submittedOpinion, setSubmittedOpinion] = useState(false);
+  const [opinionError, setOpinionError] = useState<string | null>(null);
+
+  // Fetch live reviews and opinions from Sanity CMS
+  useEffect(() => {
+    async function loadData() {
+      try {
+        const [reviewsRes, opinionsRes] = await Promise.all([
+          fetch('/api/reviews'),
+          fetch('/api/opinions'),
+        ]);
+
+        if (reviewsRes.ok) {
+          const revData = await reviewsRes.json();
+          if (Array.isArray(revData.approvedReviews) && revData.approvedReviews.length > 0) {
+            setLiveApprovedReviews(revData.approvedReviews);
+          }
+          if (Array.isArray(revData.googleReviews) && revData.googleReviews.length > 0) {
+            setLiveGoogleReviews(revData.googleReviews);
+          }
+        }
+
+        if (opinionsRes.ok) {
+          const opData = await opinionsRes.json();
+          if (Array.isArray(opData.opinions) && opData.opinions.length > 0) {
+            const formatted = opData.opinions.map((o: any) => ({
+              id: o._id,
+              name: o.customerName,
+              title: o.title || 'Customer Opinion',
+              text: o.opinionText,
+              date: o.submittedAt ? new Date(o.submittedAt).toLocaleDateString('en-GB') : 'Recent',
+              badge: 'Verified Opinion',
+            }));
+            setLiveOpinions(formatted);
+          }
+        }
+      } catch (err) {
+        console.warn('Could not load live testimonials data:', err);
+      }
+    }
+
+    loadData();
+  }, []);
+
+  const effectiveGoogleReviews =
+    liveGoogleReviews.length > 0 ? liveGoogleReviews : googleReviews;
+
+  // Compute displayed reviews: Approved customer reviews from CMS + Google reviews
+  const allReviews = [...liveApprovedReviews, ...effectiveGoogleReviews];
   const sourceReviews =
     activePlatform === 'google'
-      ? googleReviews
+      ? effectiveGoogleReviews
       : allReviews;
 
   const PAGE_SIZE = activePlatform === 'all' ? 8 : 3;
@@ -597,7 +728,21 @@ export function TestimonialsPage() {
     setPage((prev) => (prev + 1) % totalPages);
   };
 
-  const handleSubmitReview = (e?: React.FormEvent) => {
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      if (file.size > 10 * 1024 * 1024) {
+        setFormError('Image size should be less than 10MB.');
+        return;
+      }
+      setSelectedImage(file);
+      setImagePreview(URL.createObjectURL(file));
+      if (formError) setFormError(null);
+    }
+  };
+
+  // Submit Review to Sanity (Pending admin approval)
+  const handleSubmitReview = async (e?: React.FormEvent) => {
     if (e) e.preventDefault();
     if (!reviewName.trim()) {
       setFormError('Please enter your name.');
@@ -612,27 +757,91 @@ export function TestimonialsPage() {
       return;
     }
 
-    const newRev: Review = {
-      id: Date.now(),
-      platform: 'google',
-      name: reviewName.trim(),
-      avatar:
-        reviewName
-          .trim()
-          .split(' ')
-          .map((n) => n[0])
-          .join('')
-          .toUpperCase()
-          .slice(0, 2) || 'RV',
-      timeAgo: 'Just now',
-      rating: reviewRating,
-      text: reviewContent.trim(),
-      likes: 0,
-    };
-
-    setUserReviews((prev) => [newRev, ...prev]);
-    setSubmittedReview(true);
+    setIsSubmittingReview(true);
     setFormError(null);
+
+    try {
+      const formData = new FormData();
+      formData.append('customerName', reviewName.trim());
+      formData.append('rating', String(reviewRating));
+      formData.append('reviewText', reviewContent.trim());
+      if (reviewPhone.trim()) {
+        formData.append('phone', `${reviewPhoneCode} ${reviewPhone.trim()}`);
+      }
+      if (selectedImage) {
+        formData.append('productImage', selectedImage);
+      }
+
+      const res = await fetch('/api/reviews', {
+        method: 'POST',
+        body: formData,
+      });
+
+      const data = await res.json();
+      if (!res.ok) {
+        throw new Error(data.error || 'Failed to submit review');
+      }
+
+      setSubmittedReview(true);
+    } catch (err: any) {
+      console.error('Error submitting review:', err);
+      setFormError(err.message || 'Error submitting review. Please try again.');
+    } finally {
+      setIsSubmittingReview(false);
+    }
+  };
+
+  // Submit Opinion to Sanity
+  const handleSubmitOpinion = async (e?: React.FormEvent) => {
+    if (e) e.preventDefault();
+    if (!opinionName.trim()) {
+      setOpinionError('Please enter your name.');
+      return;
+    }
+    if (!opinionText.trim()) {
+      setOpinionError('Please enter your opinion/feedback.');
+      return;
+    }
+
+    setIsSubmittingOpinion(true);
+    setOpinionError(null);
+
+    try {
+      const res = await fetch('/api/opinions', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          customerName: opinionName.trim(),
+          phone: opinionPhone.trim() ? `${opinionPhoneCode} ${opinionPhone.trim()}` : '',
+          title: opinionTitle.trim(),
+          opinionText: opinionText.trim(),
+        }),
+      });
+
+      const data = await res.json();
+      if (!res.ok) {
+        throw new Error(data.error || 'Failed to submit opinion');
+      }
+
+      setSubmittedOpinion(true);
+      // Add immediately to local opinions list
+      setLiveOpinions((prev) => [
+        {
+          id: Date.now(),
+          name: opinionName.trim(),
+          title: opinionTitle.trim() || 'Customer Opinion',
+          text: opinionText.trim(),
+          date: 'Just now',
+          badge: 'Verified Opinion',
+        },
+        ...prev,
+      ]);
+    } catch (err: any) {
+      console.error('Error submitting opinion:', err);
+      setOpinionError(err.message || 'Error submitting opinion. Please try again.');
+    } finally {
+      setIsSubmittingOpinion(false);
+    }
   };
 
   return (
@@ -721,12 +930,12 @@ export function TestimonialsPage() {
                   <div className="flex h-[64px] w-[64px] items-center justify-center rounded-full bg-emerald-100 text-emerald-600 shadow-sm">
                     <CheckCircle2 className="h-[36px] w-[36px]" />
                   </div>
-                  <div className="flex flex-col gap-1 max-w-md">
+                  <div className="flex flex-col gap-1.5 max-w-md">
                     <h3 className="text-[22px] font-bold text-slate-900">
                       Thank You, {reviewName}!
                     </h3>
-                    <p className="text-[13px] text-slate-500">
-                      Your review has been successfully submitted. We appreciate your valuable feedback!
+                    <p className="text-[13px] text-slate-600 leading-relaxed">
+                      Your review{selectedImage ? ' and product photo have' : ' has'} been submitted to our CMS. It will be verified by our team and published to the website shortly!
                     </p>
                   </div>
                   <div className="flex items-center gap-3 mt-4">
@@ -736,6 +945,8 @@ export function TestimonialsPage() {
                         setReviewRating(0);
                         setReviewPhone('');
                         setReviewContent('');
+                        setSelectedImage(null);
+                        setImagePreview(null);
                         setSubmittedReview(false);
                         setFormError(null);
                       }}
@@ -846,7 +1057,66 @@ export function TestimonialsPage() {
                     </div>
                   </div>
 
-                  {/* Row 3: Your Review */}
+                  {/* Row 3: Product Photo Upload (Customer Photo) */}
+                  <div className="flex flex-col gap-[8px]">
+                    <label className="text-[13px] font-bold text-slate-800">
+                      Product Photo{' '}
+                      <span className="font-normal text-slate-400 text-[12px]">
+                        (Optional - Show how your seafood or meat looked!)
+                      </span>
+                    </label>
+                    {imagePreview ? (
+                      <div className="relative flex items-center gap-3 rounded-[10px] border border-slate-200 bg-slate-50 p-2.5">
+                        <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-[8px] border border-slate-200">
+                          <Image
+                            src={imagePreview}
+                            alt="Product preview"
+                            fill
+                            className="object-cover"
+                          />
+                        </div>
+                        <div className="flex flex-1 flex-col min-w-0">
+                          <span className="text-[12px] font-semibold text-slate-800 truncate">
+                            {selectedImage?.name}
+                          </span>
+                          <span className="text-[10px] text-slate-500">
+                            {(selectedImage ? selectedImage.size / (1024 * 1024) : 0).toFixed(2)} MB • Ready to upload
+                          </span>
+                        </div>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setSelectedImage(null);
+                            setImagePreview(null);
+                          }}
+                          className="rounded-full bg-slate-200 p-1.5 text-slate-600 hover:bg-red-100 hover:text-red-600 transition-colors"
+                          title="Remove photo"
+                        >
+                          <X className="h-4 w-4" />
+                        </button>
+                      </div>
+                    ) : (
+                      <label className="flex cursor-pointer flex-col items-center justify-center rounded-[10px] border-2 border-dashed border-slate-200 bg-slate-50/60 p-4 transition-colors hover:border-[#0D55CF]/50 hover:bg-blue-50/30">
+                        <div className="flex items-center gap-2 text-slate-600">
+                          <Camera className="h-[20px] w-[20px] text-[#0D55CF]" />
+                          <span className="text-[13px] font-semibold text-slate-700">
+                            Click to upload photo of your product
+                          </span>
+                        </div>
+                        <span className="mt-1 text-[11px] text-slate-400">
+                          Show other customers how your fish looked (PNG, JPG, WEBP up to 10MB)
+                        </span>
+                        <input
+                          type="file"
+                          accept="image/*"
+                          onChange={handleImageChange}
+                          className="hidden"
+                        />
+                      </label>
+                    )}
+                  </div>
+
+                  {/* Row 4: Your Review */}
                   <div className="flex flex-col gap-[8px]">
                     <label className="text-[13px] font-bold text-slate-800">
                       Your Review <span className="text-red-500 font-bold">*</span>
@@ -863,7 +1133,7 @@ export function TestimonialsPage() {
                     />
                   </div>
 
-                  {/* Row 4: Submit Row */}
+                  {/* Row 5: Submit Row */}
                   <div className="flex items-center justify-between pt-2 portrait:flex-col portrait:gap-3 portrait:items-stretch">
                     <div>
                       {formError && (
@@ -875,11 +1145,24 @@ export function TestimonialsPage() {
                     </div>
                     <button
                       type="button"
+                      disabled={isSubmittingReview}
                       onClick={handleSubmitReview}
-                      className="flex items-center justify-center gap-2 rounded-[10px] bg-[#0D55CF] px-[32px] py-[12px] text-[14px] font-bold text-white shadow-sm transition-all hover:bg-[#0A40A0] hover:shadow active:scale-[0.99] portrait:w-full"
+                      className={cn(
+                        'flex items-center justify-center gap-2 rounded-[10px] bg-[#0D55CF] px-[32px] py-[12px] text-[14px] font-bold text-white shadow-sm transition-all hover:bg-[#0A40A0] hover:shadow active:scale-[0.99] portrait:w-full',
+                        isSubmittingReview && 'opacity-70 cursor-not-allowed'
+                      )}
                     >
-                      <Send className="h-[16px] w-[16px]" />
-                      Submit Review
+                      {isSubmittingReview ? (
+                        <>
+                          <Loader2 className="h-[16px] w-[16px] animate-spin" />
+                          Submitting Review...
+                        </>
+                      ) : (
+                        <>
+                          <Send className="h-[16px] w-[16px]" />
+                          Submit Review
+                        </>
+                      )}
                     </button>
                   </div>
                 </div>
@@ -898,22 +1181,170 @@ export function TestimonialsPage() {
                       Customer Voices &amp; Opinions
                     </h2>
                     <p className="text-[13px] text-slate-500">
-                      Real feedback from our loyal seafood community.
+                      Real feedback from our loyal seafood community sent to our team.
                     </p>
                   </div>
                 </div>
-                <button
-                  onClick={() => handlePlatformChange('addReview')}
-                  className="flex items-center gap-2 rounded-[10px] bg-[#0D55CF] px-4 py-2 text-[13px] font-bold text-white hover:bg-[#0A40A0] transition-colors"
-                >
-                  <Edit3 className="h-[14px] w-[14px]" />
-                  Add Your Review
-                </button>
+                <div className="flex items-center gap-2">
+                  <button
+                    onClick={() => setShowOpinionForm(!showOpinionForm)}
+                    className="flex items-center gap-1.5 rounded-[10px] border border-[#0D55CF] bg-blue-50 px-3.5 py-2 text-[12px] font-bold text-[#0D55CF] hover:bg-blue-100 transition-colors"
+                  >
+                    <Edit3 className="h-[14px] w-[14px]" />
+                    {showOpinionForm ? 'Hide Opinion Form' : 'Send an Opinion'}
+                  </button>
+                  <button
+                    onClick={() => handlePlatformChange('addReview')}
+                    className="flex items-center gap-2 rounded-[10px] bg-[#0D55CF] px-4 py-2 text-[13px] font-bold text-white hover:bg-[#0A40A0] transition-colors"
+                  >
+                    <Star className="h-[14px] w-[14px]" />
+                    Add Full Review
+                  </button>
+                </div>
               </div>
+
+              {/* Direct Opinion Submission Form (Send to CMS) */}
+              {showOpinionForm && (
+                <div className="mt-4 rounded-[12px] border border-blue-200 bg-[#F8FBFF] p-5 shadow-xs">
+                  {submittedOpinion ? (
+                    <div className="flex items-center gap-3 text-emerald-700">
+                      <CheckCircle2 className="h-6 w-6 shrink-0" />
+                      <div>
+                        <h4 className="font-bold text-[14px]">Thank You for Your Feedback!</h4>
+                        <p className="text-[12px] text-slate-600">
+                          Your opinion has been received in our CMS and is visible to our management team.
+                        </p>
+                      </div>
+                      <button
+                        onClick={() => {
+                          setSubmittedOpinion(false);
+                          setOpinionName('');
+                          setOpinionPhone('');
+                          setOpinionTitle('');
+                          setOpinionText('');
+                        }}
+                        className="ml-auto text-[11px] font-bold text-[#0D55CF] underline"
+                      >
+                        Send another opinion
+                      </button>
+                    </div>
+                  ) : (
+                    <div className="flex flex-col gap-3">
+                      <div className="flex items-center justify-between">
+                        <h4 className="text-[15px] font-bold text-[#0D55CF]">
+                          Send Your Opinion Directly to CMS
+                        </h4>
+                        <span className="text-[11px] text-slate-400">
+                          Visible to store management
+                        </span>
+                      </div>
+
+                      <div className="grid grid-cols-2 gap-3 portrait:grid-cols-1">
+                        <div>
+                          <label className="text-[11px] font-bold text-slate-700">
+                            Your Name <span className="text-red-500">*</span>
+                          </label>
+                          <input
+                            type="text"
+                            value={opinionName}
+                            onChange={(e) => {
+                              setOpinionName(e.target.value);
+                              if (opinionError) setOpinionError(null);
+                            }}
+                            placeholder="Enter your name"
+                            className="mt-1 w-full rounded-[8px] border border-slate-200 bg-white px-3 py-2 text-[12px] outline-none focus:border-[#0D55CF]"
+                          />
+                        </div>
+                        <div>
+                          <label className="text-[11px] font-bold text-slate-700">
+                            Phone Number <span className="font-normal text-slate-400">(Optional)</span>
+                          </label>
+                          <div className="mt-1 flex gap-1.5">
+                            <select
+                              value={opinionPhoneCode}
+                              onChange={(e) => setOpinionPhoneCode(e.target.value)}
+                              className="rounded-[8px] border border-slate-200 bg-white px-2 py-2 text-[12px] outline-none"
+                            >
+                              <option value="+44">+44</option>
+                              <option value="+91">+91</option>
+                              <option value="+1">+1</option>
+                              <option value="+971">+971</option>
+                            </select>
+                            <input
+                              type="tel"
+                              value={opinionPhone}
+                              onChange={(e) => setOpinionPhone(e.target.value)}
+                              placeholder="Phone number"
+                              className="w-full flex-1 rounded-[8px] border border-slate-200 bg-white px-3 py-2 text-[12px] outline-none focus:border-[#0D55CF]"
+                            />
+                          </div>
+                        </div>
+                      </div>
+
+                      <div>
+                        <label className="text-[11px] font-bold text-slate-700">
+                          Subject / Topic <span className="font-normal text-slate-400">(Optional)</span>
+                        </label>
+                        <input
+                          type="text"
+                          value={opinionTitle}
+                          onChange={(e) => setOpinionTitle(e.target.value)}
+                          placeholder="e.g. Delivery experience, packaging, product freshness"
+                          className="mt-1 w-full rounded-[8px] border border-slate-200 bg-white px-3 py-2 text-[12px] outline-none focus:border-[#0D55CF]"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="text-[11px] font-bold text-slate-700">
+                          Your Opinion / Suggestion <span className="text-red-500">*</span>
+                        </label>
+                        <textarea
+                          rows={2}
+                          value={opinionText}
+                          onChange={(e) => {
+                            setOpinionText(e.target.value);
+                            if (opinionError) setOpinionError(null);
+                          }}
+                          placeholder="Tell us what you like or what we can improve..."
+                          className="mt-1 w-full resize-none rounded-[8px] border border-slate-200 bg-white p-2.5 text-[12px] outline-none focus:border-[#0D55CF]"
+                        />
+                      </div>
+
+                      <div className="flex items-center justify-between pt-1">
+                        <div>
+                          {opinionError && (
+                            <span className="text-[11px] font-medium text-red-600">
+                              {opinionError}
+                            </span>
+                          )}
+                        </div>
+                        <button
+                          type="button"
+                          disabled={isSubmittingOpinion}
+                          onClick={handleSubmitOpinion}
+                          className="flex items-center gap-1.5 rounded-[8px] bg-[#0D55CF] px-4 py-2 text-[12px] font-bold text-white hover:bg-[#0A40A0] transition-colors"
+                        >
+                          {isSubmittingOpinion ? (
+                            <>
+                              <Loader2 className="h-3.5 w-3.5 animate-spin" />
+                              Submitting...
+                            </>
+                          ) : (
+                            <>
+                              <Send className="h-3.5 w-3.5" />
+                              Submit to CMS
+                            </>
+                          )}
+                        </button>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              )}
 
               {/* Opinion Cards Grid */}
               <div className="grid grid-cols-3 gap-4 pt-4 portrait:grid-cols-1">
-                {customerOpinions.map((item) => (
+                {liveOpinions.map((item) => (
                   <div
                     key={item.id}
                     className="flex flex-col justify-between rounded-[12px] border border-slate-100 bg-slate-50/60 p-4 shadow-sm"

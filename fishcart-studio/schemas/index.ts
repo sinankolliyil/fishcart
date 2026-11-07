@@ -8,6 +8,9 @@ import benefitsContent from './documents/benefitsContent';
 import storeContact from './documents/storeContact';
 import banner from './documents/banner';
 import testimonial from './documents/testimonial';
+import customerOpinion from './documents/customerOpinion';
+import customerReview from './documents/customerReview';
+import googleReview from './documents/googleReview';
 import homeRibbon from './documents/homeRibbon';
 import topRightItemCount from './documents/topRightItemCount';
 import homeRecipes from './documents/homeRecipes';
@@ -35,6 +38,9 @@ export const schemaTypes = [
   homeFooter,
   homeSidebar,
   testimonial,
+  customerOpinion,
+  customerReview,
+  googleReview,
 
   // Content Pages (Singletons)
   story,
@@ -45,3 +51,4 @@ export const schemaTypes = [
   storeContact,
   orderSettings,
 ];
+
