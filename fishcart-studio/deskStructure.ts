@@ -441,7 +441,7 @@ export const deskStructure: StructureResolver = (S) =>
             .items([
               // Customer Opinions (from website "Your Opinion" form)
               S.listItem()
-                .title('Customer Opinions (Website Voices)')
+                .title('Customer Opinions')
                 .icon(Emoji('💭'))
                 .schemaType('customerOpinion')
                 .child(
@@ -494,7 +494,7 @@ export const deskStructure: StructureResolver = (S) =>
 
               // Google Reviews
               S.listItem()
-                .title('Google Reviews (with Screenshot Proof)')
+                .title('Google Reviews')
                 .icon(Emoji('🌐'))
                 .schemaType('googleReview')
                 .child(
