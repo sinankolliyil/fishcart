@@ -89,7 +89,14 @@ export default function WishlistPage() {
             >
               Farm Chicken
             </Link>
+            <Link
+              href="/eggs"
+              className="rounded-xl border border-slate-200 bg-white px-5 py-2.5 text-xs font-bold text-slate-700 shadow-xs transition-colors hover:bg-slate-50 active:scale-95"
+            >
+              Farm Eggs
+            </Link>
           </div>
+
         </div>
       ) : (
         /* Wishlist Grid */

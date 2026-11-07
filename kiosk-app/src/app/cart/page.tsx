@@ -134,7 +134,7 @@ export default function CartPage() {
           </div>
           <h2 className="mb-2 text-xl font-bold text-slate-900">Your cart is empty</h2>
           <p className="mb-6 max-w-md text-sm text-slate-500">
-            Looks like you haven&apos;t added any fresh seafood or meats yet. Browse our daily fresh catches
+            Looks like you haven&apos;t added any fresh seafood, meats, or farm eggs yet. Browse our daily fresh catches
             and farm-fresh specials!
           </p>
           <div className="flex flex-wrap items-center justify-center gap-2.5">
@@ -155,6 +155,12 @@ export default function CartPage() {
               className="rounded-xl border border-slate-200 bg-white px-5 py-2.5 text-xs font-bold text-slate-700 shadow-xs transition-colors hover:bg-slate-50 active:scale-95"
             >
               Farm Chicken
+            </Link>
+            <Link
+              href="/eggs"
+              className="rounded-xl border border-slate-200 bg-white px-5 py-2.5 text-xs font-bold text-slate-700 shadow-xs transition-colors hover:bg-slate-50 active:scale-95"
+            >
+              Farm Eggs
             </Link>
           </div>
         </div>
