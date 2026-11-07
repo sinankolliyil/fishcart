@@ -52,6 +52,22 @@ interface RatingSummary {
 
 // ─── Review Data ─────────────────────────────────────────────────────────────
 
+// ─── Input Validation Helpers ────────────────────────────────────────────────
+
+function isValidPhone(phone: string): boolean {
+  const trimmed = phone.trim();
+  if (!trimmed) return false;
+  // Disallow any letters
+  if (/[a-zA-Z]/.test(trimmed)) return false;
+  // Must have between 7 and 15 digits
+  const digits = trimmed.replace(/\D/g, '');
+  return digits.length >= 7 && digits.length <= 15;
+}
+
+function isValidEmail(email: string): boolean {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim());
+}
+
 // ─── Google SVG & Avatar helpers ─────────────────────────────────────────────
 
 function GoogleGIcon({ className = 'h-5 w-5' }: { className?: string }) {
@@ -670,24 +686,32 @@ export function TestimonialsPage() {
   // Submit Review to Sanity (Pending admin approval)
   const handleSubmitReview = async (e?: React.FormEvent) => {
     if (e) e.preventDefault();
-    if (!reviewName.trim()) {
-      setFormError('Please enter your name.');
+    if (!reviewName.trim() || reviewName.trim().length < 2) {
+      setFormError('Please enter your full name (at least 2 characters).');
       return;
     }
     if (!reviewRating || reviewRating < 1) {
-      setFormError('Please select a star rating.');
+      setFormError('Please select a star rating (1 to 5 stars).');
       return;
     }
-    if (!reviewPhone.trim() && !reviewEmail.trim()) {
-      setFormError('Please provide either your phone number or your email address.');
+
+    const hasPhone = Boolean(reviewPhone.trim());
+    const hasEmail = Boolean(reviewEmail.trim());
+
+    if (!hasPhone && !hasEmail) {
+      setFormError('Contact details required: Please provide either your phone number or your email address.');
       return;
     }
-    if (reviewEmail.trim() && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(reviewEmail.trim())) {
-      setFormError('Please enter a valid email address.');
+    if (hasPhone && !isValidPhone(reviewPhone)) {
+      setFormError('Please enter a valid phone number with 7 to 15 digits (numbers only, no letters).');
       return;
     }
-    if (!reviewContent.trim()) {
-      setFormError('Please write your review before submitting.');
+    if (hasEmail && !isValidEmail(reviewEmail)) {
+      setFormError('Please enter a valid email address (e.g. name@example.com).');
+      return;
+    }
+    if (!reviewContent.trim() || reviewContent.trim().length < 5) {
+      setFormError('Please write your review (at least 5 characters).');
       return;
     }
 
@@ -731,20 +755,28 @@ export function TestimonialsPage() {
   // Submit Opinion to Sanity
   const handleSubmitOpinion = async (e?: React.FormEvent) => {
     if (e) e.preventDefault();
-    if (!opinionName.trim()) {
-      setOpinionError('Please enter your name.');
+    if (!opinionName.trim() || opinionName.trim().length < 2) {
+      setOpinionError('Please enter your name (at least 2 characters).');
       return;
     }
-    if (!opinionText.trim()) {
-      setOpinionError('Please write your suggestions or opinion.');
+    if (!opinionText.trim() || opinionText.trim().length < 5) {
+      setOpinionError('Please write your suggestions or opinion (at least 5 characters).');
       return;
     }
-    if (!opinionPhone.trim() && !opinionEmail.trim()) {
-      setOpinionError('Please provide either your phone number or email address.');
+
+    const hasPhone = Boolean(opinionPhone.trim());
+    const hasEmail = Boolean(opinionEmail.trim());
+
+    if (!hasPhone && !hasEmail) {
+      setOpinionError('Contact details required: Please provide either a phone number or an email address.');
       return;
     }
-    if (opinionEmail.trim() && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(opinionEmail.trim())) {
-      setOpinionError('Please enter a valid email address.');
+    if (hasPhone && !isValidPhone(opinionPhone)) {
+      setOpinionError('Please enter a valid phone number with 7 to 15 digits (numbers only, no letters).');
+      return;
+    }
+    if (hasEmail && !isValidEmail(opinionEmail)) {
+      setOpinionError('Please enter a valid email address (e.g. name@example.com).');
       return;
     }
 
@@ -759,7 +791,7 @@ export function TestimonialsPage() {
           customerName: opinionName.trim(),
           phone: opinionPhone.trim() ? `${opinionPhoneCode} ${opinionPhone.trim()}` : '',
           email: opinionEmail.trim(),
-          title: opinionTitle.trim(),
+          title: 'Customer Opinion',
           opinionText: opinionText.trim(),
         }),
       });
@@ -775,7 +807,7 @@ export function TestimonialsPage() {
         {
           id: Date.now(),
           name: opinionName.trim(),
-          title: opinionTitle.trim() || 'Customer Opinion',
+          title: 'Customer Opinion',
           text: opinionText.trim(),
           date: 'Just now',
           badge: 'Verified Opinion',
@@ -789,6 +821,7 @@ export function TestimonialsPage() {
       setIsSubmittingOpinion(false);
     }
   };
+
 
   return (
     <div className="grid h-full min-h-0 w-full grid-rows-[minmax(0,1fr)_auto] gap-[var(--main-gap)] overflow-hidden portrait:flex portrait:flex-col portrait:h-auto portrait:overflow-visible portrait:pb-4">
@@ -974,12 +1007,16 @@ export function TestimonialsPage() {
                         </span>
                       </label>
                       <span className="text-[11px] font-medium">
-                        {reviewPhone.trim() && reviewEmail.trim() ? (
-                          <span className="text-emerald-600 font-semibold">✓ Both provided</span>
-                        ) : reviewPhone.trim() ? (
-                          <span className="text-emerald-600 font-semibold">✓ Phone provided (Email optional)</span>
-                        ) : reviewEmail.trim() ? (
-                          <span className="text-emerald-600 font-semibold">✓ Email provided (Phone optional)</span>
+                        {isValidPhone(reviewPhone) && isValidEmail(reviewEmail) ? (
+                          <span className="text-emerald-600 font-semibold">✓ Both provided &amp; valid</span>
+                        ) : isValidPhone(reviewPhone) ? (
+                          <span className="text-emerald-600 font-semibold">✓ Phone valid (Email optional)</span>
+                        ) : isValidEmail(reviewEmail) ? (
+                          <span className="text-emerald-600 font-semibold">✓ Email valid (Phone optional)</span>
+                        ) : reviewPhone.trim() && !isValidPhone(reviewPhone) ? (
+                          <span className="text-red-500 font-semibold">Invalid phone (digits only)</span>
+                        ) : reviewEmail.trim() && !isValidEmail(reviewEmail) ? (
+                          <span className="text-red-500 font-semibold">Invalid email format</span>
                         ) : (
                           <span className="text-amber-600 font-medium">Please enter at least one *</span>
                         )}
@@ -993,8 +1030,10 @@ export function TestimonialsPage() {
                           <span className="text-[12px] font-semibold text-slate-700">
                             Phone Number {!reviewEmail.trim() && <span className="text-red-500 font-bold">*</span>}
                           </span>
-                          {reviewPhone.trim() ? (
-                            <span className="text-[11px] text-emerald-600 font-medium">Provided</span>
+                          {isValidPhone(reviewPhone) ? (
+                            <span className="text-[11px] text-emerald-600 font-medium">✓ Valid</span>
+                          ) : reviewPhone.trim() ? (
+                            <span className="text-[11px] text-red-500 font-medium">Invalid (digits only)</span>
                           ) : !reviewEmail.trim() ? (
                             <span className="text-[11px] text-amber-600">Required if no email</span>
                           ) : (
@@ -1036,8 +1075,10 @@ export function TestimonialsPage() {
                           <span className="text-[12px] font-semibold text-slate-700">
                             Email Address {!reviewPhone.trim() && <span className="text-red-500 font-bold">*</span>}
                           </span>
-                          {reviewEmail.trim() ? (
-                            <span className="text-[11px] text-emerald-600 font-medium">Provided</span>
+                          {isValidEmail(reviewEmail) ? (
+                            <span className="text-[11px] text-emerald-600 font-medium">✓ Valid</span>
+                          ) : reviewEmail.trim() ? (
+                            <span className="text-[11px] text-red-500 font-medium">Invalid email</span>
                           ) : !reviewPhone.trim() ? (
                             <span className="text-[11px] text-amber-600">Required if no phone</span>
                           ) : (
@@ -1282,12 +1323,16 @@ export function TestimonialsPage() {
                         </span>
                       </label>
                       <span className="text-[11px] font-medium">
-                        {opinionPhone.trim() && opinionEmail.trim() ? (
-                          <span className="text-emerald-600 font-semibold">✓ Both provided</span>
-                        ) : opinionPhone.trim() ? (
-                          <span className="text-emerald-600 font-semibold">✓ Phone provided (Email optional)</span>
-                        ) : opinionEmail.trim() ? (
-                          <span className="text-emerald-600 font-semibold">✓ Email provided (Phone optional)</span>
+                        {isValidPhone(opinionPhone) && isValidEmail(opinionEmail) ? (
+                          <span className="text-emerald-600 font-semibold">✓ Both provided &amp; valid</span>
+                        ) : isValidPhone(opinionPhone) ? (
+                          <span className="text-emerald-600 font-semibold">✓ Phone valid (Email optional)</span>
+                        ) : isValidEmail(opinionEmail) ? (
+                          <span className="text-emerald-600 font-semibold">✓ Email valid (Phone optional)</span>
+                        ) : opinionPhone.trim() && !isValidPhone(opinionPhone) ? (
+                          <span className="text-red-500 font-semibold">Invalid phone (digits only)</span>
+                        ) : opinionEmail.trim() && !isValidEmail(opinionEmail) ? (
+                          <span className="text-red-500 font-semibold">Invalid email format</span>
                         ) : (
                           <span className="text-amber-600 font-medium">Please enter at least one *</span>
                         )}
@@ -1301,8 +1346,10 @@ export function TestimonialsPage() {
                           <span className="text-[12px] font-semibold text-slate-700">
                             Phone Number {!opinionEmail.trim() && <span className="text-red-500 font-bold">*</span>}
                           </span>
-                          {opinionPhone.trim() ? (
-                            <span className="text-[11px] text-emerald-600 font-medium">Provided</span>
+                          {isValidPhone(opinionPhone) ? (
+                            <span className="text-[11px] text-emerald-600 font-medium">✓ Valid</span>
+                          ) : opinionPhone.trim() ? (
+                            <span className="text-[11px] text-red-500 font-medium">Invalid (digits only)</span>
                           ) : !opinionEmail.trim() ? (
                             <span className="text-[11px] text-amber-600">Required if no email</span>
                           ) : (
@@ -1344,8 +1391,10 @@ export function TestimonialsPage() {
                           <span className="text-[12px] font-semibold text-slate-700">
                             Email Address {!opinionPhone.trim() && <span className="text-red-500 font-bold">*</span>}
                           </span>
-                          {opinionEmail.trim() ? (
-                            <span className="text-[11px] text-emerald-600 font-medium">Provided</span>
+                          {isValidEmail(opinionEmail) ? (
+                            <span className="text-[11px] text-emerald-600 font-medium">✓ Valid</span>
+                          ) : opinionEmail.trim() ? (
+                            <span className="text-[11px] text-red-500 font-medium">Invalid email</span>
                           ) : !opinionPhone.trim() ? (
                             <span className="text-[11px] text-amber-600">Required if no phone</span>
                           ) : (

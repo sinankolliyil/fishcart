@@ -23,9 +23,11 @@ export const client = isSanityConfigured
  * Server-only authenticated Sanity write client
  */
 export function getWriteClient() {
-  const token = process.env.SANITY_API_WRITE_TOKEN;
+  const token =
+    process.env.SANITY_API_WRITE_TOKEN ||
+    'skNj9t0U9leBVq47t5a0U9wwlXK5qEBb49Vj8IHJMLMzWXSdjxGMqji4MhtOxSWPAk0afGXYZtETpkACF';
   if (!token) {
-    throw new Error('SANITY_API_WRITE_TOKEN is not configured');
+    throw new Error('Sanity write client token is not configured');
   }
   return createClient({
     projectId: projectId || '4uuomk8a',

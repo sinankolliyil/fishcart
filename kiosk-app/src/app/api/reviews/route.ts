@@ -23,8 +23,30 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Valid rating between 1 and 5 is required' }, { status: 400 });
     }
 
+    const phoneClean = (phone || '').trim();
+    const emailClean = (email || '').trim();
+
+    const hasLettersInPhone = /[a-zA-Z]/.test(phoneClean);
+    const phoneDigits = phoneClean.replace(/\D/g, '');
+    const isPhoneValid = phoneClean.length > 0 && !hasLettersInPhone && phoneDigits.length >= 7 && phoneDigits.length <= 15;
+    const isEmailValid = emailClean.length > 0 && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailClean);
+
+    if (phoneClean && !isPhoneValid) {
+      return NextResponse.json(
+        { error: 'Please enter a valid phone number (digits only, 7 to 15 digits).' },
+        { status: 400 }
+      );
+    }
+
+    if (emailClean && !isEmailValid) {
+      return NextResponse.json(
+        { error: 'Please enter a valid email address (e.g. name@example.com).' },
+        { status: 400 }
+      );
+    }
+
     // Either phone or email is required
-    if (!phone.trim() && !email.trim()) {
+    if (!isPhoneValid && !isEmailValid) {
       return NextResponse.json(
         { error: 'Contact details required: Please provide either your phone number or your email address.' },
         { status: 400 }
