@@ -735,10 +735,6 @@ export function TestimonialsPage() {
       setOpinionError('Please enter your name.');
       return;
     }
-    if (!opinionTitle.trim()) {
-      setOpinionError('Please enter a title for your opinion.');
-      return;
-    }
     if (!opinionText.trim()) {
       setOpinionError('Please write your suggestions or opinion.');
       return;
@@ -1236,48 +1232,25 @@ export function TestimonialsPage() {
                     </div>
                   </div>
 
-                  {/* Row 1: Your Name & Title */}
-                  <div className="grid grid-cols-2 gap-[24px] portrait:flex portrait:flex-col">
-                    <div className="flex flex-col gap-[8px]">
-                      <label className="text-[13px] font-bold text-slate-800">
-                        Your Name <span className="text-red-500 font-bold">*</span>
-                      </label>
-                      <div className="relative">
-                        <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-[16px] text-slate-400">
-                          <User className="h-[18px] w-[18px]" />
-                        </div>
-                        <input
-                          type="text"
-                          value={opinionName}
-                          onChange={(e) => {
-                            setOpinionName(e.target.value);
-                            if (opinionError) setOpinionError(null);
-                          }}
-                          placeholder="Enter your name"
-                          className="w-full rounded-[10px] border border-slate-200 py-[11px] pr-[16px] pl-[44px] text-[13px] transition-colors outline-none focus:border-[#0D55CF] focus:ring-1 focus:ring-[#0D55CF]"
-                        />
+                  {/* Row 1: Your Name */}
+                  <div className="flex flex-col gap-[8px]">
+                    <label className="text-[13px] font-bold text-slate-800">
+                      Your Name <span className="text-red-500 font-bold">*</span>
+                    </label>
+                    <div className="relative">
+                      <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-[16px] text-slate-400">
+                        <User className="h-[18px] w-[18px]" />
                       </div>
-                    </div>
-
-                    <div className="flex flex-col gap-[8px]">
-                      <label className="text-[13px] font-bold text-slate-800">
-                        Title <span className="text-red-500 font-bold">*</span>
-                      </label>
-                      <div className="relative">
-                        <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-[16px] text-slate-400">
-                          <Edit3 className="h-[18px] w-[18px]" />
-                        </div>
-                        <input
-                          type="text"
-                          value={opinionTitle}
-                          onChange={(e) => {
-                            setOpinionTitle(e.target.value);
-                            if (opinionError) setOpinionError(null);
-                          }}
-                          placeholder="e.g. Great Service, Excellent Quality"
-                          className="w-full rounded-[10px] border border-slate-200 py-[11px] pr-[16px] pl-[44px] text-[13px] transition-colors outline-none focus:border-[#0D55CF] focus:ring-1 focus:ring-[#0D55CF]"
-                        />
-                      </div>
+                      <input
+                        type="text"
+                        value={opinionName}
+                        onChange={(e) => {
+                          setOpinionName(e.target.value);
+                          if (opinionError) setOpinionError(null);
+                        }}
+                        placeholder="Enter your name"
+                        className="w-full rounded-[10px] border border-slate-200 py-[11px] pr-[16px] pl-[44px] text-[13px] transition-colors outline-none focus:border-[#0D55CF] focus:ring-1 focus:ring-[#0D55CF]"
+                      />
                     </div>
                   </div>
 
