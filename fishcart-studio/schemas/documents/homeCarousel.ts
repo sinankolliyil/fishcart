@@ -13,11 +13,11 @@ export default defineType({
         {
           type: 'object',
           fields: [
+            defineField({ name: 'active', title: 'Is Slide Active', type: 'boolean', initialValue: true }),
             defineField({ name: 'title', title: 'Slide Title (e.g. "Finest Fresh Fish")', type: 'string', validation: (r) => r.required() }),
             defineField({ name: 'description', title: 'Slide Subtitle / Description', type: 'text', rows: 2, validation: (r) => r.required() }),
             defineField({ name: 'image', title: 'Slide Background Image', type: 'image', options: { hotspot: true }, validation: (r) => r.required() }),
             defineField({ name: 'offerText', title: 'Offer Badge Text (optional)', type: 'string' }),
-            defineField({ name: 'active', title: 'Is Slide Active', type: 'boolean', initialValue: true }),
           ],
           preview: {
             select: {
