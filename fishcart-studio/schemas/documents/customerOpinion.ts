@@ -48,33 +48,18 @@ export default defineType({
       readOnly: true,
       description: 'Submission timestamp (read-only)',
     }),
-    defineField({
-      name: 'status',
-      title: 'Status',
-      type: 'string',
-      options: {
-        list: [
-          { title: 'New', value: 'new' },
-          { title: 'Reviewed', value: 'reviewed' },
-          { title: 'Archived', value: 'archived' },
-        ],
-        layout: 'radio',
-      },
-      initialValue: 'new',
-    }),
   ],
   preview: {
     select: {
       name: 'customerName',
       title: 'title',
       opinion: 'opinionText',
-      status: 'status',
       date: 'submittedAt',
     },
-    prepare({ name, title, opinion, status, date }) {
+    prepare({ name, title, opinion, date }) {
       const formattedDate = date ? new Date(date).toLocaleDateString() : '';
       return {
-        title: `${name || 'Anonymous'} [${status?.toUpperCase() || 'NEW'}]`,
+        title: name || 'Anonymous Customer',
         subtitle: `${title ? `"${title}" - ` : ''}${opinion?.slice(0, 50) || ''} (${formattedDate})`,
       };
     },

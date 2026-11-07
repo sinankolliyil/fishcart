@@ -54,7 +54,6 @@ export async function POST(req: NextRequest) {
       title: title?.trim() || '',
       opinionText: opinionText.trim(),
       submittedAt: new Date().toISOString(),
-      status: 'new',
     });
 
     return NextResponse.json(
@@ -81,8 +80,7 @@ export async function GET() {
       customerName,
       title,
       opinionText,
-      submittedAt,
-      status
+      submittedAt
     }`;
     const opinions = await sanityFetch(query);
     return NextResponse.json({ opinions: opinions || [] });
