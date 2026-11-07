@@ -6,7 +6,6 @@ import Link from 'next/link';
 import {
   ChevronRight,
   Star,
-  ThumbsUp,
   ArrowRight,
   User,
   Edit3,
@@ -488,39 +487,11 @@ function ReviewCard({
           </div>
         )}
       </div>
-
-      {/* Footer */}
-      <div
-        className={cn(
-          'flex items-center gap-3',
-          compact ? 'mt-[6px]' : 'mt-[10px]'
-        )}
-      >
-        <button className="flex items-center gap-1 text-slate-400 transition-colors hover:text-[#0D55CF]">
-          <ThumbsUp
-            className={cn(compact ? 'h-[8px] w-[8px]' : 'h-[12px] w-[12px]')}
-          />
-          <span
-            className={cn(
-              'font-medium',
-              compact ? 'text-[10px]' : 'text-[11px]'
-            )}
-          >
-            {review.likes}
-          </span>
-        </button>
-        <button
-          className={cn(
-            'font-medium text-slate-400 transition-colors hover:text-slate-600',
-            compact ? 'text-[10px]' : 'text-[11px]'
-          )}
-        >
-          Helpful
-        </button>
-      </div>
     </div>
   );
 }
+
+
 
 // ─── Rating Bar ──────────────────────────────────────────────────────────────
 
