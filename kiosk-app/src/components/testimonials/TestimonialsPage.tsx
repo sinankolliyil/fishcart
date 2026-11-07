@@ -223,8 +223,8 @@ const PLATFORMS: {
 }[] = [
   {
     id: 'opinion',
-    label: 'Your Opinion',
-    sublabel: "Customers' voices",
+    label: 'Share Opinion',
+    sublabel: "We'd love to hear",
     renderIcon: (active: boolean) => (
       <svg
         viewBox="0 0 24 24"
@@ -624,7 +624,7 @@ const CUSTOMER_PHOTOS = [
 // ─── Main Component ───────────────────────────────────────────────────────────
 
 export function TestimonialsPage() {
-  const [activePlatform, setActivePlatform] = useState<Platform>('addReview');
+  const [activePlatform, setActivePlatform] = useState<Platform>('opinion');
   const [page, setPage] = useState(0);
 
   // Review Form States
@@ -646,7 +646,6 @@ export function TestimonialsPage() {
   const [liveOpinions, setLiveOpinions] = useState(customerOpinions);
 
   // Opinion Form States
-  const [showOpinionForm, setShowOpinionForm] = useState(false);
   const [opinionName, setOpinionName] = useState('');
   const [opinionPhoneCode, setOpinionPhoneCode] = useState('+44');
   const [opinionPhone, setOpinionPhone] = useState('');
@@ -811,8 +810,20 @@ export function TestimonialsPage() {
       setOpinionError('Please enter your name.');
       return;
     }
+    if (!opinionTitle.trim()) {
+      setOpinionError('Please enter a title for your opinion.');
+      return;
+    }
     if (!opinionText.trim()) {
-      setOpinionError('Please enter your opinion/feedback.');
+      setOpinionError('Please write your suggestions or opinion.');
+      return;
+    }
+    if (!opinionPhone.trim() && !opinionEmail.trim()) {
+      setOpinionError('Please provide either your phone number or email address.');
+      return;
+    }
+    if (opinionEmail.trim() && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(opinionEmail.trim())) {
+      setOpinionError('Please enter a valid email address.');
       return;
     }
 
@@ -1251,225 +1262,258 @@ export function TestimonialsPage() {
             </div>
           ) : activePlatform === 'opinion' ? (
             <div className="flex h-full min-h-0 w-full flex-1 flex-col overflow-y-auto rounded-[16px] border border-slate-100 bg-white p-[24px] shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)]">
-              {/* Opinion Top Banner */}
-              <div className="flex items-center justify-between pb-4 border-b border-slate-100">
-                <div className="flex items-center gap-3">
-                  <div className="flex h-[48px] w-[48px] shrink-0 items-center justify-center rounded-full bg-[#EBF3FF] text-[#0D55CF]">
-                    <MessageSquare className="h-[22px] w-[22px]" />
+              {submittedOpinion ? (
+                <div className="flex h-full min-h-[360px] flex-col items-center justify-center gap-4 text-center p-8">
+                  <div className="flex h-[64px] w-[64px] items-center justify-center rounded-full bg-emerald-100 text-emerald-600 shadow-sm">
+                    <CheckCircle2 className="h-[36px] w-[36px]" />
                   </div>
-                  <div>
-                    <h2 className="text-[22px] font-bold text-slate-900 leading-tight">
-                      Customer Voices &amp; Opinions
-                    </h2>
-                    <p className="text-[13px] text-slate-500">
-                      Real feedback from our loyal seafood community sent to our team.
+                  <div className="flex flex-col gap-1.5 max-w-md">
+                    <h3 className="text-[22px] font-bold text-slate-900">
+                      Thank You, {opinionName}!
+                    </h3>
+                    <p className="text-[13px] text-slate-600 leading-relaxed">
+                      Your opinion has been received in our CMS and sent directly to our team. We appreciate your valuable feedback!
                     </p>
                   </div>
+                  <div className="flex items-center gap-3 mt-4">
+                    <button
+                      onClick={() => {
+                        setOpinionName('');
+                        setOpinionTitle('');
+                        setOpinionText('');
+                        setOpinionPhone('');
+                        setOpinionEmail('');
+                        setSubmittedOpinion(false);
+                        setOpinionError(null);
+                      }}
+                      className="rounded-[10px] border border-slate-200 bg-white px-5 py-2.5 text-[13px] font-bold text-slate-700 hover:bg-slate-50 transition-colors"
+                    >
+                      Send Another Opinion
+                    </button>
+                    <button
+                      onClick={() => {
+                        setActivePlatform('all');
+                        setSubmittedOpinion(false);
+                      }}
+                      className="rounded-[10px] bg-[#0D55CF] px-5 py-2.5 text-[13px] font-bold text-white hover:bg-[#0A40A0] transition-colors"
+                    >
+                      View All Reviews
+                    </button>
+                  </div>
                 </div>
-                <div className="flex items-center gap-2">
-                  <button
-                    onClick={() => setShowOpinionForm(!showOpinionForm)}
-                    className="flex items-center gap-1.5 rounded-[10px] border border-[#0D55CF] bg-blue-50 px-3.5 py-2 text-[12px] font-bold text-[#0D55CF] hover:bg-blue-100 transition-colors"
-                  >
-                    <Edit3 className="h-[14px] w-[14px]" />
-                    {showOpinionForm ? 'Hide Opinion Form' : 'Send an Opinion'}
-                  </button>
-                  <button
-                    onClick={() => handlePlatformChange('addReview')}
-                    className="flex items-center gap-2 rounded-[10px] bg-[#0D55CF] px-4 py-2 text-[13px] font-bold text-white hover:bg-[#0A40A0] transition-colors"
-                  >
-                    <Star className="h-[14px] w-[14px]" />
-                    Add Full Review
-                  </button>
-                </div>
-              </div>
-
-              {/* Direct Opinion Submission Form (Send to CMS) */}
-              {showOpinionForm && (
-                <div className="mt-4 rounded-[12px] border border-blue-200 bg-[#F8FBFF] p-5 shadow-xs">
-                  {submittedOpinion ? (
-                    <div className="flex items-center gap-3 text-emerald-700">
-                      <CheckCircle2 className="h-6 w-6 shrink-0" />
-                      <div>
-                        <h4 className="font-bold text-[14px]">Thank You for Your Feedback!</h4>
-                        <p className="text-[12px] text-slate-600">
-                          Your opinion has been received in our CMS and is visible to our management team.
-                        </p>
-                      </div>
-                      <button
-                        onClick={() => {
-                          setSubmittedOpinion(false);
-                          setOpinionName('');
-                          setOpinionPhone('');
-                          setOpinionEmail('');
-                          setOpinionTitle('');
-                          setOpinionText('');
-                        }}
-                        className="ml-auto text-[11px] font-bold text-[#0D55CF] underline"
-                      >
-                        Send another opinion
-                      </button>
+              ) : (
+                <div className="flex flex-col gap-[20px]">
+                  {/* Top Header from 2nd image */}
+                  <div className="flex items-start gap-[16px]">
+                    <div className="flex h-[48px] w-[48px] shrink-0 items-center justify-center rounded-full bg-[#EBF3FF] text-[#0D55CF]">
+                      <MessageSquareHeart className="h-[24px] w-[24px]" />
                     </div>
-                  ) : (
-                    <div className="flex flex-col gap-3">
-                      <div className="flex items-center justify-between">
-                        <h4 className="text-[15px] font-bold text-[#0D55CF]">
-                          Send Your Opinion Directly to CMS
-                        </h4>
-                        <span className="text-[11px] text-slate-400">
-                          Visible to store management
-                        </span>
-                      </div>
+                    <div className="flex flex-col gap-1">
+                      <h2 className="text-[22px] font-bold text-slate-900 leading-tight">
+                        We Value Your Opinion!
+                      </h2>
+                      <p className="text-[13px] text-slate-500">
+                        Your opinion helps us improve our products and service every day.
+                      </p>
+                    </div>
+                  </div>
 
-                      <div className="grid grid-cols-3 gap-3 portrait:grid-cols-1">
-                        <div>
-                          <label className="text-[11px] font-bold text-slate-700">
-                            Your Name <span className="text-red-500">*</span>
-                          </label>
-                          <input
-                            type="text"
-                            value={opinionName}
-                            onChange={(e) => {
-                              setOpinionName(e.target.value);
-                              if (opinionError) setOpinionError(null);
-                            }}
-                            placeholder="Enter your name"
-                            className="mt-1 w-full rounded-[8px] border border-slate-200 bg-white px-3 py-2 text-[12px] outline-none focus:border-[#0D55CF]"
-                          />
+                  {/* Row 1: Your Name & Title */}
+                  <div className="grid grid-cols-2 gap-[24px] portrait:flex portrait:flex-col">
+                    <div className="flex flex-col gap-[8px]">
+                      <label className="text-[13px] font-bold text-slate-800">
+                        Your Name <span className="text-red-500 font-bold">*</span>
+                      </label>
+                      <div className="relative">
+                        <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-[16px] text-slate-400">
+                          <User className="h-[18px] w-[18px]" />
                         </div>
-                        <div>
-                          <label className="text-[11px] font-bold text-slate-700">
-                            Phone Number <span className="font-normal text-slate-400">(Optional)</span>
-                          </label>
-                          <div className="mt-1 flex gap-1.5">
-                            <select
-                              value={opinionPhoneCode}
-                              onChange={(e) => setOpinionPhoneCode(e.target.value)}
-                              className="rounded-[8px] border border-slate-200 bg-white px-2 py-2 text-[12px] outline-none"
-                            >
-                              <option value="+44">+44</option>
-                              <option value="+91">+91</option>
-                              <option value="+1">+1</option>
-                              <option value="+971">+971</option>
-                            </select>
-                            <input
-                              type="tel"
-                              value={opinionPhone}
-                              onChange={(e) => setOpinionPhone(e.target.value)}
-                              placeholder="Phone number"
-                              className="w-full flex-1 rounded-[8px] border border-slate-200 bg-white px-3 py-2 text-[12px] outline-none focus:border-[#0D55CF]"
-                            />
-                          </div>
-                        </div>
-                        <div>
-                          <label className="text-[11px] font-bold text-slate-700">
-                            Email Address <span className="font-normal text-slate-400">(Optional)</span>
-                          </label>
-                          <input
-                            type="email"
-                            value={opinionEmail}
-                            onChange={(e) => setOpinionEmail(e.target.value)}
-                            placeholder="Email address"
-                            className="mt-1 w-full rounded-[8px] border border-slate-200 bg-white px-3 py-2 text-[12px] outline-none focus:border-[#0D55CF]"
-                          />
-                        </div>
+                        <input
+                          type="text"
+                          value={opinionName}
+                          onChange={(e) => {
+                            setOpinionName(e.target.value);
+                            if (opinionError) setOpinionError(null);
+                          }}
+                          placeholder="Enter your name"
+                          className="w-full rounded-[10px] border border-slate-200 py-[11px] pr-[16px] pl-[44px] text-[13px] transition-colors outline-none focus:border-[#0D55CF] focus:ring-1 focus:ring-[#0D55CF]"
+                        />
                       </div>
+                    </div>
 
-                      <div>
-                        <label className="text-[11px] font-bold text-slate-700">
-                          Subject / Topic <span className="font-normal text-slate-400">(Optional)</span>
-                        </label>
+                    <div className="flex flex-col gap-[8px]">
+                      <label className="text-[13px] font-bold text-slate-800">
+                        Title <span className="text-red-500 font-bold">*</span>
+                      </label>
+                      <div className="relative">
+                        <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-[16px] text-slate-400">
+                          <Edit3 className="h-[18px] w-[18px]" />
+                        </div>
                         <input
                           type="text"
                           value={opinionTitle}
-                          onChange={(e) => setOpinionTitle(e.target.value)}
-                          placeholder="e.g. Delivery experience, packaging, product freshness"
-                          className="mt-1 w-full rounded-[8px] border border-slate-200 bg-white px-3 py-2 text-[12px] outline-none focus:border-[#0D55CF]"
-                        />
-                      </div>
-
-                      <div>
-                        <label className="text-[11px] font-bold text-slate-700">
-                          Your Opinion / Suggestion <span className="text-red-500">*</span>
-                        </label>
-                        <textarea
-                          rows={2}
-                          value={opinionText}
                           onChange={(e) => {
-                            setOpinionText(e.target.value);
+                            setOpinionTitle(e.target.value);
                             if (opinionError) setOpinionError(null);
                           }}
-                          placeholder="Tell us what you like or what we can improve..."
-                          className="mt-1 w-full resize-none rounded-[8px] border border-slate-200 bg-white p-2.5 text-[12px] outline-none focus:border-[#0D55CF]"
+                          placeholder="e.g. Great Service, Excellent Quality"
+                          className="w-full rounded-[10px] border border-slate-200 py-[11px] pr-[16px] pl-[44px] text-[13px] transition-colors outline-none focus:border-[#0D55CF] focus:ring-1 focus:ring-[#0D55CF]"
                         />
                       </div>
-
-                      <div className="flex items-center justify-between pt-1">
-                        <div>
-                          {opinionError && (
-                            <span className="text-[11px] font-medium text-red-600">
-                              {opinionError}
-                            </span>
-                          )}
-                        </div>
-                        <button
-                          type="button"
-                          disabled={isSubmittingOpinion}
-                          onClick={handleSubmitOpinion}
-                          className="flex items-center gap-1.5 rounded-[8px] bg-[#0D55CF] px-4 py-2 text-[12px] font-bold text-white hover:bg-[#0A40A0] transition-colors"
-                        >
-                          {isSubmittingOpinion ? (
-                            <>
-                              <Loader2 className="h-3.5 w-3.5 animate-spin" />
-                              Submitting...
-                            </>
-                          ) : (
-                            <>
-                              <Send className="h-3.5 w-3.5" />
-                              Submit to CMS
-                            </>
-                          )}
-                        </button>
-                      </div>
-                    </div>
-                  )}
-                </div>
-              )}
-
-              {/* Opinion Cards Grid */}
-              <div className="grid grid-cols-3 gap-4 pt-4 portrait:grid-cols-1">
-                {liveOpinions.map((item) => (
-                  <div
-                    key={item.id}
-                    className="flex flex-col justify-between rounded-[12px] border border-slate-100 bg-slate-50/60 p-4 shadow-sm"
-                  >
-                    <div>
-                      <div className="flex items-center justify-between mb-2">
-                        <span className="text-[11px] font-bold uppercase tracking-wider text-[#0D55CF] bg-blue-50 px-2 py-0.5 rounded-full">
-                          {item.badge}
-                        </span>
-                        <span className="text-[11px] text-slate-400">
-                          {item.date}
-                        </span>
-                      </div>
-                      <h4 className="text-[14px] font-bold text-slate-800 mb-1">
-                        &ldquo;{item.title}&rdquo;
-                      </h4>
-                      <p className="text-[12px] text-slate-600 leading-relaxed">
-                        {item.text}
-                      </p>
-                    </div>
-                    <div className="pt-3 mt-3 border-t border-slate-200/60 flex items-center gap-2">
-                      <div className="flex h-7 w-7 items-center justify-center rounded-full bg-blue-100 text-blue-700 font-bold text-[11px]">
-                        {item.name.charAt(0)}
-                      </div>
-                      <span className="text-[12px] font-semibold text-slate-700">
-                        {item.name}
-                      </span>
                     </div>
                   </div>
-                ))}
-              </div>
+
+                  {/* Row 2: Your Suggestion / Opinion */}
+                  <div className="flex flex-col gap-[8px]">
+                    <label className="text-[13px] font-bold text-slate-800">
+                      Your Suggestion / Opinion <span className="text-red-500 font-bold">*</span>
+                    </label>
+                    <textarea
+                      rows={4}
+                      value={opinionText}
+                      onChange={(e) => {
+                        setOpinionText(e.target.value);
+                        if (opinionError) setOpinionError(null);
+                      }}
+                      placeholder="Write your suggestions or opinion here..."
+                      className="w-full resize-none rounded-[10px] border border-slate-200 p-[14px] text-[13px] transition-colors outline-none focus:border-[#0D55CF] focus:ring-1 focus:ring-[#0D55CF]"
+                    />
+                  </div>
+
+                  {/* Row 3: Contact Information (Either Phone Number or Email Address is required) */}
+                  <div className="flex flex-col gap-[8px]">
+                    <div className="flex items-center justify-between flex-wrap gap-1">
+                      <label className="text-[13px] font-bold text-slate-800 flex items-center gap-1.5">
+                        <span>Contact Information</span>
+                        <span className="text-red-500 font-bold">*</span>
+                        <span className="text-[12px] font-normal text-slate-500">
+                          (Either Phone Number or Email is required)
+                        </span>
+                      </label>
+                      <span className="text-[11px] font-medium">
+                        {opinionPhone.trim() && opinionEmail.trim() ? (
+                          <span className="text-emerald-600 font-semibold">✓ Both provided</span>
+                        ) : opinionPhone.trim() ? (
+                          <span className="text-emerald-600 font-semibold">✓ Phone provided (Email optional)</span>
+                        ) : opinionEmail.trim() ? (
+                          <span className="text-emerald-600 font-semibold">✓ Email provided (Phone optional)</span>
+                        ) : (
+                          <span className="text-amber-600 font-medium">Please enter at least one *</span>
+                        )}
+                      </span>
+                    </div>
+
+                    <div className="grid grid-cols-2 gap-[24px] portrait:flex portrait:flex-col">
+                      {/* Phone Number */}
+                      <div className="flex flex-col gap-[6px]">
+                        <div className="flex items-center justify-between">
+                          <span className="text-[12px] font-semibold text-slate-700">
+                            Phone Number {!opinionEmail.trim() && <span className="text-red-500 font-bold">*</span>}
+                          </span>
+                          {opinionPhone.trim() ? (
+                            <span className="text-[11px] text-emerald-600 font-medium">Provided</span>
+                          ) : !opinionEmail.trim() ? (
+                            <span className="text-[11px] text-amber-600">Required if no email</span>
+                          ) : (
+                            <span className="text-[11px] text-slate-400">Optional</span>
+                          )}
+                        </div>
+                        <div className="flex gap-2">
+                          <select
+                            value={opinionPhoneCode}
+                            onChange={(e) => setOpinionPhoneCode(e.target.value)}
+                            className="rounded-[10px] border border-slate-200 bg-white px-[12px] py-[11px] text-[13px] transition-colors outline-none focus:border-[#0D55CF] focus:ring-1 focus:ring-[#0D55CF]"
+                          >
+                            <option value="+44">+44 (UK)</option>
+                            <option value="+91">+91 (IN)</option>
+                            <option value="+1">+1 (US)</option>
+                            <option value="+971">+971 (UAE)</option>
+                          </select>
+                          <div className="relative flex-1">
+                            <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-[16px] text-slate-400">
+                              <Phone className="h-[18px] w-[18px]" />
+                            </div>
+                            <input
+                              type="tel"
+                              value={opinionPhone}
+                              onChange={(e) => {
+                                setOpinionPhone(e.target.value);
+                                if (opinionError) setOpinionError(null);
+                              }}
+                              placeholder="Enter your phone number"
+                              className="w-full rounded-[10px] border border-slate-200 py-[11px] pr-[16px] pl-[44px] text-[13px] transition-colors outline-none focus:border-[#0D55CF] focus:ring-1 focus:ring-[#0D55CF]"
+                            />
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Email Address */}
+                      <div className="flex flex-col gap-[6px]">
+                        <div className="flex items-center justify-between">
+                          <span className="text-[12px] font-semibold text-slate-700">
+                            Email Address {!opinionPhone.trim() && <span className="text-red-500 font-bold">*</span>}
+                          </span>
+                          {opinionEmail.trim() ? (
+                            <span className="text-[11px] text-emerald-600 font-medium">Provided</span>
+                          ) : !opinionPhone.trim() ? (
+                            <span className="text-[11px] text-amber-600">Required if no phone</span>
+                          ) : (
+                            <span className="text-[11px] text-slate-400">Optional</span>
+                          )}
+                        </div>
+                        <div className="relative">
+                          <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-[16px] text-slate-400">
+                            <Mail className="h-[18px] w-[18px]" />
+                          </div>
+                          <input
+                            type="email"
+                            value={opinionEmail}
+                            onChange={(e) => {
+                              setOpinionEmail(e.target.value);
+                              if (opinionError) setOpinionError(null);
+                            }}
+                            placeholder="Enter your email address"
+                            className="w-full rounded-[10px] border border-slate-200 py-[11px] pr-[16px] pl-[44px] text-[13px] transition-colors outline-none focus:border-[#0D55CF] focus:ring-1 focus:ring-[#0D55CF]"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Row 4: Submit Button (matching 2nd image) */}
+                  <div className="flex items-center justify-between pt-2 portrait:flex-col portrait:gap-3 portrait:items-stretch">
+                    <div>
+                      {opinionError && (
+                        <div className="flex items-center gap-1.5 text-[12px] font-medium text-red-600 bg-red-50 border border-red-200 px-3 py-1.5 rounded-[8px]">
+                          <AlertCircle className="h-[14px] w-[14px]" />
+                          <span>{opinionError}</span>
+                        </div>
+                      )}
+                    </div>
+                    <button
+                      type="button"
+                      disabled={isSubmittingOpinion}
+                      onClick={handleSubmitOpinion}
+                      className={cn(
+                        'flex items-center justify-center gap-2 rounded-[10px] bg-[#0D55CF] px-[36px] py-[12px] text-[14px] font-bold text-white shadow-sm transition-all hover:bg-[#0A40A0] hover:shadow active:scale-[0.99] portrait:w-full',
+                        isSubmittingOpinion && 'opacity-70 cursor-not-allowed'
+                      )}
+                    >
+                      {isSubmittingOpinion ? (
+                        <>
+                          <Loader2 className="h-[16px] w-[16px] animate-spin" />
+                          Submitting Opinion...
+                        </>
+                      ) : (
+                        <>
+                          <Send className="h-[16px] w-[16px]" />
+                          Submit Opinion
+                        </>
+                      )}
+                    </button>
+                  </div>
+                </div>
+              )}
             </div>
           ) : (
             <div className="flex min-h-0 flex-col gap-[10px] overflow-hidden">

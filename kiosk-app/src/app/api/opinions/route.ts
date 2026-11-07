@@ -16,6 +16,13 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Opinion text is required' }, { status: 400 });
     }
 
+    if ((!phone || !phone.trim()) && (!email || !email.trim())) {
+      return NextResponse.json(
+        { error: 'Contact detail is required: Please provide either a phone number or an email address.' },
+        { status: 400 }
+      );
+    }
+
     const writeClient = getWriteClient();
     const createdOpinion = await writeClient.create({
       _type: 'customerOpinion',
