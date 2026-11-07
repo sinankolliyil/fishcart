@@ -449,6 +449,8 @@ export const deskStructure: StructureResolver = (S) =>
                     .title('Customer Opinions')
                     .filter('_type == "customerOpinion"')
                     .defaultOrdering([{ field: 'submittedAt', direction: 'desc' }])
+                    .initialValueTemplates([])
+                    .canHandleIntent((intentName) => intentName !== 'create')
                 ),
 
               S.divider(),
@@ -463,6 +465,8 @@ export const deskStructure: StructureResolver = (S) =>
                     .title('Pending Customer Reviews')
                     .filter('_type == "customerReview" && approved != true')
                     .defaultOrdering([{ field: 'submittedAt', direction: 'desc' }])
+                    .initialValueTemplates([])
+                    .canHandleIntent((intentName) => intentName !== 'create')
                 ),
 
               S.listItem()
@@ -477,6 +481,8 @@ export const deskStructure: StructureResolver = (S) =>
                       { field: 'displayOrder', direction: 'asc' },
                       { field: 'submittedAt', direction: 'desc' },
                     ])
+                    .initialValueTemplates([])
+                    .canHandleIntent((intentName) => intentName !== 'create')
                 ),
 
               S.listItem()
@@ -488,6 +494,8 @@ export const deskStructure: StructureResolver = (S) =>
                     .title('All Customer Reviews')
                     .filter('_type == "customerReview"')
                     .defaultOrdering([{ field: 'submittedAt', direction: 'desc' }])
+                    .initialValueTemplates([])
+                    .canHandleIntent((intentName) => intentName !== 'create')
                 ),
 
               S.divider(),
@@ -505,6 +513,7 @@ export const deskStructure: StructureResolver = (S) =>
                       { field: 'displayOrder', direction: 'asc' },
                       { field: '_createdAt', direction: 'desc' },
                     ])
+                    .initialValueTemplates([S.initialValueTemplateItem('googleReview')])
                 ),
             ])
         ),

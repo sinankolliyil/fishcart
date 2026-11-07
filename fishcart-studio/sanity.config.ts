@@ -95,12 +95,14 @@ export default defineConfig({
       }
       return prev;
     },
-    // Hide singletons from the global "+" New Document button
-    newDocumentOptions: (prev, { creationContext }) => {
-      if (creationContext.type === 'global') {
-        return prev.filter((templateItem) => !SINGLETON_TYPES.has(templateItem.templateId));
-      }
-      return prev;
+    // Disallow manual creation of customer opinions and website reviews (submitted only via website), and hide singletons
+    newDocumentOptions: (prev) => {
+      const blockedTypes = ['customerOpinion', 'customerReview', ...Array.from(SINGLETON_TYPES)];
+      return prev.filter((templateItem) => {
+        const id = templateItem.templateId;
+        const schema = (templateItem as any).schemaType;
+        return !blockedTypes.includes(id) && !blockedTypes.includes(schema);
+      });
     },
   },
 });
