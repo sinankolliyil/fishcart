@@ -39,12 +39,6 @@ export default defineType({
       initialValue: '1 week ago',
     }),
     defineField({
-      name: 'likes',
-      title: 'Helpful / Likes Count',
-      type: 'number',
-      initialValue: 5,
-    }),
-    defineField({
       name: 'googleReviewScreenshot',
       title: 'Google Review Screenshot / Attached Images',
       type: 'image',

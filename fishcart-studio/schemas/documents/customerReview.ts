@@ -65,13 +65,6 @@ export default defineType({
       description: 'Submission timestamp (read-only)',
     }),
     defineField({
-      name: 'likes',
-      title: 'Likes Count',
-      type: 'number',
-      readOnly: true,
-      initialValue: 0,
-    }),
-    defineField({
       name: 'displayOrder',
       title: 'Display Order',
       type: 'number',

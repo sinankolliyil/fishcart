@@ -93,7 +93,6 @@ export async function POST(req: NextRequest) {
       approved: false, // Stays in pending until approved by CMS admin
       submittedAt: new Date().toISOString(),
       productImage: imageAssetRef,
-      likes: 0,
       displayOrder: 1,
     });
 
@@ -123,8 +122,7 @@ export async function GET() {
       rating,
       reviewText,
       productImage,
-      submittedAt,
-      likes
+      submittedAt
     }`;
 
     // 2. Fetch Google Reviews from Sanity
@@ -135,7 +133,6 @@ export async function GET() {
       rating,
       reviewText,
       reviewDate,
-      likes,
       googleReviewScreenshot
     }`;
 
@@ -159,7 +156,6 @@ export async function GET() {
         : 'Recent',
       rating: r.rating || 5,
       text: r.reviewText,
-      likes: r.likes || 0,
       productImageUrl: r.productImage ? urlForImage(r.productImage) : null,
     }));
 
@@ -177,7 +173,6 @@ export async function GET() {
       timeAgo: r.reviewDate || 'Recent',
       rating: r.rating || 5,
       text: r.reviewText,
-      likes: r.likes || 0,
       screenshotUrl: r.googleReviewScreenshot ? urlForImage(r.googleReviewScreenshot) : null,
     }));
 

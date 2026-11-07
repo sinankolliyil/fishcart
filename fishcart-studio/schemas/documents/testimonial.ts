@@ -52,12 +52,6 @@ export default defineType({
       initialValue: 'Recent',
     }),
     defineField({
-      name: 'likes',
-      title: 'Thumbs Up / Likes Count',
-      type: 'number',
-      initialValue: 5,
-    }),
-    defineField({
       name: 'visibility',
       title: 'Visible on Website',
       type: 'boolean',

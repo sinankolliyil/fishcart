@@ -39,7 +39,6 @@ interface Review {
   timeAgo: string;
   rating: number;
   text: string;
-  likes: number;
   productImageUrl?: string | null;
   screenshotUrl?: string | null;
 }
@@ -113,7 +112,6 @@ const googleReviews: Review[] = [
     timeAgo: '3 days ago',
     rating: 5,
     text: 'Excellent quality and super fresh products. Very satisfied!',
-    likes: 8,
   },
   {
     id: 'g-lekshmi-p',
@@ -123,7 +121,6 @@ const googleReviews: Review[] = [
     timeAgo: '5 days ago',
     rating: 5,
     text: 'Great service and fresh fish every time.',
-    likes: 12,
   },
   {
     id: 'g-arun-raj',
@@ -133,7 +130,6 @@ const googleReviews: Review[] = [
     timeAgo: '6 days ago',
     rating: 5,
     text: 'Wide variety and good pricing. Highly recommend Fishcart.',
-    likes: 9,
   },
 ];
 

@@ -357,7 +357,6 @@ export const TESTIMONIALS_QUERY = `
     testimonialText,
     "customerImage": customerImage.asset->url,
     timeAgo,
-    likes,
     displayOrder
   }
 `;
