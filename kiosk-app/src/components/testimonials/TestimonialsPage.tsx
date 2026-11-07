@@ -22,11 +22,11 @@ import { HomeFooter } from '@/components/layout/HomeFooter';
 
 // ─── Types ──────────────────────────────────────────────────────────────────
 
-type Platform = 'facebook' | 'instagram' | 'google' | 'all' | 'feedback';
+type Platform = 'google' | 'all' | 'feedback';
 
 interface Review {
   id: number;
-  platform: 'facebook' | 'instagram' | 'google';
+  platform: 'google';
   name: string;
   avatar: string; // initials fallback
   timeAgo: string;
@@ -42,212 +42,6 @@ interface RatingSummary {
 }
 
 // ─── Review Data ─────────────────────────────────────────────────────────────
-
-const facebookReviews: Review[] = [
-  {
-    id: 1,
-    platform: 'facebook',
-    name: 'Rohan Mehta',
-    avatar: 'RM',
-    timeAgo: '2 days ago',
-    rating: 5,
-    text: 'Absolutely fresh and tasty fish! The salmon was amazing. Great quality and hygiene.',
-    likes: 12,
-  },
-  {
-    id: 2,
-    platform: 'facebook',
-    name: 'Suresh Kumar',
-    avatar: 'SK',
-    timeAgo: '1 week ago',
-    rating: 5,
-    text: 'Mutton quality is outstanding. Perfect for weekend biryani!',
-    likes: 7,
-  },
-  {
-    id: 3,
-    platform: 'facebook',
-    name: 'Amit Sharma',
-    avatar: 'AS',
-    timeAgo: '1 week ago',
-    rating: 5,
-    text: 'Best place for fresh seafood. The staff is friendly and well knowledgeable.',
-    likes: 9,
-  },
-  {
-    id: 4,
-    platform: 'facebook',
-    name: 'Priya Nair',
-    avatar: 'PN',
-    timeAgo: '2 weeks ago',
-    rating: 4,
-    text: 'Chicken is always fresh. Delivery was on time. Will definitely order again.',
-    likes: 5,
-  },
-  {
-    id: 5,
-    platform: 'facebook',
-    name: 'Kavya Reddy',
-    avatar: 'KR',
-    timeAgo: '3 weeks ago',
-    rating: 5,
-    text: 'Eggs are top quality. The packaging is excellent. No breakage at all!',
-    likes: 11,
-  },
-  {
-    id: 6,
-    platform: 'facebook',
-    name: 'Arjun Singh',
-    avatar: 'AJ',
-    timeAgo: '1 month ago',
-    rating: 5,
-    text: 'Sea bass was perfectly fresh. Cleaned and packed neatly. Highly recommended.',
-    likes: 8,
-  },
-  {
-    id: 7,
-    platform: 'facebook',
-    name: 'Deepa Menon',
-    avatar: 'DM',
-    timeAgo: '1 month ago',
-    rating: 4,
-    text: 'Good variety of fish. The tilapia fillets were great for curry.',
-    likes: 4,
-  },
-  {
-    id: 8,
-    platform: 'facebook',
-    name: 'Ravi Pillai',
-    avatar: 'RP',
-    timeAgo: '5 weeks ago',
-    rating: 5,
-    text: 'Consistently fresh produce. I order weekly and have never been disappointed.',
-    likes: 15,
-  },
-  {
-    id: 9,
-    platform: 'facebook',
-    name: 'Meena Thomas',
-    avatar: 'MT',
-    timeAgo: '6 weeks ago',
-    rating: 5,
-    text: 'Amazing customer service. They helped me pick the right cut for my recipe.',
-    likes: 6,
-  },
-  {
-    id: 10,
-    platform: 'facebook',
-    name: 'Kiran Bose',
-    avatar: 'KB',
-    timeAgo: '2 months ago',
-    rating: 4,
-    text: 'Fresh fish with great value for money. The mackerel was delicious.',
-    likes: 3,
-  },
-  {
-    id: 11,
-    platform: 'facebook',
-    name: 'Sita Iyer',
-    avatar: 'SI',
-    timeAgo: '2 months ago',
-    rating: 5,
-    text: 'Best seafood shop in town. Always well-stocked with premium varieties.',
-    likes: 9,
-  },
-  {
-    id: 12,
-    platform: 'facebook',
-    name: 'Anil Verma',
-    avatar: 'AV',
-    timeAgo: '3 months ago',
-    rating: 5,
-    text: 'Prawns were extra large and fresh. Perfect for my prawn masala recipe.',
-    likes: 14,
-  },
-];
-
-const instagramReviews: Review[] = [
-  {
-    id: 13,
-    platform: 'instagram',
-    name: 'Divya Kapoor',
-    avatar: 'DK',
-    timeAgo: '1 day ago',
-    rating: 5,
-    text: 'Ordered salmon fillets and they were absolutely stunning! Pure freshness in every bite. 🐟✨',
-    likes: 34,
-  },
-  {
-    id: 14,
-    platform: 'instagram',
-    name: 'Neha Joshi',
-    avatar: 'NJ',
-    timeAgo: '3 days ago',
-    rating: 5,
-    text: 'FishCart never disappoints! The prawns I got were massive and so fresh. 🍤💯',
-    likes: 27,
-  },
-  {
-    id: 15,
-    platform: 'instagram',
-    name: 'Pooja Shah',
-    avatar: 'PS',
-    timeAgo: '5 days ago',
-    rating: 4,
-    text: 'Super fast delivery and perfectly packed! Chicken was fresh and clean. ❤️',
-    likes: 19,
-  },
-  {
-    id: 16,
-    platform: 'instagram',
-    name: 'Ria Gupta',
-    avatar: 'RG',
-    timeAgo: '1 week ago',
-    rating: 5,
-    text: 'The sea bass recipe I made was a hit! All thanks to the amazing quality here. 🎉',
-    likes: 41,
-  },
-  {
-    id: 17,
-    platform: 'instagram',
-    name: 'Tanya Bhatia',
-    avatar: 'TB',
-    timeAgo: '2 weeks ago',
-    rating: 5,
-    text: 'Love the variety! Got tilapia, prawns and chicken in one order. All top-notch! 🛒',
-    likes: 22,
-  },
-  {
-    id: 18,
-    platform: 'instagram',
-    name: 'Ananya Misra',
-    avatar: 'AM',
-    timeAgo: '2 weeks ago',
-    rating: 4,
-    text: 'Packaging is eco-friendly and the fish stays super fresh. Impressed! 🌿',
-    likes: 18,
-  },
-  {
-    id: 19,
-    platform: 'instagram',
-    name: 'Simran Kaur',
-    avatar: 'SK',
-    timeAgo: '3 weeks ago',
-    rating: 5,
-    text: 'My go-to for weekly fresh fish supply. Quality has never dropped! ⭐⭐⭐⭐⭐',
-    likes: 31,
-  },
-  {
-    id: 20,
-    platform: 'instagram',
-    name: 'Nisha Rawat',
-    avatar: 'NR',
-    timeAgo: '1 month ago',
-    rating: 5,
-    text: 'Tried the mutton for the first time. Tender and fresh. Will order again! 🍖',
-    likes: 16,
-  },
-];
 
 const googleReviews: Review[] = [
   {
@@ -345,28 +139,6 @@ const googleReviews: Review[] = [
 // ─── Rating summaries per platform ───────────────────────────────────────────
 
 const ratingSummaries: Record<Exclude<Platform, 'feedback'>, RatingSummary> = {
-  facebook: {
-    average: 4.8,
-    total: 126,
-    distribution: [
-      { stars: 5, pct: 85 },
-      { stars: 4, pct: 10 },
-      { stars: 3, pct: 3 },
-      { stars: 2, pct: 1 },
-      { stars: 1, pct: 1 },
-    ],
-  },
-  instagram: {
-    average: 4.7,
-    total: 98,
-    distribution: [
-      { stars: 5, pct: 78 },
-      { stars: 4, pct: 15 },
-      { stars: 3, pct: 5 },
-      { stars: 2, pct: 1 },
-      { stars: 1, pct: 1 },
-    ],
-  },
   google: {
     average: 4.9,
     total: 245,
@@ -379,14 +151,14 @@ const ratingSummaries: Record<Exclude<Platform, 'feedback'>, RatingSummary> = {
     ],
   },
   all: {
-    average: 4.8,
-    total: 469,
+    average: 4.9,
+    total: 245,
     distribution: [
-      { stars: 5, pct: 85 },
-      { stars: 4, pct: 10 },
-      { stars: 3, pct: 3 },
+      { stars: 5, pct: 90 },
+      { stars: 4, pct: 7 },
+      { stars: 3, pct: 2 },
       { stars: 2, pct: 1 },
-      { stars: 1, pct: 1 },
+      { stars: 1, pct: 0 },
     ],
   },
 };
@@ -419,39 +191,7 @@ const PLATFORMS: {
     activeClass: 'bg-[#0D55CF] text-white shadow-blue-200 shadow-sm',
     inactiveClass: 'bg-white text-slate-700 hover:border-[#0D55CF]/40',
   },
-  {
-    id: 'facebook',
-    label: 'Facebook Reviews',
-    sublabel: '4.8 (126 reviews)',
-    icon: (
-      <svg
-        viewBox="0 0 24 24"
-        className="h-[20px] w-[20px]"
-        fill="currentColor"
-      >
-        <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
-      </svg>
-    ),
-    activeClass: 'bg-[#1877F2] text-white  shadow-blue-200',
-    inactiveClass: 'bg-white text-slate-700 hover:border-[#1877F2]/40',
-  },
-  {
-    id: 'instagram',
-    label: 'Instagram Reviews',
-    sublabel: '4.7 (98 reviews)',
-    icon: (
-      <svg
-        viewBox="0 0 24 24"
-        className="h-[20px] w-[20px]"
-        fill="currentColor"
-      >
-        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
-      </svg>
-    ),
-    activeClass:
-      'bg-gradient-to-r from-[#f09433] via-[#e6683c] via-[#dc2743] via-[#cc2366] to-[#bc1888] text-white  shadow-pink-200',
-    inactiveClass: 'bg-white text-slate-700 hover:border-pink-400/40',
-  },
+
   {
     id: 'google',
     label: 'Google Reviews',
@@ -510,35 +250,6 @@ function PlatformIcon({
 }) {
   const cls = size === 'lg' ? 'h-[28px] w-[28px]' : 'h-[18px] w-[18px]';
 
-  if (platform === 'facebook') {
-    return (
-      <div
-        className={cn(
-          'flex shrink-0 items-center justify-center rounded-full bg-[#1877F2] text-white',
-          size === 'lg' ? 'h-[36px] w-[36px]' : 'h-[26px] w-[26px]'
-        )}
-      >
-        <svg viewBox="0 0 24 24" className={cls} fill="currentColor">
-          <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
-        </svg>
-      </div>
-    );
-  }
-  if (platform === 'instagram') {
-    return (
-      <div
-        className={cn(
-          'flex shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-[#f09433] via-[#dc2743] to-[#bc1888] text-white',
-          size === 'lg' ? 'h-[36px] w-[36px]' : 'h-[26px] w-[26px]'
-        )}
-      >
-        <svg viewBox="0 0 24 24" className={cls} fill="currentColor">
-          <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
-        </svg>
-      </div>
-    );
-  }
-  // google
   return (
     <div
       className={cn(
@@ -621,11 +332,7 @@ function ReviewCard({
                 compact
                   ? 'h-[30px] w-[30px] text-[11px]'
                   : 'h-[36px] w-[36px] text-[12px]',
-                review.platform === 'facebook'
-                  ? 'bg-[#1877F2]'
-                  : review.platform === 'instagram'
-                    ? 'bg-gradient-to-br from-[#f09433] to-[#bc1888]'
-                    : 'bg-slate-700'
+                'bg-slate-700'
               )}
             >
               {review.avatar}
@@ -713,13 +420,9 @@ function RatingBar({
   platform: Platform;
 }) {
   const barColor =
-    platform === 'facebook'
-      ? 'bg-[#1877F2]'
-      : platform === 'instagram'
-        ? 'bg-gradient-to-r from-[#f09433] to-[#bc1888]'
-        : platform === 'google'
-          ? 'bg-[#4285F4]'
-          : 'bg-[#0D55CF]';
+    platform === 'google'
+      ? 'bg-[#4285F4]'
+      : 'bg-[#0D55CF]';
 
   return (
     <div className="flex items-center gap-[8px]">
@@ -760,19 +463,11 @@ export function TestimonialsPage() {
   const [page, setPage] = useState(0);
 
   // Compute displayed reviews
-  const allReviews = [
-    ...facebookReviews,
-    ...instagramReviews,
-    ...googleReviews,
-  ];
+  const allReviews = [...googleReviews];
   const sourceReviews =
-    activePlatform === 'facebook'
-      ? facebookReviews
-      : activePlatform === 'instagram'
-        ? instagramReviews
-        : activePlatform === 'google'
-          ? googleReviews
-          : allReviews;
+    activePlatform === 'google'
+      ? googleReviews
+      : allReviews;
 
   const PAGE_SIZE = activePlatform === 'all' ? 8 : 3;
   const totalPages = Math.ceil(sourceReviews.length / PAGE_SIZE);
@@ -830,7 +525,7 @@ export function TestimonialsPage() {
             </div>
 
             {/* Platform tabs */}
-            <div className="grid grid-cols-5 gap-[10px] portrait:flex portrait:flex-wrap portrait:gap-[8px]">
+            <div className="grid grid-cols-3 gap-[10px] portrait:flex portrait:flex-wrap portrait:gap-[8px]">
               {PLATFORMS.map((p) => (
                 <button
                   key={p.id}
