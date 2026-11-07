@@ -10,6 +10,7 @@ export async function POST(req: NextRequest) {
     const ratingRaw = formData.get('rating') as string | null;
     const reviewText = formData.get('reviewText') as string | null;
     const phone = (formData.get('phone') as string | null) || '';
+    const email = (formData.get('email') as string | null) || '';
     const imageFile = formData.get('productImage') as File | null;
 
     if (!customerName || !customerName.trim()) {
@@ -19,6 +20,14 @@ export async function POST(req: NextRequest) {
     const rating = Number(ratingRaw);
     if (!rating || rating < 1 || rating > 5) {
       return NextResponse.json({ error: 'Valid rating between 1 and 5 is required' }, { status: 400 });
+    }
+
+    // Either phone or email is required
+    if (!phone.trim() && !email.trim()) {
+      return NextResponse.json(
+        { error: 'Contact details required: Please provide either your phone number or your email address.' },
+        { status: 400 }
+      );
     }
 
     if (!reviewText || !reviewText.trim()) {
@@ -57,6 +66,7 @@ export async function POST(req: NextRequest) {
       rating,
       reviewText: reviewText.trim(),
       phone: phone.trim(),
+      email: email.trim(),
       approved: false, // Stays in pending until approved by CMS admin
       submittedAt: new Date().toISOString(),
       productImage: imageAssetRef,

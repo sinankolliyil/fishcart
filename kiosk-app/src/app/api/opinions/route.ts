@@ -6,7 +6,7 @@ export const dynamic = 'force-dynamic';
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const { customerName, phone, title, opinionText } = body;
+    const { customerName, phone, email, title, opinionText } = body;
 
     if (!customerName || typeof customerName !== 'string' || !customerName.trim()) {
       return NextResponse.json({ error: 'Customer name is required' }, { status: 400 });
@@ -21,6 +21,7 @@ export async function POST(req: NextRequest) {
       _type: 'customerOpinion',
       customerName: customerName.trim(),
       phone: phone?.trim() || '',
+      email: email?.trim() || '',
       title: title?.trim() || '',
       opinionText: opinionText.trim(),
       submittedAt: new Date().toISOString(),

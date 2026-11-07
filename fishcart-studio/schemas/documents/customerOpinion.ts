@@ -15,7 +15,13 @@ export default defineType({
       name: 'phone',
       title: 'Phone Number',
       type: 'string',
-      description: 'Optional contact number submitted by customer',
+      description: 'Contact phone number submitted by customer',
+    }),
+    defineField({
+      name: 'email',
+      title: 'Email Address',
+      type: 'string',
+      description: 'Contact email submitted by customer',
     }),
     defineField({
       name: 'title',

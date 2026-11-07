@@ -45,7 +45,15 @@ export default defineType({
       name: 'phone',
       title: 'Phone Number',
       type: 'string',
-      description: 'Optional phone number provided with the review',
+      description:
+        'Customer contact phone number (either phone or email is required upon submission)',
+    }),
+    defineField({
+      name: 'email',
+      title: 'Email Address',
+      type: 'string',
+      description:
+        'Customer contact email (either phone or email is required upon submission)',
     }),
     defineField({
       name: 'submittedAt',
