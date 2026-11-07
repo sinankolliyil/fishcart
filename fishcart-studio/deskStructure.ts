@@ -505,15 +505,26 @@ export const deskStructure: StructureResolver = (S) =>
                 .title('Google Reviews')
                 .icon(Emoji('🌐'))
                 .schemaType('googleReview')
+                .id('googleReviews')
                 .child(
-                  S.documentList()
+                  S.documentTypeList('googleReview')
+                    .id('googleReviews')
                     .title('Google Reviews')
-                    .filter('_type == "googleReview"')
                     .defaultOrdering([
                       { field: 'displayOrder', direction: 'asc' },
                       { field: '_createdAt', direction: 'desc' },
                     ])
-                    .initialValueTemplates([S.initialValueTemplateItem('googleReview')])
+                    .child((documentId) =>
+                      S.document()
+                        .documentId(documentId)
+                        .schemaType('googleReview')
+                    )
+                    .canHandleIntent((intentName, params) => {
+                      return Boolean(
+                        (intentName === 'edit' && params.id) ||
+                        (intentName === 'create' && params.type === 'googleReview')
+                      );
+                    })
                 ),
             ])
         ),
