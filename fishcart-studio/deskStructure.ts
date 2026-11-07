@@ -457,12 +457,12 @@ export const deskStructure: StructureResolver = (S) =>
 
               // Website Customer Reviews
               S.listItem()
-                .title('Website Reviews (Pending Approval)')
+                .title('Website Reviews Pending for Approval')
                 .icon(Emoji('⏳'))
                 .schemaType('customerReview')
                 .child(
                   S.documentList()
-                    .title('Pending Customer Reviews')
+                    .title('Website Reviews Pending for Approval')
                     .filter('_type == "customerReview" && approved != true')
                     .defaultOrdering([{ field: 'submittedAt', direction: 'desc' }])
                     .initialValueTemplates([])
