@@ -53,98 +53,75 @@ interface RatingSummary {
 
 // ─── Review Data ─────────────────────────────────────────────────────────────
 
+// ─── Google SVG & Avatar helpers ─────────────────────────────────────────────
+
+function GoogleGIcon({ className = 'h-5 w-5' }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" className={className} aria-hidden="true">
+      <path
+        d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
+        fill="#4285F4"
+      />
+      <path
+        d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"
+        fill="#34A853"
+      />
+      <path
+        d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"
+        fill="#FBBC05"
+      />
+      <path
+        d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
+        fill="#EA4335"
+      />
+    </svg>
+  );
+}
+
+function getAvatarBg(name: string, avatar: string) {
+  if (name.includes('Arun') || avatar === 'A') return 'bg-[#00897B]';
+  if (name.includes('Lekshmi') || avatar === 'L') return 'bg-[#5B54D6]';
+  if (name.includes('Praveen') || avatar === 'P') return 'bg-[#5B54D6]';
+  const colors = ['bg-[#5B54D6]', 'bg-[#00897B]', 'bg-[#1E88E5]', 'bg-[#E53935]', 'bg-[#8E24AA]', 'bg-[#D81B60]'];
+  const charCode = (name.charCodeAt(0) || 0) + (name.charCodeAt(name.length - 1) || 0);
+  return colors[charCode % colors.length];
+}
+
+// ─── Review Data (Dummy Google Reviews as in attached image) ─────────────────
+
 const googleReviews: Review[] = [
   {
-    id: 21,
+    id: 'g-praveen-das',
     platform: 'google',
-    name: 'Vikram Nair',
-    avatar: 'VN',
-    timeAgo: '1 day ago',
+    name: 'Praveen Das',
+    avatar: 'P',
+    timeAgo: '3 days ago',
     rating: 5,
-    text: 'Outstanding freshness. The cod I purchased was restaurant-quality. Highly recommend to everyone.',
+    text: 'Excellent quality and super fresh products. Very satisfied!',
     likes: 8,
   },
   {
-    id: 22,
+    id: 'g-lekshmi-p',
     platform: 'google',
-    name: 'Shreya Patel',
-    avatar: 'SP',
-    timeAgo: '4 days ago',
+    name: 'Lekshmi P',
+    avatar: 'L',
+    timeAgo: '5 days ago',
     rating: 5,
-    text: 'Excellent service and top-grade products. The trout was perfectly cleaned and ready to cook.',
+    text: 'Great service and fresh fish every time.',
     likes: 12,
   },
   {
-    id: 23,
+    id: 'g-arun-raj',
     platform: 'google',
-    name: 'Manish Tiwari',
-    avatar: 'MT',
-    timeAgo: '1 week ago',
-    rating: 4,
-    text: 'Great range of seafood. Prices are fair and quality is consistently high. Very satisfied.',
-    likes: 6,
-  },
-  {
-    id: 24,
-    platform: 'google',
-    name: 'Lakshmi Raj',
-    avatar: 'LR',
-    timeAgo: '10 days ago',
+    name: 'Arun Raj',
+    avatar: 'A',
+    timeAgo: '6 days ago',
     rating: 5,
-    text: 'Ordered tuna steaks and they were perfect. No fishy smell, just pure freshness.',
+    text: 'Wide variety and good pricing. Highly recommend Fishcart.',
     likes: 9,
   },
-  {
-    id: 25,
-    platform: 'google',
-    name: 'Rahul Yadav',
-    avatar: 'RY',
-    timeAgo: '2 weeks ago',
-    rating: 5,
-    text: 'The delivery was right on time and the fish was packed in ice. Excellent service overall.',
-    likes: 11,
-  },
-  {
-    id: 26,
-    platform: 'google',
-    name: 'Sunita Devi',
-    avatar: 'SD',
-    timeAgo: '3 weeks ago',
-    rating: 5,
-    text: 'Best fish market experience online. The haddock fillets were superb quality.',
-    likes: 7,
-  },
-  {
-    id: 27,
-    platform: 'google',
-    name: 'Arun Krishnan',
-    avatar: 'AK',
-    timeAgo: '1 month ago',
-    rating: 4,
-    text: 'Good freshness guarantee. Fish arrived well-packaged and within the delivery window.',
-    likes: 5,
-  },
-  {
-    id: 28,
-    platform: 'google',
-    name: 'Preethi Soman',
-    avatar: 'PR',
-    timeAgo: '5 weeks ago',
-    rating: 5,
-    text: 'I was skeptical about online seafood but FishCart changed my mind completely. Fantastic!',
-    likes: 13,
-  },
-  {
-    id: 29,
-    platform: 'google',
-    name: 'Vijay Rajan',
-    avatar: 'VR',
-    timeAgo: '6 weeks ago',
-    rating: 5,
-    text: 'Fresh mackerel every week. The quality is consistent and the service is impeccable.',
-    likes: 10,
-  },
 ];
+
 
 // ─── Rating summaries per platform ───────────────────────────────────────────
 
@@ -223,21 +200,15 @@ const PLATFORMS: {
 }[] = [
   {
     id: 'opinion',
-    label: 'Share Opinion',
-    sublabel: "We'd love to hear",
+    label: 'Your Opinion',
+    sublabel: "Customers' voices",
     renderIcon: (active: boolean) => (
-      <svg
-        viewBox="0 0 24 24"
+      <MessageSquareHeart
         className={cn(
           'h-[20px] w-[20px]',
           active ? 'text-white' : 'text-[#0D55CF]'
         )}
-        fill="none"
-        stroke="currentColor"
-        strokeWidth={2}
-      >
-        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
-      </svg>
+      />
     ),
   },
   {
@@ -257,47 +228,25 @@ const PLATFORMS: {
     id: 'google',
     label: 'Google Reviews',
     sublabel: '4.9 (745 reviews)',
-    renderIcon: () => (
-      <svg viewBox="0 0 24 24" className="h-[20px] w-[20px]">
-        <path
-          d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
-          fill="#4285F4"
-        />
-        <path
-          d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"
-          fill="#34A853"
-        />
-        <path
-          d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"
-          fill="#FBBC05"
-        />
-        <path
-          d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
-          fill="#EA4335"
-        />
-      </svg>
-    ),
+    renderIcon: () => <GoogleGIcon className="h-[20px] w-[20px]" />,
   },
   {
     id: 'all',
     label: 'All Reviews',
     sublabel: '1,248 reviews',
     renderIcon: (active: boolean) => (
-      <svg
-        viewBox="0 0 24 24"
+      <Star
         className={cn(
           'h-[20px] w-[20px]',
           active ? 'text-white' : 'text-[#0D55CF]'
         )}
         fill="none"
-        stroke="currentColor"
         strokeWidth={1.8}
-      >
-        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
-      </svg>
+      />
     ),
   },
 ];
+
 
 // ─── Star Rating Input Component ─────────────────────────────────────────────
 
@@ -661,8 +610,8 @@ export function TestimonialsPage() {
     async function loadData() {
       try {
         const [reviewsRes, opinionsRes] = await Promise.all([
-          fetch('/api/reviews'),
-          fetch('/api/opinions'),
+          fetch(`/api/reviews?t=${Date.now()}`, { cache: 'no-store' }),
+          fetch(`/api/opinions?t=${Date.now()}`, { cache: 'no-store' }),
         ]);
 
         if (reviewsRes.ok) {
@@ -697,8 +646,13 @@ export function TestimonialsPage() {
     loadData();
   }, []);
 
-  const effectiveGoogleReviews =
-    liveGoogleReviews.length > 0 ? liveGoogleReviews : googleReviews;
+  // When reviews are added manually in CMS, they appear first, alongside default reviews
+  const effectiveGoogleReviews = [
+    ...liveGoogleReviews,
+    ...googleReviews.filter(
+      (d) => !liveGoogleReviews.some((lg) => lg.name?.toLowerCase().trim() === d.name.toLowerCase().trim())
+    ),
+  ];
 
   // Compute displayed reviews: Approved customer reviews from CMS + Google reviews
   const allReviews = [...liveApprovedReviews, ...effectiveGoogleReviews];
@@ -938,15 +892,8 @@ export function TestimonialsPage() {
           </div>
         </div>
 
-        {/* ── ROW B: Reviews section + Right panel ── */}
-        <div
-          className={cn(
-            'grid min-h-0 flex-1 gap-[14px] overflow-hidden portrait:flex portrait:flex-col portrait:h-auto portrait:overflow-visible',
-            activePlatform === 'google'
-              ? 'grid-cols-[1fr_minmax(0,280px)]'
-              : 'grid-cols-1'
-          )}
-        >
+        {/* ── ROW B: Reviews section ── */}
+        <div className="grid min-h-0 flex-1 grid-cols-1 gap-[14px] overflow-hidden portrait:flex portrait:flex-col portrait:h-auto portrait:overflow-visible">
           {/* Main View Area */}
           {activePlatform === 'addReview' ? (
             <div className="flex h-full min-h-0 w-full flex-1 flex-col overflow-y-auto rounded-[16px] border border-slate-100 bg-white p-[24px] shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)]">
@@ -1515,6 +1462,176 @@ export function TestimonialsPage() {
                 </div>
               )}
             </div>
+          ) : activePlatform === 'google' ? (
+            <div className="flex h-full min-h-0 w-full flex-1 flex-col overflow-y-auto rounded-[20px] border border-slate-100 bg-white p-[24px] shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] gap-[20px]">
+              {/* Header */}
+              <div className="flex items-center gap-[14px]">
+                <div className="flex h-[46px] w-[46px] shrink-0 items-center justify-center rounded-full bg-slate-50 border border-slate-100 shadow-xs">
+                  <GoogleGIcon className="h-[24px] w-[24px]" />
+                </div>
+                <div className="flex flex-col">
+                  <h2 className="text-[20px] font-bold text-slate-900 leading-tight">
+                    Google Reviews
+                  </h2>
+                  <p className="text-[13px] text-slate-500 font-medium mt-0.5">
+                    What customers are saying about Fishcart on Google.
+                  </p>
+                </div>
+              </div>
+
+              {/* Top 2 Cards: Left rating breakdown, Right review button */}
+              <div className="grid grid-cols-1 md:grid-cols-[1.5fr_1fr] lg:grid-cols-[1.6fr_1fr] gap-[16px]">
+                {/* Left Card: 4.9 Rating Breakdown */}
+                <div className="flex items-center justify-between gap-6 rounded-[16px] border border-slate-100 bg-white p-[20px] shadow-xs portrait:flex-col portrait:items-start">
+                  {/* Left: 4.9 Score */}
+                  <div className="flex flex-col items-center justify-center px-2 min-w-[120px] portrait:w-full portrait:items-start portrait:px-0">
+                    <div className="flex items-center gap-1.5 leading-none">
+                      <span className="text-[38px] font-extrabold text-slate-900 tracking-tight">4.9</span>
+                      <Star className="h-[26px] w-[26px] fill-[#F59E0B] text-[#F59E0B]" />
+                    </div>
+                    <p className="mt-2 text-[12px] font-medium text-slate-500 text-center whitespace-nowrap portrait:text-left">
+                      745 Google reviews
+                    </p>
+                  </div>
+
+                  {/* Right: Star Distribution Bars */}
+                  <div className="flex flex-1 flex-col gap-[6px] max-w-[280px] w-full">
+                    {[
+                      { stars: 5, pct: 92 },
+                      { stars: 4, pct: 6 },
+                      { stars: 3, pct: 1 },
+                      { stars: 2, pct: 0 },
+                      { stars: 1, pct: 1 },
+                    ].map((d) => (
+                      <div key={d.stars} className="flex items-center gap-2 text-[11px]">
+                        <span className="w-2.5 text-right font-semibold text-slate-700">{d.stars}</span>
+                        <Star className="h-3 w-3 fill-[#F59E0B] text-[#F59E0B] shrink-0" />
+                        <div className="h-[7px] flex-1 overflow-hidden rounded-full bg-slate-100">
+                          <div
+                            className="h-full rounded-full bg-[#0D55CF] transition-all duration-500"
+                            style={{ width: `${d.pct}%` }}
+                          />
+                        </div>
+                        <span className="w-7 text-right font-semibold text-slate-700">{d.pct}%</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Right Card: Review us on Google Button */}
+                <div className="flex items-center justify-center rounded-[16px] border border-slate-100 bg-white p-[20px] shadow-xs">
+                  <a
+                    href="https://search.google.com/local/writereview?placeid=ChIJN1t_tDeuEmsRUsoyG83frY4"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2.5 rounded-[12px] border border-slate-200 bg-white px-6 py-3.5 text-[14px] font-bold text-slate-800 shadow-xs hover:bg-slate-50 hover:border-slate-300 transition-all active:scale-[0.99]"
+                  >
+                    <GoogleGIcon className="h-5 w-5" />
+                    <span>Review us on Google</span>
+                    <svg
+                      viewBox="0 0 24 24"
+                      className="h-4 w-4 text-slate-600 ml-0.5"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth={2}
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    >
+                      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                      <polyline points="15 3 21 3 21 9" />
+                      <line x1="10" y1="14" x2="21" y2="3" />
+                    </svg>
+                  </a>
+                </div>
+              </div>
+
+              {/* Bottom Row: Review Cards in Grid (Matching Attached Screenshot) */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-[16px]">
+                {effectiveGoogleReviews.map((review) => {
+                  return (
+                    <div
+                      key={review.id}
+                      className="flex flex-col justify-between rounded-[16px] border border-slate-100 bg-white p-[18px] shadow-xs hover:shadow-sm transition-all"
+                    >
+                      <div className="flex flex-col gap-[10px]">
+                        {/* Reviewer Header */}
+                        <div className="flex items-start justify-between gap-2">
+                          <div className="flex items-center gap-3 min-w-0">
+                            {review.avatarUrl ? (
+                              <div className="relative h-10 w-10 shrink-0 overflow-hidden rounded-full border border-slate-200">
+                                <Image
+                                  src={review.avatarUrl}
+                                  alt={review.name}
+                                  fill
+                                  className="object-cover"
+                                />
+                              </div>
+                            ) : (
+                              <div
+                                className={cn(
+                                  'flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-[15px] font-bold text-white shadow-xs',
+                                  getAvatarBg(review.name, review.avatar)
+                                )}
+                              >
+                                {review.avatar}
+                              </div>
+                            )}
+                            <div className="flex flex-col min-w-0">
+                              <p className="truncate text-[14px] font-bold text-slate-900 leading-tight">
+                                {review.name}
+                              </p>
+                              <p className="text-[12px] text-slate-400 font-medium">
+                                on Google • {review.timeAgo}
+                              </p>
+                            </div>
+                          </div>
+                          <GoogleGIcon className="h-5 w-5 shrink-0 mt-0.5" />
+                        </div>
+
+                        {/* 5 Stars */}
+                        <div className="flex items-center gap-0.5">
+                          {Array.from({ length: 5 }).map((_, i) => (
+                            <Star
+                              key={i}
+                              className={cn(
+                                'h-4 w-4',
+                                i < review.rating
+                                  ? 'fill-[#F59E0B] text-[#F59E0B]'
+                                  : 'fill-slate-200 text-slate-200'
+                              )}
+                            />
+                          ))}
+                        </div>
+
+                        {/* Review Text with Hollow Bullet */}
+                        <div className="flex items-start gap-2 pt-1">
+                          <span className="inline-block h-3.5 w-3.5 rounded-full border-[1.6px] border-slate-400 shrink-0 mt-1" />
+                          <p className="text-[13px] font-medium text-slate-700 leading-snug">
+                            {review.text}
+                          </p>
+                        </div>
+
+                        {/* Screenshot Proof if uploaded in CMS */}
+                        {review.screenshotUrl && (
+                          <div className="relative mt-2 h-28 w-full overflow-hidden rounded-[8px] border border-slate-100 bg-slate-50">
+                            <Image
+                              src={review.screenshotUrl}
+                              alt="Google review screenshot proof"
+                              fill
+                              className="object-contain"
+                              sizes="280px"
+                            />
+                            <span className="absolute bottom-1 left-1 rounded-full bg-[#4285F4] px-2 py-0.5 text-[9px] font-semibold text-white">
+                              Google Review Screenshot
+                            </span>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
           ) : (
             <div className="flex min-h-0 flex-col gap-[10px] overflow-hidden">
               {/* Rating summary + cards row */}
@@ -1606,123 +1723,6 @@ export function TestimonialsPage() {
                   </div>
                 </div>
               )}
-            </div>
-          )}
-
-          {/* Right panel: We're Everywhere + Hygiene rating */}
-          {activePlatform === 'google' && (
-            <div className="flex min-h-0 flex-col gap-[10px] overflow-x-hidden overflow-y-auto">
-              {/* We're Everywhere */}
-              <div className="shrink-0 rounded-[14px] bg-white p-[16px]">
-                <h3 className="mb-[5px] text-[14px] font-bold text-[#0D55CF]">
-                  We're Everywhere!
-                </h3>
-                <p className="mb-[9px] text-[11px] leading-snug text-slate-500">
-                  Follow us on social media to stay updated with fresh arrivals,
-                  recipes &amp; more.
-                </p>
-                <div className="mb-[8px] flex gap-[10px]">
-                  {/* Facebook */}
-                  <a
-                    href="#"
-                    className="flex h-[38px] w-[38px] items-center justify-center rounded-full bg-[#1877F2] text-white transition-opacity hover:opacity-90"
-                  >
-                    <svg
-                      viewBox="0 0 24 24"
-                      className="h-[18px] w-[18px]"
-                      fill="currentColor"
-                    >
-                      <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
-                    </svg>
-                  </a>
-                  {/* Instagram */}
-                  <a
-                    href="#"
-                    className="flex h-[38px] w-[38px] items-center justify-center rounded-full bg-gradient-to-br from-[#f09433] via-[#dc2743] to-[#bc1888] text-white transition-opacity hover:opacity-90"
-                  >
-                    <svg
-                      viewBox="0 0 24 24"
-                      className="h-[18px] w-[18px]"
-                      fill="currentColor"
-                    >
-                      <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
-                    </svg>
-                  </a>
-                  {/* YouTube */}
-                  <a
-                    href="#"
-                    className="flex h-[38px] w-[38px] items-center justify-center rounded-full bg-[#FF0000] text-white transition-opacity hover:opacity-90"
-                  >
-                    <svg
-                      viewBox="0 0 24 24"
-                      className="h-[18px] w-[18px]"
-                      fill="currentColor"
-                    >
-                      <path d="M23.495 6.205a3.007 3.007 0 0 0-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 0 0 .527 6.205a31.247 31.247 0 0 0-.522 5.805 31.247 31.247 0 0 0 .522 5.783 3.007 3.007 0 0 0 2.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 0 0 2.088-2.088 31.247 31.247 0 0 0 .5-5.783 31.247 31.247 0 0 0-.5-5.805zM9.609 15.601V8.408l6.264 3.602z" />
-                    </svg>
-                  </a>
-                </div>
-                <p className="text-[11px] font-semibold text-slate-600">
-                  @fishcart.dailyfresh
-                </p>
-                <a
-                  href="#"
-                  className="mt-1 flex items-center gap-1 text-[11px] font-bold text-[#0D55CF] hover:underline"
-                >
-                  View All Posts <ArrowRight className="h-[10px] w-[10px]" />
-                </a>
-              </div>
-
-              {/* Food Hygiene Rating */}
-              <div className="shrink-0 rounded-[14px] bg-white p-[16px]">
-                <h3 className="mb-[5px] text-[14px] font-bold text-[#0D55CF]">
-                  Food Hygiene Rating
-                </h3>
-                <p className="mb-[8px] text-[11px] leading-snug text-slate-500">
-                  We are committed to the highest standards of hygiene and food
-                  safety.
-                </p>
-                <div className="flex items-center justify-between">
-                  {/* Rating circles 0–5 */}
-                  <div className="flex items-center gap-[5px]">
-                    {[0, 1, 2, 3, 4].map((n) => (
-                      <div
-                        key={n}
-                        className="flex h-[28px] w-[28px] items-center justify-center rounded-full border-2 border-slate-300 text-[11px] font-bold text-slate-500"
-                      >
-                        {n}
-                      </div>
-                    ))}
-                    <div className="flex h-[34px] w-[34px] items-center justify-center rounded-full bg-[#2E7D32] text-[13px] font-bold text-white">
-                      5
-                    </div>
-                  </div>
-                  {/* Badge */}
-                  <div className="flex flex-col items-end">
-                    <div className="flex h-[42px] w-[42px] items-center justify-center rounded-full bg-[#2E7D32]">
-                      <svg
-                        viewBox="0 0 24 24"
-                        className="h-[22px] w-[22px] text-white"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth={2.5}
-                      >
-                        <path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-                      </svg>
-                    </div>
-                    <p className="mt-0.5 text-right text-[9px] leading-tight font-semibold text-slate-400">
-                      Rated by
-                      <br />
-                      Food Standards
-                      <br />
-                      Agency
-                    </p>
-                  </div>
-                </div>
-                <p className="mt-[5px] text-[10px] font-bold tracking-widest text-[#2E7D32] uppercase">
-                  Very Good
-                </p>
-              </div>
             </div>
           )}
         </div>
