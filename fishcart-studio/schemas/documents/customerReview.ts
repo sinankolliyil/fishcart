@@ -7,10 +7,10 @@ export default defineType({
   fields: [
     defineField({
       name: 'approved',
-      title: 'Publish or Hide on Website',
+      title: 'Approve & Publish to Website',
       type: 'boolean',
       description:
-        'Toggle ON (Published) to show this review publicly on the website under "All Reviews". Toggle OFF (Hidden) to keep it hidden/pending.',
+        'Switch ON to approve and publish this review live on the website. Switch OFF to keep it hidden.',
       initialValue: false,
     }),
     defineField({
@@ -82,7 +82,11 @@ export default defineType({
     },
     prepare({ name, rating, approved, media, text }) {
       return {
-        title: `${name || 'Customer'} (${rating || 5}★) — ${approved ? '✅ Published' : '🚫 Hidden'}`,
+        title: `${name || 'Customer'} (${rating || 5}★) — ${
+          approved
+            ? '✅ Live on Website'
+            : '🚫 Hidden — Not approved to be live on the website'
+        }`,
         subtitle: text?.slice(0, 60) || '',
         media,
       };
