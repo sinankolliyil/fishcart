@@ -15,7 +15,16 @@ export const client = isSanityConfigured
       projectId,
       dataset,
       apiVersion,
-      useCdn: false, // Bypass Sanity Edge CDN to get instantaneous updates upon publishing in CMS
+      useCdn: true, // Use Sanity global Edge CDN (~20-50ms); purges within ~1-2s on publish
+    })
+  : null;
+
+export const liveClient = isSanityConfigured
+  ? createClient({
+      projectId,
+      dataset,
+      apiVersion,
+      useCdn: false, // Direct origin client used only when bypassCache is requested
     })
   : null;
 
@@ -61,61 +70,40 @@ interface CacheEntry<T> {
 
 const memoryCache = new Map<string, CacheEntry<any>>();
 const inflightQueries = new Map<string, Promise<any>>();
-// Set to 0ms so every request fetches fresh live data from Sanity CMS without delay.
-// memoryCache is preserved strictly as a fallback if the network or Sanity fails/times out.
-const CACHE_TTL_MS = 0;
+// Fresh window + Stale-While-Revalidate window for instant 0ms repeat navigation
+const FRESH_TTL_MS = 15_000;
+const SWR_TTL_MS = 120_000;
 
 export function clearSanityCache(): void {
   memoryCache.clear();
   inflightQueries.clear();
 }
 
-/**
- * Safe, high-performance fetch wrapper:
- * - Direct live queries (useCdn: false) for 0s publish-to-website latency
- * - Deduplicates concurrent inflight requests
- * - Enforces a strict 2.5-second timeout so the UI NEVER lags or hangs
- * - Falls back to local/cached data gracefully on timeout or network error
- */
-export async function sanityFetch<T>(
+async function executeSanityFetch<T>(
+  cacheKey: string,
   query: string,
-  params: Record<string, any> = {},
-  options: { bypassCache?: boolean; timeoutMs?: number } = {}
+  params: Record<string, any>,
+  options: { bypassCache?: boolean; timeoutMs?: number }
 ): Promise<T | null> {
-  if (!client || !isSanityConfigured) {
-    return null;
-  }
-
-  const cacheKey = `${query}_${JSON.stringify(params)}`;
-  const now = Date.now();
-
-  // Check in-memory cache if TTL is configured
-  if (!options.bypassCache && CACHE_TTL_MS > 0) {
-    const cached = memoryCache.get(cacheKey);
-    if (cached && now - cached.timestamp < CACHE_TTL_MS) {
-      return cached.data as T;
-    }
-  }
-
-  // Deduplicate inflight concurrent queries
   if (inflightQueries.has(cacheKey)) {
     return inflightQueries.get(cacheKey) as Promise<T | null>;
   }
 
-  const timeoutMs = options.timeoutMs ?? 2500;
+  const targetClient = options.bypassCache ? liveClient : client;
+  if (!targetClient) return null;
+
+  const timeoutMs = options.timeoutMs ?? 2000;
 
   const fetchPromise = (async () => {
     try {
-      const fetchCall = (client as any).fetch(query, params, {
-        cache: 'no-store',
-        next: { revalidate: 0 },
-      });
+      const fetchOptions = options.bypassCache
+        ? { cache: 'no-store' as const, next: { revalidate: 0 } }
+        : { next: { revalidate: 15 } };
+
+      const fetchCall = (targetClient as any).fetch(query, params, fetchOptions);
 
       const timeoutCall = new Promise<null>((resolve) => {
-        setTimeout(() => {
-          // Timeout reached: return null to trigger graceful fallback to local data
-          resolve(null);
-        }, timeoutMs);
+        setTimeout(() => resolve(null), timeoutMs);
       });
 
       const data = (await Promise.race([fetchCall, timeoutCall])) as T | null;
@@ -125,7 +113,6 @@ export async function sanityFetch<T>(
         return data;
       }
 
-      // If timed out, return stale cache if available
       const stale = memoryCache.get(cacheKey);
       if (stale) return stale.data as T;
 
@@ -141,4 +128,41 @@ export async function sanityFetch<T>(
 
   inflightQueries.set(cacheKey, fetchPromise);
   return fetchPromise;
+}
+
+/**
+ * High-performance fetch wrapper with Sanity Edge CDN + Stale-While-Revalidate:
+ * - Serves fresh/SWR in-memory cache immediately (0ms) for repeat queries
+ * - Uses Sanity Edge CDN (useCdn: true) for fast ~20-50ms network reads
+ * - Deduplicates concurrent inflight requests
+ * - Enforces a strict 2s timeout with graceful fallback to stale/local data
+ */
+export async function sanityFetch<T>(
+  query: string,
+  params: Record<string, any> = {},
+  options: { bypassCache?: boolean; timeoutMs?: number } = {}
+): Promise<T | null> {
+  if (!client || !isSanityConfigured) {
+    return null;
+  }
+
+  const cacheKey = `${query}_${JSON.stringify(params)}`;
+  const now = Date.now();
+
+  if (!options.bypassCache) {
+    const cached = memoryCache.get(cacheKey);
+    if (cached) {
+      const age = now - cached.timestamp;
+      if (age < FRESH_TTL_MS) {
+        return cached.data as T;
+      }
+      if (age < SWR_TTL_MS) {
+        // Return stale data immediately and revalidate in background
+        void executeSanityFetch<T>(cacheKey, query, params, options);
+        return cached.data as T;
+      }
+    }
+  }
+
+  return executeSanityFetch<T>(cacheKey, query, params, options);
 }

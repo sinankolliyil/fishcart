@@ -3,8 +3,7 @@ import { AboutPage, AboutUsData } from '@/components/about/AboutPage';
 import { sanityFetch } from '@/lib/sanity';
 import { ABOUT_US_QUERY } from '@/lib/sanityQueries';
 
-export const dynamic = 'force-dynamic';
-export const revalidate = 0;
+export const revalidate = 15;
 
 export default async function Page() {
   let aboutData: AboutUsData | null = null;

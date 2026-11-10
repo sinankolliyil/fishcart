@@ -175,6 +175,7 @@ export function AboutPage({ data }: { data?: AboutUsData | null }) {
               src={heroImage}
               alt="Fresh Meat and Fish Hero"
               fill
+              sizes="(max-width: 768px) 100vw, 55vw"
               className="origin-right scale-[1.05] object-contain object-right"
               priority
             />
@@ -280,6 +281,7 @@ export function AboutPage({ data }: { data?: AboutUsData | null }) {
                     src={cat.img}
                     alt={cat.title}
                     fill
+                    sizes="(max-width: 768px) 45vw, 20vw"
                     className="scale-[1.05] object-contain mix-blend-multiply drop-shadow-sm transition-transform duration-500 group-hover:scale-110"
                   />
                 </div>

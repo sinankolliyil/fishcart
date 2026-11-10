@@ -160,8 +160,7 @@ function getPromiseIcon(icon?: string) {
   }
 }
 
-export const dynamic = 'force-dynamic';
-export const revalidate = 0;
+export const revalidate = 15;
 
 export default async function StoryPage() {
   let story: StoryData | null = null;
@@ -304,6 +303,8 @@ export default async function StoryPage() {
             src={heroImage}
             alt="FishCart Family"
             fill
+            priority
+            sizes="(max-width: 768px) 100vw, 28vw"
             className="object-cover"
           />
         </div>
@@ -367,6 +368,7 @@ export default async function StoryPage() {
                 src={card.image || '/assets/story_journey.png'}
                 alt={card.title}
                 fill
+                sizes="(max-width: 768px) 30vw, 18vw"
                 className="object-contain"
               />
             </div>
@@ -407,6 +409,7 @@ export default async function StoryPage() {
             src={promiseImage}
             alt="Premium Seafood"
             fill
+            sizes="(max-width: 768px) 100vw, 17vw"
             className="object-cover"
           />
         </div>
@@ -430,6 +433,7 @@ export default async function StoryPage() {
                     src={step.img}
                     alt={step.title}
                     fill
+                    sizes="(max-width: 768px) 45vw, 12vw"
                     className="object-cover"
                   />
                 </div>
@@ -467,6 +471,7 @@ export default async function StoryPage() {
               src={familyImage}
               alt="Family"
               fill
+              sizes="(max-width: 768px) 80px, 12vw"
               className="scale-[1.6] object-contain object-center"
             />
           </div>
@@ -487,6 +492,7 @@ export default async function StoryPage() {
               src={familyImage}
               alt="Boat Illustration"
               fill
+              sizes="(max-width: 768px) 80px, 12vw"
               className="scale-[1.6] object-contain object-center"
             />
           </div>

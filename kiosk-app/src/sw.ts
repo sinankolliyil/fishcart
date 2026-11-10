@@ -10,15 +10,25 @@ declare global {
 
 declare const self: ServiceWorkerGlobalScope;
 
-const sanitizedManifest = (self.__SW_MANIFEST || []).map((entry) => {
-  if (typeof entry === 'string') {
-    return entry.replace(/\\/g, '/');
-  }
-  if (entry && typeof entry === 'object' && entry.url) {
-    return { ...entry, url: entry.url.replace(/\\/g, '/') };
-  }
-  return entry;
-});
+const sanitizedManifest = (self.__SW_MANIFEST || [])
+  .map((entry) => {
+    if (typeof entry === 'string') {
+      return entry.replace(/\\/g, '/');
+    }
+    if (entry && typeof entry === 'object' && entry.url) {
+      return { ...entry, url: entry.url.replace(/\\/g, '/') };
+    }
+    return entry;
+  })
+  .filter((entry) => {
+    const url = typeof entry === 'string' ? entry : entry?.url || '';
+    // Do not precache large media/assets upfront (~100MB+); runtimeCaching caches them on demand
+    return (
+      !url.startsWith('/assets/') &&
+      !url.endsWith('.mp4') &&
+      !url.endsWith('.pdf')
+    );
+  });
 
 const serwist = new Serwist({
   precacheEntries: sanitizedManifest,

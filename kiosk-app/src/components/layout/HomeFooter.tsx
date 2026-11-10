@@ -176,6 +176,7 @@ export function MobileFooter({ className }: { className?: string }) {
               src="/assets/boat_exact.png"
               alt="Our Stories"
               fill
+              sizes="64px"
               className="object-contain object-right-bottom"
             />
           </div>
@@ -213,6 +214,7 @@ export function MobileFooter({ className }: { className?: string }) {
             src="/assets/fishdd.png"
             alt="Address"
             fill
+            sizes="64px"
             className="object-contain object-right"
           />
         </div>

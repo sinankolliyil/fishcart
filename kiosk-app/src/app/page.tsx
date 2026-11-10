@@ -21,8 +21,7 @@ import { HomeCustomerReviewCard } from '@/components/home/HomeCustomerReviewCard
 import { sanityFetch } from '@/lib/sanity';
 import { TOP_RIGHT_ITEM_COUNT_QUERY } from '@/lib/sanityQueries';
 
-export const dynamic = 'force-dynamic';
-export const revalidate = 0;
+export const revalidate = 15;
 
 export default async function HomePage() {
   const itemCounts = await sanityFetch<{
@@ -191,6 +190,7 @@ export default async function HomePage() {
                   src="/assets/nametoadd.png"
                   alt="Salmon Benefits"
                   fill
+                  sizes="(max-width: 768px) 55vw, 18vw"
                   className="object-contain object-right"
                 />
               </div>
@@ -240,6 +240,7 @@ export default async function HomePage() {
                 src={item.image}
                 alt={item.title}
                 fill
+                sizes="(max-width: 768px) 50vw, 22vw"
                 className="object-cover mix-blend-multiply"
               />
               <div
@@ -404,6 +405,7 @@ export default async function HomePage() {
                     src={cat.img}
                     alt={cat.title}
                     fill
+                    sizes="25vw"
                     className="object-contain drop-shadow-[0_4px_12px_rgba(0,0,0,0.1)]"
                   />
                 </div>
@@ -477,6 +479,7 @@ export default async function HomePage() {
               src="/assets/nametoadd.png"
               alt="Salmon plate"
               fill
+              sizes="55vw"
               className="object-contain object-right"
             />
           </div>
@@ -550,6 +553,7 @@ export default async function HomePage() {
                   src={item.image}
                   alt={item.title}
                   fill
+                  sizes="50vw"
                   className="object-cover"
                 />
               </div>

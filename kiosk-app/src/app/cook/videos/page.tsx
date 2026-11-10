@@ -4,8 +4,7 @@ import { sanityFetch } from '@/lib/sanity';
 import { RECIPES_QUERY } from '@/lib/sanityQueries';
 import { Video, Category, Difficulty } from '@/components/cook/HowToCookPage';
 
-export const dynamic = 'force-dynamic';
-export const revalidate = 0;
+export const revalidate = 15;
 
 export default async function Videos() {
   let initialRecipes: Video[] = [];
