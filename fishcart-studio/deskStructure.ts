@@ -439,7 +439,7 @@ export const deskStructure: StructureResolver = (S) =>
           S.list()
             .title('Testimonials & Reviews')
             .items([
-              // Customer Opinions (from website "Your Opinion" form)
+              // Customer Opinions (from website "Your Suggestions" form)
               S.listItem()
                 .title('Customer Opinions')
                 .icon(Emoji('💭'))

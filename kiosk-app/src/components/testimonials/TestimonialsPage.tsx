@@ -211,7 +211,7 @@ const PLATFORMS: {
 }[] = [
   {
     id: 'opinion',
-    label: 'Your Opinion',
+    label: 'Your Suggestions',
     sublabel: "Customers' voices",
     renderIcon: (active: boolean) => (
       <MessageSquareHeart
@@ -298,6 +298,101 @@ function StarRatingInput({
       <span className="ml-2 text-[13px] font-semibold text-slate-600">
         {rating > 0 ? `${rating}.0 / 5.0` : 'Tap to rate'}
       </span>
+    </div>
+  );
+}
+
+// ─── Contact Information Fields Component ────────────────────────────────────
+
+function ContactInfoFields({
+  phoneCode,
+  onPhoneCodeChange,
+  phone,
+  onPhoneChange,
+  email,
+  onEmailChange,
+}: {
+  phoneCode: string;
+  onPhoneCodeChange: (code: string) => void;
+  phone: string;
+  onPhoneChange: (val: string) => void;
+  email: string;
+  onEmailChange: (val: string) => void;
+}) {
+  return (
+    <div className="flex flex-col gap-[8px]">
+      <label className="text-[13px] font-bold text-slate-800 flex items-center gap-1.5 flex-wrap">
+        <span>Contact Information</span>
+        <span className="text-[12px] font-normal text-slate-500">
+          (Either Phone Number or Email is required)
+        </span>
+      </label>
+
+      <div className="grid grid-cols-2 gap-[24px] portrait:flex portrait:flex-col portrait:gap-[14px]">
+        {/* Phone Number */}
+        <div className="flex flex-col gap-[6px]">
+          <div className="flex items-center justify-between">
+            <span className="text-[12px] font-semibold text-slate-700">
+              Phone Number
+            </span>
+            {isValidPhone(phone) ? (
+              <span className="text-[11px] text-emerald-600 font-medium">✓ Valid</span>
+            ) : phone.trim() ? (
+              <span className="text-[11px] text-red-500 font-medium">Invalid (digits only)</span>
+            ) : null}
+          </div>
+          <div className="flex gap-2">
+            <select
+              value={phoneCode}
+              onChange={(e) => onPhoneCodeChange(e.target.value)}
+              className="rounded-[10px] border border-slate-200 bg-white px-[12px] py-[11px] text-[13px] transition-colors outline-none focus:border-[#0D55CF] focus:ring-1 focus:ring-[#0D55CF]"
+            >
+              <option value="+44">+44 (UK)</option>
+              <option value="+91">+91 (IN)</option>
+              <option value="+1">+1 (US)</option>
+              <option value="+971">+971 (UAE)</option>
+            </select>
+            <div className="relative flex-1">
+              <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-[16px] text-slate-400">
+                <Phone className="h-[18px] w-[18px]" />
+              </div>
+              <input
+                type="tel"
+                value={phone}
+                onChange={(e) => onPhoneChange(e.target.value)}
+                placeholder="Enter your phone number"
+                className="w-full rounded-[10px] border border-slate-200 py-[11px] pr-[16px] pl-[44px] text-[13px] transition-colors outline-none focus:border-[#0D55CF] focus:ring-1 focus:ring-[#0D55CF]"
+              />
+            </div>
+          </div>
+        </div>
+
+        {/* Email Address */}
+        <div className="flex flex-col gap-[6px]">
+          <div className="flex items-center justify-between">
+            <span className="text-[12px] font-semibold text-slate-700">
+              Email Address
+            </span>
+            {isValidEmail(email) ? (
+              <span className="text-[11px] text-emerald-600 font-medium">✓ Valid</span>
+            ) : email.trim() ? (
+              <span className="text-[11px] text-red-500 font-medium">Invalid email</span>
+            ) : null}
+          </div>
+          <div className="relative">
+            <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-[16px] text-slate-400">
+              <Mail className="h-[18px] w-[18px]" />
+            </div>
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => onEmailChange(e.target.value)}
+              placeholder="Enter your email address"
+              className="w-full rounded-[10px] border border-slate-200 py-[11px] pr-[16px] pl-[44px] text-[13px] transition-colors outline-none focus:border-[#0D55CF] focus:ring-1 focus:ring-[#0D55CF]"
+            />
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
@@ -756,7 +851,7 @@ export function TestimonialsPage() {
       return;
     }
     if (!opinionText.trim() || opinionText.trim().length < 5) {
-      setOpinionError('Please write your suggestions or opinion (at least 5 characters).');
+      setOpinionError('Please write your suggestions (at least 5 characters).');
       return;
     }
 
@@ -822,13 +917,13 @@ export function TestimonialsPage() {
   return (
     <div className="grid h-full min-h-0 w-full grid-rows-[minmax(0,1fr)_auto] gap-[var(--main-gap)] overflow-hidden portrait:flex portrait:flex-col portrait:h-auto portrait:overflow-visible portrait:pb-4">
       {/* ── Main Content ── */}
-      <div className="flex min-h-0 flex-col gap-[12px] overflow-hidden">
+      <div className="flex min-h-0 flex-col gap-[12px] overflow-hidden portrait:h-auto portrait:overflow-visible portrait:px-2 portrait:pt-2">
         {/* ── ROW A: Hero + Platform tabs ── */}
-        <div className="grid shrink-0 grid-cols-[1fr_auto] gap-[18px] portrait:flex portrait:flex-col portrait:gap-[12px]">
-          {/* Left: heading + tabs */}
+        <div className="flex shrink-0 flex-col gap-[12px]">
+          {/* Heading + tabs */}
           <div className="flex min-w-0 flex-col gap-[12px]">
             <div className="relative flex flex-col justify-center overflow-hidden rounded-[8px] border border-white/20 bg-gradient-to-r from-[#F4F9FF] via-[#EAF3FF] to-[#D4E6FC] px-[clamp(8px,1.2vw,18px)] py-[clamp(6px,0.8vw,12px)]">
-              <h1 className="text-[clamp(32px,min(3vw,4svh),44px)] leading-tight font-bold tracking-tight text-[#102B7B]">
+              <h1 className="text-[clamp(26px,min(3vw,4svh),44px)] leading-tight font-bold tracking-tight text-[#102B7B] portrait:text-[26px]">
                 What Our Customers Say
               </h1>
               {/* Decorative wave */}
@@ -847,13 +942,13 @@ export function TestimonialsPage() {
               <p className="mt-[clamp(2px,0.5vw,8px)] text-[clamp(11px,min(1vw,1.4svh),15px)] font-bold text-[#102B7B] opacity-90">
                 We value every feedback. Here's what our amazing customers have
                 to say about
-                <br />
+                <br className="portrait:hidden" />{' '}
                 Fishcart's fresh products and service.
               </p>
             </div>
 
             {/* Platform tabs */}
-            <div className="grid grid-cols-4 gap-[10px] portrait:flex portrait:flex-wrap portrait:gap-[8px]">
+            <div className="grid grid-cols-4 gap-[10px] portrait:grid-cols-2 portrait:gap-[8px]">
               {PLATFORMS.map((p) => {
                 const isActive = activePlatform === p.id;
                 return (
@@ -892,7 +987,7 @@ export function TestimonialsPage() {
         <div className="grid min-h-0 flex-1 grid-cols-1 gap-[14px] overflow-hidden portrait:flex portrait:flex-col portrait:h-auto portrait:overflow-visible">
           {/* Main View Area */}
           {activePlatform === 'addReview' ? (
-            <div className="flex h-full min-h-0 w-full flex-1 flex-col overflow-y-auto rounded-[16px] border border-slate-100 bg-white p-[24px] shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)]">
+            <div className="flex h-full min-h-0 w-full flex-1 flex-col overflow-y-auto rounded-[16px] border border-slate-100 bg-white p-[clamp(16px,2vw,28px)] shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] portrait:h-auto portrait:flex-none portrait:overflow-visible portrait:p-4">
               {submittedReview ? (
                 <div className="flex h-full min-h-[360px] flex-col items-center justify-center gap-4 text-center p-8">
                   <div className="flex h-[64px] w-[64px] items-center justify-center rounded-full bg-emerald-100 text-emerald-600 shadow-sm">
@@ -935,7 +1030,7 @@ export function TestimonialsPage() {
                   </div>
                 </div>
               ) : (
-                <div className="flex flex-col gap-[20px]">
+                <div className="flex flex-1 flex-col gap-[clamp(14px,1.8svh,24px)] portrait:flex-none portrait:gap-4">
                   {/* Header from user attachment */}
                   <div className="flex items-start gap-[16px]">
                     <div className="flex h-[48px] w-[48px] shrink-0 items-center justify-center rounded-full bg-[#EBF3FF] text-[#0D55CF]">
@@ -952,7 +1047,7 @@ export function TestimonialsPage() {
                   </div>
 
                   {/* Row 1: Name and Rating */}
-                  <div className="grid grid-cols-2 gap-[24px] portrait:flex portrait:flex-col">
+                  <div className="grid grid-cols-2 gap-[24px] portrait:flex portrait:flex-col portrait:gap-[14px]">
                     {/* Your Name */}
                     <div className="flex flex-col gap-[8px]">
                       <label className="text-[13px] font-bold text-slate-800">
@@ -993,112 +1088,20 @@ export function TestimonialsPage() {
                   </div>
 
                   {/* Row 2: Contact Information (Either Phone Number or Email Address is required) */}
-                  <div className="flex flex-col gap-[8px]">
-                    <div className="flex items-center justify-between flex-wrap gap-1">
-                      <label className="text-[13px] font-bold text-slate-800 flex items-center gap-1.5">
-                        <span>Contact Information</span>
-                        <span className="text-red-500 font-bold">*</span>
-                        <span className="text-[12px] font-normal text-slate-500">
-                          (Either Phone Number or Email is required)
-                        </span>
-                      </label>
-                      <span className="text-[11px] font-medium">
-                        {isValidPhone(reviewPhone) && isValidEmail(reviewEmail) ? (
-                          <span className="text-emerald-600 font-semibold">✓ Both provided &amp; valid</span>
-                        ) : isValidPhone(reviewPhone) ? (
-                          <span className="text-emerald-600 font-semibold">✓ Phone valid (Email optional)</span>
-                        ) : isValidEmail(reviewEmail) ? (
-                          <span className="text-emerald-600 font-semibold">✓ Email valid (Phone optional)</span>
-                        ) : reviewPhone.trim() && !isValidPhone(reviewPhone) ? (
-                          <span className="text-red-500 font-semibold">Invalid phone (digits only)</span>
-                        ) : reviewEmail.trim() && !isValidEmail(reviewEmail) ? (
-                          <span className="text-red-500 font-semibold">Invalid email format</span>
-                        ) : (
-                          <span className="text-amber-600 font-medium">Please enter at least one *</span>
-                        )}
-                      </span>
-                    </div>
-
-                    <div className="grid grid-cols-2 gap-[24px] portrait:flex portrait:flex-col">
-                      {/* Phone Number */}
-                      <div className="flex flex-col gap-[6px]">
-                        <div className="flex items-center justify-between">
-                          <span className="text-[12px] font-semibold text-slate-700">
-                            Phone Number {!reviewEmail.trim() && <span className="text-red-500 font-bold">*</span>}
-                          </span>
-                          {isValidPhone(reviewPhone) ? (
-                            <span className="text-[11px] text-emerald-600 font-medium">✓ Valid</span>
-                          ) : reviewPhone.trim() ? (
-                            <span className="text-[11px] text-red-500 font-medium">Invalid (digits only)</span>
-                          ) : !reviewEmail.trim() ? (
-                            <span className="text-[11px] text-amber-600">Required if no email</span>
-                          ) : (
-                            <span className="text-[11px] text-slate-400">Optional</span>
-                          )}
-                        </div>
-                        <div className="flex gap-2">
-                          <select
-                            value={reviewPhoneCode}
-                            onChange={(e) => setReviewPhoneCode(e.target.value)}
-                            className="rounded-[10px] border border-slate-200 bg-white px-[12px] py-[11px] text-[13px] transition-colors outline-none focus:border-[#0D55CF] focus:ring-1 focus:ring-[#0D55CF]"
-                          >
-                            <option value="+44">+44 (UK)</option>
-                            <option value="+91">+91 (IN)</option>
-                            <option value="+1">+1 (US)</option>
-                            <option value="+971">+971 (UAE)</option>
-                          </select>
-                          <div className="relative flex-1">
-                            <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-[16px] text-slate-400">
-                              <Phone className="h-[18px] w-[18px]" />
-                            </div>
-                            <input
-                              type="tel"
-                              value={reviewPhone}
-                              onChange={(e) => {
-                                setReviewPhone(e.target.value);
-                                if (formError) setFormError(null);
-                              }}
-                              placeholder="Enter your phone number"
-                              className="w-full rounded-[10px] border border-slate-200 py-[11px] pr-[16px] pl-[44px] text-[13px] transition-colors outline-none focus:border-[#0D55CF] focus:ring-1 focus:ring-[#0D55CF]"
-                            />
-                          </div>
-                        </div>
-                      </div>
-
-                      {/* Email Address */}
-                      <div className="flex flex-col gap-[6px]">
-                        <div className="flex items-center justify-between">
-                          <span className="text-[12px] font-semibold text-slate-700">
-                            Email Address {!reviewPhone.trim() && <span className="text-red-500 font-bold">*</span>}
-                          </span>
-                          {isValidEmail(reviewEmail) ? (
-                            <span className="text-[11px] text-emerald-600 font-medium">✓ Valid</span>
-                          ) : reviewEmail.trim() ? (
-                            <span className="text-[11px] text-red-500 font-medium">Invalid email</span>
-                          ) : !reviewPhone.trim() ? (
-                            <span className="text-[11px] text-amber-600">Required if no phone</span>
-                          ) : (
-                            <span className="text-[11px] text-slate-400">Optional</span>
-                          )}
-                        </div>
-                        <div className="relative">
-                          <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-[16px] text-slate-400">
-                            <Mail className="h-[18px] w-[18px]" />
-                          </div>
-                          <input
-                            type="email"
-                            value={reviewEmail}
-                            onChange={(e) => {
-                              setReviewEmail(e.target.value);
-                              if (formError) setFormError(null);
-                            }}
-                            placeholder="Enter your email address"
-                            className="w-full rounded-[10px] border border-slate-200 py-[11px] pr-[16px] pl-[44px] text-[13px] transition-colors outline-none focus:border-[#0D55CF] focus:ring-1 focus:ring-[#0D55CF]"
-                          />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                  <ContactInfoFields
+                    phoneCode={reviewPhoneCode}
+                    onPhoneCodeChange={setReviewPhoneCode}
+                    phone={reviewPhone}
+                    onPhoneChange={(val) => {
+                      setReviewPhone(val);
+                      if (formError) setFormError(null);
+                    }}
+                    email={reviewEmail}
+                    onEmailChange={(val) => {
+                      setReviewEmail(val);
+                      if (formError) setFormError(null);
+                    }}
+                  />
 
                   {/* Row 3: Product Photo Upload (Customer Photo) */}
                   <div className="flex flex-col gap-[8px]">
@@ -1160,7 +1163,7 @@ export function TestimonialsPage() {
                   </div>
 
                   {/* Row 4: Your Review */}
-                  <div className="flex flex-col gap-[8px]">
+                  <div className="flex flex-1 flex-col gap-[8px] portrait:flex-none">
                     <label className="text-[13px] font-bold text-slate-800">
                       Your Review <span className="text-red-500 font-bold">*</span>
                     </label>
@@ -1172,7 +1175,7 @@ export function TestimonialsPage() {
                         if (formError) setFormError(null);
                       }}
                       placeholder="Write your review or experience here..."
-                      className="w-full resize-none rounded-[10px] border border-slate-200 p-[14px] text-[13px] transition-colors outline-none focus:border-[#0D55CF] focus:ring-1 focus:ring-[#0D55CF]"
+                      className="w-full flex-1 min-h-[100px] resize-none rounded-[10px] border border-slate-200 p-[14px] text-[13px] transition-colors outline-none focus:border-[#0D55CF] focus:ring-1 focus:ring-[#0D55CF] portrait:min-h-[110px]"
                     />
                   </div>
 
@@ -1212,7 +1215,7 @@ export function TestimonialsPage() {
               )}
             </div>
           ) : activePlatform === 'opinion' ? (
-            <div className="flex h-full min-h-0 w-full flex-1 flex-col overflow-y-auto rounded-[16px] border border-slate-100 bg-white p-[24px] shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)]">
+            <div className="flex h-full min-h-0 w-full flex-1 flex-col overflow-y-auto rounded-[16px] border border-slate-100 bg-white p-[clamp(16px,2vw,28px)] shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] portrait:h-auto portrait:flex-none portrait:overflow-visible portrait:p-4">
               {submittedOpinion ? (
                 <div className="flex h-full min-h-[360px] flex-col items-center justify-center gap-4 text-center p-8">
                   <div className="flex h-[64px] w-[64px] items-center justify-center rounded-full bg-emerald-100 text-emerald-600 shadow-sm">
@@ -1223,7 +1226,7 @@ export function TestimonialsPage() {
                       Thank You, {opinionName}!
                     </h3>
                     <p className="text-[13px] text-slate-600 leading-relaxed">
-                      Your opinion has been received in our CMS and sent directly to our team. We appreciate your valuable feedback!
+                      Your suggestions have been received in our CMS and sent directly to our team. We appreciate your valuable feedback!
                     </p>
                   </div>
                   <div className="flex items-center gap-3 mt-4">
@@ -1239,7 +1242,7 @@ export function TestimonialsPage() {
                       }}
                       className="rounded-[10px] border border-slate-200 bg-white px-5 py-2.5 text-[13px] font-bold text-slate-700 hover:bg-slate-50 transition-colors"
                     >
-                      Send Another Opinion
+                      Send Another Suggestion
                     </button>
                     <button
                       onClick={() => {
@@ -1253,7 +1256,7 @@ export function TestimonialsPage() {
                   </div>
                 </div>
               ) : (
-                <div className="flex flex-col gap-[20px]">
+                <div className="flex flex-1 flex-col gap-[clamp(14px,1.8svh,24px)] portrait:flex-none portrait:gap-4">
                   {/* Top Header from 2nd image */}
                   <div className="flex items-start gap-[16px]">
                     <div className="flex h-[48px] w-[48px] shrink-0 items-center justify-center rounded-full bg-[#EBF3FF] text-[#0D55CF]">
@@ -1261,10 +1264,10 @@ export function TestimonialsPage() {
                     </div>
                     <div className="flex flex-col gap-1">
                       <h2 className="text-[22px] font-bold text-slate-900 leading-tight">
-                        We Value Your Opinion!
+                        We Value Your Suggestions!
                       </h2>
                       <p className="text-[13px] text-slate-500">
-                        Your opinion helps us improve our products and service every day.
+                        Your suggestions help us improve our products and service every day.
                       </p>
                     </div>
                   </div>
@@ -1291,10 +1294,10 @@ export function TestimonialsPage() {
                     </div>
                   </div>
 
-                  {/* Row 2: Your Suggestion / Opinion */}
-                  <div className="flex flex-col gap-[8px]">
+                  {/* Row 2: Your Suggestions */}
+                  <div className="flex flex-1 flex-col gap-[8px] portrait:flex-none">
                     <label className="text-[13px] font-bold text-slate-800">
-                      Your Suggestion / Opinion <span className="text-red-500 font-bold">*</span>
+                      Your Suggestions <span className="text-red-500 font-bold">*</span>
                     </label>
                     <textarea
                       rows={4}
@@ -1303,118 +1306,26 @@ export function TestimonialsPage() {
                         setOpinionText(e.target.value);
                         if (opinionError) setOpinionError(null);
                       }}
-                      placeholder="Write your suggestions or opinion here..."
-                      className="w-full resize-none rounded-[10px] border border-slate-200 p-[14px] text-[13px] transition-colors outline-none focus:border-[#0D55CF] focus:ring-1 focus:ring-[#0D55CF]"
+                      placeholder="Write your suggestions here..."
+                      className="w-full flex-1 min-h-[120px] resize-none rounded-[10px] border border-slate-200 p-[14px] text-[13px] transition-colors outline-none focus:border-[#0D55CF] focus:ring-1 focus:ring-[#0D55CF] portrait:min-h-[120px]"
                     />
                   </div>
 
                   {/* Row 3: Contact Information (Either Phone Number or Email Address is required) */}
-                  <div className="flex flex-col gap-[8px]">
-                    <div className="flex items-center justify-between flex-wrap gap-1">
-                      <label className="text-[13px] font-bold text-slate-800 flex items-center gap-1.5">
-                        <span>Contact Information</span>
-                        <span className="text-red-500 font-bold">*</span>
-                        <span className="text-[12px] font-normal text-slate-500">
-                          (Either Phone Number or Email is required)
-                        </span>
-                      </label>
-                      <span className="text-[11px] font-medium">
-                        {isValidPhone(opinionPhone) && isValidEmail(opinionEmail) ? (
-                          <span className="text-emerald-600 font-semibold">✓ Both provided &amp; valid</span>
-                        ) : isValidPhone(opinionPhone) ? (
-                          <span className="text-emerald-600 font-semibold">✓ Phone valid (Email optional)</span>
-                        ) : isValidEmail(opinionEmail) ? (
-                          <span className="text-emerald-600 font-semibold">✓ Email valid (Phone optional)</span>
-                        ) : opinionPhone.trim() && !isValidPhone(opinionPhone) ? (
-                          <span className="text-red-500 font-semibold">Invalid phone (digits only)</span>
-                        ) : opinionEmail.trim() && !isValidEmail(opinionEmail) ? (
-                          <span className="text-red-500 font-semibold">Invalid email format</span>
-                        ) : (
-                          <span className="text-amber-600 font-medium">Please enter at least one *</span>
-                        )}
-                      </span>
-                    </div>
-
-                    <div className="grid grid-cols-2 gap-[24px] portrait:flex portrait:flex-col">
-                      {/* Phone Number */}
-                      <div className="flex flex-col gap-[6px]">
-                        <div className="flex items-center justify-between">
-                          <span className="text-[12px] font-semibold text-slate-700">
-                            Phone Number {!opinionEmail.trim() && <span className="text-red-500 font-bold">*</span>}
-                          </span>
-                          {isValidPhone(opinionPhone) ? (
-                            <span className="text-[11px] text-emerald-600 font-medium">✓ Valid</span>
-                          ) : opinionPhone.trim() ? (
-                            <span className="text-[11px] text-red-500 font-medium">Invalid (digits only)</span>
-                          ) : !opinionEmail.trim() ? (
-                            <span className="text-[11px] text-amber-600">Required if no email</span>
-                          ) : (
-                            <span className="text-[11px] text-slate-400">Optional</span>
-                          )}
-                        </div>
-                        <div className="flex gap-2">
-                          <select
-                            value={opinionPhoneCode}
-                            onChange={(e) => setOpinionPhoneCode(e.target.value)}
-                            className="rounded-[10px] border border-slate-200 bg-white px-[12px] py-[11px] text-[13px] transition-colors outline-none focus:border-[#0D55CF] focus:ring-1 focus:ring-[#0D55CF]"
-                          >
-                            <option value="+44">+44 (UK)</option>
-                            <option value="+91">+91 (IN)</option>
-                            <option value="+1">+1 (US)</option>
-                            <option value="+971">+971 (UAE)</option>
-                          </select>
-                          <div className="relative flex-1">
-                            <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-[16px] text-slate-400">
-                              <Phone className="h-[18px] w-[18px]" />
-                            </div>
-                            <input
-                              type="tel"
-                              value={opinionPhone}
-                              onChange={(e) => {
-                                setOpinionPhone(e.target.value);
-                                if (opinionError) setOpinionError(null);
-                              }}
-                              placeholder="Enter your phone number"
-                              className="w-full rounded-[10px] border border-slate-200 py-[11px] pr-[16px] pl-[44px] text-[13px] transition-colors outline-none focus:border-[#0D55CF] focus:ring-1 focus:ring-[#0D55CF]"
-                            />
-                          </div>
-                        </div>
-                      </div>
-
-                      {/* Email Address */}
-                      <div className="flex flex-col gap-[6px]">
-                        <div className="flex items-center justify-between">
-                          <span className="text-[12px] font-semibold text-slate-700">
-                            Email Address {!opinionPhone.trim() && <span className="text-red-500 font-bold">*</span>}
-                          </span>
-                          {isValidEmail(opinionEmail) ? (
-                            <span className="text-[11px] text-emerald-600 font-medium">✓ Valid</span>
-                          ) : opinionEmail.trim() ? (
-                            <span className="text-[11px] text-red-500 font-medium">Invalid email</span>
-                          ) : !opinionPhone.trim() ? (
-                            <span className="text-[11px] text-amber-600">Required if no phone</span>
-                          ) : (
-                            <span className="text-[11px] text-slate-400">Optional</span>
-                          )}
-                        </div>
-                        <div className="relative">
-                          <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-[16px] text-slate-400">
-                            <Mail className="h-[18px] w-[18px]" />
-                          </div>
-                          <input
-                            type="email"
-                            value={opinionEmail}
-                            onChange={(e) => {
-                              setOpinionEmail(e.target.value);
-                              if (opinionError) setOpinionError(null);
-                            }}
-                            placeholder="Enter your email address"
-                            className="w-full rounded-[10px] border border-slate-200 py-[11px] pr-[16px] pl-[44px] text-[13px] transition-colors outline-none focus:border-[#0D55CF] focus:ring-1 focus:ring-[#0D55CF]"
-                          />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                  <ContactInfoFields
+                    phoneCode={opinionPhoneCode}
+                    onPhoneCodeChange={setOpinionPhoneCode}
+                    phone={opinionPhone}
+                    onPhoneChange={(val) => {
+                      setOpinionPhone(val);
+                      if (opinionError) setOpinionError(null);
+                    }}
+                    email={opinionEmail}
+                    onEmailChange={(val) => {
+                      setOpinionEmail(val);
+                      if (opinionError) setOpinionError(null);
+                    }}
+                  />
 
                   {/* Row 4: Submit Button (matching 2nd image) */}
                   <div className="flex items-center justify-between pt-2 portrait:flex-col portrait:gap-3 portrait:items-stretch">
@@ -1438,12 +1349,12 @@ export function TestimonialsPage() {
                       {isSubmittingOpinion ? (
                         <>
                           <Loader2 className="h-[16px] w-[16px] animate-spin" />
-                          Submitting Opinion...
+                          Submitting Suggestions...
                         </>
                       ) : (
                         <>
                           <Send className="h-[16px] w-[16px]" />
-                          Submit Opinion
+                          Submit Suggestions
                         </>
                       )}
                     </button>
@@ -1452,7 +1363,7 @@ export function TestimonialsPage() {
               )}
             </div>
           ) : activePlatform === 'google' ? (
-            <div className="flex h-full min-h-0 w-full flex-1 flex-col overflow-y-auto rounded-[20px] border border-slate-100 bg-white p-[24px] shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] gap-[20px]">
+            <div className="flex h-full min-h-0 w-full flex-1 flex-col overflow-y-auto rounded-[20px] border border-slate-100 bg-white p-[clamp(16px,2vw,28px)] shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] gap-[clamp(14px,2svh,24px)] portrait:h-auto portrait:flex-none portrait:overflow-visible portrait:p-4">
               {/* Header */}
               <div className="flex items-center gap-[14px]">
                 <div className="flex h-[46px] w-[46px] shrink-0 items-center justify-center rounded-full bg-slate-50 border border-slate-100 shadow-xs">
@@ -1535,7 +1446,7 @@ export function TestimonialsPage() {
               </div>
 
               {/* Bottom Row: Review Cards in Grid (Matching Attached Screenshot) */}
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-[16px]">
+              <div className="grid flex-1 grid-cols-1 gap-[16px] md:grid-cols-3 portrait:flex-none">
                 {effectiveGoogleReviews.map((review) => {
                   return (
                     <div
@@ -1622,11 +1533,11 @@ export function TestimonialsPage() {
               </div>
             </div>
           ) : (
-            <div className="flex min-h-0 flex-col gap-[10px] overflow-hidden">
+            <div className="flex min-h-0 flex-1 flex-col gap-[10px] overflow-hidden portrait:h-auto portrait:flex-none portrait:overflow-visible">
               {/* Rating summary + cards row */}
               <div className="grid min-h-0 flex-1 grid-cols-[minmax(0,180px)_1fr] gap-[14px] overflow-hidden portrait:flex portrait:flex-col portrait:h-auto portrait:overflow-visible">
                 {/* Rating summary */}
-                <div className="flex min-h-0 flex-col justify-start gap-[6px] pt-2 portrait:px-6 portrait:pb-2">
+                <div className="flex min-h-0 flex-col justify-start gap-[6px] pt-2 portrait:px-0 portrait:pb-2">
                   <div
                     className={cn(
                       'leading-none font-bold text-[#0D55CF]',
