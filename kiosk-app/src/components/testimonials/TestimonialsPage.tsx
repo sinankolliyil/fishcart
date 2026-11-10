@@ -321,9 +321,9 @@ function ContactInfoFields({
 }) {
   return (
     <div className="flex flex-col gap-[8px]">
-      <label className="text-[13px] font-bold text-slate-800 flex items-center gap-1.5 flex-wrap">
+      <label className="text-[clamp(13px,1.3svh,16px)] font-bold text-slate-800 flex items-center gap-1.5 flex-wrap">
         <span>Contact Information</span>
-        <span className="text-[12px] font-normal text-slate-500">
+        <span className="text-[clamp(12px,1.15svh,14px)] font-normal text-slate-500">
           (Either Phone Number or Email is required)
         </span>
       </label>
@@ -332,7 +332,7 @@ function ContactInfoFields({
         {/* Phone Number */}
         <div className="flex flex-col gap-[6px]">
           <div className="flex items-center justify-between">
-            <span className="text-[12px] font-semibold text-slate-700">
+            <span className="text-[clamp(12px,1.2svh,14px)] font-semibold text-slate-700">
               Phone Number
             </span>
             {isValidPhone(phone) ? (
@@ -345,7 +345,7 @@ function ContactInfoFields({
             <select
               value={phoneCode}
               onChange={(e) => onPhoneCodeChange(e.target.value)}
-              className="rounded-[10px] border border-slate-200 bg-white px-[12px] py-[11px] text-[13px] transition-colors outline-none focus:border-[#0D55CF] focus:ring-1 focus:ring-[#0D55CF]"
+              className="rounded-[10px] border border-slate-200 bg-white px-[12px] py-[clamp(10px,1.35svh,16px)] text-[clamp(13px,1.3svh,15px)] transition-colors outline-none focus:border-[#0D55CF] focus:ring-1 focus:ring-[#0D55CF]"
             >
               <option value="+44">+44 (UK)</option>
               <option value="+91">+91 (IN)</option>
@@ -361,7 +361,7 @@ function ContactInfoFields({
                 value={phone}
                 onChange={(e) => onPhoneChange(e.target.value)}
                 placeholder="Enter your phone number"
-                className="w-full rounded-[10px] border border-slate-200 py-[11px] pr-[16px] pl-[44px] text-[13px] transition-colors outline-none focus:border-[#0D55CF] focus:ring-1 focus:ring-[#0D55CF]"
+                className="w-full rounded-[10px] border border-slate-200 py-[clamp(10px,1.35svh,16px)] pr-[16px] pl-[44px] text-[clamp(13px,1.3svh,15px)] transition-colors outline-none focus:border-[#0D55CF] focus:ring-1 focus:ring-[#0D55CF]"
               />
             </div>
           </div>
@@ -370,7 +370,7 @@ function ContactInfoFields({
         {/* Email Address */}
         <div className="flex flex-col gap-[6px]">
           <div className="flex items-center justify-between">
-            <span className="text-[12px] font-semibold text-slate-700">
+            <span className="text-[clamp(12px,1.2svh,14px)] font-semibold text-slate-700">
               Email Address
             </span>
             {isValidEmail(email) ? (
@@ -388,7 +388,7 @@ function ContactInfoFields({
               value={email}
               onChange={(e) => onEmailChange(e.target.value)}
               placeholder="Enter your email address"
-              className="w-full rounded-[10px] border border-slate-200 py-[11px] pr-[16px] pl-[44px] text-[13px] transition-colors outline-none focus:border-[#0D55CF] focus:ring-1 focus:ring-[#0D55CF]"
+              className="w-full rounded-[10px] border border-slate-200 py-[clamp(10px,1.35svh,16px)] pr-[16px] pl-[44px] text-[clamp(13px,1.3svh,15px)] transition-colors outline-none focus:border-[#0D55CF] focus:ring-1 focus:ring-[#0D55CF]"
             />
           </div>
         </div>
@@ -922,7 +922,7 @@ export function TestimonialsPage() {
         <div className="flex shrink-0 flex-col gap-[12px]">
           {/* Heading + tabs */}
           <div className="flex min-w-0 flex-col gap-[12px]">
-            <div className="relative flex flex-col justify-center overflow-hidden rounded-[8px] border border-white/20 bg-gradient-to-r from-[#F4F9FF] via-[#EAF3FF] to-[#D4E6FC] px-[clamp(8px,1.2vw,18px)] py-[clamp(6px,0.8vw,12px)]">
+            <div className="relative flex flex-col justify-center overflow-hidden rounded-[8px] border border-white/20 bg-gradient-to-r from-[#F4F9FF] via-[#EAF3FF] to-[#D4E6FC] px-[clamp(10px,1.4vw,22px)] py-[clamp(8px,1.6svh,24px)]">
               <h1 className="text-[clamp(26px,min(3vw,4svh),44px)] leading-tight font-bold tracking-tight text-[#102B7B] portrait:text-[26px]">
                 What Our Customers Say
               </h1>
@@ -956,7 +956,7 @@ export function TestimonialsPage() {
                     key={p.id}
                     onClick={() => handlePlatformChange(p.id)}
                     className={cn(
-                      'flex items-center gap-[10px] rounded-[14px] border px-[14px] py-[12px] transition-all duration-200 text-left',
+                      'flex items-center gap-[10px] rounded-[14px] border px-[clamp(12px,1.2vw,18px)] py-[clamp(11px,1.5svh,18px)] transition-all duration-200 text-left',
                       isActive
                         ? 'bg-[#0D55CF] text-white border-[#0D55CF] shadow-md shadow-blue-500/20'
                         : 'bg-white text-slate-800 border-slate-100 shadow-sm hover:border-[#0D55CF]/40'
@@ -964,12 +964,12 @@ export function TestimonialsPage() {
                   >
                     <span className="shrink-0">{p.renderIcon(isActive)}</span>
                     <span className="flex min-w-0 flex-col items-start">
-                      <span className="truncate text-[13px] leading-tight font-bold">
+                      <span className="truncate text-[clamp(13px,1.3svh,16px)] leading-tight font-bold">
                         {p.label}
                       </span>
                       <span
                         className={cn(
-                          'text-[11px] leading-tight',
+                          'text-[clamp(11px,1.1svh,13px)] leading-tight',
                           isActive ? 'text-blue-100' : 'text-slate-400'
                         )}
                       >
@@ -987,7 +987,7 @@ export function TestimonialsPage() {
         <div className="grid min-h-0 flex-1 grid-cols-1 gap-[14px] overflow-hidden portrait:flex portrait:flex-col portrait:h-auto portrait:overflow-visible">
           {/* Main View Area */}
           {activePlatform === 'addReview' ? (
-            <div className="flex h-auto max-h-full min-h-0 w-full self-start flex-col overflow-y-auto rounded-[16px] border border-slate-100 bg-white p-[24px] shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] portrait:max-h-none portrait:overflow-visible portrait:p-4">
+            <div className="flex h-full min-h-0 w-full flex-1 flex-col overflow-y-auto rounded-[16px] border border-slate-100 bg-white p-[clamp(18px,2.6svh,36px)] shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] portrait:h-auto portrait:flex-none portrait:overflow-visible portrait:p-4">
               {submittedReview ? (
                 <div className="flex h-full min-h-[360px] flex-col items-center justify-center gap-4 text-center p-8">
                   <div className="flex h-[64px] w-[64px] items-center justify-center rounded-full bg-emerald-100 text-emerald-600 shadow-sm">
@@ -1030,17 +1030,17 @@ export function TestimonialsPage() {
                   </div>
                 </div>
               ) : (
-                <div className="flex flex-col gap-[20px] portrait:gap-4">
+                <div className="flex flex-1 flex-col justify-between gap-[clamp(14px,2svh,28px)] portrait:flex-none portrait:justify-start portrait:gap-4">
                   {/* Header from user attachment */}
                   <div className="flex items-start gap-[16px]">
-                    <div className="flex h-[48px] w-[48px] shrink-0 items-center justify-center rounded-full bg-[#EBF3FF] text-[#0D55CF]">
-                      <Edit3 className="h-[22px] w-[22px]" />
+                    <div className="flex h-[clamp(44px,5.2svh,60px)] w-[clamp(44px,5.2svh,60px)] shrink-0 items-center justify-center rounded-full bg-[#EBF3FF] text-[#0D55CF]">
+                      <Edit3 className="h-[clamp(20px,2.3svh,26px)] w-[clamp(20px,2.3svh,26px)]" />
                     </div>
                     <div className="flex flex-col gap-1">
-                      <h2 className="text-[22px] font-bold text-slate-900 leading-tight">
+                      <h2 className="text-[clamp(20px,2.2svh,28px)] font-bold text-slate-900 leading-tight">
                         Share Your Review
                       </h2>
-                      <p className="text-[13px] text-slate-500">
+                      <p className="text-[clamp(13px,1.3svh,15px)] text-slate-500">
                         Tell us about your experience with Fishcart. Your feedback helps us serve you better.
                       </p>
                     </div>
@@ -1050,7 +1050,7 @@ export function TestimonialsPage() {
                   <div className="grid grid-cols-2 gap-[24px] portrait:flex portrait:flex-col portrait:gap-[14px]">
                     {/* Your Name */}
                     <div className="flex flex-col gap-[8px]">
-                      <label className="text-[13px] font-bold text-slate-800">
+                      <label className="text-[clamp(13px,1.3svh,16px)] font-bold text-slate-800">
                         Your Name <span className="text-red-500 font-bold">*</span>
                       </label>
                       <div className="relative">
@@ -1065,14 +1065,14 @@ export function TestimonialsPage() {
                             if (formError) setFormError(null);
                           }}
                           placeholder="Enter your name"
-                          className="w-full rounded-[10px] border border-slate-200 py-[11px] pr-[16px] pl-[44px] text-[13px] transition-colors outline-none focus:border-[#0D55CF] focus:ring-1 focus:ring-[#0D55CF]"
+                          className="w-full rounded-[10px] border border-slate-200 py-[clamp(10px,1.35svh,16px)] pr-[16px] pl-[44px] text-[clamp(13px,1.3svh,15px)] transition-colors outline-none focus:border-[#0D55CF] focus:ring-1 focus:ring-[#0D55CF]"
                         />
                       </div>
                     </div>
 
                     {/* Rating */}
                     <div className="flex flex-col gap-[8px]">
-                      <label className="text-[13px] font-bold text-slate-800">
+                      <label className="text-[clamp(13px,1.3svh,16px)] font-bold text-slate-800">
                         Rating <span className="text-red-500 font-bold">*</span>
                       </label>
                       <div className="flex h-[44px] items-center">
@@ -1105,9 +1105,9 @@ export function TestimonialsPage() {
 
                   {/* Row 3: Product Photo Upload (Customer Photo) */}
                   <div className="flex flex-col gap-[8px]">
-                    <label className="text-[13px] font-bold text-slate-800">
+                    <label className="text-[clamp(13px,1.3svh,16px)] font-bold text-slate-800">
                       Product Photo{' '}
-                      <span className="font-normal text-slate-400 text-[12px]">
+                      <span className="font-normal text-slate-400 text-[clamp(12px,1.15svh,14px)]">
                         (Optional - Show how your seafood or meat looked!)
                       </span>
                     </label>
@@ -1142,14 +1142,14 @@ export function TestimonialsPage() {
                         </button>
                       </div>
                     ) : (
-                      <label className="flex cursor-pointer flex-col items-center justify-center rounded-[10px] border-2 border-dashed border-slate-200 bg-slate-50/60 p-4 transition-colors hover:border-[#0D55CF]/50 hover:bg-blue-50/30">
+                      <label className="flex cursor-pointer flex-col items-center justify-center rounded-[10px] border-2 border-dashed border-slate-200 bg-slate-50/60 px-4 py-[clamp(12px,2svh,24px)] transition-colors hover:border-[#0D55CF]/50 hover:bg-blue-50/30">
                         <div className="flex items-center gap-2 text-slate-600">
                           <Camera className="h-[20px] w-[20px] text-[#0D55CF]" />
-                          <span className="text-[13px] font-semibold text-slate-700">
+                          <span className="text-[clamp(13px,1.3svh,15px)] font-semibold text-slate-700">
                             Click to upload photo of your product
                           </span>
                         </div>
-                        <span className="mt-1 text-[11px] text-slate-400">
+                        <span className="mt-1 text-[clamp(11px,1.1svh,13px)] text-slate-400">
                           Show other customers how your fish looked (PNG, JPG, WEBP up to 10MB)
                         </span>
                         <input
@@ -1164,7 +1164,7 @@ export function TestimonialsPage() {
 
                   {/* Row 4: Your Review */}
                   <div className="flex flex-col gap-[8px]">
-                    <label className="text-[13px] font-bold text-slate-800">
+                    <label className="text-[clamp(13px,1.3svh,16px)] font-bold text-slate-800">
                       Your Review <span className="text-red-500 font-bold">*</span>
                     </label>
                     <textarea
@@ -1175,12 +1175,12 @@ export function TestimonialsPage() {
                         if (formError) setFormError(null);
                       }}
                       placeholder="Write your review or experience here..."
-                      className="w-full resize-none rounded-[10px] border border-slate-200 p-[14px] text-[13px] transition-colors outline-none focus:border-[#0D55CF] focus:ring-1 focus:ring-[#0D55CF]"
+                      className="w-full h-[clamp(96px,14svh,180px)] resize-none rounded-[10px] border border-slate-200 p-[14px] text-[clamp(13px,1.3svh,15px)] transition-colors outline-none focus:border-[#0D55CF] focus:ring-1 focus:ring-[#0D55CF] portrait:h-[110px]"
                     />
                   </div>
 
                   {/* Row 5: Submit Row */}
-                  <div className="flex items-center justify-between pt-2 portrait:flex-col portrait:gap-3 portrait:items-stretch">
+                  <div className="flex items-center justify-between pt-1 portrait:flex-col portrait:gap-3 portrait:items-stretch">
                     <div>
                       {formError && (
                         <div className="flex items-center gap-1.5 text-[12px] font-medium text-red-600 bg-red-50 border border-red-200 px-3 py-1.5 rounded-[8px]">
@@ -1194,7 +1194,7 @@ export function TestimonialsPage() {
                       disabled={isSubmittingReview}
                       onClick={handleSubmitReview}
                       className={cn(
-                        'flex items-center justify-center gap-2 rounded-[10px] bg-[#0D55CF] px-[32px] py-[12px] text-[14px] font-bold text-white shadow-sm transition-all hover:bg-[#0A40A0] hover:shadow active:scale-[0.99] portrait:w-full',
+                        'flex items-center justify-center gap-2 rounded-[10px] bg-[#0D55CF] px-[clamp(28px,2.5vw,40px)] py-[clamp(11px,1.4svh,16px)] text-[clamp(13px,1.35svh,16px)] font-bold text-white shadow-sm transition-all hover:bg-[#0A40A0] hover:shadow active:scale-[0.99] portrait:w-full',
                         isSubmittingReview && 'opacity-70 cursor-not-allowed'
                       )}
                     >
@@ -1215,7 +1215,7 @@ export function TestimonialsPage() {
               )}
             </div>
           ) : activePlatform === 'opinion' ? (
-            <div className="flex h-auto max-h-full min-h-0 w-full self-start flex-col overflow-y-auto rounded-[16px] border border-slate-100 bg-white p-[24px] shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] portrait:max-h-none portrait:overflow-visible portrait:p-4">
+            <div className="flex h-full min-h-0 w-full flex-1 flex-col overflow-y-auto rounded-[16px] border border-slate-100 bg-white p-[clamp(18px,2.6svh,36px)] shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] portrait:h-auto portrait:flex-none portrait:overflow-visible portrait:p-4">
               {submittedOpinion ? (
                 <div className="flex h-full min-h-[360px] flex-col items-center justify-center gap-4 text-center p-8">
                   <div className="flex h-[64px] w-[64px] items-center justify-center rounded-full bg-emerald-100 text-emerald-600 shadow-sm">
@@ -1256,17 +1256,17 @@ export function TestimonialsPage() {
                   </div>
                 </div>
               ) : (
-                <div className="flex flex-col gap-[20px] portrait:gap-4">
+                <div className="flex flex-1 flex-col justify-between gap-[clamp(14px,2.2svh,30px)] portrait:flex-none portrait:justify-start portrait:gap-4">
                   {/* Top Header from 2nd image */}
                   <div className="flex items-start gap-[16px]">
-                    <div className="flex h-[48px] w-[48px] shrink-0 items-center justify-center rounded-full bg-[#EBF3FF] text-[#0D55CF]">
-                      <MessageSquareHeart className="h-[24px] w-[24px]" />
+                    <div className="flex h-[clamp(44px,5.2svh,60px)] w-[clamp(44px,5.2svh,60px)] shrink-0 items-center justify-center rounded-full bg-[#EBF3FF] text-[#0D55CF]">
+                      <MessageSquareHeart className="h-[clamp(20px,2.3svh,26px)] w-[clamp(20px,2.3svh,26px)]" />
                     </div>
                     <div className="flex flex-col gap-1">
-                      <h2 className="text-[22px] font-bold text-slate-900 leading-tight">
+                      <h2 className="text-[clamp(20px,2.2svh,28px)] font-bold text-slate-900 leading-tight">
                         We Value Your Suggestions!
                       </h2>
-                      <p className="text-[13px] text-slate-500">
+                      <p className="text-[clamp(13px,1.3svh,15px)] text-slate-500">
                         Your suggestions help us improve our products and service every day.
                       </p>
                     </div>
@@ -1274,7 +1274,7 @@ export function TestimonialsPage() {
 
                   {/* Row 1: Your Name */}
                   <div className="flex flex-col gap-[8px]">
-                    <label className="text-[13px] font-bold text-slate-800">
+                    <label className="text-[clamp(13px,1.3svh,16px)] font-bold text-slate-800">
                       Your Name <span className="text-red-500 font-bold">*</span>
                     </label>
                     <div className="relative">
@@ -1289,14 +1289,14 @@ export function TestimonialsPage() {
                           if (opinionError) setOpinionError(null);
                         }}
                         placeholder="Enter your name"
-                        className="w-full rounded-[10px] border border-slate-200 py-[11px] pr-[16px] pl-[44px] text-[13px] transition-colors outline-none focus:border-[#0D55CF] focus:ring-1 focus:ring-[#0D55CF]"
+                        className="w-full rounded-[10px] border border-slate-200 py-[clamp(10px,1.35svh,16px)] pr-[16px] pl-[44px] text-[clamp(13px,1.3svh,15px)] transition-colors outline-none focus:border-[#0D55CF] focus:ring-1 focus:ring-[#0D55CF]"
                       />
                     </div>
                   </div>
 
                   {/* Row 2: Your Suggestions */}
                   <div className="flex flex-col gap-[8px]">
-                    <label className="text-[13px] font-bold text-slate-800">
+                    <label className="text-[clamp(13px,1.3svh,16px)] font-bold text-slate-800">
                       Your Suggestions <span className="text-red-500 font-bold">*</span>
                     </label>
                     <textarea
@@ -1307,7 +1307,7 @@ export function TestimonialsPage() {
                         if (opinionError) setOpinionError(null);
                       }}
                       placeholder="Write your suggestions here..."
-                      className="w-full resize-none rounded-[10px] border border-slate-200 p-[14px] text-[13px] transition-colors outline-none focus:border-[#0D55CF] focus:ring-1 focus:ring-[#0D55CF]"
+                      className="w-full h-[clamp(110px,19svh,230px)] resize-none rounded-[10px] border border-slate-200 p-[14px] text-[clamp(13px,1.3svh,15px)] transition-colors outline-none focus:border-[#0D55CF] focus:ring-1 focus:ring-[#0D55CF] portrait:h-[120px]"
                     />
                   </div>
 
@@ -1328,7 +1328,7 @@ export function TestimonialsPage() {
                   />
 
                   {/* Row 4: Submit Button (matching 2nd image) */}
-                  <div className="flex items-center justify-between pt-2 portrait:flex-col portrait:gap-3 portrait:items-stretch">
+                  <div className="flex items-center justify-between pt-1 portrait:flex-col portrait:gap-3 portrait:items-stretch">
                     <div>
                       {opinionError && (
                         <div className="flex items-center gap-1.5 text-[12px] font-medium text-red-600 bg-red-50 border border-red-200 px-3 py-1.5 rounded-[8px]">
@@ -1342,7 +1342,7 @@ export function TestimonialsPage() {
                       disabled={isSubmittingOpinion}
                       onClick={handleSubmitOpinion}
                       className={cn(
-                        'flex items-center justify-center gap-2 rounded-[10px] bg-[#0D55CF] px-[36px] py-[12px] text-[14px] font-bold text-white shadow-sm transition-all hover:bg-[#0A40A0] hover:shadow active:scale-[0.99] portrait:w-full',
+                        'flex items-center justify-center gap-2 rounded-[10px] bg-[#0D55CF] px-[clamp(28px,2.8vw,42px)] py-[clamp(11px,1.4svh,16px)] text-[clamp(13px,1.35svh,16px)] font-bold text-white shadow-sm transition-all hover:bg-[#0A40A0] hover:shadow active:scale-[0.99] portrait:w-full',
                         isSubmittingOpinion && 'opacity-70 cursor-not-allowed'
                       )}
                     >
@@ -1363,7 +1363,7 @@ export function TestimonialsPage() {
               )}
             </div>
           ) : activePlatform === 'google' ? (
-            <div className="flex h-auto max-h-full min-h-0 w-full self-start flex-col overflow-y-auto rounded-[20px] border border-slate-100 bg-white p-[24px] shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] gap-[20px] portrait:max-h-none portrait:overflow-visible portrait:p-4">
+            <div className="flex h-full min-h-0 w-full flex-1 flex-col overflow-y-auto rounded-[20px] border border-slate-100 bg-white p-[clamp(16px,2vw,28px)] shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] gap-[clamp(14px,2svh,24px)] portrait:h-auto portrait:flex-none portrait:overflow-visible portrait:p-4">
               {/* Header */}
               <div className="flex items-center gap-[14px]">
                 <div className="flex h-[46px] w-[46px] shrink-0 items-center justify-center rounded-full bg-slate-50 border border-slate-100 shadow-xs">
@@ -1446,7 +1446,7 @@ export function TestimonialsPage() {
               </div>
 
               {/* Bottom Row: Review Cards in Grid (Matching Attached Screenshot) */}
-              <div className="grid grid-cols-1 gap-[16px] md:grid-cols-3">
+              <div className="grid flex-1 grid-cols-1 gap-[16px] md:grid-cols-3 portrait:flex-none">
                 {effectiveGoogleReviews.map((review) => {
                   return (
                     <div
