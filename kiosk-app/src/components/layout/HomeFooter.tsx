@@ -3,33 +3,47 @@
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { MapPin, PhoneCall, Mail } from 'lucide-react';
+import { cn } from '@/lib/utils';
 import { sanityFetch } from '@/lib/sanity';
 import { HOME_FOOTER_QUERY } from '@/lib/sanityQueries';
 
-export function HomeFooter() {
-  const [footer, setFooter] = useState<{
-    storeAddress?: string;
-    phone?: string;
-    email?: string;
-    aboutUsText?: string;
-    ourStoriesText?: string;
-    contactUsText?: string;
-  } | null>(null);
+interface HomeFooterData {
+  storeAddress?: string;
+  phone?: string;
+  email?: string;
+  aboutUsText?: string;
+  ourStoriesText?: string;
+  contactUsText?: string;
+}
+
+function useHomeFooterData() {
+  const [footer, setFooter] = useState<HomeFooterData | null>(null);
 
   useEffect(() => {
-    sanityFetch<any>(HOME_FOOTER_QUERY)
+    sanityFetch<HomeFooterData>(HOME_FOOTER_QUERY)
       .then((res) => {
         if (res) setFooter(res);
       })
       .catch(() => {});
   }, []);
 
-  const address = footer?.storeAddress || 'Unit 5 Hythe Quay, England, CO2 8JB';
-  const phone = footer?.phone || '+44 1206 123456';
-  const email = footer?.email || 'hello@fishcart.co.uk';
-  const aboutText = footer?.aboutUsText || 'Delivering fresh & healthy food to your family.';
-  const storiesText = footer?.ourStoriesText || 'From ocean to your kitchen, Journey of freshness.';
-  const contactText = footer?.contactUsText || 'We are here to help you. Reach out anytime.';
+  return {
+    address: footer?.storeAddress || 'Unit 5 Hythe Quay, England, CO2 8JB',
+    phone: footer?.phone || '+44 1206 123456',
+    email: footer?.email || 'hello@fishcart.co.uk',
+    aboutText:
+      footer?.aboutUsText || 'Delivering fresh & healthy food to your family.',
+    storiesText:
+      footer?.ourStoriesText ||
+      'From ocean to your kitchen, Journey of freshness.',
+    contactText:
+      footer?.contactUsText || 'We are here to help you. Reach out anytime.',
+  };
+}
+
+export function HomeFooter() {
+  const { address, phone, email, aboutText, storiesText, contactText } =
+    useHomeFooterData();
 
   return (
     <footer className="grid w-full grid-cols-4 items-stretch rounded-[8px] border border-slate-200 bg-white portrait:grid-cols-1 portrait:divide-y portrait:divide-slate-200 portrait:h-auto min-h-[clamp(60px,8.5svh,82px)]">
@@ -121,5 +135,88 @@ export function HomeFooter() {
         </div>
       </div>
     </footer>
+  );
+}
+
+export function MobileFooter({ className }: { className?: string }) {
+  const { address, phone, email, aboutText, storiesText } = useHomeFooterData();
+
+  return (
+    <div
+      className={cn(
+        'hidden portrait:flex portrait:flex-col portrait:gap-3 portrait:px-2 portrait:pb-4',
+        className
+      )}
+    >
+      <div className="flex w-full shrink-0 gap-3">
+        {/* About Us */}
+        <div className="relative flex aspect-[4/3] flex-1 flex-col overflow-hidden rounded-[12px] border border-gray-50 bg-white p-4 shadow-[0_2px_12px_rgba(0,0,0,0.06)]">
+          <div className="relative z-10 flex flex-col">
+            <h4 className="mb-1 text-[18px] font-bold text-[#0D55CF]">
+              About Us
+            </h4>
+            <p className="text-[13px] leading-[1.3] font-medium text-slate-500">
+              {aboutText}
+            </p>
+          </div>
+        </div>
+
+        {/* Our Stories */}
+        <div className="relative flex aspect-[4/3] flex-1 flex-col overflow-hidden rounded-[12px] border border-gray-50 bg-white p-4 shadow-[0_2px_12px_rgba(0,0,0,0.06)]">
+          <div className="relative z-10 flex flex-col">
+            <h4 className="mb-1 text-[18px] font-bold text-[#0D55CF]">
+              Our Stories
+            </h4>
+            <p className="max-w-[90%] text-[13px] leading-[1.3] font-medium text-slate-500">
+              {storiesText}
+            </p>
+          </div>
+          <div className="absolute right-1 bottom-1 h-12 w-16 opacity-90 mix-blend-multiply">
+            <Image
+              src="/assets/boat_exact.png"
+              alt="Our Stories"
+              fill
+              className="object-contain object-right-bottom"
+            />
+          </div>
+        </div>
+      </div>
+
+      {/* Contact Us */}
+      <div className="relative flex shrink-0 flex-col justify-center gap-2 overflow-hidden rounded-[12px] border border-gray-50 bg-white p-4 shadow-[0_2px_12px_rgba(0,0,0,0.06)]">
+        <div className="relative z-10 flex w-full flex-col items-center gap-2 text-center">
+          <h4 className="mb-1 text-[18px] font-bold text-[#0D55CF]">
+            Contact Us
+          </h4>
+          <div className="flex items-center justify-center gap-2">
+            <MapPin className="h-4 w-4 shrink-0 text-[#0D55CF]" />
+            <span className="text-[14px] leading-tight font-medium text-slate-600">
+              {address}
+            </span>
+          </div>
+          <div className="flex items-center justify-center gap-2">
+            <PhoneCall className="h-4 w-4 shrink-0 text-[#0D55CF]" />
+            <span className="text-[14px] font-bold text-[#0B1F5B]">
+              {phone}
+            </span>
+          </div>
+          <div className="flex items-center justify-center gap-2">
+            <Mail className="h-4 w-4 shrink-0 text-[#0D55CF]" />
+            <span className="text-[14px] font-bold text-[#0D55CF]">
+              {email}
+            </span>
+          </div>
+        </div>
+
+        <div className="absolute top-1/2 right-2 h-14 w-16 -translate-y-1/2 opacity-20 mix-blend-multiply">
+          <Image
+            src="/assets/fishdd.png"
+            alt="Address"
+            fill
+            className="object-contain object-right"
+          />
+        </div>
+      </div>
+    </div>
   );
 }

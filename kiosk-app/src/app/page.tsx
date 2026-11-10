@@ -10,14 +10,11 @@ import {
   Sparkles,
   HeartPulse,
   ShieldCheck,
-  MapPin,
-  PhoneCall,
-  Mail,
 } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import { Rating } from '@/components/ui/Rating';
 import { CategoryCard } from '@/components/shared/CategoryCard';
-import { HomeFooter } from '@/components/layout/HomeFooter';
+import { HomeFooter, MobileFooter } from '@/components/layout/HomeFooter';
 import { HeroBannerCarousel } from '@/components/shared/HeroBannerCarousel';
 import { RecipeCarousel } from '@/components/home/RecipeCarousel';
 import { HomeCustomerReviewCard } from '@/components/home/HomeCustomerReviewCard';
@@ -651,76 +648,8 @@ export default async function HomePage() {
           </div>
         </div>
 
-        {/* Mobile About / Stories */}
-        <div className="flex shrink-0 gap-3 px-2 pb-1 w-full">
-          {/* About Us */}
-          <div className="relative flex aspect-[4/3] flex-1 flex-col overflow-hidden rounded-[12px] border border-gray-50 bg-white p-4 shadow-[0_2px_12px_rgba(0,0,0,0.06)]">
-            <div className="relative z-10 flex flex-col">
-              <h4 className="mb-1 text-[18px] font-bold text-[#0D55CF]">
-                About Us
-              </h4>
-              <p className="text-[13px] leading-[1.3] font-medium text-slate-500">
-                Delivering fresh & healthy food to your family.
-              </p>
-            </div>
-          </div>
-
-          {/* Our Stories */}
-          <div className="relative flex aspect-[4/3] flex-1 flex-col overflow-hidden rounded-[12px] border border-gray-50 bg-white p-4 shadow-[0_2px_12px_rgba(0,0,0,0.06)]">
-            <div className="relative z-10 flex flex-col">
-              <h4 className="mb-1 text-[18px] font-bold text-[#0D55CF]">
-                Our Stories
-              </h4>
-              <p className="max-w-[90%] text-[13px] leading-[1.3] font-medium text-slate-500">
-                From ocean to your kitchen, journey of freshness.
-              </p>
-            </div>
-            <div className="absolute right-1 bottom-1 h-12 w-16 opacity-90 mix-blend-multiply">
-              <Image
-                src="/assets/boat_exact.png"
-                alt="Our Stories"
-                fill
-                className="object-contain object-right-bottom"
-              />
-            </div>
-          </div>
-        </div>
-
-        {/* Mobile Footer */}
-        <div className="relative mx-2 flex shrink-0 flex-col justify-center gap-2 overflow-hidden rounded-[12px] border border-gray-50 bg-white p-4 shadow-[0_2px_12px_rgba(0,0,0,0.06)]">
-          <div className="relative z-10 flex w-full flex-col items-center gap-2 text-center">
-            <h4 className="mb-1 text-[18px] font-bold text-[#0D55CF]">
-              Contact Us
-            </h4>
-            <div className="flex items-center justify-center gap-2">
-              <MapPin className="h-4 w-4 shrink-0 text-[#0D55CF]" />
-              <span className="text-[14px] leading-tight font-medium text-slate-600">
-                Unit 5 Hythe Quay, England, CO2 8JB
-              </span>
-            </div>
-            <div className="flex items-center justify-center gap-2">
-              <PhoneCall className="h-4 w-4 shrink-0 text-[#0D55CF]" />
-              <span className="text-[14px] font-bold text-[#0B1F5B]">
-                +44 1206 123456
-              </span>
-            </div>
-            <div className="flex items-center justify-center gap-2">
-              <Mail className="h-4 w-4 shrink-0 text-[#0D55CF]" />
-              <span className="text-[14px] font-bold text-[#0D55CF]">
-                hello@fishcart.co.uk
-              </span>
-            </div>
-          </div>
-
-          <div className="absolute top-1/2 right-2 h-14 w-16 -translate-y-1/2 opacity-20 mix-blend-multiply">
-            <Image
-              src="/assets/fishdd.png"
-              alt="Address"
-              fill
-              className="object-contain object-right"
-            />
-          </div>
-        </div>
+        {/* Mobile About / Stories & Footer (CMS-powered) */}
+        <MobileFooter className="portrait:pb-0" />
       </div>
     </>
   );
