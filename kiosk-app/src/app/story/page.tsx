@@ -286,7 +286,7 @@ export default async function StoryPage() {
   const familyImage = '/assets/story_family_footer.png';
 
   return (
-    <div className="grid h-full min-h-0 w-full grid-rows-[minmax(0,33fr)_minmax(0,25fr)_minmax(0,16fr)_minmax(0,22fr)_auto] gap-2 lg:gap-3 xl:gap-[var(--main-gap)] portrait:flex portrait:flex-col portrait:h-auto portrait:gap-4 portrait:overflow-visible portrait:pb-4">
+    <div className="grid h-full min-h-0 w-full grid-rows-[minmax(0,33fr)_minmax(0,25fr)_minmax(0,16fr)_minmax(0,22fr)_auto] gap-2 lg:gap-3 xl:gap-[var(--main-gap)] portrait:flex portrait:flex-col portrait:h-auto portrait:gap-4 portrait:overflow-visible portrait:px-2 portrait:pt-2 portrait:pb-4">
       {/* ROW 1 — Story Introduction */}
       <div className="grid min-h-0 grid-cols-[40fr_20fr_40fr] gap-2 overflow-hidden lg:gap-3 xl:grid-cols-[38fr_28fr_34fr] xl:gap-[var(--main-gap)] portrait:flex portrait:flex-col portrait:gap-4 portrait:overflow-visible">
         {/* Left Side: Intro */}
@@ -450,21 +450,21 @@ export default async function StoryPage() {
       </div>
 
       {/* ROW 5 — Thank You Footer */}
-      <div className="grid min-h-[clamp(65px,8.5svh,84px)] grid-cols-2 gap-[var(--main-gap)] portrait:hidden">
+      <div className="grid min-h-[clamp(65px,8.5svh,84px)] grid-cols-2 gap-[var(--main-gap)] portrait:grid-cols-1 portrait:gap-3 portrait:min-h-0">
         {/* Left Footer Card */}
-        <div className="flex h-full min-h-0 items-center justify-between overflow-hidden rounded-[8px] bg-white py-[clamp(6px,0.8svh,12px)] px-3 xl:px-[clamp(10px,1.2vw,18px)]">
+        <div className="flex h-full min-h-0 items-center justify-between overflow-hidden rounded-[8px] bg-white py-[clamp(6px,0.8svh,12px)] px-3 xl:px-[clamp(10px,1.2vw,18px)] portrait:min-h-[76px] portrait:p-3">
           <div className="flex min-h-0 flex-1 items-center gap-[clamp(8px,1vw,16px)] pr-2">
             <Heart className="h-[clamp(22px,2vw,36px)] w-[clamp(22px,2vw,36px)] shrink-0 text-red-500" />
             <div className="flex min-h-0 flex-col">
               <h2 className="mb-0.5 text-[clamp(14px,1.2vw,18px)] font-bold text-[#0D55CF]">
                 {thankYouHeading}
               </h2>
-              <p className="line-clamp-2 text-[clamp(10px,0.8vw,12px)] leading-snug font-medium text-slate-600">
+              <p className="line-clamp-2 text-[clamp(10px,0.8vw,12px)] leading-snug font-medium text-slate-600 portrait:line-clamp-none portrait:text-[12px]">
                 {thankYouText}
               </p>
             </div>
           </div>
-          <div className="relative h-full min-h-[50px] w-[20%] shrink-0 lg:w-[26%] xl:w-[32%] overflow-hidden">
+          <div className="relative h-full min-h-[50px] w-[20%] shrink-0 lg:w-[26%] xl:w-[32%] overflow-hidden portrait:w-20">
             <Image
               src={familyImage}
               alt="Family"
@@ -475,21 +475,89 @@ export default async function StoryPage() {
         </div>
 
         {/* Right Footer Card */}
-        <div className="flex h-full min-h-0 items-center justify-between overflow-hidden rounded-[8px] bg-white py-[clamp(6px,0.8svh,12px)] px-3 xl:px-[clamp(10px,1.2vw,18px)]">
-          <div className="flex h-full flex-1 items-center justify-center pl-2">
-            <p className="whitespace-pre-line text-[clamp(11px,1vw,14px)] leading-tight font-bold italic text-slate-600">
+        <div className="flex h-full min-h-0 items-center justify-between overflow-hidden rounded-[8px] bg-white py-[clamp(6px,0.8svh,12px)] px-3 xl:px-[clamp(10px,1.2vw,18px)] portrait:min-h-[76px] portrait:p-3">
+          <div className="flex h-full flex-1 items-center justify-center pl-2 portrait:justify-start portrait:pl-0">
+            <p className="whitespace-pre-line text-[clamp(11px,1vw,14px)] leading-tight font-bold italic text-slate-600 portrait:text-[13px]">
               <span className="text-[clamp(18px,2vw,26px)] leading-none text-blue-200">
                 &quot;
               </span>{' '}
               {closingQuote}
             </p>
           </div>
-          <div className="relative h-full min-h-[50px] w-[24%] shrink-0 lg:w-[28%] xl:w-[32%] overflow-hidden">
+          <div className="relative h-full min-h-[50px] w-[24%] shrink-0 lg:w-[28%] xl:w-[32%] overflow-hidden portrait:w-20">
             <Image
               src={familyImage}
               alt="Boat Illustration"
               fill
               className="scale-[1.6] object-contain object-center"
+            />
+          </div>
+        </div>
+      </div>
+
+      {/* Portrait-only Mobile Footer */}
+      <div className="hidden portrait:flex portrait:flex-col portrait:gap-3 portrait:pb-4">
+        <div className="flex w-full shrink-0 gap-3">
+          <div className="relative flex aspect-[4/3] flex-1 flex-col overflow-hidden rounded-[12px] border border-gray-50 bg-white p-4 shadow-[0_2px_12px_rgba(0,0,0,0.06)]">
+            <div className="relative z-10 flex flex-col">
+              <h4 className="mb-1 text-[18px] font-bold text-[#0D55CF]">
+                About Us
+              </h4>
+              <p className="text-[13px] leading-[1.3] font-medium text-slate-500">
+                Delivering fresh &amp; healthy food to your family.
+              </p>
+            </div>
+          </div>
+          <div className="relative flex aspect-[4/3] flex-1 flex-col overflow-hidden rounded-[12px] border border-gray-50 bg-white p-4 shadow-[0_2px_12px_rgba(0,0,0,0.06)]">
+            <div className="relative z-10 flex flex-col">
+              <h4 className="mb-1 text-[18px] font-bold text-[#0D55CF]">
+                Our Stories
+              </h4>
+              <p className="max-w-[90%] text-[13px] leading-[1.3] font-medium text-slate-500">
+                From ocean to your kitchen, journey of freshness.
+              </p>
+            </div>
+            <div className="absolute right-1 bottom-1 h-12 w-16 opacity-90 mix-blend-multiply">
+              <Image
+                src="/assets/boat_exact.png"
+                alt="Our Stories"
+                fill
+                className="object-contain object-right-bottom"
+              />
+            </div>
+          </div>
+        </div>
+
+        <div className="relative flex shrink-0 flex-col justify-center gap-2 overflow-hidden rounded-[12px] border border-gray-50 bg-white p-4 shadow-[0_2px_12px_rgba(0,0,0,0.06)]">
+          <div className="relative z-10 flex w-full flex-col items-center gap-2 text-center">
+            <h4 className="mb-1 text-[18px] font-bold text-[#0D55CF]">
+              Contact Us
+            </h4>
+            <div className="flex items-center justify-center gap-2">
+              <MapPin className="h-4 w-4 shrink-0 text-[#0D55CF]" />
+              <span className="text-[14px] leading-tight font-medium text-slate-600">
+                Unit 5 Hythe Quay, England, CO2 8JB
+              </span>
+            </div>
+            <div className="flex items-center justify-center gap-2">
+              <PhoneCall className="h-4 w-4 shrink-0 text-[#0D55CF]" />
+              <span className="text-[14px] font-bold text-[#0B1F5B]">
+                +44 1206 123456
+              </span>
+            </div>
+            <div className="flex items-center justify-center gap-2">
+              <Mail className="h-4 w-4 shrink-0 text-[#0D55CF]" />
+              <span className="text-[14px] font-bold text-[#0D55CF]">
+                hello@fishcart.co.uk
+              </span>
+            </div>
+          </div>
+          <div className="absolute top-1/2 right-2 h-14 w-16 -translate-y-1/2 opacity-20 mix-blend-multiply">
+            <Image
+              src="/assets/fishdd.png"
+              alt="Address"
+              fill
+              className="object-contain object-right"
             />
           </div>
         </div>
