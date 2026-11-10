@@ -987,7 +987,7 @@ export function TestimonialsPage() {
         <div className="grid min-h-0 flex-1 grid-cols-1 gap-[14px] overflow-hidden portrait:flex portrait:flex-col portrait:h-auto portrait:overflow-visible">
           {/* Main View Area */}
           {activePlatform === 'addReview' ? (
-            <div className="flex h-full min-h-0 w-full flex-1 flex-col overflow-y-auto rounded-[16px] border border-slate-100 bg-white p-[clamp(16px,2vw,28px)] shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] portrait:h-auto portrait:flex-none portrait:overflow-visible portrait:p-4">
+            <div className="flex h-auto max-h-full min-h-0 w-full self-start flex-col overflow-y-auto rounded-[16px] border border-slate-100 bg-white p-[24px] shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] portrait:max-h-none portrait:overflow-visible portrait:p-4">
               {submittedReview ? (
                 <div className="flex h-full min-h-[360px] flex-col items-center justify-center gap-4 text-center p-8">
                   <div className="flex h-[64px] w-[64px] items-center justify-center rounded-full bg-emerald-100 text-emerald-600 shadow-sm">
@@ -1030,7 +1030,7 @@ export function TestimonialsPage() {
                   </div>
                 </div>
               ) : (
-                <div className="flex flex-1 flex-col gap-[clamp(14px,1.8svh,24px)] portrait:flex-none portrait:gap-4">
+                <div className="flex flex-col gap-[20px] portrait:gap-4">
                   {/* Header from user attachment */}
                   <div className="flex items-start gap-[16px]">
                     <div className="flex h-[48px] w-[48px] shrink-0 items-center justify-center rounded-full bg-[#EBF3FF] text-[#0D55CF]">
@@ -1163,7 +1163,7 @@ export function TestimonialsPage() {
                   </div>
 
                   {/* Row 4: Your Review */}
-                  <div className="flex flex-1 flex-col gap-[8px] portrait:flex-none">
+                  <div className="flex flex-col gap-[8px]">
                     <label className="text-[13px] font-bold text-slate-800">
                       Your Review <span className="text-red-500 font-bold">*</span>
                     </label>
@@ -1175,7 +1175,7 @@ export function TestimonialsPage() {
                         if (formError) setFormError(null);
                       }}
                       placeholder="Write your review or experience here..."
-                      className="w-full flex-1 min-h-[100px] resize-none rounded-[10px] border border-slate-200 p-[14px] text-[13px] transition-colors outline-none focus:border-[#0D55CF] focus:ring-1 focus:ring-[#0D55CF] portrait:min-h-[110px]"
+                      className="w-full resize-none rounded-[10px] border border-slate-200 p-[14px] text-[13px] transition-colors outline-none focus:border-[#0D55CF] focus:ring-1 focus:ring-[#0D55CF]"
                     />
                   </div>
 
@@ -1215,7 +1215,7 @@ export function TestimonialsPage() {
               )}
             </div>
           ) : activePlatform === 'opinion' ? (
-            <div className="flex h-full min-h-0 w-full flex-1 flex-col overflow-y-auto rounded-[16px] border border-slate-100 bg-white p-[clamp(16px,2vw,28px)] shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] portrait:h-auto portrait:flex-none portrait:overflow-visible portrait:p-4">
+            <div className="flex h-auto max-h-full min-h-0 w-full self-start flex-col overflow-y-auto rounded-[16px] border border-slate-100 bg-white p-[24px] shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] portrait:max-h-none portrait:overflow-visible portrait:p-4">
               {submittedOpinion ? (
                 <div className="flex h-full min-h-[360px] flex-col items-center justify-center gap-4 text-center p-8">
                   <div className="flex h-[64px] w-[64px] items-center justify-center rounded-full bg-emerald-100 text-emerald-600 shadow-sm">
@@ -1256,7 +1256,7 @@ export function TestimonialsPage() {
                   </div>
                 </div>
               ) : (
-                <div className="flex flex-1 flex-col gap-[clamp(14px,1.8svh,24px)] portrait:flex-none portrait:gap-4">
+                <div className="flex flex-col gap-[20px] portrait:gap-4">
                   {/* Top Header from 2nd image */}
                   <div className="flex items-start gap-[16px]">
                     <div className="flex h-[48px] w-[48px] shrink-0 items-center justify-center rounded-full bg-[#EBF3FF] text-[#0D55CF]">
@@ -1295,7 +1295,7 @@ export function TestimonialsPage() {
                   </div>
 
                   {/* Row 2: Your Suggestions */}
-                  <div className="flex flex-1 flex-col gap-[8px] portrait:flex-none">
+                  <div className="flex flex-col gap-[8px]">
                     <label className="text-[13px] font-bold text-slate-800">
                       Your Suggestions <span className="text-red-500 font-bold">*</span>
                     </label>
@@ -1307,7 +1307,7 @@ export function TestimonialsPage() {
                         if (opinionError) setOpinionError(null);
                       }}
                       placeholder="Write your suggestions here..."
-                      className="w-full flex-1 min-h-[120px] resize-none rounded-[10px] border border-slate-200 p-[14px] text-[13px] transition-colors outline-none focus:border-[#0D55CF] focus:ring-1 focus:ring-[#0D55CF] portrait:min-h-[120px]"
+                      className="w-full resize-none rounded-[10px] border border-slate-200 p-[14px] text-[13px] transition-colors outline-none focus:border-[#0D55CF] focus:ring-1 focus:ring-[#0D55CF]"
                     />
                   </div>
 
@@ -1363,7 +1363,7 @@ export function TestimonialsPage() {
               )}
             </div>
           ) : activePlatform === 'google' ? (
-            <div className="flex h-full min-h-0 w-full flex-1 flex-col overflow-y-auto rounded-[20px] border border-slate-100 bg-white p-[clamp(16px,2vw,28px)] shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] gap-[clamp(14px,2svh,24px)] portrait:h-auto portrait:flex-none portrait:overflow-visible portrait:p-4">
+            <div className="flex h-auto max-h-full min-h-0 w-full self-start flex-col overflow-y-auto rounded-[20px] border border-slate-100 bg-white p-[24px] shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] gap-[20px] portrait:max-h-none portrait:overflow-visible portrait:p-4">
               {/* Header */}
               <div className="flex items-center gap-[14px]">
                 <div className="flex h-[46px] w-[46px] shrink-0 items-center justify-center rounded-full bg-slate-50 border border-slate-100 shadow-xs">
@@ -1446,7 +1446,7 @@ export function TestimonialsPage() {
               </div>
 
               {/* Bottom Row: Review Cards in Grid (Matching Attached Screenshot) */}
-              <div className="grid flex-1 grid-cols-1 gap-[16px] md:grid-cols-3 portrait:flex-none">
+              <div className="grid grid-cols-1 gap-[16px] md:grid-cols-3">
                 {effectiveGoogleReviews.map((review) => {
                   return (
                     <div
