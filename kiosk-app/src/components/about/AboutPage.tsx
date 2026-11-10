@@ -66,19 +66,20 @@ const DEFAULT_HIGHLIGHTS = [
 ];
 
 function getHighlightIcon(icon?: string) {
+  const iconClass = 'h-[clamp(18px,2.2svh,26px)] w-[clamp(18px,2.2svh,26px)] text-[#0D55CF]';
   switch (icon?.toLowerCase()) {
     case 'medal':
-      return <Medal className="h-6 w-6 text-[#0D55CF]" />;
+      return <Medal className={iconClass} />;
     case 'thermometer':
-      return <Thermometer className="h-6 w-6 text-[#0D55CF]" />;
+      return <Thermometer className={iconClass} />;
     case 'heart':
-      return <Heart className="h-6 w-6 text-[#0D55CF]" />;
+      return <Heart className={iconClass} />;
     case 'headset':
-      return <Headset className="h-6 w-6 text-[#0D55CF]" />;
+      return <Headset className={iconClass} />;
     case 'truck':
-      return <Truck className="h-6 w-6 text-[#0D55CF]" />;
+      return <Truck className={iconClass} />;
     default:
-      return <ShieldCheck className="h-6 w-6 text-[#0D55CF]" />;
+      return <ShieldCheck className={iconClass} />;
   }
 }
 
@@ -162,9 +163,9 @@ export function AboutPage({ data }: { data?: AboutUsData | null }) {
   ];
 
   return (
-    <div className="h-full w-full overflow-hidden bg-[#EFF2FA] select-none portrait:h-auto portrait:overflow-y-auto">
+    <div className="h-full w-full overflow-hidden bg-[#EFF2FA] select-none portrait:h-auto portrait:overflow-visible">
       {/* ─── Main Content Grid (100% viewport height in landscape, no scroll) ─── */}
-      <div className="grid h-full w-full grid-rows-[minmax(0,34fr)_minmax(0,46fr)_minmax(0,20fr)] gap-[clamp(4px,0.8svh,12px)] px-[clamp(16px,3vw,48px)] py-[clamp(6px,1svh,14px)] portrait:flex portrait:flex-col portrait:h-auto portrait:gap-4 portrait:px-3 portrait:pb-8">
+      <div className="grid h-full w-full grid-rows-[minmax(0,34fr)_minmax(0,48fr)_minmax(0,18fr)] gap-[clamp(6px,1.2svh,18px)] px-[clamp(16px,3vw,48px)] py-[clamp(6px,1.2svh,18px)] portrait:flex portrait:flex-col portrait:h-auto portrait:gap-4 portrait:px-3 portrait:pb-8">
         
         {/* ─── 1. Hero Section ─── */}
         <div className="relative min-h-0 w-full overflow-hidden rounded-[10px] portrait:overflow-visible">
@@ -181,19 +182,19 @@ export function AboutPage({ data }: { data?: AboutUsData | null }) {
 
           <div className="relative z-10 flex h-full w-full items-center justify-start portrait:py-2">
             <div className="flex w-1/2 flex-col justify-center pr-6 portrait:w-full portrait:pr-0">
-              <div className="mb-1 flex items-center gap-2">
-                <span className="text-xs font-bold text-[#0D55CF] italic">
+              <div className="mb-[clamp(4px,0.8svh,10px)] flex items-center gap-2">
+                <span className="text-[clamp(12px,1.3svh,16px)] font-bold text-[#0D55CF] italic">
                   {heroSubtitle}
                 </span>
                 <div className="h-[2px] w-10 bg-blue-200" />
               </div>
-              <h1 className="whitespace-pre-line text-[clamp(22px,min(2.4vw,3.6svh),38px)] leading-tight font-bold tracking-tight text-slate-900 portrait:text-[24px]">
+              <h1 className="whitespace-pre-line text-[clamp(22px,min(2.6vw,3.8svh),42px)] leading-tight font-bold tracking-tight text-slate-900 portrait:text-[24px]">
                 {heroHeading}
               </h1>
-              <p className="mt-1.5 max-w-[90%] text-[clamp(11px,0.85vw,14px)] leading-snug font-medium text-slate-500 portrait:mt-2 portrait:max-w-full portrait:text-[13px]">
+              <p className="mt-[clamp(6px,1svh,14px)] max-w-[90%] text-[clamp(11px,min(1vw,1.35svh),17px)] leading-snug font-medium text-slate-500 portrait:mt-2 portrait:max-w-full portrait:text-[13px]">
                 {heroDescription}
               </p>
-              <div className="font-handwriting mt-2 text-[clamp(15px,1.2vw,20px)] font-medium text-[#0D55CF] italic opacity-85 portrait:mt-2 portrait:text-base">
+              <div className="font-handwriting mt-[clamp(8px,1.2svh,16px)] text-[clamp(15px,min(1.4vw,1.8svh),22px)] font-medium text-[#0D55CF] italic opacity-85 portrait:mt-2 portrait:text-base">
                 {teamSignature}
               </div>
             </div>
@@ -201,24 +202,24 @@ export function AboutPage({ data }: { data?: AboutUsData | null }) {
         </div>
 
         {/* ─── 2. Explore Our Fresh Selection ─── */}
-        <div className="relative z-20 flex min-h-0 w-full flex-col justify-between portrait:mt-2">
-          <div className="mb-1.5 flex flex-col items-center justify-center text-center">
+        <div className="relative z-20 flex min-h-0 w-full flex-col justify-between gap-[clamp(6px,1.2svh,16px)] portrait:mt-2 portrait:gap-3">
+          <div className="flex shrink-0 flex-col items-center justify-center text-center">
             <div className="mb-0.5 flex items-center gap-2">
               <div className="h-[1px] w-6 bg-blue-200" />
-              <span className="text-[10px] font-bold tracking-wider text-[#0D55CF] uppercase">
+              <span className="text-[clamp(10px,1.1svh,14px)] font-bold tracking-wider text-[#0D55CF] uppercase">
                 {selectionTagline}
               </span>
               <div className="h-[1px] w-6 bg-blue-200" />
             </div>
-            <h2 className="text-[clamp(16px,1.4vw,22px)] font-bold text-slate-900 leading-tight portrait:text-xl">
+            <h2 className="text-[clamp(16px,min(1.6vw,2.1svh),28px)] font-bold text-slate-900 leading-tight portrait:text-xl">
               {selectionHeading}
             </h2>
-            <p className="text-[clamp(10px,0.75vw,12px)] font-medium text-slate-500">
+            <p className="mt-0.5 text-[clamp(10px,min(0.95vw,1.25svh),15px)] font-medium text-slate-500">
               {selectionSubtitle}
             </p>
           </div>
 
-          <div className="grid flex-1 grid-cols-4 gap-3 portrait:grid-cols-2 portrait:gap-2">
+          <div className="grid min-h-0 flex-1 grid-cols-4 items-center gap-[clamp(10px,1.2vw,20px)] portrait:grid-cols-2 portrait:gap-2.5">
             {/* Define the SVG clip path for the custom organic glass card */}
             <svg width="0" height="0" className="pointer-events-none absolute">
               <defs>
@@ -235,7 +236,7 @@ export function AboutPage({ data }: { data?: AboutUsData | null }) {
               <Link
                 key={idx}
                 href={cat.href}
-                className="group relative flex h-full max-h-[185px] min-h-[110px] w-full flex-col transition-transform duration-300 hover:-translate-y-0.5 portrait:h-[180px]"
+                className="group relative flex h-full max-h-[clamp(185px,34svh,380px)] min-h-[110px] w-full flex-col transition-transform duration-300 hover:-translate-y-0.5 portrait:h-[180px] portrait:max-h-[180px]"
               >
                 {/* Unified Glassmorphism Base (Main + Small Card) */}
                 <div className="absolute inset-0 drop-shadow-[0_4px_10px_rgba(0,0,0,0.06)] filter">
@@ -284,7 +285,7 @@ export function AboutPage({ data }: { data?: AboutUsData | null }) {
                 </div>
 
                 {/* Product Title */}
-                <div className="absolute bottom-2.5 left-4 z-20 text-[clamp(15px,1.1vw,19px)] font-bold tracking-tight text-[#0E1A2B]">
+                <div className="absolute bottom-[clamp(10px,1.4svh,18px)] left-[clamp(14px,1.4vw,22px)] z-20 text-[clamp(15px,min(1.4vw,1.9svh),24px)] font-bold tracking-tight text-[#0E1A2B]">
                   <span className="text-[#0D55CF]">{cat.title.charAt(0)}</span>
                   {cat.title.slice(1)}
                 </div>
@@ -292,7 +293,7 @@ export function AboutPage({ data }: { data?: AboutUsData | null }) {
                 {/* Arrow Navigation Icon */}
                 <div className="absolute top-[75%] left-[72%] z-20 flex h-[25%] w-[28%] items-center justify-center transition-transform duration-300 group-hover:translate-x-1">
                   <ArrowRight
-                    className="h-4 w-4 text-[#0D55CF]"
+                    className="h-[clamp(16px,1.7svh,22px)] w-[clamp(16px,1.7svh,22px)] text-[#0D55CF]"
                     strokeWidth={2.5}
                   />
                 </div>
@@ -302,23 +303,23 @@ export function AboutPage({ data }: { data?: AboutUsData | null }) {
         </div>
 
         {/* ─── 3. Why Choose FishCart ─── */}
-        <div className="flex min-h-0 w-full flex-col justify-center rounded-[10px] border border-slate-200/80 bg-white/70 py-[clamp(4px,0.7svh,8px)] px-[clamp(10px,1.5vw,20px)] shadow-2xs portrait:p-3">
-          <h3 className="mb-1 text-center text-[clamp(12px,0.9vw,14px)] font-bold text-slate-800">
+        <div className="flex min-h-0 w-full flex-col justify-evenly rounded-[10px] border border-slate-200/80 bg-white/70 py-[clamp(6px,1.4svh,20px)] px-[clamp(12px,1.8vw,28px)] shadow-2xs portrait:gap-3 portrait:p-4">
+          <h3 className="mb-[clamp(4px,1svh,12px)] text-center text-[clamp(12px,1.4svh,18px)] font-bold text-slate-800 portrait:mb-1 portrait:text-[15px]">
             {whyChooseHeading}
           </h3>
-          <div className="grid grid-cols-4 gap-3 portrait:grid-cols-2 portrait:gap-y-3">
+          <div className="grid grid-cols-4 gap-[clamp(10px,1.2vw,20px)] portrait:grid-cols-2 portrait:gap-3">
             {highlights.map((item, idx) => (
-              <div key={idx} className="flex items-center gap-2.5">
+              <div key={idx} className="flex items-center gap-[clamp(8px,1vw,14px)]">
                 <div className="flex shrink-0 text-[#0D55CF]">
-                  <div className="relative flex h-8 w-8 items-center justify-center rounded-full bg-blue-50">
+                  <div className="relative flex h-[clamp(32px,4svh,48px)] w-[clamp(32px,4svh,48px)] items-center justify-center rounded-full bg-blue-50 portrait:h-9 portrait:w-9">
                     {getHighlightIcon(item.icon)}
                   </div>
                 </div>
                 <div className="flex min-w-0 flex-col">
-                  <h4 className="truncate text-[clamp(11px,0.75vw,13px)] font-bold text-slate-800">
+                  <h4 className="truncate text-[clamp(11px,1.25svh,16px)] font-bold text-slate-800 portrait:text-[13px]">
                     {item.title}
                   </h4>
-                  <p className="line-clamp-1 text-[clamp(9.5px,0.65vw,11px)] leading-tight font-medium text-slate-500">
+                  <p className="line-clamp-2 text-[clamp(9.5px,1.05svh,13px)] leading-tight font-medium text-slate-500 portrait:line-clamp-none portrait:text-[11px]">
                     {item.description}
                   </p>
                 </div>
