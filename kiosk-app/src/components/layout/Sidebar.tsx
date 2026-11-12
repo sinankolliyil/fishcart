@@ -27,7 +27,7 @@ import {
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { sanityFetch } from '@/lib/sanity';
-import { HOME_SIDEBAR_QUERY } from '@/lib/sanityQueries';
+import { HOME_SIDEBAR_QUERY, HOME_LOGO_QUERY } from '@/lib/sanityQueries';
 import { useStore } from '@/context/StoreContext';
 
 const NAV_ITEMS = [
@@ -77,13 +77,26 @@ export function Sidebar({
     visibility?: boolean;
   } | null>(null);
 
+  const [logoData, setLogoData] = useState<{
+    logoUrl?: string;
+    brandTitle?: string;
+    brandTagline?: string;
+  } | null>(null);
+
   useEffect(() => {
-    sanityFetch<any>(HOME_SIDEBAR_QUERY)
-      .then((res) => {
-        if (res) setSidebarData(res);
-      })
-      .catch(() => {});
+    Promise.all([
+      sanityFetch<any>(HOME_SIDEBAR_QUERY).catch(() => null),
+      sanityFetch<any>(HOME_LOGO_QUERY).catch(() => null),
+    ]).then(([sidebarRes, logoRes]) => {
+      if (sidebarRes) setSidebarData(sidebarRes);
+      if (logoRes) setLogoData(logoRes);
+    });
   }, []);
+
+  const logoSrc = logoData?.logoUrl || '/assets/logo.png';
+  const isSvgLogo = logoSrc.toLowerCase().includes('.svg');
+  const brandTitle = logoData?.brandTitle || 'FISHCART';
+  const brandTagline = logoData?.brandTagline || 'Daily Fresh Partner';
 
   const badgeTitle = sidebarData?.sidebarBadgeTitle || 'Tap Here to Scan & Join';
   const badgeSubtitle = sidebarData?.sidebarBadgeSubtitle || 'Join Our Community';
@@ -117,38 +130,23 @@ export function Sidebar({
           href="/"
           className="flex items-center gap-[clamp(6px,min(0.63vw,0.9svh),10px)]"
         >
-          <div className="text-primary flex -space-x-1.5">
-            <svg
-              width="40"
-              height="40"
-              className="h-[clamp(28px,min(2.5vw,3.8svh),46px)] w-[clamp(28px,min(2.5vw,3.8svh),46px)] portrait:h-[32px] portrait:w-[32px]"
-              viewBox="0 0 42 42"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M18 8L8 21L18 34"
-                stroke="#0D55CF"
-                strokeWidth="5.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-              <circle cx="18.5" cy="21" r="2.8" fill="#0D55CF" />
-              <path
-                d="M33 13L26 21L33 28"
-                stroke="#0D55CF"
-                strokeWidth="5.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
+          <div className="relative h-[clamp(28px,min(2.5vw,3.8svh),46px)] w-[clamp(28px,min(2.5vw,3.8svh),46px)] shrink-0 portrait:h-[32px] portrait:w-[32px]">
+            <Image
+              src={logoSrc}
+              alt={brandTitle}
+              fill
+              sizes="48px"
+              priority
+              unoptimized={isSvgLogo}
+              className="object-contain mix-blend-multiply"
+            />
           </div>
           <div className="mt-0.5">
             <h1 className="text-primary text-[clamp(14px,min(1.2vw,1.75svh),22px)] portrait:text-[22px] leading-none font-bold tracking-wide">
-              FISHCART
+              {brandTitle}
             </h1>
             <p className="text-primary/70 mt-0.5 text-[clamp(9px,min(0.65vw,0.95svh),12px)] portrait:text-[11px] font-semibold tracking-wide">
-              Daily Fresh Partner
+              {brandTagline}
             </p>
           </div>
         </Link>

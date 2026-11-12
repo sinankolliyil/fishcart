@@ -14,6 +14,7 @@ export const SINGLETON_TYPES = new Set([
   'homeCustomerSays',
   'homeFooter',
   'homeSidebar',
+  'homeLogo',
   'orderSettings',
 ]);
 
@@ -113,6 +114,17 @@ export const deskStructure: StructureResolver = (S) =>
                     .schemaType('homeSidebar')
                     .documentId('homeSidebar')
                     .title('Sidebar QR')
+                ),
+
+              S.listItem()
+                .title('Site Logo')
+                .icon(Emoji('🏷️'))
+                .id('homeLogo')
+                .child(
+                  S.document()
+                    .schemaType('homeLogo')
+                    .documentId('homeLogo')
+                    .title('Site Logo')
                 ),
             ])
         ),

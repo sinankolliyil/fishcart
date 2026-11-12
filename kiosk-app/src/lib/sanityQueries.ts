@@ -348,6 +348,14 @@ export const HOME_SIDEBAR_QUERY = `
   }
 `;
 
+export const HOME_LOGO_QUERY = `
+  coalesce(*[_id == "drafts.homeLogo"][0], *[_id == "homeLogo"][0], *[_type == "homeLogo"][0]) {
+    "logoUrl": logoImage.asset->url,
+    brandTitle,
+    brandTagline
+  }
+`;
+
 export const TESTIMONIALS_QUERY = `
   *[_type == "testimonial" && visibility != false] | order(displayOrder asc) {
     "id": _id,

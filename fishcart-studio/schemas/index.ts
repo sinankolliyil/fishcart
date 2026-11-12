@@ -18,6 +18,7 @@ import homeCarousel from './documents/homeCarousel';
 import homeCustomerSays from './documents/homeCustomerSays';
 import homeFooter from './documents/homeFooter';
 import homeSidebar from './documents/homeSidebar';
+import homeLogo from './documents/homeLogo';
 import orderSettings from './documents/orderSettings';
 
 export const schemaTypes = [
@@ -37,6 +38,7 @@ export const schemaTypes = [
   homeCustomerSays,
   homeFooter,
   homeSidebar,
+  homeLogo,
   testimonial,
   customerOpinion,
   customerReview,
