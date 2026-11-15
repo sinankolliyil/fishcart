@@ -107,7 +107,7 @@ export function Sidebar({
   const qrImageSrc = sidebarData?.qrCodeImage || '/assets/whatsapp_qr.png';
   const communityLink = sidebarData?.communityLink;
   const linkText = sidebarData?.linkButtonText || 'Join WhatsApp Community ➔';
-  const isVisible = sidebarData?.visibility !== false;
+  const isVisible = true;
 
   const isMobileMenuOpen = externalIsMobileMenuOpen ?? internalIsMobileMenuOpen;
   const setIsMobileMenuOpen = externalSetIsMobileMenuOpen ?? setInternalIsMobileMenuOpen;

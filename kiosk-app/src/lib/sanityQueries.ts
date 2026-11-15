@@ -349,8 +349,7 @@ export const HOME_SIDEBAR_QUERY = `
     modalDescription,
     "qrCodeImage": coalesce(qrCodeImage.asset->url, qrCodeImageSrc),
     communityLink,
-    linkButtonText,
-    visibility
+    linkButtonText
   }
 `;
 

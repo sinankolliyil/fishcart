@@ -54,13 +54,6 @@ export default defineType({
       description: 'Button text shown right under the QR code in the modal',
       initialValue: 'Or Click Here to Join WhatsApp Community ➔',
     }),
-    defineField({
-      name: 'visibility',
-      title: 'Show QR Code in Sidebar',
-      type: 'boolean',
-      description: 'Toggle whether to display the QR code button in the sidebar',
-      initialValue: true,
-    }),
   ],
   preview: {
     select: {
