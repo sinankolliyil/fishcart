@@ -313,7 +313,20 @@ export const HOME_FOOTER_QUERY = `
 export const HOME_CUSTOMER_SAYS_QUERY = `
   coalesce(*[_id == "drafts.homeCustomerSays"][0], *[_id == "homeCustomerSays"][0], *[_type == "homeCustomerSays"][0]) {
     sectionHeading,
-    reviews[] {
+    "selectedReviews": selectedReviews[]-> {
+      _id,
+      _type,
+      "customerName": coalesce(customerName, authorName),
+      rating,
+      "reviewText": coalesce(reviewText, testimonialText),
+      "tagline": select(
+        _type == "googleReview" => "Google Review",
+        _type == "customerReview" => "Verified Customer",
+        platform != null => platform,
+        "Customer Review"
+      )
+    },
+    "customReviews": coalesce(customReviews, reviews)[] {
       customerName,
       rating,
       reviewText,

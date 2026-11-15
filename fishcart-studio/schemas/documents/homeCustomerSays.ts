@@ -13,11 +13,28 @@ export default defineType({
       validation: (rule) => rule.required(),
     }),
     defineField({
-      name: 'reviews',
-      title: 'Customer Reviews (Kept Empty)',
+      name: 'selectedReviews',
+      title: 'Choose Reviews from Testimonials & Reviews',
+      description:
+        'Pick one or more reviews from the Testimonials & Reviews section (Website Reviews, Google Reviews, or Customer Testimonials) to display on this homepage card.',
       type: 'array',
-      description: 'Add customer reviews to display on the homepage card. Kept empty by default.',
-      initialValue: [],
+      of: [
+        {
+          type: 'reference',
+          to: [
+            { type: 'customerReview' },
+            { type: 'googleReview' },
+            { type: 'testimonial' },
+          ],
+        },
+      ],
+    }),
+    defineField({
+      name: 'customReviews',
+      title: 'Or Add Custom Review (Manual)',
+      description:
+        'Optional: Type a manual customer quote if you do not want to link an existing testimonial.',
+      type: 'array',
       of: [
         {
           type: 'object',
@@ -41,7 +58,8 @@ export default defineType({
               title: 'Review Text / Quote',
               type: 'text',
               rows: 3,
-              description: 'e.g. "Super fresh products and great variety. Fishcart is our family\'s choice."',
+              description:
+                'e.g. "Super fresh products and great variety. Fishcart is our family\'s choice."',
               validation: (rule) => rule.required(),
             }),
             defineField({
@@ -75,8 +93,9 @@ export default defineType({
     prepare({ title }) {
       return {
         title: title || 'What Our Customers Say',
-        subtitle: 'Homepage Customer Review Card (Empty by default)',
+        subtitle: 'Homepage Customer Review Card',
       };
     },
   },
 });
+

@@ -5,16 +5,39 @@ import { Rating } from '@/components/ui/Rating';
 import { sanityFetch } from '@/lib/sanity';
 import { HOME_CUSTOMER_SAYS_QUERY } from '@/lib/sanityQueries';
 
+interface ReviewItem {
+  customerName: string;
+  rating: number;
+  reviewText: string;
+  tagline?: string;
+}
+
+const DEFAULT_REVIEWS: ReviewItem[] = [
+  {
+    customerName: 'Priya S.',
+    rating: 5,
+    reviewText: "Super fresh products and great variety. Fishcart is our family's choice.",
+  },
+  {
+    customerName: 'Ahmed K.',
+    rating: 5,
+    reviewText: 'Outstanding seafood quality and prompt delivery. Best in Colchester!',
+  },
+  {
+    customerName: 'Sarah M.',
+    rating: 5,
+    reviewText: 'The seabass and salmon are always fresh and perfectly cleaned.',
+  },
+];
+
 export function HomeCustomerReviewCard() {
   const [data, setData] = useState<{
     sectionHeading?: string;
-    reviews?: Array<{
-      customerName: string;
-      rating: number;
-      reviewText: string;
-      tagline?: string;
-    }>;
+    selectedReviews?: ReviewItem[];
+    customReviews?: ReviewItem[];
   } | null>(null);
+
+  const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
     sanityFetch<any>(HOME_CUSTOMER_SAYS_QUERY)
@@ -25,11 +48,36 @@ export function HomeCustomerReviewCard() {
   }, []);
 
   const heading = data?.sectionHeading || 'What Our Customers Say';
-  const activeReview = data?.reviews && data.reviews.length > 0 ? data.reviews[0] : null;
 
-  const quote = activeReview?.reviewText || "Super fresh products and great variety. Fishcart is our family's choice.";
-  const customerName = activeReview?.customerName || "Priya S.";
-  const score = activeReview?.rating ?? 5;
+  const validSelected = (data?.selectedReviews || []).filter(
+    (r) => r && r.customerName && r.reviewText
+  );
+  const validCustom = (data?.customReviews || []).filter(
+    (r) => r && r.customerName && r.reviewText
+  );
+
+  const reviewsList: ReviewItem[] =
+    validSelected.length > 0
+      ? validSelected
+      : validCustom.length > 0
+      ? validCustom
+      : DEFAULT_REVIEWS;
+
+  // Auto-rotate every 6s if more than 1 review
+  useEffect(() => {
+    if (reviewsList.length <= 1) return;
+    const interval = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % reviewsList.length);
+    }, 6000);
+    return () => clearInterval(interval);
+  }, [reviewsList.length]);
+
+  const activeIndex = currentIndex % reviewsList.length;
+  const activeReview = reviewsList[activeIndex] || DEFAULT_REVIEWS[0];
+
+  const quote = activeReview.reviewText;
+  const customerName = activeReview.customerName;
+  const score = activeReview.rating ?? 5;
 
   return (
     <div className="col-span-1 flex min-h-0 flex-col justify-between overflow-hidden rounded-[8px] bg-[#E1EDFA] p-[var(--testimonial-padding)] portrait:min-h-[250px]">
@@ -43,7 +91,7 @@ export function HomeCustomerReviewCard() {
           </svg>
         </div>
         <Rating score={score} size={14} className="mb-2 gap-0.5 text-[#F5A623]" />
-        <p className="mb-[clamp(3px,min(0.52vw,0.75svh),6px)] pr-4 text-[clamp(15px,min(0.885vw,1.35svh),15px)] leading-[1.4] font-medium text-[#1E293B]">
+        <p className="mb-[clamp(3px,min(0.52vw,0.75svh),6px)] pr-4 text-[clamp(15px,min(0.885vw,1.35svh),15px)] leading-[1.4] font-medium text-[#1E293B] transition-opacity duration-300">
           &quot;{quote}&quot;
         </p>
         <p className="text-[14px] font-bold text-[#1E293B]">
@@ -51,10 +99,21 @@ export function HomeCustomerReviewCard() {
         </p>
       </div>
       <div className="mt-auto flex justify-center gap-2 pb-1">
-        <div className="h-[5px] w-[5px] rounded-full bg-[#0D55CF]" />
-        <div className="h-[5px] w-[5px] rounded-full bg-[#93C5FD]" />
-        <div className="h-[5px] w-[5px] rounded-full bg-[#93C5FD]" />
+        {reviewsList.map((_, idx) => (
+          <button
+            key={idx}
+            type="button"
+            aria-label={`Go to review ${idx + 1}`}
+            onClick={() => setCurrentIndex(idx)}
+            className={`h-[5px] cursor-pointer rounded-full transition-all duration-300 ${
+              idx === activeIndex
+                ? 'w-[14px] bg-[#0D55CF]'
+                : 'w-[5px] bg-[#93C5FD] hover:bg-[#60A5FA]'
+            }`}
+          />
+        ))}
       </div>
     </div>
   );
 }
+
