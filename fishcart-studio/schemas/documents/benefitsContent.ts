@@ -17,6 +17,7 @@ const ICON_OPTIONS = [
 function createBenefitCardField(
   name: string,
   title: string,
+  group: string,
   defaultTitle: string,
   defaultDesc: string,
   defaultIcon: string
@@ -25,6 +26,7 @@ function createBenefitCardField(
     name,
     title,
     type: 'object',
+    group,
     options: { collapsible: true, collapsed: false },
     fields: [
       defineField({
@@ -59,6 +61,13 @@ export default defineType({
   name: 'benefitsContent',
   title: 'Benefits & Nutrition Content (Singleton)',
   type: 'document',
+  groups: [
+    { name: 'header', title: 'Header & Intro', default: true },
+    { name: 'fish', title: '🐟 Fish Benefits' },
+    { name: 'meat', title: '🥩 Meat Benefits' },
+    { name: 'chicken', title: '🍗 Chicken Benefits' },
+    { name: 'eggs', title: '🥚 Egg Benefits' },
+  ],
   initialValue: {
     pageTitle: 'Nutritional Value',
     pageSubtitle: 'Discover the powerful health benefits of our fresh products.',
@@ -98,6 +107,7 @@ export default defineType({
       name: 'pageTitle',
       title: 'Page Title / Header',
       type: 'string',
+      group: 'header',
       initialValue: 'Nutritional Value',
       validation: (rule) => rule.required(),
     }),
@@ -106,12 +116,14 @@ export default defineType({
       title: 'Page Subtitle',
       type: 'text',
       rows: 2,
+      group: 'header',
       initialValue: 'Discover the powerful health benefits of our fresh products.',
     }),
     defineField({
       name: 'whyFreshMatters',
       title: 'Why Fresh Matters Bottom Box',
       type: 'object',
+      group: 'header',
       options: { collapsible: true, collapsed: false },
       fields: [
         defineField({ name: 'title', title: 'Title', type: 'string', initialValue: 'Why Fresh Matters' }),
@@ -127,36 +139,36 @@ export default defineType({
     }),
 
     // ─── Fish Benefits (6 Cards) ───
-    createBenefitCardField('fish1', '🐟 Fish Card 1: High in Protein', 'High in Protein', 'Essential building blocks for muscles, skin, and overall body repair.', 'dumbbell'),
-    createBenefitCardField('fish2', '🐟 Fish Card 2: Rich in Omega-3', 'Rich in Omega-3', 'Healthy fatty acids that reduce inflammation and support heart health.', 'droplets'),
-    createBenefitCardField('fish3', '🐟 Fish Card 3: Supports Heart Health', 'Supports Heart Health', 'Regular consumption helps maintain healthy cholesterol and blood pressure.', 'heart'),
-    createBenefitCardField('fish4', '🐟 Fish Card 4: Good for Brain Function', 'Good for Brain Function', 'DHA and EPA improve memory, focus, and cognitive performance.', 'brain'),
-    createBenefitCardField('fish5', '🐟 Fish Card 5: Rich in Vitamins D & B12', 'Rich in Vitamins D & B12', 'Vital vitamins for bone health, energy, and immune function.', 'sun'),
-    createBenefitCardField('fish6', '🐟 Fish Card 6: Low in Saturated Fat', 'Low in Saturated Fat', 'A lean protein choice that supports a balanced, heart-friendly diet.', 'leaf'),
+    createBenefitCardField('fish1', 'Card 1: High in Protein', 'fish', 'High in Protein', 'Essential building blocks for muscles, skin, and overall body repair.', 'dumbbell'),
+    createBenefitCardField('fish2', 'Card 2: Rich in Omega-3', 'fish', 'Rich in Omega-3', 'Healthy fatty acids that reduce inflammation and support heart health.', 'droplets'),
+    createBenefitCardField('fish3', 'Card 3: Supports Heart Health', 'fish', 'Supports Heart Health', 'Regular consumption helps maintain healthy cholesterol and blood pressure.', 'heart'),
+    createBenefitCardField('fish4', 'Card 4: Good for Brain Function', 'fish', 'Good for Brain Function', 'DHA and EPA improve memory, focus, and cognitive performance.', 'brain'),
+    createBenefitCardField('fish5', 'Card 5: Rich in Vitamins D & B12', 'fish', 'Rich in Vitamins D & B12', 'Vital vitamins for bone health, energy, and immune function.', 'sun'),
+    createBenefitCardField('fish6', 'Card 6: Low in Saturated Fat', 'fish', 'Low in Saturated Fat', 'A lean protein choice that supports a balanced, heart-friendly diet.', 'leaf'),
 
     // ─── Meat Benefits (6 Cards) ───
-    createBenefitCardField('meat1', '🥩 Meat Card 1: High Quality Protein', 'High Quality Protein', 'Complete amino acid profile for optimal muscle building and repair.', 'dumbbell'),
-    createBenefitCardField('meat2', '🥩 Meat Card 2: Rich in Iron', 'Rich in Iron', 'Heme iron for healthy red blood cells and oxygen transport.', 'shield'),
-    createBenefitCardField('meat3', '🥩 Meat Card 3: Excellent Source of Zinc', 'Excellent Source of Zinc', 'Supports immune function, wound healing, and cell growth.', 'zap'),
-    createBenefitCardField('meat4', '🥩 Meat Card 4: Supports Muscle Growth', 'Supports Muscle Growth', 'Creatine and protein work together for strength and recovery.', 'dumbbell'),
-    createBenefitCardField('meat5', '🥩 Meat Card 5: Rich in Vitamin B12', 'Rich in Vitamin B12', 'Essential for nerve function, DNA synthesis, and energy production.', 'sun'),
-    createBenefitCardField('meat6', '🥩 Meat Card 6: Energy Boosting Nutrients', 'Energy Boosting Nutrients', 'B-vitamins and iron provide sustained energy throughout the day.', 'flame'),
+    createBenefitCardField('meat1', 'Card 1: High Quality Protein', 'meat', 'High Quality Protein', 'Complete amino acid profile for optimal muscle building and repair.', 'dumbbell'),
+    createBenefitCardField('meat2', 'Card 2: Rich in Iron', 'meat', 'Rich in Iron', 'Heme iron for healthy red blood cells and oxygen transport.', 'shield'),
+    createBenefitCardField('meat3', 'Card 3: Excellent Source of Zinc', 'meat', 'Excellent Source of Zinc', 'Supports immune function, wound healing, and cell growth.', 'zap'),
+    createBenefitCardField('meat4', 'Card 4: Supports Muscle Growth', 'meat', 'Supports Muscle Growth', 'Creatine and protein work together for strength and recovery.', 'dumbbell'),
+    createBenefitCardField('meat5', 'Card 5: Rich in Vitamin B12', 'meat', 'Rich in Vitamin B12', 'Essential for nerve function, DNA synthesis, and energy production.', 'sun'),
+    createBenefitCardField('meat6', 'Card 6: Energy Boosting Nutrients', 'meat', 'Energy Boosting Nutrients', 'B-vitamins and iron provide sustained energy throughout the day.', 'flame'),
 
     // ─── Chicken Benefits (6 Cards) ───
-    createBenefitCardField('chicken1', '🍗 Chicken Card 1: Lean Protein', 'Lean Protein', 'High protein content with minimal fat, ideal for fitness goals.', 'dumbbell'),
-    createBenefitCardField('chicken2', '🍗 Chicken Card 2: Low Fat', 'Low Fat', 'One of the leanest meat options for a healthy, balanced diet.', 'leaf'),
-    createBenefitCardField('chicken3', '🍗 Chicken Card 3: Rich in Niacin', 'Rich in Niacin', 'Vitamin B3 supports metabolism, skin health, and nervous system.', 'zap'),
-    createBenefitCardField('chicken4', '🍗 Chicken Card 4: Supports Muscle Recovery', 'Supports Muscle Recovery', 'Fast-absorbing protein helps repair muscles after exercise.', 'dumbbell'),
-    createBenefitCardField('chicken5', '🍗 Chicken Card 5: Rich in Selenium', 'Rich in Selenium', 'A powerful antioxidant that protects cells and boosts immunity.', 'shield'),
-    createBenefitCardField('chicken6', '🍗 Chicken Card 6: Easy to Digest', 'Easy to Digest', 'Gentle on the stomach, making it suitable for all age groups.', 'apple'),
+    createBenefitCardField('chicken1', 'Card 1: Lean Protein', 'chicken', 'Lean Protein', 'High protein content with minimal fat, ideal for fitness goals.', 'dumbbell'),
+    createBenefitCardField('chicken2', 'Card 2: Low Fat', 'chicken', 'Low Fat', 'One of the leanest meat options for a healthy, balanced diet.', 'leaf'),
+    createBenefitCardField('chicken3', 'Card 3: Rich in Niacin', 'chicken', 'Rich in Niacin', 'Vitamin B3 supports metabolism, skin health, and nervous system.', 'zap'),
+    createBenefitCardField('chicken4', 'Card 4: Supports Muscle Recovery', 'chicken', 'Supports Muscle Recovery', 'Fast-absorbing protein helps repair muscles after exercise.', 'dumbbell'),
+    createBenefitCardField('chicken5', 'Card 5: Rich in Selenium', 'chicken', 'Rich in Selenium', 'A powerful antioxidant that protects cells and boosts immunity.', 'shield'),
+    createBenefitCardField('chicken6', 'Card 6: Easy to Digest', 'chicken', 'Easy to Digest', 'Gentle on the stomach, making it suitable for all age groups.', 'apple'),
 
     // ─── Egg Benefits (6 Cards) ───
-    createBenefitCardField('egg1', '🥚 Egg Card 1: Complete Protein', 'Complete Protein', 'Contains all nine essential amino acids in perfect proportions.', 'dumbbell'),
-    createBenefitCardField('egg2', '🥚 Egg Card 2: Rich in Choline', 'Rich in Choline', 'Critical nutrient for brain health, liver function, and metabolism.', 'brain'),
-    createBenefitCardField('egg3', '🥚 Egg Card 3: Supports Brain Development', 'Supports Brain Development', 'Essential nutrients for cognitive growth in children and adults.', 'brain'),
-    createBenefitCardField('egg4', '🥚 Egg Card 4: Good Source of Vitamin D', 'Good Source of Vitamin D', 'Supports bone strength, immune health, and calcium absorption.', 'sun'),
-    createBenefitCardField('egg5', '🥚 Egg Card 5: Contains Healthy Fats', 'Contains Healthy Fats', 'Balanced fatty acids that support hormone production and cell health.', 'droplets'),
-    createBenefitCardField('egg6', '🥚 Egg Card 6: Supports Eye Health', 'Supports Eye Health', 'Lutein and zeaxanthin protect against age-related vision decline.', 'eye'),
+    createBenefitCardField('egg1', 'Card 1: Complete Protein', 'eggs', 'Complete Protein', 'Contains all nine essential amino acids in perfect proportions.', 'dumbbell'),
+    createBenefitCardField('egg2', 'Card 2: Rich in Choline', 'eggs', 'Rich in Choline', 'Critical nutrient for brain health, liver function, and metabolism.', 'brain'),
+    createBenefitCardField('egg3', 'Card 3: Supports Brain Development', 'eggs', 'Supports Brain Development', 'Essential nutrients for cognitive growth in children and adults.', 'brain'),
+    createBenefitCardField('egg4', 'Card 4: Good Source of Vitamin D', 'eggs', 'Good Source of Vitamin D', 'Supports bone strength, immune health, and calcium absorption.', 'sun'),
+    createBenefitCardField('egg5', 'Card 5: Contains Healthy Fats', 'eggs', 'Contains Healthy Fats', 'Balanced fatty acids that support hormone production and cell health.', 'droplets'),
+    createBenefitCardField('egg6', 'Card 6: Supports Eye Health', 'eggs', 'Supports Eye Health', 'Lutein and zeaxanthin protect against age-related vision decline.', 'eye'),
   ],
   preview: {
     select: {
