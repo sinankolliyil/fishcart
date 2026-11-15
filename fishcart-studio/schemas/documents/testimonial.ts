@@ -52,12 +52,6 @@ export default defineType({
       initialValue: 'Recent',
     }),
     defineField({
-      name: 'visibility',
-      title: 'Visible on Website',
-      type: 'boolean',
-      initialValue: true,
-    }),
-    defineField({
       name: 'displayOrder',
       title: 'Display Order',
       type: 'number',
@@ -70,11 +64,10 @@ export default defineType({
       rating: 'rating',
       platform: 'platform',
       media: 'customerImage',
-      visible: 'visibility',
     },
-    prepare({ title, rating, platform, media, visible }) {
+    prepare({ title, rating, platform, media }) {
       return {
-        title: `${title} (${rating || 5}★) ${visible === false ? '[Hidden]' : ''}`,
+        title: `${title} (${rating || 5}★)`,
         subtitle: `Platform: ${platform || 'Google'}`,
         media,
       };

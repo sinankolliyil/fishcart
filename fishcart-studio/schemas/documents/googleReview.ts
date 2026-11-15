@@ -47,12 +47,6 @@ export default defineType({
       options: { hotspot: true },
     }),
     defineField({
-      name: 'visibility',
-      title: 'Visible on Website',
-      type: 'boolean',
-      initialValue: true,
-    }),
-    defineField({
       name: 'displayOrder',
       title: 'Display Order',
       type: 'number',
@@ -66,11 +60,10 @@ export default defineType({
       date: 'reviewDate',
       media: 'googleReviewScreenshot',
       avatar: 'authorAvatar',
-      visible: 'visibility',
     },
-    prepare({ author, rating, date, media, avatar, visible }) {
+    prepare({ author, rating, date, media, avatar }) {
       return {
-        title: `${author || 'Google User'} (${rating || 5}★) ${visible === false ? '[Hidden]' : ''}`,
+        title: `${author || 'Google User'} (${rating || 5}★)`,
         subtitle: `${date || 'Google Review'}`,
         media: media || avatar,
       };

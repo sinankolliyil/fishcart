@@ -4,14 +4,6 @@ export default defineType({
   name: 'ourStory',
   title: 'Our Story Page (Singleton)',
   type: 'document',
-  fieldsets: [
-    { name: 'intro', title: '1. Introduction Header', options: { collapsible: true, collapsed: false } },
-    { name: 'stats', title: '2. Key Statistics (4 Stats)', options: { collapsible: true, collapsed: false } },
-    { name: 'journey', title: '3. Journey Cards (2 Story Cards)', options: { collapsible: true, collapsed: false } },
-    { name: 'promise', title: '4. Our Promise Section', options: { collapsible: true, collapsed: false } },
-    { name: 'timeline', title: '5. Ocean To Shop Process Timeline', options: { collapsible: true, collapsed: false } },
-    { name: 'footer', title: '6. Thank You & Closing Footer', options: { collapsible: true, collapsed: false } },
-  ],
   initialValue: {
     heroHeading: 'Our Story',
     heroDescription:
@@ -86,7 +78,6 @@ export default defineType({
       name: 'heroHeading',
       title: 'Hero Heading',
       type: 'string',
-      fieldset: 'intro',
       initialValue: 'Our Story',
       validation: (rule) => rule.required(),
     }),
@@ -95,7 +86,6 @@ export default defineType({
       title: 'Hero Description',
       type: 'text',
       rows: 3,
-      fieldset: 'intro',
       initialValue:
         'From a small online initiative to your trusted fresh partner. Our journey is built on hard work, honesty, and the love of our customers.',
     }),
@@ -105,7 +95,7 @@ export default defineType({
       name: 'stat1',
       title: 'Stat 1: Years of Trust',
       type: 'object',
-      fieldset: 'stats',
+      options: { collapsible: true, collapsed: false },
       fields: [
         defineField({ name: 'value', title: 'Value', type: 'string', initialValue: '1+' }),
         defineField({ name: 'label', title: 'Label', type: 'string', initialValue: 'Years of Trust' }),
@@ -116,7 +106,7 @@ export default defineType({
       name: 'stat2',
       title: 'Stat 2: Happy Customers',
       type: 'object',
-      fieldset: 'stats',
+      options: { collapsible: true, collapsed: false },
       fields: [
         defineField({ name: 'value', title: 'Value', type: 'string', initialValue: '10,000+' }),
         defineField({ name: 'label', title: 'Label', type: 'string', initialValue: 'Happy Customers' }),
@@ -127,7 +117,7 @@ export default defineType({
       name: 'stat3',
       title: 'Stat 3: Orders Delivered',
       type: 'object',
-      fieldset: 'stats',
+      options: { collapsible: true, collapsed: false },
       fields: [
         defineField({ name: 'value', title: 'Value', type: 'string', initialValue: '15,000+' }),
         defineField({ name: 'label', title: 'Label', type: 'string', initialValue: 'Orders Delivered' }),
@@ -138,7 +128,7 @@ export default defineType({
       name: 'stat4',
       title: 'Stat 4: Quality Promise',
       type: 'object',
-      fieldset: 'stats',
+      options: { collapsible: true, collapsed: false },
       fields: [
         defineField({ name: 'value', title: 'Value', type: 'string', initialValue: '100%' }),
         defineField({ name: 'label', title: 'Label', type: 'string', initialValue: 'Quality Promise' }),
@@ -151,7 +141,7 @@ export default defineType({
       name: 'journey1',
       title: 'Journey Card 1 (How It All Started)',
       type: 'object',
-      fieldset: 'journey',
+      options: { collapsible: true, collapsed: false },
       fields: [
         defineField({ name: 'title', title: 'Title', type: 'string', initialValue: 'How It All Started' }),
         defineField({
@@ -171,7 +161,7 @@ export default defineType({
       name: 'journey2',
       title: 'Journey Card 2 (Growing With You)',
       type: 'object',
-      fieldset: 'journey',
+      options: { collapsible: true, collapsed: false },
       fields: [
         defineField({ name: 'title', title: 'Title', type: 'string', initialValue: 'Growing With You' }),
         defineField({
@@ -193,21 +183,19 @@ export default defineType({
       name: 'promiseHeading',
       title: 'Promise Section Heading',
       type: 'string',
-      fieldset: 'promise',
       initialValue: 'Our Promise\nTo You',
     }),
     defineField({
       name: 'promiseSubtitle',
       title: 'Promise Subtitle',
       type: 'string',
-      fieldset: 'promise',
       initialValue: 'We promise to deliver the freshest.',
     }),
     defineField({
       name: 'promisesList',
       title: 'The 6 Promises',
       type: 'object',
-      fieldset: 'promise',
+      options: { collapsible: true, collapsed: false },
       fields: [
         defineField({ name: 'promise1', title: 'Promise 1', type: 'string', initialValue: 'Never compromise on quality' }),
         defineField({ name: 'promise2', title: 'Promise 2', type: 'string', initialValue: 'Hygienically cleaned & packed' }),
@@ -223,14 +211,13 @@ export default defineType({
       name: 'processHeading',
       title: 'Timeline Section Heading',
       type: 'string',
-      fieldset: 'timeline',
       initialValue: "From Ocean To Our Shop – Here's How It Happens",
     }),
     defineField({
       name: 'processStepsList',
       title: 'Process Timeline Step Titles (8 Steps)',
       type: 'object',
-      fieldset: 'timeline',
+      options: { collapsible: true, collapsed: false },
       fields: [
         defineField({ name: 'step1', title: 'Step 1 Title', type: 'string', initialValue: 'Daily Catch' }),
         defineField({ name: 'step2', title: 'Step 2 Title', type: 'string', initialValue: 'Sorting & Cleaning' }),
@@ -248,7 +235,6 @@ export default defineType({
       name: 'thankYouHeading',
       title: 'Thank You Heading',
       type: 'string',
-      fieldset: 'footer',
       initialValue: 'Thank You!',
     }),
     defineField({
@@ -256,7 +242,6 @@ export default defineType({
       title: 'Thank You Message',
       type: 'text',
       rows: 2,
-      fieldset: 'footer',
       initialValue:
         'Every order, every feedback, and every smile pushes us to do better every day.',
     }),
@@ -265,15 +250,8 @@ export default defineType({
       title: 'Closing Quote',
       type: 'text',
       rows: 2,
-      fieldset: 'footer',
       initialValue:
         "We don't just sell fish & meat,\nwe deliver trust, health and happiness.",
-    }),
-    defineField({
-      name: 'visibility',
-      title: 'Page Active Status',
-      type: 'boolean',
-      initialValue: true,
     }),
   ],
   preview: {

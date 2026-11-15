@@ -4,11 +4,6 @@ export default defineType({
   name: 'aboutUs',
   title: 'About Us Page (Singleton)',
   type: 'document',
-  fieldsets: [
-    { name: 'hero', title: '1. Hero Section', options: { collapsible: true, collapsed: false } },
-    { name: 'selection', title: '2. Selection Section Headings', options: { collapsible: true, collapsed: false } },
-    { name: 'whyChoose', title: '3. Why Choose FishCart (4 Cards)', options: { collapsible: true, collapsed: false } },
-  ],
   initialValue: {
     heroSubtitle: 'About Us',
     heroHeading: 'Fresh. Hygienic. Trusted. Delivered.',
@@ -47,14 +42,12 @@ export default defineType({
       name: 'heroSubtitle',
       title: 'Hero Subtitle',
       type: 'string',
-      fieldset: 'hero',
       initialValue: 'About Us',
     }),
     defineField({
       name: 'heroHeading',
       title: 'Hero Heading',
       type: 'string',
-      fieldset: 'hero',
       initialValue: 'Fresh. Hygienic. Trusted. Delivered.',
       validation: (rule) => rule.required(),
     }),
@@ -63,7 +56,6 @@ export default defineType({
       title: 'Hero Description',
       type: 'text',
       rows: 3,
-      fieldset: 'hero',
       initialValue:
         'We are passionate about delivering the freshest non-veg products to your doorstep. Quality, hygiene and trust are at the heart of everything we do.',
     }),
@@ -71,42 +63,37 @@ export default defineType({
       name: 'teamSignature',
       title: 'Team Signature / Note',
       type: 'string',
-      fieldset: 'hero',
       initialValue: 'Team FishCart',
     }),
     defineField({
       name: 'selectionTagline',
       title: 'Selection Tagline',
       type: 'string',
-      fieldset: 'selection',
       initialValue: 'What We Offer',
     }),
     defineField({
       name: 'selectionHeading',
       title: 'Selection Section Heading',
       type: 'string',
-      fieldset: 'selection',
       initialValue: 'Explore Our Fresh Selection',
     }),
     defineField({
       name: 'selectionSubtitle',
       title: 'Selection Section Subtitle',
       type: 'string',
-      fieldset: 'selection',
       initialValue: 'Handpicked non-veg products, cleaned with care and delivered fresh.',
     }),
     defineField({
       name: 'whyChooseHeading',
       title: 'Why Choose Section Heading',
       type: 'string',
-      fieldset: 'whyChoose',
       initialValue: 'Why Choose FishCart?',
     }),
     defineField({
       name: 'highlight1',
-      title: 'Card 1: Premium Quality',
+      title: 'Why Choose Card 1: Premium Quality',
       type: 'object',
-      fieldset: 'whyChoose',
+      options: { collapsible: true, collapsed: false },
       fields: [
         defineField({ name: 'title', title: 'Card Title', type: 'string', initialValue: 'Premium Quality', validation: (r) => r.required() }),
         defineField({ name: 'description', title: 'Description', type: 'string', initialValue: 'We never compromise on quality.', validation: (r) => r.required() }),
@@ -128,9 +115,9 @@ export default defineType({
     }),
     defineField({
       name: 'highlight2',
-      title: 'Card 2: Fresh & Hygienic',
+      title: 'Why Choose Card 2: Fresh & Hygienic',
       type: 'object',
-      fieldset: 'whyChoose',
+      options: { collapsible: true, collapsed: false },
       fields: [
         defineField({ name: 'title', title: 'Card Title', type: 'string', initialValue: 'Fresh & Hygienic', validation: (r) => r.required() }),
         defineField({ name: 'description', title: 'Description', type: 'string', initialValue: 'Maintained with the highest standards.', validation: (r) => r.required() }),
@@ -152,9 +139,9 @@ export default defineType({
     }),
     defineField({
       name: 'highlight3',
-      title: 'Card 3: Trusted & Reliable',
+      title: 'Why Choose Card 3: Trusted & Reliable',
       type: 'object',
-      fieldset: 'whyChoose',
+      options: { collapsible: true, collapsed: false },
       fields: [
         defineField({ name: 'title', title: 'Card Title', type: 'string', initialValue: 'Trusted & Reliable', validation: (r) => r.required() }),
         defineField({ name: 'description', title: 'Description', type: 'string', initialValue: 'Thousands of families trust us every day.', validation: (r) => r.required() }),
@@ -176,9 +163,9 @@ export default defineType({
     }),
     defineField({
       name: 'highlight4',
-      title: 'Card 4: Customer First',
+      title: 'Why Choose Card 4: Customer First',
       type: 'object',
-      fieldset: 'whyChoose',
+      options: { collapsible: true, collapsed: false },
       fields: [
         defineField({ name: 'title', title: 'Card Title', type: 'string', initialValue: 'Customer First', validation: (r) => r.required() }),
         defineField({ name: 'description', title: 'Description', type: 'string', initialValue: "We're here for you, always.", validation: (r) => r.required() }),
