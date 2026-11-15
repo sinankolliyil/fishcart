@@ -49,13 +49,21 @@ interface StoryData {
   processHeading?: string;
   processStepsList?: {
     step1?: string;
+    step1ImageUrl?: string;
     step2?: string;
+    step2ImageUrl?: string;
     step3?: string;
+    step3ImageUrl?: string;
     step4?: string;
+    step4ImageUrl?: string;
     step5?: string;
+    step5ImageUrl?: string;
     step6?: string;
+    step6ImageUrl?: string;
     step7?: string;
+    step7ImageUrl?: string;
     step8?: string;
+    step8ImageUrl?: string;
   };
   thankYouHeading?: string;
   thankYouText?: string;
@@ -263,13 +271,14 @@ export default async function StoryPage() {
     story?.processHeading ||
     "From Ocean To Our Shop – Here's How It Happens";
   const processSteps = DEFAULT_STEPS.map((step, idx) => {
-    const key = `step${idx + 1}` as keyof NonNullable<
-      typeof story
-    >['processStepsList'];
-    const customTitle = story?.processStepsList?.[key] || step.title;
+    const num = idx + 1;
+    const titleKey = `step${num}` as keyof NonNullable<typeof story>['processStepsList'];
+    const imageKey = `step${num}ImageUrl` as keyof NonNullable<typeof story>['processStepsList'];
+    const customTitle = story?.processStepsList?.[titleKey] || step.title;
+    const customImage = story?.processStepsList?.[imageKey] || step.img;
     return {
       title: customTitle,
-      img: step.img,
+      img: customImage,
     };
   });
 

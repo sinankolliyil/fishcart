@@ -215,18 +215,33 @@ export default defineType({
     }),
     defineField({
       name: 'processStepsList',
-      title: 'Process Timeline Step Titles (8 Steps)',
+      title: 'Process Timeline Steps & Images (8 Steps)',
       type: 'object',
       options: { collapsible: true, collapsed: false },
       fields: [
         defineField({ name: 'step1', title: 'Step 1 Title', type: 'string', initialValue: 'Daily Catch' }),
+        defineField({ name: 'step1Image', title: 'Step 1 Image (Optional)', type: 'image', options: { hotspot: true }, description: 'Leave empty to use default fresh salmon image.' }),
+
         defineField({ name: 'step2', title: 'Step 2 Title', type: 'string', initialValue: 'Sorting & Cleaning' }),
+        defineField({ name: 'step2Image', title: 'Step 2 Image (Optional)', type: 'image', options: { hotspot: true }, description: 'Leave empty to use default sea bass with lemon image.' }),
+
         defineField({ name: 'step3', title: 'Step 3 Title', type: 'string', initialValue: 'Ice Packing' }),
+        defineField({ name: 'step3Image', title: 'Step 3 Image (Optional)', type: 'image', options: { hotspot: true }, description: 'Leave empty to use default crushed ice image.' }),
+
         defineField({ name: 'step4', title: 'Step 4 Title', type: 'string', initialValue: 'Air Freight' }),
+        defineField({ name: 'step4Image', title: 'Step 4 Image (Optional)', type: 'image', options: { hotspot: true }, description: 'Leave empty to use default fish cargo image.' }),
+
         defineField({ name: 'step5', title: 'Step 5 Title', type: 'string', initialValue: 'Import & Inspection' }),
+        defineField({ name: 'step5Image', title: 'Step 5 Image (Optional)', type: 'image', options: { hotspot: true }, description: 'Leave empty to use default ice cubes inspection image.' }),
+
         defineField({ name: 'step6', title: 'Step 6 Title', type: 'string', initialValue: 'Cold Storage & Transport' }),
+        defineField({ name: 'step6Image', title: 'Step 6 Image (Optional)', type: 'image', options: { hotspot: true }, description: 'Leave empty to use default cold storage meat cuts image.' }),
+
         defineField({ name: 'step7', title: 'Step 7 Title', type: 'string', initialValue: 'Final Check at Our Shop' }),
+        defineField({ name: 'step7Image', title: 'Step 7 Image (Optional)', type: 'image', options: { hotspot: true }, description: 'Leave empty to use default fresh chicken check image.' }),
+
         defineField({ name: 'step8', title: 'Step 8 Title', type: 'string', initialValue: 'Delivered to You' }),
+        defineField({ name: 'step8Image', title: 'Step 8 Image (Optional)', type: 'image', options: { hotspot: true }, description: 'Leave empty to use default delivered customer image.' }),
       ],
     }),
 
