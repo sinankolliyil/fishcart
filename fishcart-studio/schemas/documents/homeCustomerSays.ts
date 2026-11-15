@@ -29,62 +29,6 @@ export default defineType({
         },
       ],
     }),
-    defineField({
-      name: 'customReviews',
-      title: 'Or Add Custom Review (Manual)',
-      description:
-        'Optional: Type a manual customer quote if you do not want to link an existing testimonial.',
-      type: 'array',
-      of: [
-        {
-          type: 'object',
-          fields: [
-            defineField({
-              name: 'customerName',
-              title: 'Customer Name',
-              type: 'string',
-              description: 'e.g. Priya S.',
-              validation: (rule) => rule.required(),
-            }),
-            defineField({
-              name: 'rating',
-              title: 'Star Rating (1 - 5)',
-              type: 'number',
-              initialValue: 5,
-              validation: (rule) => rule.min(1).max(5),
-            }),
-            defineField({
-              name: 'reviewText',
-              title: 'Review Text / Quote',
-              type: 'text',
-              rows: 3,
-              description:
-                'e.g. "Super fresh products and great variety. Fishcart is our family\'s choice."',
-              validation: (rule) => rule.required(),
-            }),
-            defineField({
-              name: 'tagline',
-              title: 'Optional Subtitle / Badge',
-              type: 'string',
-              description: 'e.g. Verified Buyer, Google Review',
-            }),
-          ],
-          preview: {
-            select: {
-              title: 'customerName',
-              subtitle: 'reviewText',
-              rating: 'rating',
-            },
-            prepare({ title, subtitle, rating }) {
-              return {
-                title: `${title || 'Customer'} (${rating || 5}★)`,
-                subtitle: subtitle || 'No quote entered',
-              };
-            },
-          },
-        },
-      ],
-    }),
   ],
   preview: {
     select: {

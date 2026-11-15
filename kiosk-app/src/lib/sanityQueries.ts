@@ -325,12 +325,6 @@ export const HOME_CUSTOMER_SAYS_QUERY = `
         platform != null => platform,
         "Customer Review"
       )
-    },
-    "customReviews": coalesce(customReviews, reviews)[] {
-      customerName,
-      rating,
-      reviewText,
-      tagline
     }
   }
 `;

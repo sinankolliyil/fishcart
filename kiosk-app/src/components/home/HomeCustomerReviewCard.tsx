@@ -34,7 +34,6 @@ export function HomeCustomerReviewCard() {
   const [data, setData] = useState<{
     sectionHeading?: string;
     selectedReviews?: ReviewItem[];
-    customReviews?: ReviewItem[];
   } | null>(null);
 
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -52,16 +51,9 @@ export function HomeCustomerReviewCard() {
   const validSelected = (data?.selectedReviews || []).filter(
     (r) => r && r.customerName && r.reviewText
   );
-  const validCustom = (data?.customReviews || []).filter(
-    (r) => r && r.customerName && r.reviewText
-  );
 
   const reviewsList: ReviewItem[] =
-    validSelected.length > 0
-      ? validSelected
-      : validCustom.length > 0
-      ? validCustom
-      : DEFAULT_REVIEWS;
+    validSelected.length > 0 ? validSelected : DEFAULT_REVIEWS;
 
   // Auto-rotate every 6s if more than 1 review
   useEffect(() => {
