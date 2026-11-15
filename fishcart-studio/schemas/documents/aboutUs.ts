@@ -198,12 +198,6 @@ export default defineType({
         }),
       ],
     }),
-    defineField({
-      name: 'visibility',
-      title: 'Visible on Website',
-      type: 'boolean',
-      initialValue: true,
-    }),
   ],
   preview: {
     select: {

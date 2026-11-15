@@ -592,52 +592,6 @@ export const deskStructure: StructureResolver = (S) =>
                       );
                     })
                 ),
-
-              S.divider(),
-
-              S.listItem()
-                .title('Visible Recipes (Show)')
-                .id('visibleRecipes')
-                .icon(Emoji('👁️'))
-                .schemaType('recipe')
-                .child(
-                  S.documentList()
-                    .id('visibleRecipesList')
-                    .title('Visible Recipes (Show)')
-                    .schemaType('recipe')
-                    .filter('_type == "recipe" && visibility != false')
-                    .defaultOrdering([{ field: 'displayOrder', direction: 'asc' }])
-                    .child((documentId) =>
-                      S.document()
-                        .documentId(documentId)
-                        .schemaType('recipe')
-                    )
-                    .canHandleIntent((intentName, params) => {
-                      return Boolean(intentName === 'edit' && params.id);
-                    })
-                ),
-
-              S.listItem()
-                .title('Hidden Recipes (Hide)')
-                .id('hiddenRecipes')
-                .icon(Emoji('🚫'))
-                .schemaType('recipe')
-                .child(
-                  S.documentList()
-                    .id('hiddenRecipesList')
-                    .title('Hidden Recipes (Hide)')
-                    .schemaType('recipe')
-                    .filter('_type == "recipe" && visibility == false')
-                    .defaultOrdering([{ field: 'displayOrder', direction: 'asc' }])
-                    .child((documentId) =>
-                      S.document()
-                        .documentId(documentId)
-                        .schemaType('recipe')
-                    )
-                    .canHandleIntent((intentName, params) => {
-                      return Boolean(intentName === 'edit' && params.id);
-                    })
-                ),
             ])
         ),
 

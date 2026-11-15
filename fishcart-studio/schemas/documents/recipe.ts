@@ -172,12 +172,6 @@ export default defineType({
       description: 'Upload a downloadable PDF recipe card for this dish.',
     }),
     defineField({
-      name: 'visibility',
-      title: 'Visible on Website',
-      type: 'boolean',
-      initialValue: true,
-    }),
-    defineField({
       name: 'displayOrder',
       title: 'Display Order in Category',
       description: 'Position number within this recipe category (Fish, Meat, Chicken, Egg). Setting an order automatically steps down any existing recipes without duplicate numbers.',
@@ -192,9 +186,8 @@ export default defineType({
       title: 'title',
       category: 'category',
       media: 'thumbnail',
-      visible: 'visibility',
     },
-    prepare({ title, category, media, visible }) {
+    prepare({ title, category, media }) {
       const emojiMap: Record<string, string> = {
         Fish: '🐟',
         Meat: '🥩',
@@ -202,7 +195,7 @@ export default defineType({
         Egg: '🥚',
       };
       return {
-        title: `${title || 'Untitled Recipe'} ${visible === false ? '(Hidden)' : ''}`,
+        title: title || 'Untitled Recipe',
         subtitle: `${category || ''}`,
         media: media || (() => emojiMap[category] || '🍳'),
       };

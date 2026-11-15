@@ -168,13 +168,6 @@ export default defineType({
     createBenefitCardField('egg4', 'Card 4: Good Source of Vitamin D', 'eggs', 'Good Source of Vitamin D', 'Supports bone strength, immune health, and calcium absorption.', 'sun'),
     createBenefitCardField('egg5', 'Card 5: Contains Healthy Fats', 'eggs', 'Contains Healthy Fats', 'Balanced fatty acids that support hormone production and cell health.', 'droplets'),
     createBenefitCardField('egg6', 'Card 6: Supports Eye Health', 'eggs', 'Supports Eye Health', 'Lutein and zeaxanthin protect against age-related vision decline.', 'eye'),
-
-    defineField({
-      name: 'visibility',
-      title: 'Visible on Website',
-      type: 'boolean',
-      initialValue: true,
-    }),
   ],
   preview: {
     select: {
