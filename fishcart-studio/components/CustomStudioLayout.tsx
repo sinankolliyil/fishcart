@@ -214,6 +214,28 @@ export function CustomStudioLayout(props: LayoutProps) {
           font-size: 1.45rem !important;
           line-height: 1.25 !important;
         }
+
+        /* ─── REMOVE ANNOYING BLUE FOCUS OUTLINES ON FIELDSETS / ACCORDIONS / BUTTONS ─── */
+        summary,
+        summary:focus,
+        summary:focus-visible,
+        details summary,
+        details summary:focus,
+        details summary:focus-visible,
+        button:focus,
+        button:focus-visible,
+        [role="button"]:focus,
+        [role="button"]:focus-visible,
+        [data-ui="Fieldset"] *,
+        [data-ui="Fieldset"] *:focus,
+        [data-ui="Fieldset"] *:focus-visible,
+        [data-testid*="fieldset"] *,
+        [data-testid*="fieldset"] *:focus,
+        [data-testid*="fieldset"] *:focus-visible {
+          outline: none !important;
+          box-shadow: none !important;
+          -webkit-tap-highlight-color: transparent !important;
+        }
       `}</style>
 
       {syncStatus !== 'idle' && (
