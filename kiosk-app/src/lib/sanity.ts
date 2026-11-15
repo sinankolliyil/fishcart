@@ -15,7 +15,7 @@ export const client = isSanityConfigured
       projectId,
       dataset,
       apiVersion,
-      useCdn: true, // Use Sanity global Edge CDN (~20-50ms); purges within ~1-2s on publish
+      useCdn: false, // Direct live origin: updates in CMS are immediately visible (no CDN purge delay)
     })
   : null;
 
@@ -70,9 +70,9 @@ interface CacheEntry<T> {
 
 const memoryCache = new Map<string, CacheEntry<any>>();
 const inflightQueries = new Map<string, Promise<any>>();
-// Fresh window + Stale-While-Revalidate window for instant 0ms repeat navigation
-const FRESH_TTL_MS = 15_000;
-const SWR_TTL_MS = 120_000;
+// Short 4s cache window for deduplicating simultaneous requests across components on the same page,
+// while guaranteeing any new CMS update reflects within seconds on reload.
+const FRESH_TTL_MS = 4_000;
 
 export function clearSanityCache(): void {
   memoryCache.clear();
@@ -92,15 +92,12 @@ async function executeSanityFetch<T>(
   const targetClient = options.bypassCache ? liveClient : client;
   if (!targetClient) return null;
 
-  const timeoutMs = options.timeoutMs ?? 2000;
+  // Generous 6-second timeout so requests over standard networks are never dropped prematurely
+  const timeoutMs = options.timeoutMs ?? 6000;
 
   const fetchPromise = (async () => {
     try {
-      const fetchOptions = options.bypassCache
-        ? { cache: 'no-store' as const, next: { revalidate: 0 } }
-        : { next: { revalidate: 15 } };
-
-      const fetchCall = (targetClient as any).fetch(query, params, fetchOptions);
+      const fetchCall = (targetClient as any).fetch(query, params);
 
       const timeoutCall = new Promise<null>((resolve) => {
         setTimeout(() => resolve(null), timeoutMs);
@@ -113,12 +110,13 @@ async function executeSanityFetch<T>(
         return data;
       }
 
+      // If timed out, gracefully return previously cached entry if available
       const stale = memoryCache.get(cacheKey);
       if (stale) return stale.data as T;
 
       return null;
     } catch (err) {
-      console.warn('Sanity query failed (falling back to local data):', err);
+      console.warn('Sanity query failed (falling back to cached/local data):', err);
       const stale = memoryCache.get(cacheKey);
       return stale ? (stale.data as T) : null;
     } finally {
@@ -131,11 +129,11 @@ async function executeSanityFetch<T>(
 }
 
 /**
- * High-performance fetch wrapper with Sanity Edge CDN + Stale-While-Revalidate:
- * - Serves fresh/SWR in-memory cache immediately (0ms) for repeat queries
- * - Uses Sanity Edge CDN (useCdn: true) for fast ~20-50ms network reads
- * - Deduplicates concurrent inflight requests
- * - Enforces a strict 2s timeout with graceful fallback to stale/local data
+ * High-performance fetch wrapper with direct Sanity live data & inflight deduplication:
+ * - Direct origin (useCdn: false) ensures CMS changes show up immediately upon publish
+ * - Concurrent inflight queries are deduplicated so duplicate calls never make extra network requests
+ * - 4s short memory deduplication prevents re-fetching identical data when multiple components render together
+ * - Graceful fallback to cached data if network drops or times out (>6s)
  */
 export async function sanityFetch<T>(
   query: string,
@@ -154,11 +152,6 @@ export async function sanityFetch<T>(
     if (cached) {
       const age = now - cached.timestamp;
       if (age < FRESH_TTL_MS) {
-        return cached.data as T;
-      }
-      if (age < SWR_TTL_MS) {
-        // Return stale data immediately and revalidate in background
-        void executeSanityFetch<T>(cacheKey, query, params, options);
         return cached.data as T;
       }
     }

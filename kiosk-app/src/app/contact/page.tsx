@@ -3,7 +3,7 @@ import { sanityFetch } from '@/lib/sanity';
 import { STORE_CONTACT_QUERY } from '@/lib/sanityQueries';
 import { ContactClient, StoreContactData } from '@/components/contact/ContactClient';
 
-export const revalidate = 15;
+export const revalidate = 5;
 
 export default async function ContactPage() {
   let contactData: StoreContactData | null = null;

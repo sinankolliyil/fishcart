@@ -2,7 +2,7 @@ import { CatalogPage } from "@/components/catalog/CatalogPage";
 import { fishCatalogData } from "@/data/catalogData";
 import { getMergedCatalogProducts } from "@/lib/productUtils";
 
-export const revalidate = 15;
+export const revalidate = 5;
 
 export default async function FishPage() {
   const mergedProducts = await getMergedCatalogProducts('fish', fishCatalogData.products);

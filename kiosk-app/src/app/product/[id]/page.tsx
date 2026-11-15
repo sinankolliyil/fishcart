@@ -2,7 +2,7 @@ import { notFound } from 'next/navigation';
 import { getProductByIdAsync } from '@/lib/productUtils';
 import { ProductDetailsLayout } from '@/components/product/ProductDetailsLayout';
 
-export const revalidate = 15;
+export const revalidate = 5;
 
 export default async function ProductPage({ params }: { params: Promise<{ id: string }> }) {
   const resolvedParams = await params;

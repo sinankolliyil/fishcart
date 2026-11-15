@@ -2,7 +2,7 @@ import { CatalogPage } from "@/components/catalog/CatalogPage";
 import { eggsCatalogData } from "@/data/catalogData";
 import { getMergedCatalogProducts } from "@/lib/productUtils";
 
-export const revalidate = 15;
+export const revalidate = 5;
 
 export default async function EggsPage() {
   const mergedProducts = await getMergedCatalogProducts('eggs', eggsCatalogData.products);
