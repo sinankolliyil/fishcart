@@ -261,7 +261,6 @@ export const HOME_RECIPES_QUERY = `
   coalesce(*[_id == "drafts.homeRecipes"][0], *[_id == "homeRecipes"][0], *[_type == "homeRecipes"][0]) {
     sectionTitle,
     sectionSubtitle,
-    viewAllUrl,
     "video1": video1-> {
       "id": slug.current,
       title,

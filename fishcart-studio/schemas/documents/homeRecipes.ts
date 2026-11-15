@@ -46,12 +46,6 @@ export default defineType({
       to: [{ type: 'recipe' }],
       description: 'Select the 4th video recipe to feature in the homepage carousel (from How to Cook page)',
     }),
-    defineField({
-      name: 'viewAllUrl',
-      title: 'View All Recipes Button Link',
-      type: 'string',
-      initialValue: '/cook',
-    }),
   ],
   preview: {
     select: {
