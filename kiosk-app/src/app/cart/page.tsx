@@ -35,7 +35,7 @@ export default function CartPage() {
   const [orderSettings, setOrderSettings] = useState<OrderSettings | null>(null);
 
   useEffect(() => {
-    sanityFetch<OrderSettings>(ORDER_SETTINGS_QUERY)
+    sanityFetch<OrderSettings>(ORDER_SETTINGS_QUERY, {}, { bypassCache: true })
       .then((data) => {
         if (data) setOrderSettings(data);
       })
