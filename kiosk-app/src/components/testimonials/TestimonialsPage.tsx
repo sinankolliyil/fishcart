@@ -309,7 +309,6 @@ function ContactInfoFields({
   onPhoneChange,
   email,
   onEmailChange,
-  compact = false,
 }: {
   phoneCode: string;
   onPhoneCodeChange: (code: string) => void;
@@ -317,42 +316,21 @@ function ContactInfoFields({
   onPhoneChange: (val: string) => void;
   email: string;
   onEmailChange: (val: string) => void;
-  compact?: boolean;
 }) {
   return (
-    <div className={cn('flex flex-col', compact ? 'gap-[4px]' : 'gap-[8px]')}>
-      <label
-        className={cn(
-          'font-bold text-slate-800 flex items-center gap-1.5 flex-wrap',
-          compact ? 'text-[clamp(11px,1.15svh,13px)]' : 'text-[clamp(13px,1.3svh,16px)]'
-        )}
-      >
+    <div className="flex flex-col gap-[8px]">
+      <label className="text-[clamp(13px,1.3svh,16px)] font-bold text-slate-800 flex items-center gap-1.5 flex-wrap">
         <span>Contact Information</span>
-        <span
-          className={cn(
-            'font-normal text-slate-500',
-            compact ? 'text-[clamp(10px,1.05svh,12px)]' : 'text-[clamp(12px,1.15svh,14px)]'
-          )}
-        >
+        <span className="text-[clamp(12px,1.15svh,14px)] font-normal text-slate-500">
           (Either Phone Number or Email is required)
         </span>
       </label>
 
-      <div
-        className={cn(
-          'grid grid-cols-2 portrait:flex portrait:flex-col portrait:gap-[14px]',
-          compact ? 'gap-[16px]' : 'gap-[24px]'
-        )}
-      >
+      <div className="grid grid-cols-2 gap-[24px] portrait:flex portrait:flex-col portrait:gap-[14px]">
         {/* Phone Number */}
-        <div className={cn('flex flex-col', compact ? 'gap-[3px]' : 'gap-[6px]')}>
+        <div className="flex flex-col gap-[6px]">
           <div className="flex items-center justify-between">
-            <span
-              className={cn(
-                'font-semibold text-slate-700',
-                compact ? 'text-[11px]' : 'text-[clamp(12px,1.2svh,14px)]'
-              )}
-            >
+            <span className="text-[clamp(12px,1.2svh,14px)] font-semibold text-slate-700">
               Phone Number
             </span>
             {isValidPhone(phone) ? (
@@ -365,12 +343,7 @@ function ContactInfoFields({
             <select
               value={phoneCode}
               onChange={(e) => onPhoneCodeChange(e.target.value)}
-              className={cn(
-                'rounded-[10px] border border-slate-200 bg-white px-[10px] transition-colors outline-none focus:border-[#0D55CF] focus:ring-1 focus:ring-[#0D55CF]',
-                compact
-                  ? 'py-[clamp(6px,0.85svh,10px)] text-[12px]'
-                  : 'py-[clamp(10px,1.35svh,16px)] text-[clamp(13px,1.3svh,15px)]'
-              )}
+              className="rounded-[10px] border border-slate-200 bg-white px-[12px] py-[clamp(10px,1.35svh,16px)] text-[clamp(13px,1.3svh,15px)] transition-colors outline-none focus:border-[#0D55CF] focus:ring-1 focus:ring-[#0D55CF]"
             >
               <option value="+44">+44 (UK)</option>
               <option value="+91">+91 (IN)</option>
@@ -378,34 +351,24 @@ function ContactInfoFields({
               <option value="+971">+971 (UAE)</option>
             </select>
             <div className="relative flex-1">
-              <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-[12px] text-slate-400">
-                <Phone className={cn(compact ? 'h-[15px] w-[15px]' : 'h-[18px] w-[18px]')} />
+              <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-[16px] text-slate-400">
+                <Phone className="h-[18px] w-[18px]" />
               </div>
               <input
                 type="tel"
                 value={phone}
                 onChange={(e) => onPhoneChange(e.target.value)}
                 placeholder="Enter your phone number"
-                className={cn(
-                  'w-full rounded-[10px] border border-slate-200 pr-[14px] transition-colors outline-none focus:border-[#0D55CF] focus:ring-1 focus:ring-[#0D55CF]',
-                  compact
-                    ? 'py-[clamp(6px,0.85svh,10px)] pl-[34px] text-[12px]'
-                    : 'py-[clamp(10px,1.35svh,16px)] pl-[44px] text-[clamp(13px,1.3svh,15px)]'
-                )}
+                className="w-full rounded-[10px] border border-slate-200 py-[clamp(10px,1.35svh,16px)] pr-[16px] pl-[44px] text-[clamp(13px,1.3svh,15px)] transition-colors outline-none focus:border-[#0D55CF] focus:ring-1 focus:ring-[#0D55CF]"
               />
             </div>
           </div>
         </div>
 
         {/* Email Address */}
-        <div className={cn('flex flex-col', compact ? 'gap-[3px]' : 'gap-[6px]')}>
+        <div className="flex flex-col gap-[6px]">
           <div className="flex items-center justify-between">
-            <span
-              className={cn(
-                'font-semibold text-slate-700',
-                compact ? 'text-[11px]' : 'text-[clamp(12px,1.2svh,14px)]'
-              )}
-            >
+            <span className="text-[clamp(12px,1.2svh,14px)] font-semibold text-slate-700">
               Email Address
             </span>
             {isValidEmail(email) ? (
@@ -415,20 +378,15 @@ function ContactInfoFields({
             ) : null}
           </div>
           <div className="relative">
-            <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-[12px] text-slate-400">
-              <Mail className={cn(compact ? 'h-[15px] w-[15px]' : 'h-[18px] w-[18px]')} />
+            <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-[16px] text-slate-400">
+              <Mail className="h-[18px] w-[18px]" />
             </div>
             <input
               type="email"
               value={email}
               onChange={(e) => onEmailChange(e.target.value)}
               placeholder="Enter your email address"
-              className={cn(
-                'w-full rounded-[10px] border border-slate-200 pr-[14px] transition-colors outline-none focus:border-[#0D55CF] focus:ring-1 focus:ring-[#0D55CF]',
-                compact
-                  ? 'py-[clamp(6px,0.85svh,10px)] pl-[34px] text-[12px]'
-                  : 'py-[clamp(10px,1.35svh,16px)] pl-[44px] text-[clamp(13px,1.3svh,15px)]'
-              )}
+              className="w-full rounded-[10px] border border-slate-200 py-[clamp(10px,1.35svh,16px)] pr-[16px] pl-[44px] text-[clamp(13px,1.3svh,15px)] transition-colors outline-none focus:border-[#0D55CF] focus:ring-1 focus:ring-[#0D55CF]"
             />
           </div>
         </div>
@@ -1255,7 +1213,7 @@ export function TestimonialsPage() {
               )}
             </div>
           ) : activePlatform === 'opinion' ? (
-            <div className="flex h-full min-h-0 w-full flex-1 flex-col overflow-hidden rounded-[16px] border border-slate-100 bg-white px-[clamp(16px,2vw,32px)] py-[clamp(10px,1.5svh,18px)] shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] portrait:h-auto portrait:flex-none portrait:overflow-visible portrait:p-4">
+            <div className="flex h-full min-h-0 w-full flex-1 flex-col overflow-y-auto rounded-[16px] border border-slate-100 bg-white p-[clamp(18px,2.6svh,36px)] shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] portrait:h-auto portrait:flex-none portrait:overflow-visible portrait:p-4">
               {submittedOpinion ? (
                 <div className="flex h-full min-h-[360px] flex-col items-center justify-center gap-4 text-center p-8">
                   <div className="flex h-[64px] w-[64px] items-center justify-center rounded-full bg-emerald-100 text-emerald-600 shadow-sm">
@@ -1296,30 +1254,30 @@ export function TestimonialsPage() {
                   </div>
                 </div>
               ) : (
-                <div className="flex h-full min-h-0 flex-1 flex-col justify-between gap-[clamp(6px,1.1svh,12px)] portrait:h-auto portrait:flex-none portrait:justify-start portrait:gap-4">
+                <div className="flex flex-1 flex-col justify-between gap-[clamp(14px,2svh,28px)] portrait:flex-none portrait:justify-start portrait:gap-4">
                   {/* Top Header from 2nd image */}
-                  <div className="flex items-center gap-[12px] shrink-0">
-                    <div className="flex h-[clamp(36px,4svh,46px)] w-[clamp(36px,4svh,46px)] shrink-0 items-center justify-center rounded-full bg-[#EBF3FF] text-[#0D55CF]">
-                      <MessageSquareHeart className="h-[clamp(18px,2svh,22px)] w-[clamp(18px,2svh,22px)]" />
+                  <div className="flex items-start gap-[16px]">
+                    <div className="flex h-[clamp(44px,5.2svh,60px)] w-[clamp(44px,5.2svh,60px)] shrink-0 items-center justify-center rounded-full bg-[#EBF3FF] text-[#0D55CF]">
+                      <MessageSquareHeart className="h-[clamp(20px,2.3svh,26px)] w-[clamp(20px,2.3svh,26px)]" />
                     </div>
-                    <div className="flex flex-col">
-                      <h2 className="text-[clamp(17px,2svh,22px)] font-bold text-slate-900 leading-tight">
+                    <div className="flex flex-col gap-1">
+                      <h2 className="text-[clamp(20px,2.2svh,28px)] font-bold text-slate-900 leading-tight">
                         We Value Your Suggestions!
                       </h2>
-                      <p className="text-[clamp(11px,1.15svh,13px)] text-slate-500">
+                      <p className="text-[clamp(13px,1.3svh,15px)] text-slate-500">
                         Your suggestions help us improve our products and service every day.
                       </p>
                     </div>
                   </div>
 
                   {/* Row 1: Your Name */}
-                  <div className="flex flex-col gap-[3px] shrink-0">
-                    <label className="text-[clamp(11px,1.15svh,13px)] font-bold text-slate-800">
+                  <div className="flex flex-col gap-[8px]">
+                    <label className="text-[clamp(13px,1.3svh,16px)] font-bold text-slate-800">
                       Your Name <span className="text-red-500 font-bold">*</span>
                     </label>
                     <div className="relative">
-                      <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-[12px] text-slate-400">
-                        <User className="h-[15px] w-[15px]" />
+                      <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-[16px] text-slate-400">
+                        <User className="h-[18px] w-[18px]" />
                       </div>
                       <input
                         type="text"
@@ -1329,53 +1287,50 @@ export function TestimonialsPage() {
                           if (opinionError) setOpinionError(null);
                         }}
                         placeholder="Enter your name"
-                        className="w-full rounded-[10px] border border-slate-200 py-[clamp(6px,0.85svh,10px)] pr-[14px] pl-[34px] text-[clamp(12px,1.15svh,14px)] transition-colors outline-none focus:border-[#0D55CF] focus:ring-1 focus:ring-[#0D55CF]"
+                        className="w-full rounded-[10px] border border-slate-200 py-[clamp(10px,1.35svh,16px)] pr-[16px] pl-[44px] text-[clamp(13px,1.3svh,15px)] transition-colors outline-none focus:border-[#0D55CF] focus:ring-1 focus:ring-[#0D55CF]"
                       />
                     </div>
                   </div>
 
                   {/* Row 2: Your Suggestions */}
-                  <div className="flex min-h-0 flex-1 flex-col gap-[3px]">
-                    <label className="text-[clamp(11px,1.15svh,13px)] font-bold text-slate-800 shrink-0">
+                  <div className="flex flex-col gap-[8px]">
+                    <label className="text-[clamp(13px,1.3svh,16px)] font-bold text-slate-800">
                       Your Suggestions <span className="text-red-500 font-bold">*</span>
                     </label>
                     <textarea
-                      rows={3}
+                      rows={4}
                       value={opinionText}
                       onChange={(e) => {
                         setOpinionText(e.target.value);
                         if (opinionError) setOpinionError(null);
                       }}
                       placeholder="Write your suggestions here..."
-                      className="w-full flex-1 min-h-[50px] resize-none rounded-[10px] border border-slate-200 p-[10px] text-[clamp(12px,1.15svh,14px)] transition-colors outline-none focus:border-[#0D55CF] focus:ring-1 focus:ring-[#0D55CF] portrait:h-[120px] portrait:flex-none"
+                      className="w-full h-[clamp(110px,16svh,200px)] resize-none rounded-[10px] border border-slate-200 p-[14px] text-[clamp(13px,1.3svh,15px)] transition-colors outline-none focus:border-[#0D55CF] focus:ring-1 focus:ring-[#0D55CF] portrait:h-[120px]"
                     />
                   </div>
 
                   {/* Row 3: Contact Information (Either Phone Number or Email Address is required) */}
-                  <div className="shrink-0">
-                    <ContactInfoFields
-                      compact={true}
-                      phoneCode={opinionPhoneCode}
-                      onPhoneCodeChange={setOpinionPhoneCode}
-                      phone={opinionPhone}
-                      onPhoneChange={(val) => {
-                        setOpinionPhone(val);
-                        if (opinionError) setOpinionError(null);
-                      }}
-                      email={opinionEmail}
-                      onEmailChange={(val) => {
-                        setOpinionEmail(val);
-                        if (opinionError) setOpinionError(null);
-                      }}
-                    />
-                  </div>
+                  <ContactInfoFields
+                    phoneCode={opinionPhoneCode}
+                    onPhoneCodeChange={setOpinionPhoneCode}
+                    phone={opinionPhone}
+                    onPhoneChange={(val) => {
+                      setOpinionPhone(val);
+                      if (opinionError) setOpinionError(null);
+                    }}
+                    email={opinionEmail}
+                    onEmailChange={(val) => {
+                      setOpinionEmail(val);
+                      if (opinionError) setOpinionError(null);
+                    }}
+                  />
 
                   {/* Row 4: Submit Button (matching 2nd image) */}
-                  <div className="flex items-center justify-between shrink-0 pt-0.5 portrait:flex-col portrait:gap-3 portrait:items-stretch">
+                  <div className="flex items-center justify-between pt-1 portrait:flex-col portrait:gap-3 portrait:items-stretch">
                     <div>
                       {opinionError && (
-                        <div className="flex items-center gap-1.5 text-[11px] font-medium text-red-600 bg-red-50 border border-red-200 px-2.5 py-1 rounded-[6px]">
-                          <AlertCircle className="h-[13px] w-[13px]" />
+                        <div className="flex items-center gap-1.5 text-[12px] font-medium text-red-600 bg-red-50 border border-red-200 px-3 py-1.5 rounded-[8px]">
+                          <AlertCircle className="h-[14px] w-[14px]" />
                           <span>{opinionError}</span>
                         </div>
                       )}
@@ -1385,18 +1340,18 @@ export function TestimonialsPage() {
                       disabled={isSubmittingOpinion}
                       onClick={handleSubmitOpinion}
                       className={cn(
-                        'flex items-center justify-center gap-2 rounded-[10px] bg-[#0D55CF] px-[clamp(24px,2.2vw,36px)] py-[clamp(7px,1svh,11px)] text-[clamp(12px,1.2svh,14px)] font-bold text-white shadow-sm transition-all hover:bg-[#0A40A0] hover:shadow active:scale-[0.99] portrait:w-full',
+                        'flex items-center justify-center gap-2 rounded-[10px] bg-[#0D55CF] px-[clamp(28px,2.8vw,42px)] py-[clamp(11px,1.4svh,16px)] text-[clamp(13px,1.35svh,16px)] font-bold text-white shadow-sm transition-all hover:bg-[#0A40A0] hover:shadow active:scale-[0.99] portrait:w-full',
                         isSubmittingOpinion && 'opacity-70 cursor-not-allowed'
                       )}
                     >
                       {isSubmittingOpinion ? (
                         <>
-                          <Loader2 className="h-[15px] w-[15px] animate-spin" />
+                          <Loader2 className="h-[16px] w-[16px] animate-spin" />
                           Submitting Suggestions...
                         </>
                       ) : (
                         <>
-                          <Send className="h-[15px] w-[15px]" />
+                          <Send className="h-[16px] w-[16px]" />
                           Submit Suggestions
                         </>
                       )}
