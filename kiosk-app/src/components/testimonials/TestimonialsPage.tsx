@@ -1419,7 +1419,7 @@ export function TestimonialsPage() {
                 {/* Right Card: Review us on Google Button */}
                 <div className="flex items-center justify-center rounded-[16px] border border-slate-100 bg-white p-[20px] shadow-xs">
                   <a
-                    href="https://search.google.com/local/writereview?placeid=ChIJN1t_tDeuEmsRUsoyG83frY4"
+                    href="https://search.google.com/local/writereview?placeid=ChIJhT3pwcoF2UcRHEJynHfEUbs"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-2.5 rounded-[12px] border border-slate-200 bg-white px-6 py-3.5 text-[14px] font-bold text-slate-800 shadow-xs hover:bg-slate-50 hover:border-slate-300 transition-all active:scale-[0.99]"
