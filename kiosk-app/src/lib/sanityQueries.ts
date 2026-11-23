@@ -239,10 +239,11 @@ export const BENEFITS_CONTENT_QUERY = `
 `;
 
 export const STORE_CONTACT_QUERY = `
-  *[_type == "storeContact" && _id in ["storeContact", "drafts.storeContact"]][0] {
+  coalesce(*[_id == "drafts.storeContact"][0], *[_id == "storeContact"][0], *[_type == "storeContact"][0]) {
     businessName,
     contactPageHeading,
     contactPageDescription,
+    formDestination,
     phone,
     phoneNote,
     email,

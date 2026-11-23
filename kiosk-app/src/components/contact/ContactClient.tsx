@@ -18,7 +18,9 @@ export interface StoreContactData {
   businessName?: string;
   contactPageHeading?: string;
   contactPageDescription?: string;
+  formDestination?: 'whatsapp' | 'email';
   phone?: string;
+  whatsappNumber?: string;
   phoneNote?: string;
   email?: string;
   emailNote?: string;
@@ -59,6 +61,64 @@ export function ContactClient({ data }: { data?: StoreContactData | null }) {
   const chickenImg = '/assets/boneless_chicken.jpg';
   const fishImg = '/assets/1_image.png';
   const minceImg = '/assets/boar_meat_bonless.jpg';
+
+  // Contact form state
+  const [firstName, setFirstName] = React.useState('');
+  const [lastName, setLastName] = React.useState('');
+  const [userEmail, setUserEmail] = React.useState('');
+  const [userPhone, setUserPhone] = React.useState('');
+  const [userMessage, setUserMessage] = React.useState('');
+  const [formError, setFormError] = React.useState<string | null>(null);
+  const [isSent, setIsSent] = React.useState(false);
+
+  const handleSendMessage = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (!userMessage.trim()) {
+      setFormError('Please type your message before sending.');
+      return;
+    }
+
+    setFormError(null);
+
+    const fullName = `${firstName.trim()} ${lastName.trim()}`.trim() || 'A Customer';
+    const destination = data?.formDestination || 'whatsapp';
+
+    if (destination === 'email') {
+      const targetEmail = data?.email || email || 'hello@fishcart.co.uk';
+      const subject = `Website Contact Message from ${fullName}`;
+      let body = `Name: ${fullName}\n`;
+      if (userEmail.trim()) body += `Email: ${userEmail.trim()}\n`;
+      if (userPhone.trim()) body += `Phone: ${userPhone.trim()}\n\n`;
+      body += `Message:\n${userMessage.trim()}`;
+
+      const mailtoUrl = `mailto:${targetEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      window.location.href = mailtoUrl;
+
+      setIsSent(true);
+      setTimeout(() => setIsSent(false), 5000);
+      return;
+    }
+
+    // Default / WhatsApp destination:
+    const targetPhone = data?.whatsappNumber || data?.phone || phone;
+    let cleanNumber = targetPhone.replace(/[^0-9]/g, '');
+    if (cleanNumber.startsWith('0') && cleanNumber.length === 11) {
+      cleanNumber = '44' + cleanNumber.slice(1);
+    }
+
+    let text = `*New Contact Message from FishCart Website*\n\n`;
+    text += `*Name:* ${fullName}\n`;
+    if (userEmail.trim()) text += `*Email:* ${userEmail.trim()}\n`;
+    if (userPhone.trim()) text += `*Phone:* ${userPhone.trim()}\n`;
+    text += `\n*Message:*\n${userMessage.trim()}`;
+
+    const whatsappUrl = `https://wa.me/${cleanNumber}?text=${encodeURIComponent(text)}`;
+    window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
+
+    setIsSent(true);
+    setTimeout(() => setIsSent(false), 5000);
+  };
 
   return (
     <div className="relative flex h-full min-h-0 w-full flex-col overflow-x-hidden overflow-y-auto rounded-[10px] bg-white shadow-sm select-none portrait:h-auto portrait:overflow-visible">
@@ -246,7 +306,7 @@ export function ContactClient({ data }: { data?: StoreContactData | null }) {
 
           {/* Right: Contact Form */}
           <div className="flex w-full flex-col rounded-[16px] border border-slate-100 bg-white p-6 shadow-[0_8px_30px_rgba(0,0,0,0.06)] md:flex-1 portrait:w-full portrait:p-4">
-            <div className="grid grid-cols-2 gap-3 portrait:grid-cols-1 portrait:gap-3">
+            <form onSubmit={handleSendMessage} className="grid grid-cols-2 gap-3 portrait:grid-cols-1 portrait:gap-3">
               {/* First Name */}
               <div className="col-span-1 flex flex-col">
                 <label className="mb-1 text-[11px] font-bold text-slate-600">
@@ -258,6 +318,8 @@ export function ContactClient({ data }: { data?: StoreContactData | null }) {
                   </div>
                   <input
                     type="text"
+                    value={firstName}
+                    onChange={(e) => setFirstName(e.target.value)}
                     placeholder="Type your first name"
                     className="w-full rounded-md border border-slate-200 bg-transparent px-3 py-2 pl-8 text-[12px] font-medium text-slate-700 transition-colors outline-none focus:border-[#0D55CF]"
                   />
@@ -274,6 +336,8 @@ export function ContactClient({ data }: { data?: StoreContactData | null }) {
                   </div>
                   <input
                     type="text"
+                    value={lastName}
+                    onChange={(e) => setLastName(e.target.value)}
                     placeholder="Type your last name"
                     className="w-full rounded-md border border-slate-200 bg-transparent px-3 py-2 pl-8 text-[12px] font-medium text-slate-700 transition-colors outline-none focus:border-[#0D55CF]"
                   />
@@ -290,6 +354,8 @@ export function ContactClient({ data }: { data?: StoreContactData | null }) {
                   </div>
                   <input
                     type="email"
+                    value={userEmail}
+                    onChange={(e) => setUserEmail(e.target.value)}
                     placeholder="Type your email"
                     className="w-full rounded-md border border-slate-200 bg-transparent py-2 pr-3 pl-8 text-[12px] font-medium text-slate-700 transition-colors outline-none focus:border-[#0D55CF]"
                   />
@@ -306,6 +372,8 @@ export function ContactClient({ data }: { data?: StoreContactData | null }) {
                   </div>
                   <input
                     type="tel"
+                    value={userPhone}
+                    onChange={(e) => setUserPhone(e.target.value)}
                     placeholder="Type your phone number"
                     className="w-full rounded-md border border-slate-200 bg-transparent py-2 pr-3 pl-8 text-[12px] font-medium text-slate-700 transition-colors outline-none focus:border-[#0D55CF]"
                   />
@@ -315,7 +383,7 @@ export function ContactClient({ data }: { data?: StoreContactData | null }) {
               {/* Message */}
               <div className="col-span-2 flex flex-col portrait:col-span-1">
                 <label className="mb-1 text-[11px] font-bold text-slate-600">
-                  Message
+                  Message <span className="text-red-500">*</span>
                 </label>
                 <div className="relative flex">
                   <div className="absolute top-2.5 left-3 text-[#0D55CF]">
@@ -323,18 +391,41 @@ export function ContactClient({ data }: { data?: StoreContactData | null }) {
                   </div>
                   <textarea
                     rows={3}
+                    value={userMessage}
+                    onChange={(e) => {
+                      setUserMessage(e.target.value);
+                      if (formError) setFormError(null);
+                    }}
                     placeholder="Type your message"
                     className="w-full resize-none rounded-md border border-slate-200 bg-transparent px-3 pt-2 pb-2 pl-8 text-[12px] font-medium text-slate-700 transition-colors outline-none focus:border-[#0D55CF]"
                   ></textarea>
                 </div>
               </div>
+
+              {/* Status messages */}
+              {formError && (
+                <div className="col-span-2 rounded-md border border-red-200 bg-red-50 px-3 py-1.5 text-[11px] font-medium text-red-600">
+                  {formError}
+                </div>
+              )}
+              {isSent && (
+                <div className="col-span-2 rounded-md border border-emerald-200 bg-emerald-50 px-3 py-1.5 text-[11px] font-medium text-emerald-700">
+                  {data?.formDestination === 'email'
+                    ? `✓ Opening email client to send to (${email})...`
+                    : `✓ Opening WhatsApp chat with store (${phone})...`}
+                </div>
+              )}
+
               {/* Submit Button */}
               <div className="col-span-2 mt-2 flex justify-start portrait:col-span-1 portrait:w-full">
-                <button className="flex items-center justify-center rounded-md bg-[#0D55CF] px-8 py-2.5 text-[13px] font-bold text-white transition-transform hover:-translate-y-0.5 hover:shadow-lg hover:shadow-[#0D55CF]/30 portrait:w-full">
+                <button
+                  type="submit"
+                  className="flex items-center justify-center rounded-md bg-[#0D55CF] px-8 py-2.5 text-[13px] font-bold text-white transition-transform hover:-translate-y-0.5 hover:shadow-lg hover:shadow-[#0D55CF]/30 portrait:w-full cursor-pointer"
+                >
                   Send Message
                 </button>
               </div>
-            </div>
+            </form>
           </div>
         </div>
       </div>

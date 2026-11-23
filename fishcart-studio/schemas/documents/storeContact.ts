@@ -27,6 +27,20 @@ export default defineType({
         'We\'re here to help! Get in touch with us for any queries, orders or support.',
     }),
     defineField({
+      name: 'formDestination',
+      title: 'Contact Form Message Destination',
+      type: 'string',
+      description: 'Choose where customer messages submitted via the Contact Us form should be sent.',
+      options: {
+        list: [
+          { title: 'WhatsApp Chat (Opens WhatsApp message to store phone)', value: 'whatsapp' },
+          { title: 'Email (Opens email client to send to store email)', value: 'email' },
+        ],
+        layout: 'radio',
+      },
+      initialValue: 'whatsapp',
+    }),
+    defineField({
       name: 'phone',
       title: 'Primary Phone Number',
       type: 'string',
