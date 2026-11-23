@@ -55,11 +55,21 @@ export default function CartPage() {
     'Orders are placed directly via WhatsApp with our store team for fresh cutting and speedy preparation.';
   const isWhatsAppEnabled = orderSettings?.enabled !== false;
 
+  const formatWhatsAppNumber = (num: string) => {
+    let clean = num.replace(/[^0-9]/g, '');
+    if (clean.length === 10 && /^[6-9]/.test(clean)) {
+      clean = '91' + clean;
+    } else if (clean.startsWith('0') && clean.length === 11) {
+      clean = '44' + clean.slice(1);
+    }
+    return clean;
+  };
+
   const handleWhatsAppCheckout = () => {
     if (!cart.length) return;
 
-    // Clean phone number: remove spaces, symbols, keep digits
-    const cleanNumber = whatsappNumber.replace(/[^0-9]/g, '');
+    // Clean phone number: remove spaces, symbols, ensure country code
+    const cleanNumber = formatWhatsAppNumber(whatsappNumber);
 
     // Format cart items
     const itemsList = cart
@@ -74,14 +84,14 @@ export default function CartPage() {
     const message = `${orderMessagePrefix}\n\n🛒 *ORDER ITEMS:*\n${itemsList}\n\n━━━━━━━━━━━━━━━\n*Total Items:* ${cartCount}\n*Estimated Total:* *£${subtotal.toFixed(2)}*\n━━━━━━━━━━━━━━━\n\nPlease confirm availability and delivery / pickup time. Thank you!`;
 
     const url = `https://wa.me/${cleanNumber}?text=${encodeURIComponent(message)}`;
-    window.open(url, '_blank');
+    window.open(url, '_blank', 'noopener,noreferrer');
   };
 
   const handlePreorderInquiry = () => {
-    const cleanNumber = whatsappNumber.replace(/[^0-9]/g, '');
+    const cleanNumber = formatWhatsAppNumber(whatsappNumber);
     const message = `Hello FishCart! I would like to inquire about placing a pre-order from your store.`;
     const url = `https://wa.me/${cleanNumber}?text=${encodeURIComponent(message)}`;
-    window.open(url, '_blank');
+    window.open(url, '_blank', 'noopener,noreferrer');
   };
 
   return (
