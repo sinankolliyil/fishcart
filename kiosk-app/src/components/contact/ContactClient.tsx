@@ -12,7 +12,10 @@ import {
   MessageSquare,
   Navigation,
   ExternalLink,
+  AlertCircle,
+  CheckCircle2,
 } from 'lucide-react';
+import { cn } from '@/lib/utils';
 
 export interface StoreContactData {
   businessName?: string;
@@ -68,18 +71,68 @@ export function ContactClient({ data }: { data?: StoreContactData | null }) {
   const [userEmail, setUserEmail] = React.useState('');
   const [userPhone, setUserPhone] = React.useState('');
   const [userMessage, setUserMessage] = React.useState('');
-  const [formError, setFormError] = React.useState<string | null>(null);
+  const [formErrors, setFormErrors] = React.useState<{
+    firstName?: string;
+    contact?: string;
+    email?: string;
+    phone?: string;
+    message?: string;
+  }>({});
   const [isSent, setIsSent] = React.useState(false);
+
+  const clearFieldError = (field: 'firstName' | 'email' | 'phone' | 'message') => {
+    setFormErrors((prev) => ({
+      ...prev,
+      [field]: undefined,
+      contact: field === 'email' || field === 'phone' ? undefined : prev.contact,
+    }));
+  };
+
+  const validateForm = () => {
+    const errors: typeof formErrors = {};
+
+    if (!firstName.trim()) {
+      errors.firstName = 'First name is required.';
+    } else if (firstName.trim().length < 2) {
+      errors.firstName = 'First name must be at least 2 characters.';
+    }
+
+    const hasEmail = Boolean(userEmail.trim());
+    const hasPhone = Boolean(userPhone.trim());
+
+    if (!hasEmail && !hasPhone) {
+      errors.contact = 'Please provide either a phone number or email address.';
+    } else {
+      if (hasEmail) {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(userEmail.trim())) {
+          errors.email = 'Please enter a valid email address.';
+        }
+      }
+      if (hasPhone) {
+        const digits = userPhone.replace(/[^0-9]/g, '');
+        if (digits.length < 7) {
+          errors.phone = 'Please enter a valid phone number (at least 7 digits).';
+        }
+      }
+    }
+
+    if (!userMessage.trim()) {
+      errors.message = 'Please type your message.';
+    } else if (userMessage.trim().length < 5) {
+      errors.message = 'Message must be at least 5 characters.';
+    }
+
+    setFormErrors(errors);
+    return Object.keys(errors).length === 0;
+  };
 
   const handleSendMessage = (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!userMessage.trim()) {
-      setFormError('Please type your message before sending.');
+    if (!validateForm()) {
       return;
     }
-
-    setFormError(null);
 
     const fullName = `${firstName.trim()} ${lastName.trim()}`.trim() || 'A Customer';
     const destination = data?.formDestination || 'whatsapp';
@@ -96,6 +149,12 @@ export function ContactClient({ data }: { data?: StoreContactData | null }) {
       window.location.href = mailtoUrl;
 
       setIsSent(true);
+      setFirstName('');
+      setLastName('');
+      setUserEmail('');
+      setUserPhone('');
+      setUserMessage('');
+      setFormErrors({});
       setTimeout(() => setIsSent(false), 5000);
       return;
     }
@@ -117,6 +176,12 @@ export function ContactClient({ data }: { data?: StoreContactData | null }) {
     window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
 
     setIsSent(true);
+    setFirstName('');
+    setLastName('');
+    setUserEmail('');
+    setUserPhone('');
+    setUserMessage('');
+    setFormErrors({});
     setTimeout(() => setIsSent(false), 5000);
   };
 
@@ -310,7 +375,7 @@ export function ContactClient({ data }: { data?: StoreContactData | null }) {
               {/* First Name */}
               <div className="col-span-1 flex flex-col">
                 <label className="mb-1 text-[11px] font-bold text-slate-600">
-                  First Name
+                  First Name <span className="text-red-500">*</span>
                 </label>
                 <div className="relative flex items-center">
                   <div className="absolute left-3 text-[#0D55CF]">
@@ -319,11 +384,25 @@ export function ContactClient({ data }: { data?: StoreContactData | null }) {
                   <input
                     type="text"
                     value={firstName}
-                    onChange={(e) => setFirstName(e.target.value)}
+                    onChange={(e) => {
+                      setFirstName(e.target.value);
+                      clearFieldError('firstName');
+                    }}
                     placeholder="Type your first name"
-                    className="w-full rounded-md border border-slate-200 bg-transparent px-3 py-2 pl-8 text-[12px] font-medium text-slate-700 transition-colors outline-none focus:border-[#0D55CF]"
+                    className={cn(
+                      "w-full rounded-md border bg-transparent px-3 py-2 pl-8 text-[12px] font-medium text-slate-700 transition-colors outline-none",
+                      formErrors.firstName
+                        ? "border-red-400 bg-red-50/20 focus:border-red-500"
+                        : "border-slate-200 focus:border-[#0D55CF]"
+                    )}
                   />
                 </div>
+                {formErrors.firstName && (
+                  <p className="mt-1 flex items-center gap-1 text-[11px] font-medium text-red-500">
+                    <AlertCircle className="h-3 w-3 shrink-0" />
+                    {formErrors.firstName}
+                  </p>
+                )}
               </div>
               {/* Last Name */}
               <div className="col-span-1 flex flex-col">
@@ -355,11 +434,25 @@ export function ContactClient({ data }: { data?: StoreContactData | null }) {
                   <input
                     type="email"
                     value={userEmail}
-                    onChange={(e) => setUserEmail(e.target.value)}
+                    onChange={(e) => {
+                      setUserEmail(e.target.value);
+                      clearFieldError('email');
+                    }}
                     placeholder="Type your email"
-                    className="w-full rounded-md border border-slate-200 bg-transparent py-2 pr-3 pl-8 text-[12px] font-medium text-slate-700 transition-colors outline-none focus:border-[#0D55CF]"
+                    className={cn(
+                      "w-full rounded-md border bg-transparent py-2 pr-3 pl-8 text-[12px] font-medium text-slate-700 transition-colors outline-none",
+                      formErrors.email || formErrors.contact
+                        ? "border-red-400 bg-red-50/20 focus:border-red-500"
+                        : "border-slate-200 focus:border-[#0D55CF]"
+                    )}
                   />
                 </div>
+                {formErrors.email && (
+                  <p className="mt-1 flex items-center gap-1 text-[11px] font-medium text-red-500">
+                    <AlertCircle className="h-3 w-3 shrink-0" />
+                    {formErrors.email}
+                  </p>
+                )}
               </div>
               {/* Phone */}
               <div className="col-span-2 flex flex-col portrait:col-span-1">
@@ -373,11 +466,31 @@ export function ContactClient({ data }: { data?: StoreContactData | null }) {
                   <input
                     type="tel"
                     value={userPhone}
-                    onChange={(e) => setUserPhone(e.target.value)}
+                    onChange={(e) => {
+                      setUserPhone(e.target.value);
+                      clearFieldError('phone');
+                    }}
                     placeholder="Type your phone number"
-                    className="w-full rounded-md border border-slate-200 bg-transparent py-2 pr-3 pl-8 text-[12px] font-medium text-slate-700 transition-colors outline-none focus:border-[#0D55CF]"
+                    className={cn(
+                      "w-full rounded-md border bg-transparent py-2 pr-3 pl-8 text-[12px] font-medium text-slate-700 transition-colors outline-none",
+                      formErrors.phone || formErrors.contact
+                        ? "border-red-400 bg-red-50/20 focus:border-red-500"
+                        : "border-slate-200 focus:border-[#0D55CF]"
+                    )}
                   />
                 </div>
+                {formErrors.phone && (
+                  <p className="mt-1 flex items-center gap-1 text-[11px] font-medium text-red-500">
+                    <AlertCircle className="h-3 w-3 shrink-0" />
+                    {formErrors.phone}
+                  </p>
+                )}
+                {formErrors.contact && !formErrors.email && !formErrors.phone && (
+                  <p className="mt-1 flex items-center gap-1 text-[11px] font-medium text-amber-600">
+                    <AlertCircle className="h-3 w-3 shrink-0" />
+                    {formErrors.contact}
+                  </p>
+                )}
               </div>
 
               {/* Message */}
@@ -394,25 +507,34 @@ export function ContactClient({ data }: { data?: StoreContactData | null }) {
                     value={userMessage}
                     onChange={(e) => {
                       setUserMessage(e.target.value);
-                      if (formError) setFormError(null);
+                      clearFieldError('message');
                     }}
                     placeholder="Type your message"
-                    className="w-full resize-none rounded-md border border-slate-200 bg-transparent px-3 pt-2 pb-2 pl-8 text-[12px] font-medium text-slate-700 transition-colors outline-none focus:border-[#0D55CF]"
+                    className={cn(
+                      "w-full resize-none rounded-md border bg-transparent px-3 pt-2 pb-2 pl-8 text-[12px] font-medium text-slate-700 transition-colors outline-none",
+                      formErrors.message
+                        ? "border-red-400 bg-red-50/20 focus:border-red-500"
+                        : "border-slate-200 focus:border-[#0D55CF]"
+                    )}
                   ></textarea>
                 </div>
+                {formErrors.message && (
+                  <p className="mt-1 flex items-center gap-1 text-[11px] font-medium text-red-500">
+                    <AlertCircle className="h-3 w-3 shrink-0" />
+                    {formErrors.message}
+                  </p>
+                )}
               </div>
 
               {/* Status messages */}
-              {formError && (
-                <div className="col-span-2 rounded-md border border-red-200 bg-red-50 px-3 py-1.5 text-[11px] font-medium text-red-600">
-                  {formError}
-                </div>
-              )}
               {isSent && (
-                <div className="col-span-2 rounded-md border border-emerald-200 bg-emerald-50 px-3 py-1.5 text-[11px] font-medium text-emerald-700">
-                  {data?.formDestination === 'email'
-                    ? `✓ Opening email client to send to (${email})...`
-                    : `✓ Opening WhatsApp chat with store (${phone})...`}
+                <div className="col-span-2 flex items-center gap-2 rounded-md border border-emerald-200 bg-emerald-50 px-3 py-2 text-[12px] font-medium text-emerald-700">
+                  <CheckCircle2 className="h-4 w-4 shrink-0 text-emerald-600" />
+                  <span>
+                    {data?.formDestination === 'email'
+                      ? `Opening email client to send to ${email}...`
+                      : `Opening WhatsApp chat with store (${phone})...`}
+                  </span>
                 </div>
               )}
 
