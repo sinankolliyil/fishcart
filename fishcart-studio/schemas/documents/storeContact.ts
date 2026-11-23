@@ -41,6 +41,20 @@ export default defineType({
       initialValue: 'whatsapp',
     }),
     defineField({
+      name: 'formWhatsappNumber',
+      title: 'WhatsApp Number for Inquiries',
+      type: 'string',
+      description:
+        'Target WhatsApp number for receiving form submissions (e.g. +44 1206 123456). If left empty, defaults to Primary Phone Number below.',
+    }),
+    defineField({
+      name: 'formEmail',
+      title: 'Email Address for Inquiries',
+      type: 'string',
+      description:
+        'Target email address for receiving form submissions (e.g. hello@fishcart.co.uk). If left empty, defaults to Primary Email Address below.',
+    }),
+    defineField({
       name: 'phone',
       title: 'Primary Phone Number',
       type: 'string',

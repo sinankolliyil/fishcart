@@ -22,6 +22,8 @@ export interface StoreContactData {
   contactPageHeading?: string;
   contactPageDescription?: string;
   formDestination?: 'whatsapp' | 'email';
+  formWhatsappNumber?: string;
+  formEmail?: string;
   phone?: string;
   whatsappNumber?: string;
   phoneNote?: string;
@@ -138,7 +140,7 @@ export function ContactClient({ data }: { data?: StoreContactData | null }) {
     const destination = data?.formDestination || 'whatsapp';
 
     if (destination === 'email') {
-      const targetEmail = data?.email || email || 'hello@fishcart.co.uk';
+      const targetEmail = data?.formEmail || data?.email || email || 'hello@fishcart.co.uk';
       const subject = `Website Contact Message from ${fullName}`;
       let body = `Name: ${fullName}\n`;
       if (userEmail.trim()) body += `Email: ${userEmail.trim()}\n`;
@@ -160,7 +162,7 @@ export function ContactClient({ data }: { data?: StoreContactData | null }) {
     }
 
     // Default / WhatsApp destination:
-    const targetPhone = data?.whatsappNumber || data?.phone || phone;
+    const targetPhone = data?.formWhatsappNumber || data?.whatsappNumber || data?.phone || phone;
     let cleanNumber = targetPhone.replace(/[^0-9]/g, '');
     if (cleanNumber.startsWith('0') && cleanNumber.length === 11) {
       cleanNumber = '44' + cleanNumber.slice(1);
@@ -532,8 +534,8 @@ export function ContactClient({ data }: { data?: StoreContactData | null }) {
                   <CheckCircle2 className="h-4 w-4 shrink-0 text-emerald-600" />
                   <span>
                     {data?.formDestination === 'email'
-                      ? `Opening email client to send to ${email}...`
-                      : `Opening WhatsApp chat with store (${phone})...`}
+                      ? `Opening email client to send to ${data?.formEmail || data?.email || email}...`
+                      : `Opening WhatsApp chat with store (${data?.formWhatsappNumber || data?.whatsappNumber || data?.phone || phone})...`}
                   </span>
                 </div>
               )}

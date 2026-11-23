@@ -244,6 +244,8 @@ export const STORE_CONTACT_QUERY = `
     contactPageHeading,
     contactPageDescription,
     formDestination,
+    "formWhatsappNumber": coalesce(formWhatsappNumber, whatsappNumber),
+    "formEmail": coalesce(formEmail, contactFormEmail),
     phone,
     phoneNote,
     email,
