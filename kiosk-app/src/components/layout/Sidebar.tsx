@@ -89,7 +89,15 @@ export function Sidebar({
       sanityFetch<any>(HOME_LOGO_QUERY).catch(() => null),
     ]).then(([sidebarRes, logoRes]) => {
       if (sidebarRes) setSidebarData(sidebarRes);
-      if (logoRes) setLogoData(logoRes);
+      if (logoRes) {
+        setLogoData(logoRes);
+        if (logoRes.logoUrl && typeof document !== 'undefined') {
+          const links = document.querySelectorAll<HTMLLinkElement>(
+            "link[rel='icon'], link[rel='shortcut icon'], link[rel='apple-touch-icon']"
+          );
+          links.forEach((l) => (l.href = logoRes.logoUrl));
+        }
+      }
     });
   }, []);
 
